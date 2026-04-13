@@ -1,0 +1,45 @@
+From 853819857f1415aecdf362d61624c816dee74abb Mon Sep 17 00:00:00 2001
+From: t <t@t.com>
+Date: Mon, 13 Apr 2026 19:12:24 +0200
+Subject: [PATCH 7/7] test: Add Noop builtin for variadic stubbing of VPX host
+ APIs.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Adds a Noop(…) builtin that accepts 0..N args and does nothing. Used
+by the vpinball test framework to replace PlaySound/StopSound and
+LightSequencer.Play calls during table script load.
+
+[test-only — not intended for upstream]
+---
+ dlls/vbscript/global.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
+index 14b2449eb06..10b4705b0aa 100644
+--- a/dlls/vbscript/global.c
++++ b/dlls/vbscript/global.c
+@@ -3859,6 +3859,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+     return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
+ }
+ 
++static HRESULT Global_BuiltinNoop(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
++{
++    return S_OK;
++}
++
+ static HRESULT Global_CreateCollection(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
+ {
+     IDispatch *disp;
+@@ -4042,6 +4047,7 @@ static const builtin_prop_t global_props[] = {
+     {L"Month",                     Global_Month, 0, 1},
+     {L"MonthName",                 Global_MonthName, 0, 1, 2},
+     {L"MsgBox",                    Global_MsgBox, 0, 1, 5},
++    {L"Noop",                      Global_BuiltinNoop, 0, 0, MAXDWORD},
+     {L"Now",                       Global_Now, 0, 0},
+     {L"Oct",                       Global_Oct, 0, 1},
+     {L"Randomize",                 Global_Randomize, 0, 0, 1},
+-- 
+2.53.0
+

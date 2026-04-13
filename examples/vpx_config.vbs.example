@@ -1,0 +1,16 @@
+' Machine-local config for the vpinball test framework.
+'
+' Copy this file to vpx_config.vbs and edit the paths to match your
+' local checkout. vpx_config.vbs is gitignored; this .example file is
+' the template checked into the repo.
+'
+'   VPINBALL_DIR  - the vpinball source tree (used by the framework
+'                   to serve core.vbs, controller.vbs, WPC.vbs, ...
+'                   via GetTextFile() pointing at <VPINBALL_DIR>\scripts\).
+'   TABLES_DIR    - the parent directory containing one folder per
+'                   extracted VPX table (from `vpxtool extract`).
+'
+Option Explicit
+
+Dim VPINBALL_DIR : VPINBALL_DIR = "Z:\path\to\vpinball"
+Dim TABLES_DIR   : TABLES_DIR   = "Z:\path\to\tables"

@@ -1,0 +1,92 @@
+From a209d5e5b5ceb67911f099a8a1009db03ff9c98c Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Mon, 6 Apr 2026 22:56:08 +0200
+Subject: [PATCH 2/7] vbscript: Support bracketed identifiers like [my var].
+
+VBScript allows square brackets to quote identifiers containing
+spaces, special characters, or reserved words.
+---
+ dlls/vbscript/lex.c           | 32 ++++++++++++++++++++++++++++++++
+ dlls/vbscript/vbscript_defs.h |  2 ++
+ 2 files changed, 34 insertions(+)
+
+diff --git a/dlls/vbscript/lex.c b/dlls/vbscript/lex.c
+index 076320e8917..2bb1f421b03 100644
+--- a/dlls/vbscript/lex.c
++++ b/dlls/vbscript/lex.c
+@@ -28,6 +28,8 @@
+ 
+ WINE_DEFAULT_DEBUG_CHANNEL(vbscript);
+ 
++#define MAX_IDENTIFIER_LENGTH 255
++
+ static int lex_error(parser_ctx_t *ctx, HRESULT hres)
+ {
+     ctx->hres = hres;
+@@ -405,6 +407,34 @@ static int comment_line(parser_ctx_t *ctx)
+     return tNL;
+ }
+ 
++static int parse_bracket_identifier(parser_ctx_t *ctx, const WCHAR **ret)
++{
++    const WCHAR *start = ++ctx->ptr;
++    WCHAR *str;
++    int len;
++
++    while(ctx->ptr < ctx->end && *ctx->ptr != ']' && *ctx->ptr != '\n' && *ctx->ptr != '\r')
++        ctx->ptr++;
++
++    if(ctx->ptr >= ctx->end || *ctx->ptr != ']')
++        return lex_error(ctx, MAKE_VBSERROR(VBSE_UNTERMINATED_IDENTIFIER));
++
++    len = ctx->ptr - start;
++    ctx->ptr++; /* skip ']' */
++
++    if(len > MAX_IDENTIFIER_LENGTH)
++        return lex_error(ctx, MAKE_VBSERROR(VBSE_IDENTIFIER_TOO_LONG));
++
++    str = parser_alloc(ctx, (len+1)*sizeof(WCHAR));
++    if(!str)
++        return 0;
++
++    memcpy(str, start, len*sizeof(WCHAR));
++    str[len] = 0;
++    *ret = str;
++    return tIdentifier;
++}
++
+ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
+ {
+     WCHAR c;
+@@ -495,6 +525,8 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
+                 || ctx->last_token == tEMPTYBRACKETS)
+             return '(';
+         return tEXPRLBRACKET;
++    case '[':
++        return parse_bracket_identifier(ctx, lval);
+     case '"':
+         return parse_string_literal(ctx, lval);
+     case '#':
+diff --git a/dlls/vbscript/vbscript_defs.h b/dlls/vbscript/vbscript_defs.h
+index 7ce05e75b7a..401ffa55b4f 100644
+--- a/dlls/vbscript/vbscript_defs.h
++++ b/dlls/vbscript/vbscript_defs.h
+@@ -277,6 +277,7 @@
+ #define VBSE_SYNTAX_ERROR                1002
+ #define VBSE_EXPECTED_LPAREN             1005
+ #define VBSE_EXPECTED_RPAREN             1006
++#define VBSE_UNTERMINATED_IDENTIFIER     1007
+ #define VBSE_EXPECTED_IDENTIFIER         1010
+ #define VBSE_EXPECTED_ASSIGN             1011
+ #define VBSE_EXPECTED_IF                 1012
+@@ -295,6 +296,7 @@
+ #define VBSE_EXPECTED_INTEGER_CONSTANT   1026
+ #define VBSE_EXPECTED_WHILE_UNTIL_EOS    1028
+ #define VBSE_EXPECTED_WITH               1029
++#define VBSE_IDENTIFIER_TOO_LONG         1030
+ #define VBSE_INVALID_NUMBER              1031
+ #define VBSE_INVALID_CHAR                1032
+ #define VBSE_UNTERMINATED_STRING         1033
+-- 
+2.53.0
+

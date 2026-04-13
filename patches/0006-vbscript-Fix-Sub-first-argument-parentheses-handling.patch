@@ -1,0 +1,252 @@
+From 9463c83b28583ad0dd04d391225de5c12b643738 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Wed, 4 Mar 2026 14:37:30 +0100
+Subject: [PATCH 6/7] vbscript: Fix Sub first argument parentheses handling.
+
+Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=54177
+---
+ dlls/vbscript/lex.c          | 74 ++++++++++++++++++++++++++++++++-
+ dlls/vbscript/parse.h        |  2 +
+ dlls/vbscript/parser.y       | 12 ++++--
+ dlls/vbscript/tests/lang.vbs | 80 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 163 insertions(+), 5 deletions(-)
+
+diff --git a/dlls/vbscript/lex.c b/dlls/vbscript/lex.c
+index 2bb1f421b03..841ce0e126b 100644
+--- a/dlls/vbscript/lex.c
++++ b/dlls/vbscript/lex.c
+@@ -506,7 +506,8 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
+             return comment_line(ctx);
+         ctx->ptr++;
+         return '-';
+-    case '(':
++    case '(': {
++        const WCHAR *paren_pos = ctx->ptr;
+         /* NOTE:
+          * We resolve empty brackets in lexer instead of parser to avoid complex conflicts
+          * in call statement special case |f()| without 'call' keyword
+@@ -520,11 +521,39 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
+         /*
+          * Parser can't predict if bracket is part of argument expression or an argument
+          * in call expression. We predict it here instead.
++         *
++         * In statement context, 'f (x) * 8, y' treats (x) as expression grouping,
++         * not call parens. Detect this when: identifier/')' precedes '(' with a space,
++         * and a binary-only operator (*, /, \, ^, &) follows the matching ')'.
+          */
+         if(ctx->last_token == tIdentifier || ctx->last_token == ')' || ctx->last_token == tME
+-                || ctx->last_token == tEMPTYBRACKETS)
++                || ctx->last_token == tEMPTYBRACKETS) {
++            if(paren_pos > ctx->code && (paren_pos[-1] == ' ' || paren_pos[-1] == '\t')
++               && ctx->is_statement_ctx) {
++                const WCHAR *p = ctx->ptr;
++                int depth = 1;
++
++                while(p < ctx->end && depth > 0) {
++                    if(*p == '(')
++                        depth++;
++                    else if(*p == ')')
++                        depth--;
++                    if(depth > 0)
++                        p++;
++                }
++
++                if(depth == 0) {
++                    p++;
++                    while(p < ctx->end && (*p == ' ' || *p == '\t'))
++                        p++;
++                    if(p < ctx->end && (*p == '*' || *p == '/' || *p == '\\' || *p == '^' || *p == '&'))
++                        return tEXPRLBRACKET;
++                }
++            }
+             return '(';
++        }
+         return tEXPRLBRACKET;
++    }
+     case '[':
+         return parse_bracket_identifier(ctx, lval);
+     case '"':
+@@ -606,5 +635,46 @@ int parser_lex(void *lval, unsigned *loc, parser_ctx_t *ctx)
+     }
+ 
+     ctx->after_continuation = FALSE;
++
++    /* Track paren depth and update is_statement_ctx only at depth 0.
++     * Tokens inside parentheses (e.g. the 'idx' in 'obj(idx).method')
++     * must not affect statement context tracking. */
++    if(ret == '(' || ret == tEXPRLBRACKET)
++        ctx->paren_depth++;
++    else if(ret == ')' || ret == tEMPTYBRACKETS) {
++        if(ctx->paren_depth > 0)
++            ctx->paren_depth--;
++    }
++
++    if(ctx->paren_depth == 0) {
++        switch(ret) {
++        case tNL:
++        case ':':
++        case tTHEN:
++        case tELSE:
++        case tELSEIF:
++            ctx->is_statement_ctx = TRUE;
++            break;
++        case tDOT:
++        case '.':
++        case ')':
++        case tEMPTYBRACKETS:
++            /* Dots and closing parens in member chains keep current state. */
++            break;
++        case tIdentifier:
++            /* First identifier after statement start or after a dot keeps TRUE.
++             * An identifier after another identifier (e.g. 'Sub Arg') means
++             * we're in argument context, so set to FALSE. */
++            if(ctx->last_token != '.' && ctx->last_token != tDOT
++               && ctx->last_token != tNL && ctx->last_token != ':'
++               && ctx->last_token != tTHEN && ctx->last_token != tELSE
++               && ctx->last_token != tELSEIF)
++                ctx->is_statement_ctx = FALSE;
++            break;
++        default:
++            ctx->is_statement_ctx = FALSE;
++            break;
++        }
++    }
+     return (ctx->last_token = ret);
+ }
+diff --git a/dlls/vbscript/parse.h b/dlls/vbscript/parse.h
+index a4d5079d10e..a181f814c0f 100644
+--- a/dlls/vbscript/parse.h
++++ b/dlls/vbscript/parse.h
+@@ -309,6 +309,8 @@ typedef struct {
+     LCID lcid;
+ 
+     int last_token;
++    BOOL is_statement_ctx;
++    int paren_depth;
+     unsigned last_nl;
+     BOOL after_continuation;
+ 
+diff --git a/dlls/vbscript/parser.y b/dlls/vbscript/parser.y
+index 1a8ae2013c9..73c089168b9 100644
+--- a/dlls/vbscript/parser.y
++++ b/dlls/vbscript/parser.y
+@@ -808,9 +808,13 @@ static call_expression_t *make_call_expression(parser_ctx_t *ctx, expression_t *
+         return call_expr;
+ 
+     if(arguments->type != EXPR_NOARG) {
+-        FIXME("Invalid syntax: missing comma\n");
+-        ctx->hres = E_FAIL;
+-        return NULL;
++        /* 'f (x) + expr, ...' — combine bracketed arg with the +/- expression. */
++        expression_t *remaining = arguments->next;
++        call_expr->args = new_binary_expression(ctx, EXPR_ADD, call_expr->args, arguments);
++        if(!call_expr->args)
++            return NULL;
++        call_expr->args->next = remaining;
++        return call_expr;
+     }
+ 
+     call_expr->args->next = arguments->next;
+@@ -1293,6 +1297,8 @@ HRESULT parse_script(parser_ctx_t *ctx, const WCHAR *code, const WCHAR *delimite
+     ctx->hres = S_OK;
+     ctx->error_loc = -1;
+     ctx->last_token = tNL;
++    ctx->is_statement_ctx = TRUE;
++    ctx->paren_depth = 0;
+     ctx->last_nl = 0;
+     ctx->stats = ctx->stats_tail = NULL;
+     ctx->class_decls = NULL;
+diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
+index 916f299bdd4..64f2f91a4d8 100644
+--- a/dlls/vbscript/tests/lang.vbs
++++ b/dlls/vbscript/tests/lang.vbs
+@@ -1171,6 +1171,86 @@ Call TestSubExit2
+ TestSubMultiArgs 1, 2, 3, 4, 5
+ Call TestSubMultiArgs(1, 2, 3, 4, 5)
+ 
++Sub TestSubParenExpr(a, b)
++    Call ok(a=16, "a = " & a)
++    Call ok(b=7, "b = " & b)
++End Sub
++
++TestSubParenExpr (2) * 8, 7
++TestSubParenExpr 8 * (2), 7
++
++Sub TestSubParenExprAdd(a, b)
++    Call ok(a=6, "a = " & a)
++    Call ok(b=7, "b = " & b)
++End Sub
++
++TestSubParenExprAdd (2) + 4, 7
++TestSubParenExprAdd 4 + (2), 7
++
++Sub TestSubParenExprNoSpace(a)
++    Call ok(a=6, "a = " & a)
++End Sub
++
++TestSubParenExprNoSpace(10 \ 2) + 1
++
++' Regression test: function call with space before ( in expression context
++' e.g. x = (CInt (2) + 1) * 3 must parse and evaluate correctly
++x = CInt (2) + 1
++Call ok(x = 3, "CInt (2) + 1 = " & x)
++x = (CInt (2) + 1) * 3
++Call ok(x = 9, "(CInt (2) + 1) * 3 = " & x)
++
++' Regression test: function call with space before ( and * in expression context
++' e.g. x = CInt (2) * 3 must treat CInt (2) as a function call, not expression grouping
++x = CInt (2) * 3
++Call ok(x = 6, "CInt (2) * 3 = " & x)
++
++' Test member expression in statement context: obj.Method (x) * y, z
++Class TestObjParenExpr
++    Sub Check(a, b)
++        Call ok(a=16, "obj a = " & a)
++        Call ok(b=7, "obj b = " & b)
++    End Sub
++End Class
++
++Dim objParenExpr
++Set objParenExpr = New TestObjParenExpr
++objParenExpr.Check (2) * 8, 7
++
++Sub TestSubParenExprConcat(a, b)
++    Call ok(a="helloworld", "a = " & a)
++    Call ok(b=7, "b = " & b)
++End Sub
++
++TestSubParenExprConcat ("hello") & "world", 7
++
++' Test: function call as argument with & after paren must be a call, not grouping
++' e.g. TestSub Mid ("hello", 2) & "x" should call TestSub with "ellox"
++' Mid("hello", 2) returns "ello", & "x" concatenates to "ellox"
++Sub TestSubArgCallConcat(a)
++    Call ok(a="ellox", "a = " & a)
++End Sub
++
++TestSubArgCallConcat Mid ("hello", 2) & "x"
++
++' Test: obj(idx).method (expr) * val, y in statement context
++' The (expr) after .method must be expression grouping, not call paren
++Class TestIndexedObjParenExpr
++    Public arr_(1)
++    Public Sub Init()
++        Set arr_(0) = New TestObjParenExpr
++    End Sub
++    Public Default Property Get Item(idx)
++        Set Item = arr_(idx)
++    End Property
++End Class
++
++Dim idxObj
++Set idxObj = New TestIndexedObjParenExpr
++Call idxObj.Init()
++idxObj(0).Check (2) * 8, 7
++
++
+ Sub TestSubLocalVal
+     x = false
+     Call ok(not x, "local x is not false?")
+-- 
+2.53.0
+

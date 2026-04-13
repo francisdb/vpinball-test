@@ -1,0 +1,4 @@
+build/
+examples/vpx_config.vbs
+# Runtime-generated state files from tables (GLF framework, etc.)
+examples/**/*.ini

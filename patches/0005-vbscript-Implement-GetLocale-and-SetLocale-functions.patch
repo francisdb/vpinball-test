@@ -1,0 +1,142 @@
+From 65b00fde746c7af5935400b62820c6b92c11e3f2 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Mon, 30 Mar 2026 00:38:33 +0200
+Subject: [PATCH 5/7] vbscript: Implement GetLocale and SetLocale functions.
+
+---
+ dlls/vbscript/global.c      | 51 ++++++++++++++++++++++++++++++++++---
+ dlls/vbscript/tests/api.vbs | 51 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 98 insertions(+), 4 deletions(-)
+
+diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
+index 7e3aec4935c..14b2449eb06 100644
+--- a/dlls/vbscript/global.c
++++ b/dlls/vbscript/global.c
+@@ -2229,8 +2229,51 @@ static HRESULT Global_Second(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+ 
+ static HRESULT Global_SetLocale(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
+ {
+-    FIXME("\n");
+-    return E_NOTIMPL;
++    LCID old_lcid = This->ctx->lcid;
++    LCID new_lcid;
++    HRESULT hres;
++
++    TRACE("%s\n", args_cnt ? debugstr_variant(args) : "()");
++
++    if(!args_cnt) {
++        This->ctx->lcid = GetUserDefaultLCID();
++        return return_int(res, old_lcid);
++    }
++
++    switch(V_VT(args)) {
++    case VT_NULL:
++        return MAKE_VBSERROR(VBSE_ILLEGAL_NULL_USE);
++    case VT_EMPTY:
++        This->ctx->lcid = GetUserDefaultLCID();
++        return return_int(res, old_lcid);
++    case VT_BSTR: {
++        int i;
++        /* Try numeric conversion first (e.g. "1033") */
++        hres = to_int(args, &i);
++        if(SUCCEEDED(hres)) {
++            new_lcid = i;
++        }else {
++            /* Try as locale name (e.g. "en-us") */
++            new_lcid = LocaleNameToLCID(V_BSTR(args), 0);
++        }
++        break;
++    }
++    default: {
++        int i;
++        hres = to_int(args, &i);
++        if(FAILED(hres))
++            return hres;
++        new_lcid = i;
++        break;
++    }
++    }
++
++    This->ctx->lcid = new_lcid;
++    return_int(res, old_lcid);
++    if(!IsValidLocale(new_lcid, LCID_INSTALLED))
++        return MAKE_VBSERROR(VBSE_LOCALE_SETTING_NOT_SUPPORTED);
++
++    return S_OK;
+ }
+ 
+ static HRESULT Global_DateValue(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
+@@ -3386,8 +3429,8 @@ static HRESULT Global_FormatPercent(BuiltinDisp *This, VARIANT *args, unsigned a
+ 
+ static HRESULT Global_GetLocale(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
+ {
+-    FIXME("\n");
+-    return E_NOTIMPL;
++    TRACE("() = %#lx\n", This->ctx->lcid);
++    return return_int(res, This->ctx->lcid);
+ }
+ 
+ static HRESULT Global_FormatDateTime(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
+diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
+index 2a4f69f0f59..91b4bd10bb6 100644
+--- a/dlls/vbscript/tests/api.vbs
++++ b/dlls/vbscript/tests/api.vbs
+@@ -2794,4 +2794,55 @@ end sub
+ 
+ call testFilterError()
+ 
++' GetLocale/SetLocale tests
++Dim origLocale
++origLocale = GetLocale()
++Call ok(getVT(GetLocale()) = "VT_I4", "getVT(GetLocale()) = " & getVT(GetLocale()))
++
++Dim prevLocale
++prevLocale = SetLocale(1033)
++Call ok(getVT(prevLocale) = "VT_I4*", "getVT(SetLocale result) = " & getVT(prevLocale))
++Call ok(prevLocale = origLocale, "SetLocale(1033) returned " & prevLocale & " expected " & origLocale)
++Call ok(GetLocale() = 1033, "GetLocale() after SetLocale(1033) = " & GetLocale())
++
++prevLocale = SetLocale(1031)
++Call ok(prevLocale = 1033, "SetLocale(1031) returned " & prevLocale & " expected 1033")
++Call ok(GetLocale() = 1031, "GetLocale() after SetLocale(1031) = " & GetLocale())
++
++' SetLocale with string locale name
++prevLocale = SetLocale("en-us")
++Call ok(prevLocale = 1031, "SetLocale(""en-us"") returned " & prevLocale & " expected 1031")
++Call ok(GetLocale() = 1033, "GetLocale() after SetLocale(""en-us"") = " & GetLocale())
++
++' SetLocale with numeric string
++prevLocale = SetLocale("1031")
++Call ok(prevLocale = 1033, "SetLocale(""1031"") returned " & prevLocale & " expected 1033")
++Call ok(GetLocale() = 1031, "GetLocale() after SetLocale(""1031"") = " & GetLocale())
++
++' SetLocale() with no args resets to system default
++SetLocale(1033)
++prevLocale = SetLocale()
++Call ok(prevLocale = 1033, "SetLocale() returned " & prevLocale & " expected 1033")
++
++sub testSetLocaleError()
++    on error resume next
++
++    ' SetLocale(Null) should raise error 94
++    call Err.clear()
++    call SetLocale(Null)
++    Call ok(Err.number = 94, "SetLocale(Null) Err.number = " & Err.number)
++
++    ' SetLocale with invalid numeric LCID should raise error 447
++    call Err.clear()
++    dim prev
++    prev = SetLocale(99999)
++    Call ok(Err.number = 447, "SetLocale(99999) Err.number = " & Err.number)
++end sub
++
++call testSetLocaleError()
++
++' Restore original locale
++SetLocale(origLocale)
++Call ok(GetLocale() = origLocale, "GetLocale() after restore = " & GetLocale() & " expected " & origLocale)
++
+ Call reportSuccess()
+-- 
+2.53.0
+

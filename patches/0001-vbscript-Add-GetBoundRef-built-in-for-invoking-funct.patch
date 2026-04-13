@@ -1,0 +1,200 @@
+From 8993995729764f610d3887e2a3862b8652b8f212 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Thu, 9 Apr 2026 18:22:50 +0200
+Subject: [PATCH 1/7] vbscript: Add GetBoundRef built-in for invoking functions
+ with a bound Me.
+
+Add GetBoundRef(name, obj) which works like GetRef(name) but binds
+the returned function reference to obj, so that Me resolves to obj
+when the function is invoked. This is a Wine extension to support
+VPX-style event dispatch where _Init and _Timer handlers reference
+Me to access the element they belong to.
+---
+ dlls/vbscript/global.c        | 66 ++++++++++++++++++++++++++++++++++-
+ dlls/vbscript/vbdisp.c        | 31 +++++++++++++++-
+ dlls/vbscript/vbscript.h      |  2 ++
+ dlls/vbscript/vbscript_defs.h |  1 +
+ 4 files changed, 98 insertions(+), 2 deletions(-)
+
+diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
+index ea137cdb478..117b5875c88 100644
+--- a/dlls/vbscript/global.c
++++ b/dlls/vbscript/global.c
+@@ -3816,7 +3816,70 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+     return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
+ }
+ 
+-static HRESULT Global_Err(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
++static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
++{
++    named_item_t *item;
++    function_t **funcs;
++    IDispatch *disp;
++    const WCHAR *name;
++    vbdisp_t *vbthis;
++    size_t i, cnt;
++    HRESULT hres;
++
++    TRACE("%s %s\n", debugstr_variant(args), debugstr_variant(args+1));
++
++    assert(args_cnt == 2);
++
++    if(V_VT(args) != VT_BSTR)
++        return MAKE_VBSERROR(VBSE_TYPE_MISMATCH);
++    if(V_VT(args+1) != VT_DISPATCH)
++        return MAKE_VBSERROR(VBSE_TYPE_MISMATCH);
++
++    name = V_BSTR(args);
++    if(!name || !name[0])
++        return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
++
++    vbthis = get_vbdisp_from_dispatch(V_DISPATCH(args+1));
++    if(!vbthis) {
++        WARN("second argument is not a VBScript object\n");
++        return MAKE_VBSERROR(VBSE_TYPE_MISMATCH);
++    }
++
++    /* Search the current named item's script object first */
++    item = This->ctx->current_named_item;
++    if(item && item->script_obj) {
++        funcs = item->script_obj->global_funcs;
++        cnt = item->script_obj->global_funcs_cnt;
++        for(i = 0; i < cnt; i++) {
++            if(!vbs_wcsicmp(funcs[i]->name, name)) {
++                hres = create_bound_func_ref(This->ctx, funcs[i], vbthis, &disp);
++                if(FAILED(hres))
++                    return hres;
++                V_VT(res) = VT_DISPATCH;
++                V_DISPATCH(res) = disp;
++                return S_OK;
++            }
++        }
++    }
++
++    /* Search global script object */
++    funcs = This->ctx->script_obj->global_funcs;
++    cnt = This->ctx->script_obj->global_funcs_cnt;
++    for(i = 0; i < cnt; i++) {
++        if(!vbs_wcsicmp(funcs[i]->name, name)) {
++            hres = create_bound_func_ref(This->ctx, funcs[i], vbthis, &disp);
++            if(FAILED(hres))
++                return hres;
++            V_VT(res) = VT_DISPATCH;
++            V_DISPATCH(res) = disp;
++            return S_OK;
++        }
++    }
++
++    return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
++}
++
++static HRESULT Global_Err(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
+ {
+     TRACE("\n");
+ 
+@@ -3883,6 +3946,7 @@ static const builtin_prop_t global_props[] = {
+     {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
+     {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
+     {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},
++    {L"GetBoundRef",               Global_GetBoundRef, 0, 2, 2},
+     {L"GetLocale",                 Global_GetLocale, 0, 0},
+     {L"GetObject",                 Global_GetObject, 0, 0, 2},
+     {L"GetRef",                    Global_GetRef, 0, 1},
+diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
+index 79b1a728a52..da2cf77553d 100644
+--- a/dlls/vbscript/vbdisp.c
++++ b/dlls/vbscript/vbdisp.c
+@@ -504,6 +504,11 @@ static inline vbdisp_t *unsafe_impl_from_IDispatch(IDispatch *iface)
+         : NULL;
+ }
+ 
++vbdisp_t *get_vbdisp_from_dispatch(IDispatch *iface)
++{
++    return unsafe_impl_from_IDispatch(iface);
++}
++
+ HRESULT create_vbdisp(const class_desc_t *desc, vbdisp_t **ret)
+ {
+     vbdisp_t *vbdisp;
+@@ -568,6 +573,7 @@ typedef struct {
+     LONG ref;
+     function_t *func;
+     script_ctx_t *ctx;
++    vbdisp_t *vbthis;
+ } FuncRef;
+ 
+ static inline FuncRef *FuncRef_from_IDispatch(IDispatch *iface)
+@@ -607,6 +613,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
+ 
+     TRACE("(%p) ref=%ld\n", This, ref);
+     if(!ref) {
++        if(This->vbthis)
++            IDispatchEx_Release(&This->vbthis->IDispatchEx_iface);
+         release_vbscode(This->func->code_ctx);
+         free(This);
+     }
+@@ -647,7 +655,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
+     if(dispIdMember != DISPID_VALUE)
+         return DISP_E_MEMBERNOTFOUND;
+ 
+-    return exec_script(This->ctx, TRUE, This->func, NULL, pDispParams, pVarResult);
++    return exec_script(This->ctx, TRUE, This->func, This->vbthis, pDispParams, pVarResult);
+ }
+ 
+ static const IDispatchVtbl FuncRefVtbl = {
+@@ -678,6 +686,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
+     return S_OK;
+ }
+ 
++HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbthis, IDispatch **ret)
++{
++    FuncRef *ref;
++
++    ref = calloc(1, sizeof(*ref));
++    if(!ref)
++        return E_OUTOFMEMORY;
++
++    ref->IDispatch_iface.lpVtbl = &FuncRefVtbl;
++    ref->ref = 1;
++    ref->func = func;
++    ref->ctx = ctx;
++    ref->vbthis = vbthis;
++    if(vbthis)
++        IDispatchEx_AddRef(&vbthis->IDispatchEx_iface);
++    grab_vbscode(func->code_ctx);
++
++    *ret = &ref->IDispatch_iface;
++    return S_OK;
++}
++
+ struct typeinfo_func {
+     function_t *func;
+     MEMBERID memid;
+diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
+index 19c9260a342..d5bf562d481 100644
+--- a/dlls/vbscript/vbscript.h
++++ b/dlls/vbscript/vbscript.h
+@@ -169,6 +169,8 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);
+ void collect_objects(script_ctx_t*);
+ HRESULT create_script_disp(script_ctx_t*,ScriptDisp**);
+ HRESULT create_func_ref(script_ctx_t*,function_t*,IDispatch**);
++HRESULT create_bound_func_ref(script_ctx_t*,function_t*,vbdisp_t*,IDispatch**);
++vbdisp_t *get_vbdisp_from_dispatch(IDispatch*);
+ 
+ HRESULT to_int(VARIANT*,int*);
+ 
+diff --git a/dlls/vbscript/vbscript_defs.h b/dlls/vbscript/vbscript_defs.h
+index 9cf9cce7ad9..7ce05e75b7a 100644
+--- a/dlls/vbscript/vbscript_defs.h
++++ b/dlls/vbscript/vbscript_defs.h
+@@ -210,6 +210,7 @@
+ #define DISPID_GLOBAL_EXECUTE                   204
+ #define DISPID_GLOBAL_EXECUTEGLOBAL             205
+ #define DISPID_GLOBAL_GETREF                    206
++#define DISPID_GLOBAL_GETBOUNDREF               211
+ 
+ #define DISPID_ERR_DESCRIPTION  0
+ #define DISPID_ERR_HELPCONTEXT  1
+-- 
+2.53.0
+
