@@ -106,7 +106,7 @@ Dim RightFlipperKey  : RightFlipperKey  = 54 ' R SHIFT
 Dim LeftTiltKey      : LeftTiltKey      = 44 ' Z
 Dim RightTiltKey     : RightTiltKey     = 46 ' C
 Dim CenterTiltKey    : CenterTiltKey    = 45 ' X
-Dim MechanicalTilt   : MechanicalTilt   = 44 ' shares LeftTiltKey — real VPX uses a distinct action ID
+Dim MechanicalTilt   : MechanicalTilt   = 44 ' shares LeftTiltKey -- real VPX uses a distinct action ID
 Dim PlungerKey       : PlungerKey       = 28 ' ENTER
 Dim LockbarKey       : LockbarKey       = 57 ' SPACE
 Dim LeftMagnaSave    : LeftMagnaSave    = 59 ' F1
@@ -142,11 +142,17 @@ ExecuteGlobal stubCode_
 
 ' ---------------------------------------------------------------------------
 ' Table load: reusable by both RunTableBenchmark (init bench) and VpxTester
-' (play scenarios). Idempotent — second call is a no-op. Resolves the table
+' (play scenarios). Idempotent -- second call is a no-op. Resolves the table
 ' init sub and leaves its name in g_TableInitName.
 ' ---------------------------------------------------------------------------
 Dim g_TableLoaded : g_TableLoaded = False
 Dim g_TableInitName
+' Lower-case set of top-level Sub/Function names defined by the table
+' script. Populated by SetUpTable from a regex scan of tableCode; used
+' by SubDefined() to avoid probing-under-OERN patterns.
+Dim g_DefinedSubs : Set g_DefinedSubs = CreateObject("Scripting.Dictionary")
+
+Function SubDefined(name) : SubDefined = g_DefinedSubs.Exists(LCase(name)) : End Function
 
 Sub SetUpTable(verbose)
     If g_TableLoaded Then Exit Sub
@@ -161,7 +167,7 @@ Sub SetUpTable(verbose)
     tableCode = Replace(tableCode, "CreateObject(""VPinMAME.WSHDlg"")", "(New VPinMAMEWSHDlgStub)")
     tableCode = Replace(tableCode, "CreateObject(""PinUpPlayer.PinDisplay"")", "(New PinUpPlayerStub)")
     tableCode = Replace(tableCode, "CreateObject(""B2S.Server"")", "(New B2SServerStub)")
-    ' Same Run() → Run(0) normalisation as in GetTextFile — some tables
+    ' Same Run() -> Run(0) normalisation as in GetTextFile -- some tables
     ' (Die Hard, Harry Potter) inline their own LoadController logic so the
     ' patch needs to apply to the table script too.
     tableCode = Replace(tableCode, "B2SController.Run()", "B2SController.Run(0)")
@@ -179,7 +185,7 @@ Sub SetUpTable(verbose)
     tableCode = optArrRe_.Replace(tableCode, "$1)")
     ' Always patch the Option reserved word
     tableCode = Replace(tableCode, "Table1.Option(", "Table1.Option_(")
-    ' In cscript, `Me` in a free Sub is the script's VBScriptTypeInfo — it
+    ' In cscript, `Me` in a free Sub is the script's VBScriptTypeInfo -- it
     ' has no `.Name` property. core.vbs's vpmInit reads aTable.name, so
     ' `vpmInit Me` raises err 438 on every VPM-controlled table. Replace
     ' with our Table1 stub which has Name = "Table1".
@@ -197,7 +203,7 @@ Sub SetUpTable(verbose)
     tableCode = psLit_.Replace(tableCode, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : Noop ""$4""")
     ' Pass 2: anything not yet caught (variable-name form like
     ' `PlaySound mySound, 1, 2` or parenthesised form) falls through to
-    ' plain Noop without recording — we don't know the name.
+    ' plain Noop without recording -- we don't know the name.
     Dim psRe_ : Set psRe_ = New RegExp
     psRe_.Global = True : psRe_.IgnoreCase = True
     psRe_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)( |\()"
@@ -217,6 +223,23 @@ Sub SetUpTable(verbose)
 
     ' Apply table-specific patches if defined
     PatchTableCode tableCode
+
+    ' Scan the (post-patch) table source once for top-level Sub/Function
+    ' declarations. The framework probes for several optional handlers
+    ' (Table1_OptionEvent, <Element>_Init, ...) and uses this dict to
+    ' decide whether to call GetRef -- instead of relying on
+    ' On-Error-Resume-Next around every probe, which masks real errors
+    ' from inside handlers that DO exist.
+    Dim subScan_ : Set subScan_ = New RegExp
+    subScan_.Global = True : subScan_.IgnoreCase = True : subScan_.Multiline = True
+    subScan_.Pattern = "^\s*(?:Public\s+|Private\s+)?(?:Sub|Function)\s+([A-Za-z_][A-Za-z0-9_]*)"
+    Dim subMatch_, subMatches_
+    Set subMatches_ = subScan_.Execute(tableCode)
+    For Each subMatch_ In subMatches_
+        Dim subName_ : subName_ = subMatch_.SubMatches(0)
+        If Not g_DefinedSubs.Exists(LCase(subName_)) Then _
+            g_DefinedSubs.Add LCase(subName_), True
+    Next
 
     Dim lineCount : lineCount = UBound(Split(tableCode, vbLf)) + 1
 
@@ -249,12 +272,12 @@ Sub SetUpTable(verbose)
         WScript.Echo ""
     End If
 
-    ' Find and run table init (may be Table1_Init or <TableName>_Init)
+    ' Find and run table init (may be Table1_Init or <TableName>_Init).
+    ' Prefer the Table1_Init name; fall back to the table's own name if
+    ' only that variant is defined.
     initName = "Table1_Init"
-    On Error Resume Next
-    Err.Clear : Set fnRef = GetRef(initName)
-    If Err.Number <> 0 Then initName = Table1.Name & "_Init" : Err.Clear : Set fnRef = GetRef(initName)
-    On Error GoTo 0
+    If Not SubDefined(initName) Then initName = Table1.Name & "_Init"
+    Set fnRef = GetRef(initName)
     g_TableInitName = initName
     If verbose Then WScript.Echo "=== " & initName & " ==="
     t0 = Timer
@@ -271,17 +294,16 @@ Sub SetUpTable(verbose)
     ' StagedFlippers, ...) only inside this handler, so without calling
     ' it those globals stay Empty and game-length logic breaks. We call
     ' it AFTER Table1_Init so GLF-style tables (Dark Chaos) have their
-    ' `glf_game` / framework objects already constructed — Glf_Options
+    ' `glf_game` / framework objects already constructed -- Glf_Options
     ' reads `glf_game.BallsPerGame` which needs the object to exist.
-    ' Probe for the handler under OERN (might not exist on all tables),
-    ' then call it outside the OERN so real errors inside it propagate
-    ' instead of getting silently swallowed.
-    Dim optionEventRef, hasOptionEvent
-    On Error Resume Next
-    Err.Clear : Set optionEventRef = GetRef("Table1_OptionEvent")
-    hasOptionEvent = (Err.Number = 0)
-    On Error GoTo 0
-    If hasOptionEvent Then CallKeyRef optionEventRef, 0
+    ' Only call the handler if it actually exists -- SubDefined() checks
+    ' g_DefinedSubs (built from the post-patch tableCode scan above), so
+    ' missing handlers never trigger a GetRef probe-under-OERN. Errors
+    ' raised *inside* the handler still propagate normally.
+    If SubDefined("Table1_OptionEvent") Then
+        Dim optRef_ : Set optRef_ = GetRef("Table1_OptionEvent")
+        CallKeyRef optRef_, 0
+    End If
 
     If verbose Then WScript.Echo "=== Item init ==="
 
@@ -290,24 +312,21 @@ Sub SetUpTable(verbose)
     itemNames = g_AllItems.Keys()
     itemInitCount = 0 : itemInitFired = 0
     t0 = Timer
-    Dim itemName
+    ' GetBoundRef returns Empty (not an error) when the named Sub does
+    ' not exist -- see the long comment in dlls/vbscript/global.c in the
+    ' patches/ directory. That lets us skip the "probe under OERN"
+    ' pattern: any error surfaced from inside itemRef() is a real error
+    ' in the table handler, not a "handler doesn't exist" non-signal.
+    Dim itemName, itemRef
     For Each itemName In itemNames
         Dim itemInitName : itemInitName = itemName & "_Init"
-        If LCase(itemInitName) = LCase(initName) Then
-        Else
+        If LCase(itemInitName) <> LCase(initName) Then
             itemInitCount = itemInitCount + 1
-            On Error Resume Next
-            Err.Clear
-            Dim itemRef
             Set itemRef = GetBoundRef(itemInitName, g_AllItems(itemName))
-            If Err.Number = 0 Then
-                Err.Clear
-                On Error GoTo 0
+            If Not itemRef Is Nothing Then
                 itemRef
                 If verbose Then WScript.Echo "  [OK]   " & itemInitName
                 itemInitFired = itemInitFired + 1
-            Else
-                On Error GoTo 0
             End If
         End If
     Next
@@ -342,20 +361,20 @@ Sub RunTableBenchmark()
     timerDisabled = 0 : timerSkipped = 0
 
     ' Pass 1: classify timers (off/skip/fireable) and collect refs.
+    ' GetBoundRef returns Empty on "handler doesn't exist" (see
+    ' dlls/vbscript/global.c in patches/), so we don't need OERN here.
     Dim refNames() : ReDim refNames(UBound(timerNames))
     Dim refs()     : ReDim refs(UBound(timerNames))
     Dim refCount   : refCount = 0
-    On Error Resume Next
+    Dim timerRef
     For Each tn In timerNames
         timerCount = timerCount + 1
         If Not CBool(g_AllTimers(tn).Enabled) Then
             WScript.Echo "  [OFF]  " & tn
             timerDisabled = timerDisabled + 1
         Else
-            Err.Clear
-            Dim timerRef
             Set timerRef = GetBoundRef(tn & "_Timer", g_AllTimers(tn))
-            If Err.Number = 0 Then
+            If Not timerRef Is Nothing Then
                 refNames(refCount) = tn
                 Set refs(refCount) = timerRef
                 refCount = refCount + 1
@@ -364,11 +383,9 @@ Sub RunTableBenchmark()
             Else
                 WScript.Echo "  [SKIP] " & tn & " (no handler)"
                 timerSkipped = timerSkipped + 1
-                Err.Clear
             End If
         End If
     Next
-    On Error GoTo 0
 
     ' Pass 2: fire all refs N times, measure aggregate.
     Const TIMER_ITERATIONS = 100
@@ -404,7 +421,7 @@ End Function
 
 ' Invoke a bound Sub reference. Passed as a parameter so the identifier
 ' appears in statement position (VBScript only invokes function refs
-' that way — array element access like refs(j) does not invoke).
+' that way -- array element access like refs(j) does not invoke).
 Sub CallTimerRef(ref)
     ref
 End Sub
@@ -435,7 +452,7 @@ End Sub
 '      LoadEM original tables). VPinMAME tables need a running ROM to
 '      transition state; switches/solenoids set here would be inert.
 '   2. No physics. Every PressXxx helper is a key event routed through
-'      the table's <Name>_KeyDown/_KeyUp handler — whether anything
+'      the table's <Name>_KeyDown/_KeyUp handler -- whether anything
 '      observable happens is entirely up to the table's VBS logic.
 '      PressPlunger does NOT launch a ball mechanically; it just fires
 '      the plunger key, same as hitting Enter in a real VPX session
@@ -462,7 +479,7 @@ Class VpxTester
                               ' don't count as "the player's ball"
 
     ' Load the table (if not already loaded) and set up tester state.
-    ' Play benchmarks only need `tester.Init tickMs` — SetUpTable runs
+    ' Play benchmarks only need `tester.Init tickMs` -- SetUpTable runs
     ' quietly (no verbose init-bench output) and is idempotent, so it's
     ' safe to call from a bench script that already ran
     ' RunTableBenchmark (init benches can construct a VpxTester too).
@@ -496,7 +513,7 @@ Class VpxTester
 
     ' Assert that the count of *in-play* balls (baseline-subtracted)
     ' equals `n` within `timeoutMs`. The primary ball-state assertion
-    ' for gameplay scenarios — safer than ExpectBalls because it
+    ' for gameplay scenarios -- safer than ExpectBalls because it
     ' ignores captive / pre-placed balls.
     Public Sub ExpectBallsInPlay(n, timeoutMs)
         Dim elapsed : elapsed = 0
@@ -527,14 +544,8 @@ Class VpxTester
             Exit Function
         End If
         Dim ref
-        On Error Resume Next
-        Err.Clear
         Set ref = GetBoundRef(tn & "_Timer", g_AllTimers(tn))
-        If Err.Number <> 0 Then
-            Set ref = GetRef("BenchmarkNoop")
-            Err.Clear
-        End If
-        On Error GoTo 0
+        If ref Is Nothing Then Set ref = GetRef("BenchmarkNoop")
         m_refCache.Add tn, ref
         Set ResolveTimerRef = ref
     End Function
@@ -542,12 +553,14 @@ Class VpxTester
     Private Sub ResolveKeyHandlers()
         Dim prefix : prefix = Replace(ResolveInitName(), "_Init", "")
         m_initName = prefix & "_Init"
-        On Error Resume Next
-        Err.Clear : Set m_keyDownRef = GetRef(prefix & "_KeyDown")
-        If Err.Number = 0 Then m_hasKeyDown = True Else Err.Clear
-        Err.Clear : Set m_keyUpRef   = GetRef(prefix & "_KeyUp")
-        If Err.Number = 0 Then m_hasKeyUp = True Else Err.Clear
-        On Error GoTo 0
+        If SubDefined(prefix & "_KeyDown") Then
+            Set m_keyDownRef = GetRef(prefix & "_KeyDown")
+            m_hasKeyDown = True
+        End If
+        If SubDefined(prefix & "_KeyUp") Then
+            Set m_keyUpRef = GetRef(prefix & "_KeyUp")
+            m_hasKeyUp = True
+        End If
     End Sub
 
     ' Fire every currently-enabled timer once and advance GameTime by
@@ -615,7 +628,7 @@ Class VpxTester
         End If
     End Sub
 
-    ' All helpers below are plain key presses — they invoke the table's
+    ' All helpers below are plain key presses -- they invoke the table's
     ' KeyDown/KeyUp handler with the matching keycode and hold for a
     ' short while. Whether anything "happens" in the game depends on the
     ' table. Headless runs have no physics: PressPlunger enables the
@@ -658,7 +671,7 @@ Class VpxTester
     End Sub
 
     ' Hit + Unhit pair with `holdMs` between. Mirrors how a physical
-    ' switch closes and opens as a ball crosses it — tune `holdMs` to
+    ' switch closes and opens as a ball crosses it -- tune `holdMs` to
     ' match how long the ball stays over the trigger (e.g. ~100 ms for
     ' a quick crossing, longer for a capture).
     Public Sub HitUnhit(name, holdMs)
@@ -669,21 +682,15 @@ Class VpxTester
     End Sub
 
     Private Sub InvokeFreeSub(subName)
-        Dim r
-        On Error Resume Next
-        Err.Clear
-        Set r = GetRef(subName)
-        If Err.Number = 0 Then
-            Err.Clear
-            r
-        End If
-        On Error GoTo 0
+        If Not SubDefined(subName) Then Exit Sub
+        Dim r : Set r = GetRef(subName)
+        r
     End Sub
 
     ' Current ball count from the VPX host. Backed by g_ActiveBalls,
     ' which Kicker.CreateBall* populates and Kicker/Trigger.DestroyBall
     ' depletes. Matches what the VPX player would report via GetBalls()
-    ' — including captive balls (physically trapped by walls / triggers
+    ' -- including captive balls (physically trapped by walls / triggers
     ' in a captive-ball mechanism) and any pre-placed trough balls. Real
     ' VPX's ScriptGlobalTable::GetBalls just returns g_pplayer->m_vball
     ' without filtering, and tables track "balls the player controls"
@@ -732,8 +739,8 @@ Class VpxTester
 
     ' Assert that a table-side global becomes truthy within `timeoutMs`.
     ' Useful for observing table-specific game-state flags (e.g.
-    ' bGameInPlay). CBool coerces numbers (0 → False, non-zero → True),
-    ' booleans directly, and errors on Null/Empty — we let On Error
+    ' bGameInPlay). CBool coerces numbers (0 -> False, non-zero -> True),
+    ' booleans directly, and errors on Null/Empty -- we let On Error
     ' Resume Next swallow that case and treat it as "still falsy".
     Public Sub ExpectTrue(globalName, timeoutMs)
         Dim elapsed, truthy
@@ -751,7 +758,7 @@ Class VpxTester
         Fail "expected " & globalName & " to become truthy within " & timeoutMs & " ms"
     End Sub
 
-    ' Sound log accessors — g_SoundLog is a Dictionary populated by the
+    ' Sound log accessors -- g_SoundLog is a Dictionary populated by the
     ' PlaySound/StopSound regex patch. Scenarios can inspect which
     ' sounds have been played since the last ClearSounds() call.
 
@@ -805,7 +812,7 @@ Class VpxTester
 
     ' Read a Light element's State property. Returns -1 if the element
     ' doesn't exist or the State can't be read. DD / most tables use
-    ' 0 = off, 1 = solid, 2 = blink — matching the VPX LightState enum
+    ' 0 = off, 1 = solid, 2 = blink -- matching the VPX LightState enum
     ' exposed by the IVPXLight interface.
     Public Function LightState(lightName)
         Dim val
@@ -835,12 +842,11 @@ Class VpxTester
 
     Public Sub [Exit]()
         Echo "=== Exit ==="
-        Dim r, exitName
-        exitName = Replace(m_initName, "_Init", "_Exit")
-        On Error Resume Next
-        Err.Clear : Set r = GetRef(exitName)
-        If Err.Number = 0 Then r
-        On Error GoTo 0
+        Dim exitName : exitName = Replace(m_initName, "_Init", "_Exit")
+        If SubDefined(exitName) Then
+            Dim exitRef : Set exitRef = GetRef(exitName)
+            exitRef
+        End If
         Echo "Ticks run:       " & m_ticks
         Echo "Timers fired:    " & m_firedNames.Count
         Echo "=== Exit complete ==="

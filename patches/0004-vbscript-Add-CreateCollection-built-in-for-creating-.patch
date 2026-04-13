@@ -1,8 +1,8 @@
-From 70bf8285649ef682357f7877e637180150226da2 Mon Sep 17 00:00:00 2001
+From 1a45fced0a7eb57efae517070e0ecec89e98ae0d Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 10 Apr 2026 00:11:38 +0200
-Subject: [PATCH 4/7] vbscript: Add CreateCollection built-in for creating COM
- collection objects.
+Subject: [PATCH 04/13] vbscript: Add CreateCollection built-in for creating
+ COM collection objects.
 
 Add a generic CreateCollection() function that creates a COM collection
 object from its arguments. The collection supports Set assignment,
@@ -16,7 +16,7 @@ Item(i) or default property, and a Count property.
  4 files changed, 394 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 117b5875c88..7e3aec4935c 100644
+index a67268f6bcc..fa7b0ae8763 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
 @@ -3816,6 +3816,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
@@ -45,7 +45,7 @@ index 117b5875c88..7e3aec4935c 100644
  static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      named_item_t *item;
-@@ -3923,6 +3942,7 @@ static const builtin_prop_t global_props[] = {
+@@ -3925,6 +3944,7 @@ static const builtin_prop_t global_props[] = {
      {L"CInt",                      Global_CInt, 0, 1},
      {L"CLng",                      Global_CLng, 0, 1},
      {L"Cos",                       Global_Cos, 0, 1},
@@ -54,10 +54,10 @@ index 117b5875c88..7e3aec4935c 100644
      {L"CSng",                      Global_CSng, 0, 1},
      {L"CStr",                      Global_CStr, 0, 1},
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 777d7bfc5a9..916f299bdd4 100644
+index f74979cb109..f44b4d1c759 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -3183,4 +3183,64 @@ Call ok(Err.Number = 13, "bool var as statement: err = " & Err.Number)
+@@ -3229,4 +3229,64 @@ Call ok(Err.Number = 13, "bool var as statement: err = " & Err.Number)
  
  On Error GoTo 0
  

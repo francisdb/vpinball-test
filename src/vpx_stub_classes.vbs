@@ -39,7 +39,7 @@ Set g_AllItems = CreateObject("Scripting.Dictionary")
 ' / ClearSounds on top of this so scenarios can assert "this action played
 ' that sound" without touching table internals.
 '
-' Only literal-string first args are captured — a call like
+' Only literal-string first args are captured -- a call like
 '   PlaySound "fx_kicker", 0, 0.7, 0, 0.25
 ' becomes
 '   g_SoundLog.Add g_SoundLog.Count, "fx_kicker" : Noop "fx_kicker", 0, 0.7, 0, 0.25
@@ -48,16 +48,16 @@ Set g_AllItems = CreateObject("Scripting.Dictionary")
 Dim g_SoundLog : Set g_SoundLog = CreateObject("Scripting.Dictionary")
 
 ' ---------------------------------------------------------------------------
-' Ball registry — mirrors the VPX host's internal ball list so GetBalls()
+' Ball registry -- mirrors the VPX host's internal ball list so GetBalls()
 ' returns real data. Populated by Kicker / Plunger CreateBall*, depleted by
 ' DestroyBall on the same creator (matches VPX semantics: a kicker destroys
 ' the ball it captured). Trigger.DestroyBall removes the most recent ball
-' (LIFO — a drain trigger "removes a ball").
+' (LIFO -- a drain trigger "removes a ball").
 '
 ' NOTE: the registry includes EVERY ball the table creates via a Kicker,
 ' including captive balls from cvpmCaptiveBall.InitCaptive and pre-placed
 ' trough balls. Real VPX's ScriptGlobalTable::GetBalls (core/ScriptGlobal-
-' Table.cpp) does the same — it returns g_pplayer->m_vball without any
+' Table.cpp) does the same -- it returns g_pplayer->m_vball without any
 ' filter for captivity. Tables that care about "balls the player is
 ' playing with" maintain their own counter (BallsOnPlayfield / BIP /
 ' BallsInPlay) separately from GetBalls. VpxTester's BallsInPlay property
@@ -242,7 +242,7 @@ Class Kicker
         ' Prefer removing the ball this kicker created (matches a trough
         ' kicker creating and later expelling its own ball). If there's
         ' no tracked ball (e.g. a drain kicker that never called
-        ' CreateBall*), fall back to LIFO — real VPX would destroy
+        ' CreateBall*), fall back to LIFO -- real VPX would destroy
         ' whichever ball is physically captured by this kicker, and
         ' without physics the most recently created ball is the best
         ' approximation of "the ball that just rolled in".
@@ -581,7 +581,7 @@ Function GetElementByName(n) : Set GetElementByName = Nothing : End Function
 Function GetPlayerHWnd() : GetPlayerHWnd = 0 : End Function
 ' VPX action-key mapping API used by VPMKeys.vbs. Must return a valid
 ' non-zero key code because core.vbs's vpmKeyName does keyNames1(keycode-1)
-' without a lower-bound check — keycode 0 would index keyNames1(-1) and
+' without a lower-bound check -- keycode 0 would index keyNames1(-1) and
 ' raise "Subscript out of range". Return 1 (ESC) as a safe default.
 Function VPXActionKey(actionId) : VPXActionKey = 1 : End Function
 Dim StagedLeftFlipperKey  : StagedLeftFlipperKey  = 0
@@ -683,42 +683,175 @@ Const SeqAllOn = 1001
 Const SeqBlinking = 1002
 Const SeqRandom = 1003
 
-' FlexDMD.FlexDMD
-Class FlexDMDStub
-    Public Width, Height, RenderMode, Show, DmdColoredPixels
-    Public GameName, TableFile, Color, Clear, ProjectFolder
-    Public Function NewFont(name, color, outline, outlineColor) : Set NewFont = New FlexDMDActorStub : End Function
-    Public Function NewFrame(name) : Set NewFrame = New FlexDMDActorStub : End Function
-    Public Function NewGroup(name) : Set NewGroup = New FlexDMDGroupStub : End Function
-    Public Function NewImage(name, image) : Set NewImage = New FlexDMDActorStub : End Function
-    Public Function NewLabel(name, font, text) : Set NewLabel = New FlexDMDActorStub : End Function
-    Public Function NewVideo(name, video) : Set NewVideo = New FlexDMDActorStub : End Function
-    Public Function Resources() : Set Resources = CreateObject("Scripting.Dictionary") : End Function
-    Public Run
-    Public Sub LockRenderThread() : End Sub
-    Public Sub UnlockRenderThread() : End Sub
-    Public Stage
+' ---------------------------------------------------------------------------
+' FlexDMD (COM plugin from vpinball/plugins/flexdmd)
+'
+' Real-VPX class hierarchy (see src/core/vpinball/plugins/flexdmd/actors/):
+'
+'     Actor  -+- Group
+'             +- Frame
+'             +- Image
+'             +- Label
+'             +- AnimatedActor (video)
+'
+' Tables use the stage graph heavily:
+'     FlexDMD.Stage.GetLabel("Ball").Text = "BALL 1"
+'     FlexDMD.Stage.GetLabel("Ball").Visible = True
+'     FlexDMD.Stage.GetLabel("Ball").SetAlignedPosition 64, 30, FlexDMD_Align_Center
+'     FlexDMD.Stage.GetFrame("VSep1").Visible = True
+'
+' Two design points the stubs need to match the real plugin on:
+'
+'   1. GetLabel/GetFrame/GetImage/GetVideo must return the SAME instance
+'      across repeated calls with the same name. Tables do
+'      `GetLabel("Ball").Visible = True` and later `GetLabel("Ball").Text = "..."`
+'      and expect state to persist. The StageGroup keeps a by-name cache.
+'
+'   2. Actors need a default property (`Public Default Property Get Name`)
+'      so that VBScript's `.Font = someFont` LET-assignment (not Set)
+'      resolves to `.Font = someFont.Name`, matching how COM default values
+'      would flatten. Without a default member, VBS raises err 438
+'      "Object doesn't support this property or method" because it can't
+'      pick a value to assign. See DMDTimer_Timer in Cyber Race's script:
+'      `FlexDMD.Stage.GetLabel("Content_1").Font = FontScoreActive`.
+' ---------------------------------------------------------------------------
+
+' Base Actor class. Real VPX Actor exposes name + bounds + visibility +
+' positioning. Subclasses add type-specific state.
+Class FlexDMDActorStub
+    Public X, Y, Width, Height, Visible, FillParent, ClearBackground, OnStage
+    Public PrefWidth, PrefHeight, Alignment, Action
+    Private m_name
+    Public Default Property Get Name() : Name = m_name : End Property
+    Public Property Let Name(v) : m_name = v : End Property
+    Public Sub SetBounds(ax, ay, aw, ah) : X = ax : Y = ay : Width = aw : Height = ah : End Sub
+    Public Sub SetSize(aw, ah) : Width = aw : Height = ah : End Sub
+    Public Sub SetPosition(ax, ay) : X = ax : Y = ay : End Sub
+    Public Sub SetAlignedPosition(ax, ay, align) : X = ax : Y = ay : End Sub
+    Public Sub Pack() : End Sub
+    Public Sub Remove() : End Sub
+    Public Sub AddAction(a) : End Sub
+    Public Sub ClearActions() : End Sub
+    Public Property Get ActionFactory() : Set ActionFactory = New FlexDMDActionFactoryStub : End Property
     Private Sub Class_Initialize
-        Width = 128 : Height = 32 : RenderMode = 0 : Show = True
-        Set Stage = New FlexDMDGroupStub
+        m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
+        Visible = True : FillParent = False
+        PrefWidth = 0 : PrefHeight = 0
     End Sub
 End Class
 
-Class FlexDMDActorStub
-    Public Name, X, Y, Width, Height, Visible, FillParent
-    Public Length, Alignment, Tint, Action, Thickness, Font, BorderColor, Bitmap, [loop]
-    Public Sub SetBounds(x, y, w, h) : End Sub
-    Public Sub SetAlphaBounds(x, y, w, h, a) : End Sub
-    Public Sub SetSize(w, h) : End Sub
-    Public Sub SetPosition(x, y) : End Sub
-    Public Sub SetAlignedPosition(x, y, align) : End Sub
+' Label -- text actor. VBS-side the important members are Text, Font,
+' Alignment, AutoPack. Text is kept as a plain field (LET assigns a
+' string, which is what tables do).
+Class FlexDMDLabelStub
+    Public X, Y, Width, Height, Visible, FillParent
+    Public Text, Font, AutoPack, Alignment
+    Private m_name
+    Public Default Property Get Name() : Name = m_name : End Property
+    Public Property Let Name(v) : m_name = v : End Property
+    Public Sub SetBounds(ax, ay, aw, ah) : X = ax : Y = ay : Width = aw : Height = ah : End Sub
+    Public Sub SetSize(aw, ah) : Width = aw : Height = ah : End Sub
+    Public Sub SetPosition(ax, ay) : X = ax : Y = ay : End Sub
+    Public Sub SetAlignedPosition(ax, ay, align) : X = ax : Y = ay : End Sub
+    Public Sub Pack() : End Sub
     Public Sub Remove() : End Sub
-    Public Property Get ActionFactory() : Set ActionFactory = New FlexDMDActionFactoryStub : End Property
     Public Sub AddAction(a) : End Sub
-    Public Property Get Text() : Text = "" : End Property
-    Public Property Let Text(v) : End Property
+    Public Sub ClearActions() : End Sub
+    Public Property Get ActionFactory() : Set ActionFactory = New FlexDMDActionFactoryStub : End Property
     Private Sub Class_Initialize
-        X = 0 : Y = 0 : Width = 0 : Height = 0 : Visible = True
+        m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
+        Visible = True : Text = "" : AutoPack = True
+    End Sub
+End Class
+
+' Frame -- border/fill rectangle actor.
+Class FlexDMDFrameStub
+    Public X, Y, Width, Height, Visible, FillParent
+    Public Thickness, BorderColor, Fill, FillColor
+    Private m_name
+    Public Default Property Get Name() : Name = m_name : End Property
+    Public Property Let Name(v) : m_name = v : End Property
+    Public Sub SetBounds(ax, ay, aw, ah) : X = ax : Y = ay : Width = aw : Height = ah : End Sub
+    Public Sub SetSize(aw, ah) : Width = aw : Height = ah : End Sub
+    Public Sub SetPosition(ax, ay) : X = ax : Y = ay : End Sub
+    Public Sub SetAlignedPosition(ax, ay, align) : X = ax : Y = ay : End Sub
+    Public Sub Remove() : End Sub
+    Private Sub Class_Initialize
+        m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
+        Visible = True : Thickness = 2 : Fill = False
+    End Sub
+End Class
+
+' Image / AnimatedActor -- share the same stub surface for our purposes.
+Class FlexDMDImageStub
+    Public X, Y, Width, Height, Visible, FillParent
+    Public Bitmap, Scaling, Alignment, [Loop]
+    Private m_name
+    Public Default Property Get Name() : Name = m_name : End Property
+    Public Property Let Name(v) : m_name = v : End Property
+    Public Sub SetBounds(ax, ay, aw, ah) : X = ax : Y = ay : Width = aw : Height = ah : End Sub
+    Public Sub SetSize(aw, ah) : Width = aw : Height = ah : End Sub
+    Public Sub SetPosition(ax, ay) : X = ax : Y = ay : End Sub
+    Public Sub SetAlignedPosition(ax, ay, align) : X = ax : Y = ay : End Sub
+    Public Sub Remove() : End Sub
+    Private Sub Class_Initialize
+        m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
+        Visible = True
+    End Sub
+End Class
+
+' Font -- minimal wrapper; the only thing that matters for stubs is that
+' it has a Name default property so `label.Font = someFont` (LET) picks
+' up *something* instead of raising err 438.
+Class FlexDMDFontStub
+    Public Tint, BorderTint, BorderSize
+    Private m_name
+    Public Default Property Get Name() : Name = m_name : End Property
+    Public Property Let Name(v) : m_name = v : End Property
+    Private Sub Class_Initialize
+        m_name = "" : Tint = 0 : BorderTint = 0 : BorderSize = 0
+    End Sub
+End Class
+
+' FlexDMD.FlexDMD -- top-level plugin object.
+Class FlexDMDStub
+    Public Width, Height, RenderMode, Show, DmdColoredPixels
+    Public GameName, TableFile, Color, Clear, ProjectFolder
+    Public Run, Resources
+    Public Sub LockRenderThread() : End Sub
+    Public Sub UnlockRenderThread() : End Sub
+    Public Stage
+    Public Function NewFont(fname, color, outline, outlineColor)
+        Dim f : Set f = New FlexDMDFontStub : f.Name = fname
+        Set NewFont = f
+    End Function
+    Public Function NewFrame(fname)
+        Dim f : Set f = New FlexDMDFrameStub : f.Name = fname
+        Set NewFrame = f
+    End Function
+    Public Function NewGroup(gname)
+        Dim g : Set g = New FlexDMDGroupStub : g.Name = gname
+        Set NewGroup = g
+    End Function
+    Public Function NewImage(iname, img)
+        Dim i : Set i = New FlexDMDImageStub : i.Name = iname
+        Set NewImage = i
+    End Function
+    Public Function NewLabel(lname, font, text)
+        Dim l : Set l = New FlexDMDLabelStub : l.Name = lname : l.Text = text : Set l.Font = font
+        Set NewLabel = l
+    End Function
+    Public Function NewVideo(vname, video)
+        Dim v : Set v = New FlexDMDImageStub : v.Name = vname
+        Set NewVideo = v
+    End Function
+    Public Function NewUltraDMD()
+        Set NewUltraDMD = New FlexDMDGroupStub
+    End Function
+    Private Sub Class_Initialize
+        Width = 128 : Height = 32 : RenderMode = 0 : Show = True : Run = False
+        Set Resources = CreateObject("Scripting.Dictionary")
+        Set Stage = New FlexDMDGroupStub
     End Sub
 End Class
 
@@ -790,7 +923,7 @@ Class VPinMAMEControllerStub
 End Class
 
 
-' B2S.Server stub — always present in VPX installations. In production,
+' B2S.Server stub -- always present in VPX installations. In production,
 ' B2S.Server exposes its own B2S-specific API (B2SName, B2SSet*, Run/Stop)
 ' AND proxies VPinMAME.Controller-style property/method access (GameName,
 ' Switch, Solenoid, etc.) when used as the primary Controller by
@@ -830,7 +963,7 @@ Class B2SServerStub
     End Sub
 End Class
 
-' VPinMAME.WSHDlg stub — light-form dialog used by core.vbs addForm().
+' VPinMAME.WSHDlg stub -- light-form dialog used by core.vbs addForm().
 ' core.vbs assigns AddCtrl's return value (Set obj = mLWF.AddCtrl(...))
 ' and later reads ctrl.Value, so AddCtrl must be a Function and the
 ' returned ctrl must expose a Value property.
@@ -853,19 +986,79 @@ Class VPDebugStub
 End Class
 Dim Debug : Set Debug = New VPDebugStub
 
+' Stage group. GetLabel/GetFrame/GetImage/GetVideo/GetGroup return the
+' SAME instance across repeated calls with the same name -- matching the
+' real plugin's behaviour and letting tables assign to different
+' properties across call sites:
+'
+'     FlexDMD.Stage.GetLabel("Ball").Visible = True
+'     ' ... later ...
+'     FlexDMD.Stage.GetLabel("Ball").Text = "BALL 1"
+'
+' A first call with a given name auto-creates the actor and caches it.
 Class FlexDMDGroupStub
-    Public Name, X, Y, Width, Height, Visible, FillParent, Clip
+    Public X, Y, Width, Height, Visible, FillParent, Clip
+    Private m_name, m_labels, m_frames, m_images, m_videos, m_groups
+    Public Default Property Get Name() : Name = m_name : End Property
+    Public Property Let Name(v) : m_name = v : End Property
+
     Public Sub AddActor(a) : End Sub
-    Public Sub RemoveAll() : End Sub
-    Public Sub SetBounds(x, y, w, h) : End Sub
-    Public Sub SetSize(w, h) : End Sub
-    Public Sub SetPosition(x, y) : End Sub
-    Public Function GetGroup(name) : Set GetGroup = New FlexDMDGroupStub : End Function
-    Public Function GetFrame(name) : Set GetFrame = New FlexDMDActorStub : End Function
-    Public Function GetLabel(name) : Set GetLabel = New FlexDMDActorStub : End Function
-    Public Function GetImage(name) : Set GetImage = New FlexDMDActorStub : End Function
-    Public Function GetVideo(name) : Set GetVideo = New FlexDMDActorStub : End Function
+    Public Sub AddActorAt(a, idx) : End Sub
+    Public Sub RemoveActor(a) : End Sub
+    Public Sub RemoveAll()
+        m_labels.RemoveAll : m_frames.RemoveAll : m_images.RemoveAll
+        m_videos.RemoveAll : m_groups.RemoveAll
+    End Sub
+    Public Function HasChild(n) : HasChild = _
+        m_labels.Exists(n) Or m_frames.Exists(n) Or m_images.Exists(n) _
+        Or m_videos.Exists(n) Or m_groups.Exists(n) : End Function
+    Public Sub SetBounds(ax, ay, aw, ah) : X = ax : Y = ay : Width = aw : Height = ah : End Sub
+    Public Sub SetSize(aw, ah) : Width = aw : Height = ah : End Sub
+    Public Sub SetPosition(ax, ay) : X = ax : Y = ay : End Sub
+
+    Public Function GetLabel(n)
+        If Not m_labels.Exists(n) Then
+            Dim l : Set l = New FlexDMDLabelStub : l.Name = n
+            m_labels.Add n, l
+        End If
+        Set GetLabel = m_labels(n)
+    End Function
+    Public Function GetFrame(n)
+        If Not m_frames.Exists(n) Then
+            Dim f : Set f = New FlexDMDFrameStub : f.Name = n
+            m_frames.Add n, f
+        End If
+        Set GetFrame = m_frames(n)
+    End Function
+    Public Function GetImage(n)
+        If Not m_images.Exists(n) Then
+            Dim i : Set i = New FlexDMDImageStub : i.Name = n
+            m_images.Add n, i
+        End If
+        Set GetImage = m_images(n)
+    End Function
+    Public Function GetVideo(n)
+        If Not m_videos.Exists(n) Then
+            Dim v : Set v = New FlexDMDImageStub : v.Name = n
+            m_videos.Add n, v
+        End If
+        Set GetVideo = m_videos(n)
+    End Function
+    Public Function GetGroup(n)
+        If Not m_groups.Exists(n) Then
+            Dim g : Set g = New FlexDMDGroupStub : g.Name = n
+            m_groups.Add n, g
+        End If
+        Set GetGroup = m_groups(n)
+    End Function
+
     Private Sub Class_Initialize
-        X = 0 : Y = 0 : Width = 0 : Height = 0 : Visible = True
+        m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
+        Visible = True : Clip = False
+        Set m_labels = CreateObject("Scripting.Dictionary")
+        Set m_frames = CreateObject("Scripting.Dictionary")
+        Set m_images = CreateObject("Scripting.Dictionary")
+        Set m_videos = CreateObject("Scripting.Dictionary")
+        Set m_groups = CreateObject("Scripting.Dictionary")
     End Sub
 End Class

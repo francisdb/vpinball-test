@@ -1,0 +1,210 @@
+From 5a645a924f151786193e10ebf767111a9a3548a1 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Wed, 18 Mar 2026 15:40:17 +0100
+Subject: [PATCH 10/13] vbscript: Support assignment to chained array index
+ expressions.
+
+Handle expressions like x(0)(1) = 5 where the left side of an
+assignment is a call expression whose inner expression is also a call
+(not a direct member). The compiler now evaluates the inner expression
+as a read, then emits a new OP_assign_call opcode to assign to the
+resulting array element or default dispatch property.
+
+Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=53877
+---
+ dlls/vbscript/compile.c      | 25 +++++++++++-
+ dlls/vbscript/interp.c       | 74 +++++++++++++++++++++++++++++++++++-
+ dlls/vbscript/tests/lang.vbs | 28 ++++++++++++++
+ dlls/vbscript/vbscript.h     |  2 +
+ 4 files changed, 127 insertions(+), 2 deletions(-)
+
+diff --git a/dlls/vbscript/compile.c b/dlls/vbscript/compile.c
+index 54314372a13..779a89d9c2d 100644
+--- a/dlls/vbscript/compile.c
++++ b/dlls/vbscript/compile.c
+@@ -1140,7 +1140,30 @@ static HRESULT compile_assignment(compile_ctx_t *ctx, expression_t *left, expres
+         break;
+     case EXPR_CALL:
+         call_expr = (call_expression_t*)left;
+-        assert(call_expr->call_expr->type == EXPR_MEMBER);
++        if(call_expr->call_expr->type != EXPR_MEMBER) {
++            /* Chained call assignment, e.g. aryOrder(0)(1) = 5:
++             * compile the inner expression as a read, then assign to the result. */
++            hres = compile_expression(ctx, call_expr->call_expr);
++            if(FAILED(hres))
++                return hres;
++
++            hres = compile_expression(ctx, value_expr);
++            if(FAILED(hres))
++                return hres;
++
++            hres = compile_args(ctx, call_expr->args, &args_cnt);
++            if(FAILED(hres))
++                return hres;
++
++            hres = push_instr_uint(ctx, is_set ? OP_set_call : OP_assign_call, args_cnt);
++            if(FAILED(hres))
++                return hres;
++
++            if(!emit_catch(ctx, 0))
++                return E_OUTOFMEMORY;
++
++            return S_OK;
++        }
+         member_expr = (member_expression_t*)call_expr->call_expr;
+         break;
+     default:
+diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
+index 16928b37f74..a775c0b3694 100644
+--- a/dlls/vbscript/interp.c
++++ b/dlls/vbscript/interp.c
+@@ -793,7 +793,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
+ 
+     v = stack_pop(ctx);
+     hres = variant_call(ctx, v, arg_cnt, &res);
+-    if(SUCCEEDED(hres) && V_VT(&res) == (VT_BYREF|VT_VARIANT)) {
++    if(SUCCEEDED(hres) && V_VT(&res) == (VT_BYREF|VT_VARIANT)
++            && V_VT(v) != (VT_BYREF|VT_VARIANT)) {
++        /* The result is a byref into storage owned by v (e.g. a temporary array
++         * returned from a property getter). VariantClear(v) will free that storage,
++         * so we must copy the value now. When v is itself a byref, the underlying
++         * storage is owned elsewhere and survives VariantClear, so we preserve the
++         * byref for correct pass-by-reference semantics. */
+         VARIANT tmp;
+         V_VT(&tmp) = VT_EMPTY;
+         hres = VariantCopyInd(&tmp, &res);
+@@ -1115,6 +1121,72 @@ static HRESULT interp_set_member(exec_ctx_t *ctx)
+     return S_OK;
+ }
+ 
++static HRESULT variant_propput(exec_ctx_t *ctx, unsigned arg_cnt, WORD flags)
++{
++    VARIANT *v;
++    SAFEARRAY *array = NULL;
++    DISPPARAMS dp;
++    HRESULT hres;
++
++    TRACE("%u\n", arg_cnt);
++
++    /* Stack: target | value | arg1 | ... | argN */
++    v = stack_top(ctx, arg_cnt + 1);
++    if(V_VT(v) == (VT_VARIANT|VT_BYREF))
++        v = V_VARIANTREF(v);
++
++    switch(V_VT(v)) {
++    case VT_DISPATCH: {
++        IDispatch *disp = V_DISPATCH(v);
++        if(!disp)
++            return MAKE_VBSERROR(VBSE_TYPE_MISMATCH);
++
++        vbstack_to_dp(ctx, arg_cnt, TRUE, &dp);
++        hres = disp_propput(ctx->script, disp, DISPID_VALUE, flags, &dp);
++        if(FAILED(hres))
++            return hres;
++
++        stack_popn(ctx, arg_cnt + 2);
++        return S_OK;
++    }
++    case VT_ARRAY|VT_BYREF|VT_VARIANT:
++        array = *V_ARRAYREF(v);
++        break;
++    case VT_ARRAY|VT_VARIANT:
++        array = V_ARRAY(v);
++        break;
++    default:
++        return MAKE_VBSERROR(VBSE_TYPE_MISMATCH);
++    }
++
++    if(!array) {
++        FIXME("null array\n");
++        return E_FAIL;
++    }
++
++    vbstack_to_dp(ctx, arg_cnt, FALSE, &dp);
++    hres = array_access(array, &dp, &v);
++    if(FAILED(hres))
++        return hres;
++
++    hres = assign_value(ctx, v, stack_top(ctx, arg_cnt), flags);
++    if(FAILED(hres))
++        return hres;
++
++    stack_popn(ctx, arg_cnt + 2);
++    return S_OK;
++}
++
++static HRESULT interp_assign_call(exec_ctx_t *ctx)
++{
++    return variant_propput(ctx, ctx->instr->arg1.uint, DISPATCH_PROPERTYPUT);
++}
++
++static HRESULT interp_set_call(exec_ctx_t *ctx)
++{
++    return variant_propput(ctx, ctx->instr->arg1.uint, DISPATCH_PROPERTYPUTREF);
++}
++
+ static HRESULT interp_const(exec_ctx_t *ctx)
+ {
+     BSTR arg = ctx->instr->arg1.bstr;
+diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
+index 7513b8693c4..b8fa5d3127e 100644
+--- a/dlls/vbscript/tests/lang.vbs
++++ b/dlls/vbscript/tests/lang.vbs
+@@ -2044,6 +2044,34 @@ x = Array(Array(3))
+ seta0 (x(0))
+ call ok(x(0)(0) = 3, "x(0)(0) = " & x(0)(0))
+ 
++x = Array(Array("a", 0))
++x(0)(1) = 5
++call ok(x(0)(1) = 5, "x(0)(1) = " & x(0)(1))
++
++x = Array(Array(Empty, Empty))
++Set x(0)(1) = New EmptyClass
++call ok(getVT(x(0)(1)) = "VT_DISPATCH*", "getVT(x(0)(1)) = " & getVT(x(0)(1)))
++Set x(0)(0) = Nothing
++call ok(x(0)(0) Is Nothing, "x(0)(0) is not Nothing")
++
++On Error Resume Next
++x = Array(Nothing)
++x(0)(0) = 5
++call ok(Err.Number = 13, "assign to Nothing(0): Err.Number = " & Err.Number)
++Err.Clear
++x = Array(42)
++x(0)(0) = 5
++call ok(Err.Number = 13, "assign to Integer(0): Err.Number = " & Err.Number)
++Err.Clear
++x = Array(Empty)
++x(0)(0) = 5
++call ok(Err.Number = 13, "assign to Empty(0): Err.Number = " & Err.Number)
++Err.Clear
++x = Array(Null)
++x(0)(0) = 5
++call ok(Err.Number = 13, "assign to Null(0): Err.Number = " & Err.Number)
++On Error GoTo 0
++
+ y = (seta0)(x)
+ ok y = 1, "y = " & y
+ 
+diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
+index 732d4d9a622..fe25c69e3c8 100644
+--- a/dlls/vbscript/vbscript.h
++++ b/dlls/vbscript/vbscript.h
+@@ -245,6 +245,7 @@ typedef enum {
+     X(and,            1, 0,           0)          \
+     X(assign_ident,   1, ARG_BSTR,    ARG_UINT)   \
+     X(assign_member,  1, ARG_BSTR,    ARG_UINT)   \
++    X(assign_call,    1, ARG_UINT,    0)          \
+     X(bool,           1, ARG_INT,     0)          \
+     X(catch,          1, ARG_ADDR,    ARG_UINT)   \
+     X(case,           0, ARG_ADDR,    0)          \
+@@ -299,6 +300,7 @@ typedef enum {
+     X(retval,         1, 0,           0)          \
+     X(set_ident,      1, ARG_BSTR,    ARG_UINT)   \
+     X(set_member,     1, ARG_BSTR,    ARG_UINT)   \
++    X(set_call,       1, ARG_UINT,    0)          \
+     X(stack,          1, ARG_UINT,    0)          \
+     X(step,           0, ARG_ADDR,    ARG_BSTR)   \
+     X(stop,           1, 0,           0)          \
+-- 
+2.53.0
+

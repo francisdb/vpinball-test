@@ -158,20 +158,39 @@ Current set:
 
 | # | Patch | Status | Branch |
 |---|---|---|---|
-| 0001 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[upstream]** | `feat/vbscript-getboundref` |
-| 0002 | `vbscript: Support bracketed identifiers like [my var]` | **[upstream]** | *(no branch yet — open an MR from perf-branch commit)* |
+| 0001 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (upstream version raises on not-found; this build returns Empty) |
+| 0002 | `vbscript: Support bracketed identifiers like [my var]` | **[upstream]** | `fix/vbscript-identifier-improvements` |
 | 0003 | `wscript: Implement error messages, usage output, and //nologo banner` | **[upstream]** | `wscript-unknown-option-error` |
-| 0004 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[upstream]** | *(no branch yet — open an MR from perf-branch commit)* |
+| 0004 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
 | 0005 | `vbscript: Implement GetLocale and SetLocale functions` | **[upstream]** | `fix/vbscript-getlocale-setlocale` |
 | 0006 | `vbscript: Fix Sub first argument parentheses handling` | **[upstream]** | `fix/bug-54177` ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177)) |
 | 0007 | `test: Add Noop builtin for variadic stubbing of VPX host APIs` | **[test-only]** | *(this repo only)* |
+| 0008 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
+| 0009 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | `fix/vbscript-error-call-trace` (same rationale as 0008 — diagnostic-only) |
+| 0010 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | `fix/vbscript-chained-array-assign` ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
+| 0011 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | `fix/vbscript-class-array-element-access` |
+| 0012 | `vbscript: Fix crash when GetRef is called as a statement` | **[upstream]** | `fix/vbscript-getref-null-res` |
+| 0013 | `vbscript: Reject identifiers longer than 255 characters` | **[upstream]** | `fix/vbscript-identifier-improvements` (paired with 0002; adds the `VBSE_IDENTIFIER_TOO_LONG` constant 0002 references) |
 
 What each one unlocks for the framework:
 
 - **GetBoundRef** — lets the framework bind `Me` when invoking
   per-element event handlers (`<table>_Init`, `<element>_Timer`,
   `<trigger>_Hit`, …). Without it, the test harness can't wire up
-  object-scoped handlers the way real VPX does.
+  object-scoped handlers the way real VPX does. **Test-only
+  deviation from standard `GetRef` semantics:** when the named Sub
+  doesn't exist, `GetBoundRef` returns `VT_EMPTY` instead of raising
+  error 5. The framework probes ~1 100 possible handler names per
+  element across large tables; an erroring probe would force the
+  framework to wrap every call in `On Error Resume Next`, which
+  silently swallows any legitimate errors from *inside* handlers
+  that do fire and floods `WINEDEBUG=+vbscript` with thousands of
+  noise WARNs. Returning Nothing lets callers do
+  `Set r = GetBoundRef(name, obj) : If Not r Is Nothing Then r`,
+  which is both cleaner and keeps real errors visible. This sentinel is
+  intentionally non-upstream; the test-framework build is not a
+  drop-in replacement for stock `vbscript.dll`. See the long block
+  comment on `Global_GetBoundRef` in the patch for the full rationale.
 - **Bracketed identifiers** — stub classes in `src/vpx_stub_classes.vbs`
   use reserved words as method names (`Public Sub [Exit]()`,
   `[Stop]()`, `[loop]`). The lexer must accept `[ident]` to compile
@@ -199,3 +218,30 @@ What each one unlocks for the framework:
   0..N args and does nothing. This is purely a test harness
   convenience — real VBScript doesn't have and shouldn't have
   this builtin, so the patch stays here and won't be upstreamed.
+- **Enriched resume-next WARN** — master logs `warn:vbscript: Failed
+  <hres> in resume next mode` with no location info. Tables wrap
+  huge sections in `On Error Resume Next`, and without knowing which
+  function / line the error came from it's impossible to tell the
+  spurious ones from real bugs. This patch adds the function name
+  and source line to the WARN, which is the minimum needed to make
+  a test framework's "0 errors" claim mean anything.
+- **Runtime error call-stack trace** — when a runtime error
+  propagates through nested calls, log the full call chain at
+  WARN level so you can see *how* execution reached the error
+  site. Example for `WINEDEBUG=warn+vbscript`:
+  ```
+  error 0x80020012 in L"Broken", line 3
+    called from L"Wrapper", line 2
+    called from <global>, line 16
+  ```
+  Combined with patch 0008, this turns anonymous `Failed …`
+  warnings into diagnosable bug reports.
+- **Chained array-index assignment (bug 53877)** — master doesn't
+  support `x(0)(1) = value` where the outer call is on the result
+  of another call. Some core.vbs helpers use this pattern.
+- **Class array-element assignment** — separately, master also
+  doesn't support `obj.Field(i) = value` when `Field` is a
+  Public array field of a VBScript class. Cyber Race's
+  `QueueItem` class does `CurrentItem.Label1(2) = label(2)` every
+  DMD tick. This patch adds indexed-argument handling to the VBS
+  class dispatch's property-put path.

@@ -1,7 +1,7 @@
-From d031e37da5f807ad18c0274c1e9c7951758d36c3 Mon Sep 17 00:00:00 2001
+From e79aa34cf4eee5af26abe5a02f3aff9c39081af8 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Tue, 31 Mar 2026 01:08:22 +0200
-Subject: [PATCH 3/7] wscript: Implement error messages, usage output, and
+Subject: [PATCH 03/13] wscript: Implement error messages, usage output, and
  //nologo banner.
 
 Report user-visible "Input Error" messages to stdout matching Windows

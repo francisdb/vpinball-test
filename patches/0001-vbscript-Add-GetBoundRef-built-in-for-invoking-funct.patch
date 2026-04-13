@@ -1,8 +1,8 @@
-From 8993995729764f610d3887e2a3862b8652b8f212 Mon Sep 17 00:00:00 2001
+From 02ab0b564d0854a514c60275dfcc184b12335598 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Thu, 9 Apr 2026 18:22:50 +0200
-Subject: [PATCH 1/7] vbscript: Add GetBoundRef built-in for invoking functions
- with a bound Me.
+Subject: [PATCH 01/13] vbscript: Add GetBoundRef built-in for invoking
+ functions with a bound Me.
 
 Add GetBoundRef(name, obj) which works like GetRef(name) but binds
 the returned function reference to obj, so that Me resolves to obj
@@ -10,17 +10,17 @@ when the function is invoked. This is a Wine extension to support
 VPX-style event dispatch where _Init and _Timer handlers reference
 Me to access the element they belong to.
 ---
- dlls/vbscript/global.c        | 66 ++++++++++++++++++++++++++++++++++-
+ dlls/vbscript/global.c        | 68 ++++++++++++++++++++++++++++++++++-
  dlls/vbscript/vbdisp.c        | 31 +++++++++++++++-
  dlls/vbscript/vbscript.h      |  2 ++
  dlls/vbscript/vbscript_defs.h |  1 +
- 4 files changed, 98 insertions(+), 2 deletions(-)
+ 4 files changed, 100 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index ea137cdb478..117b5875c88 100644
+index ea137cdb478..a67268f6bcc 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -3816,7 +3816,70 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -3816,7 +3816,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -85,14 +85,16 @@ index ea137cdb478..117b5875c88 100644
 +        }
 +    }
 +
-+    return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
++    V_VT(res) = VT_DISPATCH;
++    V_DISPATCH(res) = NULL;
++    return S_OK;
 +}
 +
 +static HRESULT Global_Err(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      TRACE("\n");
  
-@@ -3883,6 +3946,7 @@ static const builtin_prop_t global_props[] = {
+@@ -3883,6 +3948,7 @@ static const builtin_prop_t global_props[] = {
      {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
      {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
      {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},

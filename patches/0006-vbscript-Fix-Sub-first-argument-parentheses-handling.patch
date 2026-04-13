@@ -1,7 +1,7 @@
-From 9463c83b28583ad0dd04d391225de5c12b643738 Mon Sep 17 00:00:00 2001
+From ceef328d0ebed56d7f14b4db85a1b091cfa861e8 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Wed, 4 Mar 2026 14:37:30 +0100
-Subject: [PATCH 6/7] vbscript: Fix Sub first argument parentheses handling.
+Subject: [PATCH 06/13] vbscript: Fix Sub first argument parentheses handling.
 
 Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=54177
 ---
@@ -12,10 +12,10 @@ Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=54177
  4 files changed, 163 insertions(+), 5 deletions(-)
 
 diff --git a/dlls/vbscript/lex.c b/dlls/vbscript/lex.c
-index 2bb1f421b03..841ce0e126b 100644
+index 4a729d07d4f..809fb331c3c 100644
 --- a/dlls/vbscript/lex.c
 +++ b/dlls/vbscript/lex.c
-@@ -506,7 +506,8 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
+@@ -504,7 +504,8 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
              return comment_line(ctx);
          ctx->ptr++;
          return '-';
@@ -25,7 +25,7 @@ index 2bb1f421b03..841ce0e126b 100644
          /* NOTE:
           * We resolve empty brackets in lexer instead of parser to avoid complex conflicts
           * in call statement special case |f()| without 'call' keyword
-@@ -520,11 +521,39 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
+@@ -518,11 +519,39 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
          /*
           * Parser can't predict if bracket is part of argument expression or an argument
           * in call expression. We predict it here instead.
@@ -66,7 +66,7 @@ index 2bb1f421b03..841ce0e126b 100644
      case '[':
          return parse_bracket_identifier(ctx, lval);
      case '"':
-@@ -606,5 +635,46 @@ int parser_lex(void *lval, unsigned *loc, parser_ctx_t *ctx)
+@@ -604,5 +633,46 @@ int parser_lex(void *lval, unsigned *loc, parser_ctx_t *ctx)
      }
  
      ctx->after_continuation = FALSE;
@@ -157,10 +157,10 @@ index 1a8ae2013c9..73c089168b9 100644
      ctx->stats = ctx->stats_tail = NULL;
      ctx->class_decls = NULL;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 916f299bdd4..64f2f91a4d8 100644
+index f44b4d1c759..7513b8693c4 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -1171,6 +1171,86 @@ Call TestSubExit2
+@@ -1217,6 +1217,86 @@ Call TestSubExit2
  TestSubMultiArgs 1, 2, 3, 4, 5
  Call TestSubMultiArgs(1, 2, 3, 4, 5)
  

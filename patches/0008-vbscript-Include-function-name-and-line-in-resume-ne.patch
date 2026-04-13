@@ -1,0 +1,34 @@
+From fbbbefaabe4a7f6b9e3e5e9ac850a974031343cb Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Sun, 12 Apr 2026 21:34:38 +0200
+Subject: [PATCH 08/13] vbscript: Include function name and line in resume-next
+ WARN.
+
+Match the non-resume-next branch's location info so swallowed errors
+can be traced to their source during debugging.
+---
+ dlls/vbscript/interp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
+index 994da407169..4508160ef72 100644
+--- a/dlls/vbscript/interp.c
++++ b/dlls/vbscript/interp.c
+@@ -2788,8 +2788,13 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
+ 
+             if(exec.resume_next) {
+                 unsigned stack_off;
++                unsigned line = exec.code->start_line + 1;
++                const WCHAR *nl;
++                for(nl = exec.code->source; nl < exec.code->source + exec.instr->loc; nl++)
++                    if(*nl == '\n') line++;
+ 
+-                WARN("Failed %08lx in resume next mode\n", ctx->ei.scode);
++                WARN("Failed %08lx in resume next mode in %s, line %u\n", ctx->ei.scode,
++                     exec.func->name ? debugstr_w(exec.func->name) : "<global>", line);
+ 
+                 /*
+                  * Unwinding here is simple. We need to find the next OP_catch, which contains
+-- 
+2.53.0
+

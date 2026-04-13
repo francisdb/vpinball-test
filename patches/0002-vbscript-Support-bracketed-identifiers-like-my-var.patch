@@ -1,29 +1,22 @@
-From a209d5e5b5ceb67911f099a8a1009db03ff9c98c Mon Sep 17 00:00:00 2001
+From e40ca2f42b13aea46bd9fa70128ec615ce40c796 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Mon, 6 Apr 2026 22:56:08 +0200
-Subject: [PATCH 2/7] vbscript: Support bracketed identifiers like [my var].
+Subject: [PATCH 02/13] vbscript: Support bracketed identifiers like [my var].
 
 VBScript allows square brackets to quote identifiers containing
 spaces, special characters, or reserved words.
 ---
- dlls/vbscript/lex.c           | 32 ++++++++++++++++++++++++++++++++
- dlls/vbscript/vbscript_defs.h |  2 ++
- 2 files changed, 34 insertions(+)
+ dlls/vbscript/lex.c           | 30 +++++++++++++++++++++++
+ dlls/vbscript/tests/lang.vbs  | 46 +++++++++++++++++++++++++++++++++++
+ dlls/vbscript/vbscript.rc     |  1 +
+ dlls/vbscript/vbscript_defs.h |  1 +
+ 4 files changed, 78 insertions(+)
 
 diff --git a/dlls/vbscript/lex.c b/dlls/vbscript/lex.c
-index 076320e8917..2bb1f421b03 100644
+index 076320e8917..4a729d07d4f 100644
 --- a/dlls/vbscript/lex.c
 +++ b/dlls/vbscript/lex.c
-@@ -28,6 +28,8 @@
- 
- WINE_DEFAULT_DEBUG_CHANNEL(vbscript);
- 
-+#define MAX_IDENTIFIER_LENGTH 255
-+
- static int lex_error(parser_ctx_t *ctx, HRESULT hres)
- {
-     ctx->hres = hres;
-@@ -405,6 +407,34 @@ static int comment_line(parser_ctx_t *ctx)
+@@ -405,6 +405,34 @@ static int comment_line(parser_ctx_t *ctx)
      return tNL;
  }
  
@@ -37,7 +30,7 @@ index 076320e8917..2bb1f421b03 100644
 +        ctx->ptr++;
 +
 +    if(ctx->ptr >= ctx->end || *ctx->ptr != ']')
-+        return lex_error(ctx, MAKE_VBSERROR(VBSE_UNTERMINATED_IDENTIFIER));
++        return lex_error(ctx, MAKE_VBSERROR(VBSE_EXPECTED_RBRACKET));
 +
 +    len = ctx->ptr - start;
 +    ctx->ptr++; /* skip ']' */
@@ -58,7 +51,7 @@ index 076320e8917..2bb1f421b03 100644
  static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
  {
      WCHAR c;
-@@ -495,6 +525,8 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
+@@ -495,6 +523,8 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
                  || ctx->last_token == tEMPTYBRACKETS)
              return '(';
          return tEXPRLBRACKET;
@@ -67,26 +60,87 @@ index 076320e8917..2bb1f421b03 100644
      case '"':
          return parse_string_literal(ctx, lval);
      case '#':
+diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
+index 777d7bfc5a9..f74979cb109 100644
+--- a/dlls/vbscript/tests/lang.vbs
++++ b/dlls/vbscript/tests/lang.vbs
+@@ -273,6 +273,52 @@ x _
+ 
+ x = 3
+ 
++' Maximum identifier length (255 chars)
++Dim aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 42
++Call ok(aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 42, "255-char identifier should work")
++
++' Bracketed identifiers
++Dim [my var]
++[my var] = 42
++Call ok([my var] = 42, "[my var] = " & [my var])
++
++Dim [hello world!]
++[hello world!] = "works"
++Call ok([hello world!] = "works", "[hello world!] = " & [hello world!])
++
++Dim []
++[] = "empty"
++Call ok([] = "empty", "[] = " & [])
++
++Dim [   ]
++[   ] = "spaces"
++Call ok([   ] = "spaces", "[   ] = " & [   ])
++
++Dim [dim]
++[dim] = 99
++Call ok([dim] = 99, "[dim] = " & [dim])
++
++Class BracketTestObj
++    Public [my property]
++    Public Sub Class_Initialize
++        [my property] = "init"
++    End Sub
++End Class
++
++Dim bracketObj
++Set bracketObj = New BracketTestObj
++bracketObj.[my property] = "updated"
++Call ok(bracketObj.[my property] = "updated", "bracketObj.[my property] = " & bracketObj.[my property])
++
++Dim [loop var]
++Dim bracketTotal : bracketTotal = 0
++For [loop var] = 1 To 3
++    bracketTotal = bracketTotal + [loop var]
++Next
++Call ok(bracketTotal = 6, "For [loop var] total = " & bracketTotal)
++
++' Chained call syntax
+ Class ChainedCallTarget
+     Public Function Ret()
+         Set Ret = Me
+diff --git a/dlls/vbscript/vbscript.rc b/dlls/vbscript/vbscript.rc
+index f80635bd665..7fe23e95fdc 100644
+--- a/dlls/vbscript/vbscript.rc
++++ b/dlls/vbscript/vbscript.rc
+@@ -64,6 +64,7 @@ STRINGTABLE
+     VBSE_UNQUALIFIED_REFERENCE         "Invalid or unqualified reference"
+     VBSE_SYNTAX_ERROR                  "Syntax error"
+     VBSE_EXPECTED_LPAREN               "Expected '('"
++    VBSE_EXPECTED_RBRACKET             "Expected ']'"
+     VBSE_EXPECTED_RPAREN               "Expected ')'"
+     VBSE_EXPECTED_IDENTIFIER           "Expected identifier"
+     VBSE_EXPECTED_ASSIGN               "Expected '='"
 diff --git a/dlls/vbscript/vbscript_defs.h b/dlls/vbscript/vbscript_defs.h
-index 7ce05e75b7a..401ffa55b4f 100644
+index 7ce05e75b7a..5822ac6b418 100644
 --- a/dlls/vbscript/vbscript_defs.h
 +++ b/dlls/vbscript/vbscript_defs.h
 @@ -277,6 +277,7 @@
  #define VBSE_SYNTAX_ERROR                1002
  #define VBSE_EXPECTED_LPAREN             1005
  #define VBSE_EXPECTED_RPAREN             1006
-+#define VBSE_UNTERMINATED_IDENTIFIER     1007
++#define VBSE_EXPECTED_RBRACKET           1007
  #define VBSE_EXPECTED_IDENTIFIER         1010
  #define VBSE_EXPECTED_ASSIGN             1011
  #define VBSE_EXPECTED_IF                 1012
-@@ -295,6 +296,7 @@
- #define VBSE_EXPECTED_INTEGER_CONSTANT   1026
- #define VBSE_EXPECTED_WHILE_UNTIL_EOS    1028
- #define VBSE_EXPECTED_WITH               1029
-+#define VBSE_IDENTIFIER_TOO_LONG         1030
- #define VBSE_INVALID_NUMBER              1031
- #define VBSE_INVALID_CHAR                1032
- #define VBSE_UNTERMINATED_STRING         1033
 -- 
 2.53.0
 

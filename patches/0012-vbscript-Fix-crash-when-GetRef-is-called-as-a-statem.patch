@@ -1,0 +1,60 @@
+From be2b5aaae4057f4b302d588c0d7337bde7e623de Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Mon, 13 Apr 2026 23:20:10 +0200
+Subject: [PATCH 12/13] vbscript: Fix crash when GetRef is called as a
+ statement.
+
+Global_GetRef() wrote to *res unconditionally. Callers that discard
+the return value (`Call GetRef("name")` or bare-call form) pass NULL,
+which segfaults on Wine but runs cleanly on Windows.
+---
+ dlls/vbscript/global.c       |  4 ++++
+ dlls/vbscript/tests/lang.vbs | 10 ++++++++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
+index 6522d11905e..d16237fc6da 100644
+--- a/dlls/vbscript/global.c
++++ b/dlls/vbscript/global.c
+@@ -3832,6 +3832,8 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+         cnt = item->script_obj->global_funcs_cnt;
+         for(i = 0; i < cnt; i++) {
+             if(!vbs_wcsicmp(funcs[i]->name, name)) {
++                if(!res)
++                    return S_OK;
+                 hres = create_func_ref(This->ctx, funcs[i], &disp);
+                 if(FAILED(hres))
+                     return hres;
+@@ -3847,6 +3849,8 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+     cnt = This->ctx->script_obj->global_funcs_cnt;
+     for(i = 0; i < cnt; i++) {
+         if(!vbs_wcsicmp(funcs[i]->name, name)) {
++            if(!res)
++                return S_OK;
+             hres = create_func_ref(This->ctx, funcs[i], &disp);
+             if(FAILED(hres))
+                 return hres;
+diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
+index 25fc37842a2..866cfc8fcfd 100644
+--- a/dlls/vbscript/tests/lang.vbs
++++ b/dlls/vbscript/tests/lang.vbs
+@@ -3050,6 +3050,16 @@ Err.Clear
+ Set getRefRef = GetRef(vbNullString)
+ Call ok(Err.Number = 5, "GetRef vbNullString error is " & Err.Number)
+ 
++' GetRef called as a statement (result discarded). Must not crash even
++' though no res pointer is passed to the builtin.
++Err.Clear
++Call GetRef("GetRefTestFunc")
++Call ok(Err.Number = 0, "Call GetRef statement err = " & Err.Number)
++
++Err.Clear
++GetRef "GetRefTestFunc"
++Call ok(Err.Number = 0, "Bare GetRef statement err = " & Err.Number)
++
+ ' Eval tests
+ Call ok(Eval("1 + 2") = 3, "Eval(""1 + 2"") = " & Eval("1 + 2"))
+ Call ok(Eval("""test""") = "test", "Eval(""""""test"""""") = " & Eval("""test"""))
+-- 
+2.53.0
+
