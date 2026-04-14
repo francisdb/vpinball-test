@@ -19,11 +19,11 @@ Sub PatchTableCode(ByRef code)
     ' CheckPupVersion does:
     '   pFolder = fso.GetFolder(PuPlayer.getroot)
     '   exePath = pFolder.ParentFolder & "\PinUPDisplayX.exe"
-    ' The `Folder & "string"` concat relies on Folder's default property
-    ' returning Path, which Wine's Scripting.FileSystemObject doesn't
-    ' surface the same way Windows does, so the second line errors with
-    ' "Object doesn't support this action" even when the path exists.
-    ' Bypass the whole sub for headless runs.
+    ' Wine's Scripting.FileSystemObject Folder doesn't implement the
+    ' ParentFolder property, so the second line errors with "Object
+    ' doesn't support this property or method" even when the folder
+    ' exists. Bypass the whole sub for headless runs; remove this once
+    ' Wine ships ParentFolder.
     code = Replace(code, "Sub CheckPupVersion", "Sub CheckPupVersion : Exit Sub '")
     ' StartAttractMode is the table's intro / lights-attract sequence.
     ' Pure decoration -- not needed for the init benchmark, and its

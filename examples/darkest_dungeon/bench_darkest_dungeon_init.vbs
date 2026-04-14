@@ -16,7 +16,6 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Darkest Dungeon (
 Dim TABLE_FILE          : TABLE_FILE          = "darkest_dungeon.vpx"
 
 Sub PatchTableCode(ByRef code)
-    code = Replace(code, "CreateObject(""PinUpPlayer.PinDisplay"")", "(New PinUpPlayerStub)")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

@@ -16,16 +16,6 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Die Hard Trilogy 
 Dim TABLE_FILE          : TABLE_FILE          = "Die Hard Trilogy (VPW 2023) v0.98.vpx"
 
 Sub PatchTableCode(ByRef code)
-    ' RegisterLights builds a per-light "lightmap" array by filtering GetElements()
-    ' for names matching "_<lightname>_". Our GetElements() stub returns an empty
-    ' array, so no matches are appended and the resulting VBS string is
-    '   "lmArr = Array(Null)"
-    ' which stores Array(Null) in m_lightmaps. Later, Update() iterates that and
-    ' dereferences the Null -> "Object required". Short-circuit to an empty array
-    ' so the hot path (FrameState/AssignStateForFrame) runs to completion.
-    code = Replace(code, _
-        "ExecuteGlobal ""Dim lmArr : ""&lmStr", _
-        "ExecuteGlobal ""Dim lmArr : lmArr = Array()""")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

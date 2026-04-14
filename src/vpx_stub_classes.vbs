@@ -640,7 +640,11 @@ Function LoadValue(a, b) : LoadValue = "" : End Function
 Function GetBalls()
     GetBalls = g_ActiveBalls.Items()
 End Function
-Function GetElements() : GetElements = Array() : End Function
+' VPX host function: returns an array of every table element. Backed by
+' g_AllItems, which gen_vpx_stubs.py populates at stub-load time. Tables
+' iterate this with `For Each e in GetElements()` and filter by `e.Name`
+' (e.g. DHT's RegisterLights builds a per-light lightmap by name pattern).
+Function GetElements() : GetElements = g_AllItems.Items() : End Function
 Function GetElementByName(n) : Set GetElementByName = Nothing : End Function
 Function GetPlayerHWnd() : GetPlayerHWnd = 0 : End Function
 ' VPX action-key mapping API used by VPMKeys.vbs. Must return a valid
