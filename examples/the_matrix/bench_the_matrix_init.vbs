@@ -23,7 +23,8 @@ Sub PatchTableCode(ByRef code)
     ' ParentFolder property, so the second line errors with "Object
     ' doesn't support this property or method" even when the folder
     ' exists. Bypass the whole sub for headless runs; remove this once
-    ' Wine ships ParentFolder.
+    ' Wine ships ParentFolder (upstream MR:
+    ' https://gitlab.winehq.org/wine/wine/-/merge_requests/10661).
     code = Replace(code, "Sub CheckPupVersion", "Sub CheckPupVersion : Exit Sub '")
     ' cvpmImpulseP.CreateEvents and cvpmMagnet.CreateEvents both
     ' Execute chunks of core.vbs event code that don't survive our
