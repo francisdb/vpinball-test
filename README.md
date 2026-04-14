@@ -146,16 +146,16 @@ full three-ball drain scenario.
 
 ## Status
 
-**17 / 18 scripts pass** against the pinned Wine revision with the
-full patch set applied. The single remaining failure is a table-
-specific stub gap, not a Wine bug:
+**18 / 18 scripts pass** against the pinned Wine revision with the
+full patch set applied.
 
-| Script | Blocker |
-|---|---|
-| `attack_from_mars/bench_attack_from_mars_init.vbs` | `cvpmTrough.InitExit` in core.vbs raises "Cannot use object of type 'Object'" at line 435, called from `vpmInit:2284` → `AFM_Init:323`. Likely a missing field / stub method on one of the Trough-stub dependencies; reproducible with `WINEDEBUG=-all,warn+vbscript` to see the full call chain. |
-
-Straightforward to fix by extending `src/vpx_stub_classes.vbs` or
-adding an inline `PatchTableCode` hook in the bench.
+Two tables (pizza_time, attack_from_mars) need a one-line
+`PatchTableCode` in their benches to bypass a `cvpmMagnet.CreateEvents`
+call that `ExecuteGlobal`s a chunk of core.vbs the sim can't handle.
+The workaround strips only the `.CreateEvents mMagnet` line (not the
+whole `WobbleMagnet_Init`) so the rest of the sub — `cBall` creation,
+`MagnetOn`, etc. — still runs; `UfoShaker_Timer` relies on that
+`cBall`, so the surgical version is needed.
 
 ## Patches
 

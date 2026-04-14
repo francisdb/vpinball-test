@@ -20,6 +20,13 @@ Sub PatchTableCode(ByRef code)
     Table1.Name = "AFM"
     ' Insert after Option Explicit: table alias
     code = Replace(code, "Option Explicit", "Option Explicit" & vbCrLf & "Dim AFM : Set AFM = Table1", 1, 1, 1)
+    ' Skip cvpmMagnet.CreateEvents: the call Execute's a chunk of
+    ' core.vbs code that trips "Object doesn't support this property
+    ' or method" under our sim. Only bypass THAT call, not the whole
+    ' WobbleMagnet_Init sub -- the sub also creates cBall via
+    ' `Set cBall = ckicker.createball`, which UfoShaker_Timer reads
+    ' every frame.
+    code = Replace(code, ".CreateEvents mMagnet", "' .CreateEvents mMagnet (stubbed)")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
