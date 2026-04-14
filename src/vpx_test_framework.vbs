@@ -213,6 +213,13 @@ Sub SetUpTable(verbose)
     tableCode = Replace(tableCode, "CreateObject(""VPinMAME.WSHDlg"")", "(New VPinMAMEWSHDlgStub)")
     tableCode = Replace(tableCode, "CreateObject(""PinUpPlayer.PinDisplay"")", "(New PinUpPlayerStub)")
     tableCode = Replace(tableCode, "CreateObject(""B2S.Server"")", "(New B2SServerStub)")
+    tableCode = Replace(tableCode, "CreateObject(""FlexDMD.FlexDMD"")", "(New FlexDMDStub)")
+    ' .NET ArrayList isn't available because run-bench.sh disables
+    ' Wine's mscoree (WINEDLLOVERRIDES="mshtml,mscoree="). Fall back
+    ' to ArrayListStub which implements Add/Insert/RemoveAt/Clear/
+    ' Count/Item, the surface tables typically use for queue-style
+    ' bookkeeping.
+    tableCode = Replace(tableCode, "CreateObject(""System.Collections.ArrayList"")", "(New ArrayListStub)")
     ' Same Run() -> Run(0) normalisation as in GetTextFile -- some tables
     ' (Die Hard, Harry Potter) inline their own LoadController logic so the
     ' patch needs to apply to the table script too.

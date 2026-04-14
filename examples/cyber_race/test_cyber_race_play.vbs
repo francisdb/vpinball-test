@@ -25,8 +25,6 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Cyber Race (Origi
 Dim TABLE_FILE          : TABLE_FILE          = "cyberrace.vpx"
 
 Sub PatchTableCode(ByRef code)
-    ' Framework already handles B2S.Server (→ B2SServerStub).
-    code = Replace(code, "CreateObject(""FlexDMD.FlexDMD"")", "(New FlexDMDStub)")
     code = Replace(code, "CreateObject(""vpx_adv_debugger.VPXAdvDebugger"")", "Nothing")
     ' CR uses `.loop = …` which still clashes with the reserved keyword
     ' even with bracketed-identifier support — rewrite to `.[loop] = …`.

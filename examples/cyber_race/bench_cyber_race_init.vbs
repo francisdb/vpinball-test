@@ -16,9 +16,6 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Cyber Race (Origi
 Dim TABLE_FILE          : TABLE_FILE          = "cyberrace.vpx"
 
 Sub PatchTableCode(ByRef code)
-    ' Framework already handles B2S.Server (→ B2SServerStub). Patch the
-    ' CR-specific COM objects here.
-    code = Replace(code, "CreateObject(""FlexDMD.FlexDMD"")", "(New FlexDMDStub)")
     code = Replace(code, "CreateObject(""vpx_adv_debugger.VPXAdvDebugger"")", "Nothing")
     ' `.loop` is now supported via the bracketed-identifier patch, but
     ' CR writes `.loop = …` which still parses as a reserved keyword in

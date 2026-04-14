@@ -559,6 +559,63 @@ Class PinUpPlayerStub
 End Class
 
 ' ---------------------------------------------------------------------------
+' .NET ArrayList substitute. Some tables do
+'   `Set q = CreateObject("System.Collections.ArrayList")`
+' which is a .NET COM class. Wine's mscoree is intentionally disabled
+' in scripts/run-bench.sh (WINEDLLOVERRIDES="mshtml,mscoree="), so the
+' real ArrayList isn't available. The framework regex-rewrites that
+' CreateObject call to `(New ArrayListStub)` (see SetUpTable in
+' vpx_test_framework.vbs); this class implements just enough of the
+' ArrayList surface for tables that use it as a callout / event
+' queue: Add, Insert, RemoveAt, Clear, Count, indexed default access.
+' Backed by a plain VBScript array that grows by doubling.
+' ---------------------------------------------------------------------------
+Class ArrayListStub
+    Private m_items
+    Private m_count
+    Private Sub Class_Initialize
+        ReDim m_items(15)
+        m_count = 0
+    End Sub
+    Public Property Get Count : Count = m_count : End Property
+    Public Sub Add(item)
+        If m_count > UBound(m_items) Then
+            ReDim Preserve m_items(UBound(m_items) * 2 + 1)
+        End If
+        If IsObject(item) Then Set m_items(m_count) = item Else m_items(m_count) = item
+        m_count = m_count + 1
+    End Sub
+    Public Sub Insert(idx, item)
+        Add Empty   ' grow by one (will grow capacity if needed)
+        Dim i
+        For i = m_count - 1 To idx + 1 Step -1
+            If IsObject(m_items(i - 1)) Then Set m_items(i) = m_items(i - 1) Else m_items(i) = m_items(i - 1)
+        Next
+        If IsObject(item) Then Set m_items(idx) = item Else m_items(idx) = item
+    End Sub
+    Public Sub RemoveAt(idx)
+        Dim i
+        For i = idx To m_count - 2
+            If IsObject(m_items(i + 1)) Then Set m_items(i) = m_items(i + 1) Else m_items(i) = m_items(i + 1)
+        Next
+        m_count = m_count - 1
+    End Sub
+    Public Sub Clear()
+        ReDim m_items(15)
+        m_count = 0
+    End Sub
+    Public Default Property Get Item(idx)
+        If idx < 0 Or idx >= m_count Then
+            Item = Empty
+        ElseIf IsObject(m_items(idx)) Then
+            Set Item = m_items(idx)
+        Else
+            Item = m_items(idx)
+        End If
+    End Property
+End Class
+
+' ---------------------------------------------------------------------------
 ' VPX host API stubs (Table-level functions callable from scripts)
 ' Signatures from vpinball.idl
 ' ---------------------------------------------------------------------------
