@@ -192,6 +192,7 @@ have a branch that's intentionally not upstreamed.
 | 0012 | `vbscript: Fix crash when GetRef is called as a statement` | **[upstream]** | [`fix/vbscript-getref-null-res`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10650) |
 | 0013 | `vbscript: Reject identifiers longer than 255 characters` | **[upstream]** | [`fix/vbscript-identifier-improvements`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579) (paired with 0002; adds the `VBSE_IDENTIFIER_TOO_LONG` constant 0002 references) |
 | 0014 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
+| 0015 | `vbscript: Silence FuncRef::QueryInterface(IID_IDispatchEx) warning` | **[upstream]** | [`fix/vbscript-funcref-quiet-dispatchex`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10658) (mirrors Jacek Caban's 2019 `BuiltinDisp` fix `ce6c9f6d338a` for the `FuncRef` dispatch wrapper added later) |
 
 What each one unlocks for the framework:
 
@@ -276,3 +277,15 @@ What each one unlocks for the framework:
   past an empty `m_light_groups` array and fails with "Subscript out
   of range". With this patch applied, `TypeName` returns the class
   name and dark_chaos's init walks the lights array cleanly.
+- **Silence FuncRef::QueryInterface(IDispatchEx) WARN** — the
+  vbscript engine probes `IDispatchEx` on every dispatch lookup
+  (`get_disp_id()` in `vbdisp.c`) and falls back cleanly to plain
+  `IDispatch` on `E_NOINTERFACE`. The `FuncRef` wrapper added by the
+  upstream-merged GetRef commit (and used by every `GetRef(...)` /
+  bound-callback path in our scenarios) is plain IDispatch, so the
+  probe currently emits a WARN per call — ~58 000 across the suite,
+  ~16 000 of them inside DD's drain cascade alone. The patch mirrors
+  Jacek Caban's 2019 `BuiltinDisp` fix (`ce6c9f6d338a`): keep the
+  catch-all WARN for genuinely unknown IIDs but skip it for
+  `IID_IDispatchEx` specifically. Same fix applied locally to
+  patch 0004's `Collection_QueryInterface`.

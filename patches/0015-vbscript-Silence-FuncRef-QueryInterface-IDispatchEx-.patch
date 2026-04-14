@@ -1,0 +1,38 @@
+From 6c5f7a03a5a874b268aeeb318d2f78f4fb9b38c5 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Tue, 14 Apr 2026 16:18:00 +0200
+Subject: [PATCH] vbscript: Silence FuncRef::QueryInterface(IID_IDispatchEx)
+ warning.
+
+The script engine probes IDispatchEx on every dispatch lookup
+(see get_disp_id() in vbdisp.c) and falls back cleanly to plain
+IDispatch on E_NOINTERFACE; the negative response is therefore
+expected, not exceptional. FuncRef objects returned by GetRef are
+plain IDispatch and don't implement IDispatchEx, so every callback
+through them currently emits a WARN.
+
+Mirror commit ce6c9f6d338a40c4f39b6758dae6d600823da767 ("vbscript:
+Silence BuiltinDisp::QueryInterface(IID_IDispatchEx) warning"):
+keep the catch-all WARN for genuinely unknown IIDs but skip it
+for IID_IDispatchEx specifically.
+---
+ dlls/vbscript/vbdisp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
+index 79b1a728a52..38185dd0411 100644
+--- a/dlls/vbscript/vbdisp.c
++++ b/dlls/vbscript/vbdisp.c
+@@ -586,7 +586,8 @@ static HRESULT WINAPI FuncRef_QueryInterface(IDispatch *iface, REFIID riid, void
+         return S_OK;
+     }
+ 
+-    WARN("(%p)->(%s %p)\n", This, debugstr_guid(riid), ppv);
++    if(!IsEqualGUID(riid, &IID_IDispatchEx))
++        WARN("(%p)->(%s %p)\n", This, debugstr_guid(riid), ppv);
+     *ppv = NULL;
+     return E_NOINTERFACE;
+ }
+-- 
+GitLab
+

@@ -11,9 +11,9 @@ Item(i) or default property, and a Count property.
 ---
  dlls/vbscript/global.c       |  20 +++
  dlls/vbscript/tests/lang.vbs |  60 +++++++
- dlls/vbscript/vbdisp.c       | 313 +++++++++++++++++++++++++++++++++++
+ dlls/vbscript/vbdisp.c       | 314 ++++++++++++++++++++++++++++++++++++
  dlls/vbscript/vbscript.h     |   1 +
- 4 files changed, 394 insertions(+)
+ 4 files changed, 395 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
 index a67268f6bcc..fa7b0ae8763 100644
@@ -126,7 +126,7 @@ diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
 index da2cf77553d..001e2838ba2 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -707,6 +707,319 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
+@@ -707,6 +707,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
      return S_OK;
  }
  
@@ -280,7 +280,8 @@ index da2cf77553d..001e2838ba2 100644
 +        return S_OK;
 +    }
 +
-+    WARN("(%p)->(%s %p)\n", This, debugstr_guid(riid), ppv);
++    if(!IsEqualGUID(riid, &IID_IDispatchEx))
++        WARN("(%p)->(%s %p)\n", This, debugstr_guid(riid), ppv);
 +    *ppv = NULL;
 +    return E_NOINTERFACE;
 +}
