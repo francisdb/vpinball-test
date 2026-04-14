@@ -567,6 +567,8 @@ Sub PlaySound(Sound, LoopCount, Volume, pan, randompitch, pitch, usesame, restar
 Sub StopSound(Sound) : End Sub
 Sub PlayMusic(str, Volume) : End Sub
 Sub StopMusic() : End Sub
+Sub EndMusic() : End Sub
+Sub MusicVolume(vol) : End Sub
 Sub UpdateMaterial(n,wl,r,gl,th,e,ea,o,c,isTM,isOP,isAB,isEM,db,rp,rfp,osmm) : End Sub
 Sub GetMaterial(n,wl,r,gl,th,e,ea,o,c,isTM,isOP,isAB,isEM,db,rp,rfp,osmm) : End Sub
 Sub MaterialColor(n, c) : End Sub
