@@ -133,9 +133,13 @@ ExecuteGlobal classCode_
 ' with that name. g_Table is a private framework-internal handle
 ' pointing at the same instance, used by the rest of this file (so
 ' code can say `g_Table.Option_(...)` instead of juggling Eval()).
+' ActiveTable is the second VPX-host global pointing at the same
+' instance -- core.vbs's CheckScript reads ActiveTable.FileName to
+' derive the table directory for relative LoadScript lookups.
 Dim g_TableName : g_TableName = ReadTableNameFromGamedata()
 ExecuteGlobal "Dim " & g_TableName & " : Set " & g_TableName & " = New Table"
-Dim g_Table     : Set g_Table = Eval(g_TableName)
+Dim g_Table     : Set g_Table     = Eval(g_TableName)
+Dim ActiveTable : Set ActiveTable = g_Table
 g_Table.Name     = g_TableName
 g_Table.FileName = TABLE_FILE
 
@@ -241,16 +245,24 @@ Sub SetUpTable(verbose)
     vpmInitRe_.Pattern = "\bvpmInit\s+Me\b"
     tableCode = vpmInitRe_.Replace(tableCode, "vpmInit " & g_TableName)
     ' VPX host sound APIs accept variable args; replace calls with Noop
-    ' builtin. Pass 1: literal-string form (`PlaySound "name", ...`) gets
-    ' rewritten so the name is also appended to g_SoundLog, letting
-    ' scenarios assert on sound playback via tester.ExpectSound.
+    ' builtin. Pass 1: literal-string form (`PlaySound "name", ...`)
+    ' gets rewritten so the name is also appended to g_SoundLog, letting
+    ' scenarios assert on sound playback via tester.ExpectSound. Two
+    ' shapes: the bare `PlaySound "name", ...` and the parenthesised
+    ' `PlaySound ("name"), ...` form (Die Hard's coin handler uses the
+    ' latter); both need to be caught BEFORE the variable-arg fallback
+    ' below or the name gets lost.
     Dim psLit_ : Set psLit_ = New RegExp
     psLit_.Global = True : psLit_.IgnoreCase = True
     psLit_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)\s+""([^""]*)"""
     tableCode = psLit_.Replace(tableCode, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : Noop ""$4""")
+    Dim psLitParen_ : Set psLitParen_ = New RegExp
+    psLitParen_.Global = True : psLitParen_.IgnoreCase = True
+    psLitParen_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)\s*\(\s*""([^""]*)""\s*\)"
+    tableCode = psLitParen_.Replace(tableCode, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : Noop ""$4""")
     ' Pass 2: anything not yet caught (variable-name form like
-    ' `PlaySound mySound, 1, 2` or parenthesised form) falls through to
-    ' plain Noop without recording -- we don't know the name.
+    ' `PlaySound mySound, 1, 2` or parenthesised non-literal form) falls
+    ' through to plain Noop without recording -- we don't know the name.
     Dim psRe_ : Set psRe_ = New RegExp
     psRe_.Global = True : psRe_.IgnoreCase = True
     psRe_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)( |\()"
@@ -927,6 +939,22 @@ Class VpxTester
         WScript.Quit 1
     End Sub
 
+    ' Boolean assertion. Failing scenarios print a [FAIL] line and
+    ' abort with WScript.Quit 1, same exit shape as the Expect*
+    ' helpers, so the test runner sees them as failures. Use this
+    ' for synchronous post-condition checks that don't need to poll
+    ' (the Expect* helpers cover the polling case).
+    '
+    ' VBScript Sub-call statement form chokes on a leading paren in
+    ' the first arg (`tester.Assert (Not flag) Or other, "msg"` gets
+    ' parsed as a tuple), so callers should hoist compound conditions
+    ' into a Dim first:
+    '   Dim ok : ok = (Not bGameInPlay) Or hsbModeActive
+    '   tester.Assert ok, "expected terminal state"
+    Public Sub Assert(cond, message)
+        If Not cond Then Fail message
+    End Sub
+
     ' Assert that the live ball count reaches exactly `n` within
     ' `timeoutMs`. Checks immediately (pass timeoutMs=0 for a strict
     ' "right now" assertion), then ticks the sim until the count
@@ -1014,6 +1042,35 @@ Class VpxTester
             If WasSoundPlayed(soundName) Then Exit Sub
         Loop
         Fail "expected sound """ & soundName & """ within " & timeoutMs & " ms; recent=" & Join(Array(LastSound), ",")
+    End Sub
+
+    ' Return True if any of the names in `soundNames` (a 1-D array)
+    ' has been played since the last ClearSounds. For tables that
+    ' randomize between several variants of the same cue (e.g. Die
+    ' Hard's coin handler picks Coin_In_1/2/3 via Int(rnd*3)).
+    Public Function WasAnySoundPlayed(soundNames)
+        Dim i
+        For i = LBound(soundNames) To UBound(soundNames)
+            If WasSoundPlayed(soundNames(i)) Then
+                WasAnySoundPlayed = True
+                Exit Function
+            End If
+        Next
+        WasAnySoundPlayed = False
+    End Function
+
+    ' Assert that *any* of `soundNames` (1-D array) gets played within
+    ' `timeoutMs`. Same polling shape as ExpectSound; useful for
+    ' "the table picked one of N randomized variants" cues.
+    Public Sub ExpectAnySound(soundNames, timeoutMs)
+        Dim elapsed : elapsed = 0
+        If WasAnySoundPlayed(soundNames) Then Exit Sub
+        Do While elapsed < timeoutMs
+            AdvanceMs POLL_STEP_MS
+            elapsed = elapsed + POLL_STEP_MS
+            If WasAnySoundPlayed(soundNames) Then Exit Sub
+        Loop
+        Fail "expected one of " & Join(soundNames, "/") & " within " & timeoutMs & " ms; recent=" & LastSound
     End Sub
 
     ' Read a Light element's State property. Returns -1 if the element
