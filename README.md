@@ -146,19 +146,16 @@ full three-ball drain scenario.
 
 ## Status
 
-**14 / 18 scripts pass** against the pinned Wine revision with the
-full patch set applied. The 4 failing scripts all hit table-specific
-stub gaps (not Wine bugs):
+**17 / 18 scripts pass** against the pinned Wine revision with the
+full patch set applied. The single remaining failure is a table-
+specific stub gap, not a Wine bug:
 
 | Script | Blocker |
 |---|---|
-| `cyber_race/test_cyber_race_play.vbs` | `FlexDMDStub` is missing the `Stage.GetLabel(…).SetAlignedPosition/…` API surface. |
-| `pizza_time/bench_pizza_time_init.vbs` | `playmedia` (PuPPlayer-style global) is not stubbed. |
-| `pizza_time/test_pizza_time_play.vbs` | same as init. |
-| `spongebob/test_spongebob_play.vbs` | `DMDDisplay(h, 0) = …` — 2D static array assignment works in isolation; fails deep inside SpongeBob's init chain, root cause still under investigation. |
+| `attack_from_mars/bench_attack_from_mars_init.vbs` | `cvpmTrough.InitExit` in core.vbs raises "Cannot use object of type 'Object'" at line 435, called from `vpmInit:2284` → `AFM_Init:323`. Likely a missing field / stub method on one of the Trough-stub dependencies; reproducible with `WINEDEBUG=-all,warn+vbscript` to see the full call chain. |
 
-These are straightforward to fix by extending `src/vpx_stub_classes.vbs`
-or adding an inline `PatchTableCode` hook in the relevant bench.
+Straightforward to fix by extending `src/vpx_stub_classes.vbs` or
+adding an inline `PatchTableCode` hook in the bench.
 
 ## Patches
 
@@ -194,6 +191,7 @@ have a branch that's intentionally not upstreamed.
 | 0011 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
 | 0012 | `vbscript: Fix crash when GetRef is called as a statement` | **[upstream]** | [`fix/vbscript-getref-null-res`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10650) |
 | 0013 | `vbscript: Reject identifiers longer than 255 characters` | **[upstream]** | [`fix/vbscript-identifier-improvements`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579) (paired with 0002; adds the `VBSE_IDENTIFIER_TOO_LONG` constant 0002 references) |
+| 0014 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
 
 What each one unlocks for the framework:
 
@@ -268,3 +266,13 @@ What each one unlocks for the framework:
   `QueueItem` class does `CurrentItem.Label1(2) = label(2)` every
   DMD tick. This patch adds indexed-argument handling to the VBS
   class dispatch's property-put path.
+- **GetTypeInfo for class instances** — master's
+  `IDispatch::GetTypeInfo` stub returns `E_NOTIMPL` for VBScript
+  class instances, which makes `TypeName(New MyClass)` fall back to
+  the generic string `"Object"` instead of `"MyClass"`. Dark Chaos's
+  GLF segment-display code does `If typename(Eval(lightName)) =
+  "Light" Then ...` — against master that check is always false, so
+  `CalculateLights` takes the fallback branch and then subscripts
+  past an empty `m_light_groups` array and fails with "Subscript out
+  of range". With this patch applied, `TypeName` returns the class
+  name and dark_chaos's init walks the lights array cleanly.
