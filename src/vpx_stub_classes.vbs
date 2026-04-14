@@ -480,7 +480,12 @@ End Class
 Class LightSequencer
     Public Name, UserValue, TimerEnabled, TimerInterval
     Public Collection, CenterX, CenterY, UpdateInterval
-    Public Sub Play(a, b, c) : End Sub
+    ' Real VPX ILightSeq::Play is (Animation, TailLength, Repeat, Pause).
+    ' Some tables use trailing `,` omissions (e.g. `.Play SeqBlinking, , 5,
+    ' 150`) which COM dispatches as DISPID_PARAMNOTFOUND; a VBScript class
+    ' Sub can't express optional args, so the whole 4-arg form goes through
+    ' a string rewrite in SetUpTable.
+    Public Sub Play(a, b, c, d) : End Sub
     Public Sub StopPlay() : End Sub
     Private Sub Class_Initialize
         Name = "" : UpdateInterval = 25

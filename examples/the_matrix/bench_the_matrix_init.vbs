@@ -25,11 +25,6 @@ Sub PatchTableCode(ByRef code)
     ' exists. Bypass the whole sub for headless runs; remove this once
     ' Wine ships ParentFolder.
     code = Replace(code, "Sub CheckPupVersion", "Sub CheckPupVersion : Exit Sub '")
-    ' StartAttractMode is the table's intro / lights-attract sequence.
-    ' Pure decoration -- not needed for the init benchmark, and its
-    ' StartLightSeq inner chain hits a (still being investigated)
-    ' E_FAIL inside the LightSeqAttract setup. Skip it.
-    code = Replace(code, "Sub StartAttractMode(bReset)", "Sub StartAttractMode(bReset) : Exit Sub '")
     ' cvpmImpulseP.CreateEvents and cvpmMagnet.CreateEvents both
     ' Execute chunks of core.vbs event code that don't survive our
     ' headless sim (same pattern as AFM / pizza_time WobbleMagnet).

@@ -281,10 +281,53 @@ Sub SetUpTable(verbose)
     ' "..." literal. Rewrite them at byte level.
     tableCode = Replace(tableCode, """PlaySound ", """Noop ", 1, -1, vbTextCompare)
     tableCode = Replace(tableCode, """StopSound ", """Noop ", 1, -1, vbTextCompare)
+    ' LightSeq.Play arg-count normalization, MUST run before the generic
+    ' .Play -> Noop rewrite below. Real VPX exposes ILightSeq::Play as a
+    ' COM method with four optional parameters (Animation, TailLength,
+    ' Repeat, Pause); tables call it with any of `Seq, , 5, 150` (missing
+    ' middle args), `Seq, 50, 1` (3 args) or bare `SeqAllOff` (1 arg),
+    ' which COM turns into DISPID_PARAMNOTFOUND. After rewriting to Noop,
+    ' the `, ,` / arity-mismatch forms would still raise 0x80020101 at
+    ' Execute time, so pad every `.Play SeqXxx` call site to the full
+    ' 4-arg form first, filling missing slots with 0. Trigger is the
+    ' `SeqXxx` literal first arg, which is distinctive enough not to
+    ' collide with unrelated .Play methods (Primitive.PlayAnim etc. use
+    ' different names).
+    Dim lsPlayA_ : Set lsPlayA_ = New RegExp
+    lsPlayA_.Global = True : lsPlayA_.IgnoreCase = True
+    lsPlayA_.Pattern = "\.Play\s+(Seq\w+)\s*,\s*,\s*(\d+)\s*,\s*(\d+)"
+    tableCode = lsPlayA_.Replace(tableCode, ".Play $1, 0, $2, $3")
+    Dim lsPlayB_ : Set lsPlayB_ = New RegExp
+    lsPlayB_.Global = True : lsPlayB_.IgnoreCase = True
+    lsPlayB_.Pattern = "\.Play\s+(Seq\w+)\s*,\s*(\d+)\s*,\s*,\s*(\d+)"
+    tableCode = lsPlayB_.Replace(tableCode, ".Play $1, $2, 0, $3")
+    ' Patterns C, E, D anchor with a positive lookahead for
+    ' end-of-statement (newline / `'` comment / `:` separator / EOF)
+    ' to prevent `Seq\w+` and `\d+` from backtracking into shorter
+    ' prefixes when the full identifier/number wouldn't let the whole
+    ' pattern match -- e.g. on `.Play SeqBlinking, , 5, 150` a naive
+    ' `(?!\s*,)` negative-lookahead would backtrack through SeqBlinkin,
+    ' SeqBlinki, ... and eventually match `SeqBlinkin` with the `g`
+    ' surviving as a free-floating char in the replacement.
+    Dim lsPlayC_ : Set lsPlayC_ = New RegExp
+    lsPlayC_.Global = True : lsPlayC_.IgnoreCase = True
+    lsPlayC_.Pattern = "\.Play\s+(Seq\w+)\s*,\s*(\d+)\s*,\s*(\d+)(?=\s*(?:[\r\n':]|$))"
+    tableCode = lsPlayC_.Replace(tableCode, ".Play $1, $2, $3, 0")
+    Dim lsPlayE_ : Set lsPlayE_ = New RegExp
+    lsPlayE_.Global = True : lsPlayE_.IgnoreCase = True
+    lsPlayE_.Pattern = "\.Play\s+(Seq\w+)\s*,\s*(\d+)(?=\s*(?:[\r\n':]|$))"
+    tableCode = lsPlayE_.Replace(tableCode, ".Play $1, $2, 0, 0")
+    Dim lsPlayD_ : Set lsPlayD_ = New RegExp
+    lsPlayD_.Global = True : lsPlayD_.IgnoreCase = True
+    lsPlayD_.Pattern = "\.Play\s+(Seq\w+)(?=\s*(?:[\r\n':]|$))"
+    tableCode = lsPlayD_.Replace(tableCode, ".Play $1, 0, 0, 0")
+
     ' LightSequencer.Play/StopPlay accept variable args; replace with Noop.
+    ' Skip `.Play Seq*` -- those were normalized to 4 args above and go
+    ' through the real LightSequencer.Play(a,b,c,d) stub.
     Dim playRe_ : Set playRe_ = New RegExp
     playRe_.Global = True : playRe_.IgnoreCase = True
-    playRe_.Pattern = "(\w+)\.(Play|StopPlay)\b"
+    playRe_.Pattern = "(\w+)\.(Play|StopPlay)\b(?!\s+Seq)"
     tableCode = playRe_.Replace(tableCode, "Noop")
 
     ' Kicker.Kick accepts an optional `inclination` third arg in real VPX,
