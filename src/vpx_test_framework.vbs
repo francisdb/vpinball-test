@@ -7,7 +7,8 @@
 '   VPINBALL_DIR        - path to vpinball source (from vpx_config.vbs)
 '   TABLES_DIR          - path to tables directory (from vpx_config.vbs)
 '   EXTRACTED_TABLE_DIR - path to vpxtool extraction (contains script.vbs, gameitems.json)
-'   TABLE_FILE          - table filename for Table1.FileName (e.g. "mytable.vpx")
+'   TABLE_FILE          - table filename to stamp on the global Table
+'                         stub's .FileName field (e.g. "mytable.vpx")
 '   fso                 - FileSystemObject instance
 '   scriptDir           - benchmark script directory (holds per-table vpx_stubs.vbs)
 '
@@ -71,13 +72,11 @@ End Function
 ' in RunTableBenchmark).
 Sub BenchmarkNoop : End Sub
 
-' core.vbs's vpmInit probes for Table1_Paused / Table1_UnPaused / Table1_Exit
-' via GetRef and, when missing, creates them via ExecuteGlobal. Predefining
-' them as no-ops makes the GetRef probe succeed, skipping the fallback path
-' and the 6 swallowed "438" warnings per VPM-controlled table.
-Sub Table1_Paused    : End Sub
-Sub Table1_UnPaused  : End Sub
-Sub Table1_Exit      : End Sub
+' core.vbs's vpmInit probes for <TableName>_Paused / _UnPaused / _Exit
+' via GetRef and, when missing, creates them via ExecuteGlobal. The
+' dynamic-name ExecuteGlobal that sets up the table instance (further
+' down) emits stub versions of these three subs under the real editor
+' name, so the probe lands on them and core.vbs skips its fallback.
 
 ' ---------------------------------------------------------------------------
 ' VPX globals
@@ -127,9 +126,26 @@ classCode_ = f_class_.ReadAll
 f_class_.Close
 ExecuteGlobal classCode_
 
-Dim ActiveTable : Set ActiveTable = New Table
-Dim Table1      : Set Table1      = New Table
-Table1.Name = "Table1" : Table1.FileName = TABLE_FILE
+' Read the editor-assigned table name from vpxtool's gamedata.json and
+' declare the global Table instance under that exact name, the way
+' real VPX exposes it to the table script. No hardcoded "Table1" --
+' tables whose editor name is "AFM" / "table1" / etc get a global
+' with that name. g_Table is a private framework-internal handle
+' pointing at the same instance, used by the rest of this file (so
+' code can say `g_Table.Option_(...)` instead of juggling Eval()).
+Dim g_TableName : g_TableName = ReadTableNameFromGamedata()
+ExecuteGlobal "Dim " & g_TableName & " : Set " & g_TableName & " = New Table"
+Dim g_Table     : Set g_Table = Eval(g_TableName)
+g_Table.Name     = g_TableName
+g_Table.FileName = TABLE_FILE
+
+' Predefine the <name>_Paused / _UnPaused / _Exit free subs so
+' core.vbs's GetRef probe in vpmInit lands on them and skips its
+' ExecuteGlobal fallback path (6 swallowed err 438 warnings per
+' VPM-controlled table, otherwise).
+ExecuteGlobal "Sub " & g_TableName & "_Paused   : End Sub" & vbCrLf & _
+              "Sub " & g_TableName & "_UnPaused : End Sub" & vbCrLf & _
+              "Sub " & g_TableName & "_Exit     : End Sub"
 
 ' ---------------------------------------------------------------------------
 ' Load element stubs
@@ -154,6 +170,31 @@ Dim g_DefinedSubs : Set g_DefinedSubs = CreateObject("Scripting.Dictionary")
 
 Function SubDefined(name) : SubDefined = g_DefinedSubs.Exists(LCase(name)) : End Function
 
+' Read the table's editor-assigned name from vpxtool's gamedata.json.
+' The real VPX host exposes the table as a global of that name (e.g.
+' AFM, Table1, table1, ...); table scripts reference it directly
+' (`AFM.SomeMethod`, `Table1.Option(...)`). gamedata.json is produced
+' by `vpxtool extract` and has exactly one `"name":` field, so a
+' simple regex is enough -- no need for a JSON parser. Falls back to
+' "Table1" if the file can't be read (EM-only examples, stripped
+' extractions, etc.).
+Function ReadTableNameFromGamedata()
+    ReadTableNameFromGamedata = "Table1"
+    Dim path : path = EXTRACTED_TABLE_DIR & "\gamedata.json"
+    On Error Resume Next
+    Dim f : Set f = fso.OpenTextFile(path, 1)
+    If Err.Number <> 0 Then Exit Function
+    Dim text : text = f.ReadAll
+    f.Close
+    On Error GoTo 0
+    Dim re : Set re = New RegExp
+    re.Pattern = """name""\s*:\s*""([^""]+)"""
+    Dim matches : Set matches = re.Execute(text)
+    If matches.Count > 0 Then
+        ReadTableNameFromGamedata = matches(0).SubMatches(0)
+    End If
+End Function
+
 Sub SetUpTable(verbose)
     If g_TableLoaded Then Exit Sub
     Dim tableCode, f_table, t0, t1, initName, fnRef
@@ -161,6 +202,7 @@ Sub SetUpTable(verbose)
     Set f_table = fso.OpenTextFile(EXTRACTED_TABLE_DIR & "\script.vbs", 1)
     tableCode = f_table.ReadAll
     f_table.Close
+
 
     ' Patch COM objects that aren't available outside VPX
     tableCode = Replace(tableCode, "CreateObject(""VPinMAME.Controller"")", "(New VPinMAMEControllerStub)")
@@ -181,18 +223,23 @@ Sub SetUpTable(verbose)
     ' Medieval Madness Color Saturation options).
     Dim optArrRe_ : Set optArrRe_ = New RegExp
     optArrRe_.Global = True : optArrRe_.IgnoreCase = True
-    optArrRe_.Pattern = "(Table1\.Option\([\s\S]*?),[\s_]*Array\([\s\S]*?\)\s*\)"
+    optArrRe_.Pattern = "(" & g_TableName & "\.Option\([\s\S]*?),[\s_]*Array\([\s\S]*?\)\s*\)"
     tableCode = optArrRe_.Replace(tableCode, "$1)")
-    ' Always patch the Option reserved word
-    tableCode = Replace(tableCode, "Table1.Option(", "Table1.Option_(")
+    ' Always patch the Option reserved word. Case-insensitive match:
+    ' g_TableName comes from gamedata.json (might be "table1") while
+    ' the table script may capitalize its own identifier differently
+    ' (DD uses `Table1.Option(` even though its gamedata name is
+    ' "table1"). VBScript is case-insensitive for identifier lookup,
+    ' so matching loosely is correct.
+    tableCode = Replace(tableCode, g_TableName & ".Option(", g_TableName & ".Option_(", 1, -1, vbTextCompare)
     ' In cscript, `Me` in a free Sub is the script's VBScriptTypeInfo -- it
     ' has no `.Name` property. core.vbs's vpmInit reads aTable.name, so
     ' `vpmInit Me` raises err 438 on every VPM-controlled table. Replace
-    ' with our Table1 stub which has Name = "Table1".
+    ' with the table's own editor-name stub which has Name set correctly.
     Dim vpmInitRe_ : Set vpmInitRe_ = New RegExp
     vpmInitRe_.Global = True : vpmInitRe_.IgnoreCase = True
     vpmInitRe_.Pattern = "\bvpmInit\s+Me\b"
-    tableCode = vpmInitRe_.Replace(tableCode, "vpmInit Table1")
+    tableCode = vpmInitRe_.Replace(tableCode, "vpmInit " & g_TableName)
     ' VPX host sound APIs accept variable args; replace calls with Noop
     ' builtin. Pass 1: literal-string form (`PlaySound "name", ...`) gets
     ' rewritten so the name is also appended to g_SoundLog, letting
@@ -296,11 +343,8 @@ Sub SetUpTable(verbose)
         WScript.Echo ""
     End If
 
-    ' Find and run table init (may be Table1_Init or <TableName>_Init).
-    ' Prefer the Table1_Init name; fall back to the table's own name if
-    ' only that variant is defined.
-    initName = "Table1_Init"
-    If Not SubDefined(initName) Then initName = Table1.Name & "_Init"
+    ' Run the table's init handler (<TableName>_Init).
+    initName = g_TableName & "_Init"
     Set fnRef = GetRef(initName)
     g_TableInitName = initName
     If verbose Then WScript.Echo "=== " & initName & " ==="
@@ -312,20 +356,22 @@ Sub SetUpTable(verbose)
         WScript.Echo ""
     End If
 
-    ' VPX fires <Table>_OptionEvent at script load to populate option
-    ' globals from Table.Option(...) calls. Tables like Darkest Dungeon
-    ' define critical values (BallsPerGame, Difficulty, MagnetTime,
-    ' StagedFlippers, ...) only inside this handler, so without calling
-    ' it those globals stay Empty and game-length logic breaks. We call
-    ' it AFTER Table1_Init so GLF-style tables (Dark Chaos) have their
-    ' `glf_game` / framework objects already constructed -- Glf_Options
-    ' reads `glf_game.BallsPerGame` which needs the object to exist.
-    ' Only call the handler if it actually exists -- SubDefined() checks
-    ' g_DefinedSubs (built from the post-patch tableCode scan above), so
-    ' missing handlers never trigger a GetRef probe-under-OERN. Errors
-    ' raised *inside* the handler still propagate normally.
-    If SubDefined("Table1_OptionEvent") Then
-        Dim optRef_ : Set optRef_ = GetRef("Table1_OptionEvent")
+    ' VPX fires <TableName>_OptionEvent at script load to populate
+    ' option globals from Table.Option(...) calls. Tables like Darkest
+    ' Dungeon define critical values (BallsPerGame, Difficulty,
+    ' MagnetTime, StagedFlippers, ...) only inside this handler, so
+    ' without calling it those globals stay Empty and game-length
+    ' logic breaks. We call it AFTER <TableName>_Init so GLF-style
+    ' tables (Dark Chaos) have their `glf_game` / framework objects
+    ' already constructed -- Glf_Options reads `glf_game.BallsPerGame`
+    ' which needs the object to exist. Only call the handler if it
+    ' actually exists -- SubDefined() checks g_DefinedSubs (built from
+    ' the post-patch tableCode scan above), so missing handlers never
+    ' trigger a GetRef probe-under-OERN. Errors raised *inside* the
+    ' handler still propagate normally.
+    Dim optEventName : optEventName = g_TableName & "_OptionEvent"
+    If SubDefined(optEventName) Then
+        Dim optRef_ : Set optRef_ = GetRef(optEventName)
         CallKeyRef optRef_, 0
     End If
 
@@ -577,7 +623,7 @@ Class VpxTester
     ' g_TableInitName is set by SetUpTable when the table was loaded.
     Private Function ResolveInitName()
         If g_TableInitName = "" Then
-            ResolveInitName = "Table1_Init"
+            ResolveInitName = g_TableName & "_Init"
         Else
             ResolveInitName = g_TableInitName
         End If
