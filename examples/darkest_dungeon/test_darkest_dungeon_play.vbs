@@ -1,10 +1,10 @@
-' Benchmark: Darkest Dungeon gameplay scenario (DSL prototype)
+' Test: Darkest Dungeon gameplay scenario (DSL prototype)
 '
 ' Drives the table through InsertCoin → StartGame → Plunger and reports
 ' whether a ball ends up on the playfield, plus a rough per-tick cost for
 ' "all enabled timers" under sustained play.
 '
-' Usage: cscript //nologo bench_darkest_dungeon_play.vbs
+' Usage: cscript //nologo test_darkest_dungeon_play.vbs
 '
 Option Explicit
 
@@ -22,7 +22,7 @@ End Sub
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
 
 Dim tester : Set tester = New VpxTester
-tester.Init 16                    ' loads table + runs inits + 16 ms tick
+tester.Init                       ' loads table + runs inits
 
 tester.InsertCoin
 tester.ExpectSound "Coin_In_1", 100   ' InsertCoin plays the coin drop sound

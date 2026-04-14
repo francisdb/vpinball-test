@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #
-# Runs a single bench_*.vbs script through the patched cscript built by
-# scripts/build-cscript.sh. Suppresses the Wine GUI and debug chatter.
+# Runs a single bench_*.vbs / test_*.vbs script through the patched
+# cscript built by scripts/build-cscript.sh. Suppresses the Wine GUI
+# and debug chatter.
 #
-# Usage: scripts/run-bench.sh examples/darkest_dungeon/bench_darkest_dungeon_play.vbs
+# Usage: scripts/run-bench.sh examples/darkest_dungeon/test_darkest_dungeon_play.vbs
 #
 set -euo pipefail
 
@@ -24,7 +25,12 @@ fi
 bench="$(realpath "$1")"
 cd "$(dirname "$bench")"
 
+# Silence all Wine chatter except vbscript warnings. Those are the channel
+# used by our patches 0008/0009 to emit the runtime-error call trace
+# (error code + function + line + caller chain), which turns an opaque
+# "runtime error" line into an actionable stack. Override WINEDEBUG from
+# the environment if you need to trace additional channels.
 DISPLAY= WAYLAND_DISPLAY= \
 WINEDLLOVERRIDES="mshtml,mscoree=" \
-WINEDEBUG=-all \
+WINEDEBUG="${WINEDEBUG:--all,warn+vbscript}" \
 exec "$WINE" cscript //nologo "$(basename "$bench")"

@@ -24,13 +24,13 @@ examples/
   vpx_config.vbs.example    machine-local config template
   <table>/
     bench_<table>_init.vbs  table load + init + timer benchmark
-    bench_<table>_play.vbs  gameplay scenario through VpxTester
+    test_<table>_play.vbs   gameplay scenario through VpxTester
     vpx_stubs.vbs           pre-generated element stubs for the table
 patches/
   *.patch                   vbscript.dll patches on top of the wine tag
 scripts/
   build-cscript.sh          fetches wine, applies patches, builds cscript
-  run-bench.sh              runs a single bench through the built wine
+  run-bench.sh              runs a single bench / play test through the built wine
 ```
 
 ## Prerequisites
@@ -76,8 +76,26 @@ scripts/
 3. **Run an example:**
 
    ```sh
-   ./scripts/run-bench.sh examples/darkest_dungeon/bench_darkest_dungeon_play.vbs
+   ./scripts/run-bench.sh examples/darkest_dungeon/test_darkest_dungeon_play.vbs
    ```
+
+## Debugging a failing bench
+
+`run-bench.sh` defaults to `WINEDEBUG=-all,warn+vbscript`, which silences
+Wine chatter except for `warn:vbscript:` messages. That channel is where
+patches 0008 / 0009 emit the runtime-error call trace — error code,
+function name, line, and caller chain — which is the fastest way to turn
+an opaque `Microsoft VBScript runtime error: ...` line into something
+actionable. Example:
+
+```
+warn:vbscript:exec_script error 0x80020003 in L"CreateEvents", line 1350
+warn:vbscript:exec_script   called from L"WobbleMagnet_Init", line 902
+```
+
+If you need more (or less) Wine output, override `WINEDEBUG` in the
+environment, e.g. `WINEDEBUG=+vbscript ./scripts/run-bench.sh ...` for
+the full trace channel, or `WINEDEBUG=-all` to go completely quiet.
 
 ## Adding a new table
 
@@ -106,7 +124,7 @@ scripts/
 
 ```vbs
 Dim tester : Set tester = New VpxTester
-tester.Init 16                       ' 16 ms tick
+tester.Init                          ' load + run inits
 
 tester.InsertCoin
 tester.ExpectSound "Coin_In_1", 100  ' fails if sound not played in 100 ms
@@ -123,21 +141,21 @@ tester.Benchmark "Sustained play", 5000   ' time 5 s of timer ticks
 tester.Exit
 ```
 
-See `examples/darkest_dungeon/bench_darkest_dungeon_play.vbs` for a
+See `examples/darkest_dungeon/test_darkest_dungeon_play.vbs` for a
 full three-ball drain scenario.
 
 ## Status
 
-**14 / 18 bench scripts pass** against the pinned Wine revision with
-the full patch set applied. The 4 failing benches all hit table-
-specific stub gaps (not Wine bugs):
+**14 / 18 scripts pass** against the pinned Wine revision with the
+full patch set applied. The 4 failing scripts all hit table-specific
+stub gaps (not Wine bugs):
 
-| Bench | Blocker |
+| Script | Blocker |
 |---|---|
-| `cyber_race/bench_cyber_race_play.vbs` | `FlexDMDStub` is missing the `Stage.GetLabel(…).SetAlignedPosition/…` API surface. |
+| `cyber_race/test_cyber_race_play.vbs` | `FlexDMDStub` is missing the `Stage.GetLabel(…).SetAlignedPosition/…` API surface. |
 | `pizza_time/bench_pizza_time_init.vbs` | `playmedia` (PuPPlayer-style global) is not stubbed. |
-| `pizza_time/bench_pizza_time_play.vbs` | same as init. |
-| `spongebob/bench_spongebob_play.vbs` | `DMDDisplay(h, 0) = …` — 2D static array assignment works in isolation; fails deep inside SpongeBob's init chain, root cause still under investigation. |
+| `pizza_time/test_pizza_time_play.vbs` | same as init. |
+| `spongebob/test_spongebob_play.vbs` | `DMDDisplay(h, 0) = …` — 2D static array assignment works in isolation; fails deep inside SpongeBob's init chain, root cause still under investigation. |
 
 These are straightforward to fix by extending `src/vpx_stub_classes.vbs`
 or adding an inline `PatchTableCode` hook in the relevant bench.
@@ -156,21 +174,26 @@ revision. Each patch is tagged:
 
 Current set:
 
-| # | Patch | Status | Branch |
+Each row's branch name is a link to the upstream Wine GitLab merge
+request for that branch (where one exists). Draft MRs are not yet
+submitted for review. Test-only patches either carry no branch or
+have a branch that's intentionally not upstreamed.
+
+| # | Patch | Status | Branch / MR |
 |---|---|---|---|
-| 0001 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (upstream version raises on not-found; this build returns Empty) |
-| 0002 | `vbscript: Support bracketed identifiers like [my var]` | **[upstream]** | `fix/vbscript-identifier-improvements` |
-| 0003 | `wscript: Implement error messages, usage output, and //nologo banner` | **[upstream]** | `wscript-unknown-option-error` |
+| 0001 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
+| 0002 | `vbscript: Support bracketed identifiers like [my var]` | **[upstream]** | [`fix/vbscript-identifier-improvements`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579) |
+| 0003 | `wscript: Implement error messages, usage output, and //nologo banner` | **[upstream]** | [`wscript-unknown-option-error`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10518) |
 | 0004 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
-| 0005 | `vbscript: Implement GetLocale and SetLocale functions` | **[upstream]** | `fix/vbscript-getlocale-setlocale` |
-| 0006 | `vbscript: Fix Sub first argument parentheses handling` | **[upstream]** | `fix/bug-54177` ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177)) |
+| 0005 | `vbscript: Implement GetLocale and SetLocale functions` | **[upstream]** | [`fix/vbscript-getlocale-setlocale`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10504) (draft) |
+| 0006 | `vbscript: Fix Sub first argument parentheses handling` | **[upstream]** | [`fix/bug-54177`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10244) ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177)) |
 | 0007 | `test: Add Noop builtin for variadic stubbing of VPX host APIs` | **[test-only]** | *(this repo only)* |
 | 0008 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
-| 0009 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | `fix/vbscript-error-call-trace` (same rationale as 0008 — diagnostic-only) |
-| 0010 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | `fix/vbscript-chained-array-assign` ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
-| 0011 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | `fix/vbscript-class-array-element-access` |
-| 0012 | `vbscript: Fix crash when GetRef is called as a statement` | **[upstream]** | `fix/vbscript-getref-null-res` |
-| 0013 | `vbscript: Reject identifiers longer than 255 characters` | **[upstream]** | `fix/vbscript-identifier-improvements` (paired with 0002; adds the `VBSE_IDENTIFIER_TOO_LONG` constant 0002 references) |
+| 0009 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft — same rationale as 0008, diagnostic-only) |
+| 0010 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | [`fix/vbscript-chained-array-assign`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10363) ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
+| 0011 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
+| 0012 | `vbscript: Fix crash when GetRef is called as a statement` | **[upstream]** | [`fix/vbscript-getref-null-res`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10650) |
+| 0013 | `vbscript: Reject identifiers longer than 255 characters` | **[upstream]** | [`fix/vbscript-identifier-improvements`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579) (paired with 0002; adds the `VBSE_IDENTIFIER_TOO_LONG` constant 0002 references) |
 
 What each one unlocks for the framework:
 

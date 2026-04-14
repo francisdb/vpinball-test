@@ -1,4 +1,4 @@
-' Benchmark: Die Hard Trilogy gameplay scenario
+' Test: Die Hard Trilogy gameplay scenario
 '
 ' Die Hard is an EM-style original table with a custom LightCtrl engine
 ' that dominates its LampTimer_Timer hot path. This bench exercises a
@@ -31,7 +31,7 @@ End Sub
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
 
 Dim tester : Set tester = New VpxTester
-tester.Init 16
+tester.Init
 
 tester.InsertCoin
 tester.StartGame

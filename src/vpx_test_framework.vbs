@@ -221,6 +221,30 @@ Sub SetUpTable(verbose)
     playRe_.Pattern = "(\w+)\.(Play|StopPlay)\b"
     tableCode = playRe_.Replace(tableCode, "Noop")
 
+    ' Kicker.Kick accepts an optional `inclination` third arg in real VPX,
+    ' but VBScript user-class methods can't express Optional. Our stub
+    ' splits the two arities: Kick(a,s) and Kick3(a,s,z). Rewrite any
+    ' call site that passes three numeric literals to target Kick3, so
+    ' 2-arg callers keep hitting Kick and 3-arg callers get a real
+    ' method instead of err 450. The regex deliberately only accepts
+    ' numeric literals for all three slots, because several example
+    ' tables use 2-arg forms whose args contain top-level commas inside
+    ' function calls (e.g. `raceVuk.Kick 65, RndInt(7,15)`,
+    ' `ckick.Kick (175-RndNum(0,6)), (45-RndNum(0,2))`,
+    ' `sw36.Kick int(rnd(1)*2-1), int(rnd(1)*2+1)`) that a looser
+    ' regex would mis-count as three args. All 3-arg call sites seen
+    ' across example tables use simple numeric literals, so this
+    ' stricter pattern covers the real cases without corrupting any
+    ' 2-arg call. Matches inside string literals (e.g.
+    ' `"CaptiveBall.Kick 200, 1, 0"` passed to TriggerScript, or
+    ' `"kicker.Kick ..."` in a BallHandlingQueue entry) are rewritten
+    ' too, which is what we want: those strings are later Execute'd
+    ' through the same engine.
+    Dim kick3Re_ : Set kick3Re_ = New RegExp
+    kick3Re_.Global = True : kick3Re_.IgnoreCase = True
+    kick3Re_.Pattern = "\.Kick\s+(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)"
+    tableCode = kick3Re_.Replace(tableCode, ".Kick3 $1, $2, $3")
+
     ' Apply table-specific patches if defined
     PatchTableCode tableCode
 
@@ -464,39 +488,63 @@ End Sub
 '      should use BallsInPlay (baseline-subtracted) rather than
 '      BallCount for "how many balls does the player have right now".
 ' ---------------------------------------------------------------------------
+' Polling step used by Expect* wait loops. AdvanceMs fires timers at
+' exact per-Interval precision regardless of this value -- it only
+' controls how often an Expect* loop re-checks its predicate between
+' AdvanceMs calls. 8 ms is tight enough that "did the light turn on"
+' latches within ~one frame, while still amortising the dictionary
+' scan inside AdvanceMs over a useful window.
+Const POLL_STEP_MS = 8
+
 Class VpxTester
-    Private m_tickMs
-    Private m_refCache        ' Dictionary: timerName -> bound ref (or Noop on fail)
-    Private m_firedNames      ' Dictionary: timerName -> True for every timer we've ever fired
-    Private m_ticks           ' total Tick() calls
+    ' Dictionary: timerName -> bound ref (or Noop on fail).
+    Private m_refCache
+    ' Dictionary: timerName -> True for every timer we've ever fired.
+    Private m_firedNames
+    ' Dictionary: timerName -> absolute sim time (GameTime, ms) when
+    ' the timer is next due to fire. Populated lazily the first time
+    ' AdvanceMs sees a timer Enabled; cleared whenever the timer goes
+    ' Disabled so the next re-enable restarts its countdown from
+    ' `Interval`, matching VPX semantics.
+    Private m_nextFire
+    ' Total sim ms advanced via AdvanceMs.
+    Private m_simMs
+    ' Opt-in flag toggled by KeepBallMoving. When set, AdvanceMs stamps
+    ' VelX = 2 on every ball in g_ActiveBalls before each timer fire so
+    ' table "is any ball moving?" checks (e.g. Pizza Time's
+    ' ballfinder_timer, which resets its looktimer on BallVel > 1) see
+    ' a moving ball even though the headless sim has no physics.
+    ' Scenarios that want the opposite ("is the ball at rest") behaviour
+    ' should leave the flag off.
+    Private m_keepBallMoving
     Private m_keyDownRef
     Private m_keyUpRef
     Private m_hasKeyDown
     Private m_hasKeyUp
     Private m_initName
-    Private m_baselineBalls   ' balls alive at the end of Init (captive
-                              ' balls, pre-placed trough balls) that
-                              ' don't count as "the player's ball"
+    ' Balls alive at the end of Init (captive balls, pre-placed trough
+    ' balls) that don't count as "the player's ball".
+    Private m_baselineBalls
 
     ' Load the table (if not already loaded) and set up tester state.
-    ' Play benchmarks only need `tester.Init tickMs` -- SetUpTable runs
-    ' quietly (no verbose init-bench output) and is idempotent, so it's
-    ' safe to call from a bench script that already ran
-    ' RunTableBenchmark (init benches can construct a VpxTester too).
-    Public Sub Init(tickMs)
+    ' Play benchmarks call `tester.Init` -- SetUpTable runs quietly (no
+    ' verbose init-bench output) and is idempotent, so it's safe to call
+    ' from a bench script that already ran RunTableBenchmark.
+    Public Sub Init()
         SetUpTable False
-        m_tickMs = tickMs
         m_hasKeyDown = False
         m_hasKeyUp = False
-        m_ticks = 0
+        m_simMs = 0
+        m_keepBallMoving = False
         Set m_refCache   = CreateObject("Scripting.Dictionary")
         Set m_firedNames = CreateObject("Scripting.Dictionary")
+        Set m_nextFire   = CreateObject("Scripting.Dictionary")
         ResolveKeyHandlers
         m_baselineBalls = BallCount
         Dim soundsDuringInit : soundsDuringInit = g_SoundLog.Count
         g_SoundLog.RemoveAll
         Echo "=== Init ==="
-        Echo "Tick:            " & m_tickMs & " ms"
+        Echo "Poll step:       " & POLL_STEP_MS & " ms (Expect* wait granularity)"
         Echo "Enabled timers:  " & EnabledTimerCount
         Echo "Baseline balls:  " & m_baselineBalls & " (captive / pre-placed)"
         Echo "Init sounds:     " & soundsDuringInit & " (log cleared for scenario)"
@@ -519,8 +567,8 @@ Class VpxTester
         Dim elapsed : elapsed = 0
         If BallsInPlay = n Then Exit Sub
         Do While elapsed < timeoutMs
-            AdvanceMs m_tickMs
-            elapsed = elapsed + m_tickMs
+            AdvanceMs POLL_STEP_MS
+            elapsed = elapsed + POLL_STEP_MS
             If BallsInPlay = n Then Exit Sub
         Loop
         Fail "expected BallsInPlay = " & n & " within " & timeoutMs & " ms, got " & BallsInPlay
@@ -563,34 +611,147 @@ Class VpxTester
         End If
     End Sub
 
-    ' Fire every currently-enabled timer once and advance GameTime by
-    ' one tick. Re-reads the Enabled flag each call so timers that come
-    ' online or go offline during gameplay are honored.
-    Public Sub Tick()
-        Dim names, i, tn, ref
-        names = g_AllTimers.Keys()
+    ' Advance GameTime by `ms` simulated milliseconds, firing each
+    ' enabled VPX timer at its own Interval in the correct interleaved
+    ' order -- a timer with Interval 40 fires once per 40 ms, a timer
+    ' with Interval 250 fires once per 250 ms, and two timers due in
+    ' the same millisecond both fire at that moment before sim time
+    ' moves on. Matches VPX's own "each timer ticks at its Interval"
+    ' semantics, so AdvanceMs 1000 on a 100 ms timer fires it 10 times.
+    '
+    ' Implementation: maintain a dict of nextFire-at-sim-time per
+    ' enabled timer. Each outer iteration finds the earliest nextFire,
+    ' jumps GameTime to that instant, and fires every timer whose
+    ' nextFire is now due. After firing we re-read Interval (the
+    ' handler may have changed it, e.g. BallSaverTimerExpired.Interval
+    ' = 1000 * seconds in pizza_time) and schedule the next fire. A
+    ' newly-enabled timer gets its countdown started from "now +
+    ' Interval" the first time the outer loop sees it; disabling a
+    ' timer drops its nextFire entry so re-enabling restarts from the
+    ' full Interval instead of resuming where the previous run left off.
+    Public Sub AdvanceMs(ms)
+        Dim targetTime : targetTime = GameTime + ms
+        Dim names, i, tn, nf
+        Dim minNext, haveMin
+        Dim ref
         On Error Resume Next
-        For i = 0 To UBound(names)
-            tn = names(i)
-            If CBool(g_AllTimers(tn).Enabled) Then
-                Set ref = ResolveTimerRef(tn)
-                CallTimerRef ref
-                Err.Clear
-                If Not m_firedNames.Exists(tn) Then m_firedNames.Add tn, True
+        Do
+            names = g_AllTimers.Keys()
+            ' Seed nextFire for any newly-enabled timer and prune
+            ' entries whose timer is no longer enabled.
+            For i = 0 To UBound(names)
+                tn = names(i)
+                If CBool(g_AllTimers(tn).Enabled) Then
+                    If Not m_nextFire.Exists(tn) Then
+                        m_nextFire.Add tn, GameTime + TimerIntervalMs(tn)
+                    End If
+                ElseIf m_nextFire.Exists(tn) Then
+                    m_nextFire.Remove tn
+                End If
+            Next
+
+            ' Find the earliest nextFire across all scheduled timers.
+            haveMin = False : minNext = 0
+            For i = 0 To UBound(names)
+                tn = names(i)
+                If m_nextFire.Exists(tn) Then
+                    nf = CLng(m_nextFire(tn))
+                    If Not haveMin Then
+                        minNext = nf : haveMin = True
+                    ElseIf nf < minNext Then
+                        minNext = nf
+                    End If
+                End If
+            Next
+
+            ' Nothing pending, or nothing due within this window --
+            ' finish the advance and return.
+            If (Not haveMin) Or minNext >= targetTime Then
+                m_simMs = m_simMs + (targetTime - GameTime)
+                GameTime = targetTime
+                Exit Do
             End If
-        Next
+
+            ' Jump sim time to the earliest fire and fire everything
+            ' that's now due at (or before) that instant.
+            m_simMs = m_simMs + (minNext - GameTime)
+            GameTime = minNext
+            For i = 0 To UBound(names)
+                tn = names(i)
+                If m_nextFire.Exists(tn) Then
+                    If CLng(m_nextFire(tn)) <= GameTime Then
+                        If CBool(g_AllTimers(tn).Enabled) Then
+                            ' Refresh ball velocity immediately before
+                            ' each fire so a handler earlier in this
+                            ' bucket can't create a ball that the next
+                            ' handler (e.g. ballfinder_timer) then sees
+                            ' as stationary.
+                            If m_keepBallMoving Then RefreshBallVelocity
+                            Set ref = ResolveTimerRef(tn)
+                            CallTimerRef ref
+                            Err.Clear
+                            If Not m_firedNames.Exists(tn) Then m_firedNames.Add tn, True
+                            m_nextFire(tn) = GameTime + TimerIntervalMs(tn)
+                        Else
+                            m_nextFire.Remove tn
+                        End If
+                    End If
+                End If
+            Next
+        Loop
         On Error GoTo 0
-        GameTime = GameTime + m_tickMs
-        m_ticks = m_ticks + 1
     End Sub
 
-    ' Run Tick() until at least `ms` simulated milliseconds have passed.
-    Public Sub AdvanceMs(ms)
-        Dim elapsed : elapsed = 0
-        Do While elapsed < ms
-            Tick
-            elapsed = elapsed + m_tickMs
-        Loop
+    ' Read a timer's declared Interval, clamped to >= 1 ms so a timer
+    ' with Interval 0 (from a stub default or buggy table code) still
+    ' makes progress instead of spinning the outer loop.
+    Private Function TimerIntervalMs(tn)
+        Dim iv : iv = CLng(g_AllTimers(tn).Interval)
+        If iv < 1 Then iv = 1
+        TimerIntervalMs = iv
+    End Function
+
+    ' Opt into "every active ball has VelX >= 2". Tables that guard a
+    ' stuck-ball safety net (or similar heuristics) by checking ball
+    ' velocity will see the balls as in motion under this mode,
+    ' matching how the corresponding check would behave in a real VPX
+    ' session where the player's ball is rolling. Off by default so
+    ' the observable state stays faithful for scenarios that want to
+    ' assert on ball-at-rest behaviour instead. Safe to call from any
+    ' point in a scenario; affects every subsequent timer fire.
+    Public Sub KeepBallMoving()
+        m_keepBallMoving = True
+        RefreshBallVelocity
+    End Sub
+
+    ' Counterpart to KeepBallMoving: turn the "in motion" stamping off
+    ' and immediately zero VelX / VelY on every currently-active ball.
+    ' Use at transitions where the table should observe balls settling
+    ' -- e.g. after the final drain of a game, where any residual ball
+    ' (captive / trough / reserve) should look stationary so the end-
+    ' of-game state matches what a real table settles into.
+    Public Sub StopBall()
+        m_keepBallMoving = False
+        Dim keys, i, b
+        keys = g_ActiveBalls.Keys()
+        On Error Resume Next
+        For i = 0 To UBound(keys)
+            Set b = g_ActiveBalls(keys(i))
+            b.VelX = 0
+            b.VelY = 0
+        Next
+        On Error GoTo 0
+    End Sub
+
+    Private Sub RefreshBallVelocity()
+        Dim keys, i, b
+        keys = g_ActiveBalls.Keys()
+        On Error Resume Next
+        For i = 0 To UBound(keys)
+            Set b = g_ActiveBalls(keys(i))
+            b.VelX = 2
+        Next
+        On Error GoTo 0
     End Sub
 
     ' Advance `ms` simulated milliseconds and report the cost as a
@@ -598,17 +759,16 @@ Class VpxTester
     ' "warm-up" phases where you care about the aggregate timer cost.
     Public Sub Benchmark(label, ms)
         Echo "=== " & label & " ==="
-        Dim ticks0 : ticks0 = m_ticks
-        Dim t0     : t0     = Timer
+        Dim sim0  : sim0  = m_simMs
+        Dim t0    : t0    = Timer
         AdvanceMs ms
-        Dim t1     : t1     = Timer
+        Dim t1    : t1    = Timer
         Dim wallMs : wallMs = (t1 - t0) * 1000
-        Dim ticks  : ticks  = m_ticks - ticks0
-        Echo "Sim time:  " & (ticks * m_tickMs) & " ms"
-        Echo "Ticks:     " & ticks
+        Dim simMs  : simMs  = m_simMs - sim0
+        Echo "Sim time:  " & simMs & " ms"
         Echo "Wall time: " & Int(wallMs) & " ms"
-        If ticks > 0 Then
-            Echo "Per tick:  " & (Int(wallMs * 1000 / ticks) / 1000) & " ms (sum of all fired timers)"
+        If simMs > 0 Then
+            Echo "Wall/sim:  " & (Int(wallMs * 10000 / simMs) / 10000) & " (ratio, 1.0 = realtime)"
         End If
     End Sub
 
@@ -730,8 +890,8 @@ Class VpxTester
         Dim elapsed : elapsed = 0
         If BallCount = n Then Exit Sub
         Do While elapsed < timeoutMs
-            AdvanceMs m_tickMs
-            elapsed = elapsed + m_tickMs
+            AdvanceMs POLL_STEP_MS
+            elapsed = elapsed + POLL_STEP_MS
             If BallCount = n Then Exit Sub
         Loop
         Fail "expected BallCount = " & n & " within " & timeoutMs & " ms, got " & BallCount
@@ -752,8 +912,8 @@ Class VpxTester
             On Error GoTo 0
             If truthy Then Exit Sub
             If elapsed >= timeoutMs Then Exit Do
-            AdvanceMs m_tickMs
-            elapsed = elapsed + m_tickMs
+            AdvanceMs POLL_STEP_MS
+            elapsed = elapsed + POLL_STEP_MS
         Loop
         Fail "expected " & globalName & " to become truthy within " & timeoutMs & " ms"
     End Sub
@@ -803,8 +963,8 @@ Class VpxTester
         Dim elapsed : elapsed = 0
         If WasSoundPlayed(soundName) Then Exit Sub
         Do While elapsed < timeoutMs
-            AdvanceMs m_tickMs
-            elapsed = elapsed + m_tickMs
+            AdvanceMs POLL_STEP_MS
+            elapsed = elapsed + POLL_STEP_MS
             If WasSoundPlayed(soundName) Then Exit Sub
         Loop
         Fail "expected sound """ & soundName & """ within " & timeoutMs & " ms; recent=" & Join(Array(LastSound), ",")
@@ -833,8 +993,8 @@ Class VpxTester
         Dim elapsed : elapsed = 0
         If LightState(lightName) = expected Then Exit Sub
         Do While elapsed < timeoutMs
-            AdvanceMs m_tickMs
-            elapsed = elapsed + m_tickMs
+            AdvanceMs POLL_STEP_MS
+            elapsed = elapsed + POLL_STEP_MS
             If LightState(lightName) = expected Then Exit Sub
         Loop
         Fail "expected " & lightName & ".State = " & expected & " within " & timeoutMs & " ms, got " & LightState(lightName)
@@ -847,13 +1007,12 @@ Class VpxTester
             Dim exitRef : Set exitRef = GetRef(exitName)
             exitRef
         End If
-        Echo "Ticks run:       " & m_ticks
+        Echo "Sim time run:    " & m_simMs & " ms"
         Echo "Timers fired:    " & m_firedNames.Count
         Echo "=== Exit complete ==="
     End Sub
 
-    Public Property Get TickMs()     : TickMs     = m_tickMs : End Property
-    Public Property Get Ticks()      : Ticks      = m_ticks  : End Property
+    Public Property Get SimMs() : SimMs = m_simMs : End Property
 
     ' Count of timers currently marked Enabled. Re-evaluated each call
     ' so callers can observe dynamic changes.

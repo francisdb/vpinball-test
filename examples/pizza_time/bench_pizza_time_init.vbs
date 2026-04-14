@@ -18,6 +18,8 @@ Dim TABLE_FILE          : TABLE_FILE          = "pizzatime-65.vpx"
 Sub PatchTableCode(ByRef code)
     ' Disable Orbital Scoreboard (needs network)
     code = Replace(code, "Const osbactive" & Chr(9) & Chr(9) & Chr(9) & "= 1", "Const osbactive" & Chr(9) & Chr(9) & Chr(9) & "= 0")
+    ' Skip WobbleMagnet_Init: known-broken magnet wiring, irrelevant here.
+    code = Replace(code, "Sub WobbleMagnet_Init", "Sub WobbleMagnet_Init : Exit Sub '")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

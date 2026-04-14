@@ -1,4 +1,4 @@
-' Benchmark: Cyber Race gameplay scenario
+' Test: Cyber Race gameplay scenario
 '
 ' Cyber Race is an original table that doesn't call LoadEM / LoadVPM /
 ' LoadPROC — it has its own custom init chain.
@@ -25,7 +25,7 @@ End Sub
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
 
 Dim tester : Set tester = New VpxTester
-tester.Init 16
+tester.Init
 
 tester.InsertCoin
 tester.StartGame

@@ -1,4 +1,7 @@
-' Benchmark: Pizza Time gameplay scenario
+' Test: SpongeBob's Bikini Bottom Pinball gameplay scenario
+'
+' VPW's SpongeBob is LoadEM-based — pure VBS game logic.
+'
 Option Explicit
 
 Dim fso, scriptDir
@@ -6,18 +9,17 @@ Set fso = CreateObject("Scripting.FileSystemObject")
 scriptDir = fso.GetParentFolderName(WScript.ScriptFullName)
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\vpx_config.vbs", 1).ReadAll
 
-Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Pizza Time (Original 2020)\pizzatime-65"
-Dim TABLE_FILE          : TABLE_FILE          = "pizzatime-65.vpx"
+Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\SpongeBob's Bikini Bottom Pinball (Original 2023)\SpongeBob's Bikini Bottom Pinball VPW 2.1"
+Dim TABLE_FILE          : TABLE_FILE          = "spongebob.vpx"
 
 Sub PatchTableCode(ByRef code)
-    ' Disable Orbital Scoreboard (needs network)
-    code = Replace(code, "Const osbactive" & Chr(9) & Chr(9) & Chr(9) & "= 1", "Const osbactive" & Chr(9) & Chr(9) & Chr(9) & "= 0")
+    code = Replace(code, "CreateObject(""FlexDMD.FlexDMD"")", "(New FlexDMDStub)")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
 
 Dim tester : Set tester = New VpxTester
-tester.Init 16
+tester.Init
 
 tester.InsertCoin
 tester.StartGame

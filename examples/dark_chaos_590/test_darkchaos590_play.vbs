@@ -1,6 +1,6 @@
-' Benchmark: SpongeBob's Bikini Bottom Pinball gameplay scenario
+' Test: Dark Chaos 590 gameplay scenario
 '
-' VPW's SpongeBob is LoadEM-based — pure VBS game logic.
+' GLF-framework table — pure VBS game logic, no VPinMAME.
 '
 Option Explicit
 
@@ -9,17 +9,18 @@ Set fso = CreateObject("Scripting.FileSystemObject")
 scriptDir = fso.GetParentFolderName(WScript.ScriptFullName)
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\vpx_config.vbs", 1).ReadAll
 
-Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\SpongeBob's Bikini Bottom Pinball (Original 2023)\SpongeBob's Bikini Bottom Pinball VPW 2.1"
-Dim TABLE_FILE          : TABLE_FILE          = "spongebob.vpx"
+Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Dark Chaos (Original 2025)\DarkChaos590"
+Dim TABLE_FILE          : TABLE_FILE          = "DarkChaos590.vpx"
 
 Sub PatchTableCode(ByRef code)
-    code = Replace(code, "CreateObject(""FlexDMD.FlexDMD"")", "(New FlexDMDStub)")
+    ' Disable GLF debug logging — avoids file I/O during benchmark
+    code = Replace(code, vbTab & "glf_debugEnabled = True" & vbCrLf, vbTab & "glf_debugEnabled = False" & vbCrLf)
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
 
 Dim tester : Set tester = New VpxTester
-tester.Init 16
+tester.Init
 
 tester.InsertCoin
 tester.StartGame

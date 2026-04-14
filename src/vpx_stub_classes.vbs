@@ -262,6 +262,11 @@ Class Kicker
         End If
     End Function
     Public Sub Kick(a, s)  : End Sub
+    ' VPX's real Kicker.Kick takes an optional `inclination` third arg
+    ' that VBScript user-class methods can't express. The framework
+    ' regex-rewrites 3-arg `.Kick a, s, z` call sites to `.Kick3` so
+    ' both arities dispatch to a real method.
+    Public Sub Kick3(a, s, z) : End Sub
     Public Sub KickXYZ(a, s, i, bx, by, bz) : End Sub
     Public Sub KickZ(a, s, hz) : End Sub
     Public Function BallCntOver() : BallCntOver = 0 : End Function
