@@ -29,23 +29,6 @@ Sub PatchTableCode(ByRef code)
     ' CR uses `.loop = …` which still clashes with the reserved keyword
     ' even with bracketed-identifier support — rewrite to `.[loop] = …`.
     code = Replace(code, ".loop = ", ".[loop] = ")
-    ' Trough state plumbing. CR's StartGame() requires
-    ' BallsInTrough = 5 (which counts swTrough1..5.BallCntOver), and
-    ' EndOfBall() checks RealBallsInPlay = 0 (= 5 - BallsInTrough -
-    ' BallsOnBridge). Our headless sim's stub Trigger.BallCntOver
-    ' returns 0 unconditionally and the LockPin elements default to
-    ' IsDropped = 0, so without help BallsInTrough would be 0 and
-    ' BallsOnBridge would be 3, blocking both StartGame and the
-    ' drain branch. Force the accumulators so:
-    '   BallsInTrough returns 5 (initial value patched from 0 to 5;
-    '     the per-trough increments stay False under the stub, so
-    '     the total stays at 5)
-    '   BallsOnBridge returns 0 (initial value patched from 0 to -3;
-    '     the three LockPin checks pass and bring it back up to 0)
-    ' RealBallsInPlay = 5 - 5 - 0 = 0, so EndOfBall takes the drain
-    ' branch every time we FireHit Drain.
-    code = Replace(code, "dim bInTrough : bInTrough = 0", "dim bInTrough : bInTrough = 5")
-    code = Replace(code, "lockPinsUp=lockPinsUp+1", "lockPinsUp=lockPinsUp+0")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

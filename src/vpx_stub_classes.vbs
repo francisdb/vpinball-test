@@ -224,57 +224,57 @@ Class Kicker
     Public X, Y, Enabled, DrawStyle, Material, Surface
     Public Scatter, HitAccuracy, HitHeight, Orientation, Radius
     Public FallThrough, Legacy
-    Private m_lastBall
+    Private m_lastBall, m_ballCnt
     Public Property Get LastCapturedBall
         If IsObject(m_lastBall) Then Set LastCapturedBall = m_lastBall _
         Else Set LastCapturedBall = New Primitive
     End Property
     Public Function CreateBall()
-        Dim b : Set b = VpxNewBall() : Set m_lastBall = b : Set CreateBall = b
+        Dim b : Set b = VpxNewBall() : Set m_lastBall = b : m_ballCnt = m_ballCnt + 1 : Set CreateBall = b
     End Function
     Public Function CreateSizedBall(r)
-        Dim b : Set b = VpxNewBall() : b.Radius = r : Set m_lastBall = b : Set CreateSizedBall = b
+        Dim b : Set b = VpxNewBall() : b.Radius = r : Set m_lastBall = b : m_ballCnt = m_ballCnt + 1 : Set CreateSizedBall = b
     End Function
     Public Function CreateSizedBallWithMass(r, m)
-        Dim b : Set b = VpxNewBall() : b.Radius = r : b.Mass = m : Set m_lastBall = b : Set CreateSizedBallWithMass = b
+        Dim b : Set b = VpxNewBall() : b.Radius = r : b.Mass = m : Set m_lastBall = b : m_ballCnt = m_ballCnt + 1 : Set CreateSizedBallWithMass = b
     End Function
     Public Function DestroyBall()
-        ' Prefer removing the ball this kicker created (matches a trough
-        ' kicker creating and later expelling its own ball). If there's
-        ' no tracked ball (e.g. a drain kicker that never called
-        ' CreateBall*), fall back to LIFO -- real VPX would destroy
-        ' whichever ball is physically captured by this kicker, and
-        ' without physics the most recently created ball is the best
-        ' approximation of "the ball that just rolled in".
         If IsObject(m_lastBall) Then
             If Not (m_lastBall Is Nothing) Then
                 VpxRemoveBall m_lastBall
                 Set m_lastBall = Nothing
+                If m_ballCnt > 0 Then m_ballCnt = m_ballCnt - 1
                 DestroyBall = 1
                 Exit Function
             End If
         End If
         If g_ActiveBalls.Count > 0 Then
             VpxRemoveLastBall
+            If m_ballCnt > 0 Then m_ballCnt = m_ballCnt - 1
             DestroyBall = 1
         Else
             DestroyBall = 0
         End If
     End Function
-    Public Sub Kick(a, s)  : End Sub
-    ' VPX's real Kicker.Kick takes an optional `inclination` third arg
-    ' that VBScript user-class methods can't express. The framework
-    ' regex-rewrites 3-arg `.Kick a, s, z` call sites to `.Kick3` so
-    ' both arities dispatch to a real method.
-    Public Sub Kick3(a, s, z) : End Sub
-    Public Sub KickXYZ(a, s, i, bx, by, bz) : End Sub
-    Public Sub KickZ(a, s, hz) : End Sub
-    Public Function BallCntOver() : BallCntOver = 0 : End Function
+    Public Sub Kick(a, s)
+        If m_ballCnt > 0 Then m_ballCnt = m_ballCnt - 1
+    End Sub
+    Public Sub Kick3(a, s, z)
+        If m_ballCnt > 0 Then m_ballCnt = m_ballCnt - 1
+    End Sub
+    Public Sub KickXYZ(a, s, i, bx, by, bz)
+        If m_ballCnt > 0 Then m_ballCnt = m_ballCnt - 1
+    End Sub
+    Public Sub KickZ(a, s, hz)
+        If m_ballCnt > 0 Then m_ballCnt = m_ballCnt - 1
+    End Sub
+    Public Function BallCntOver() : BallCntOver = m_ballCnt : End Function
     Private Sub Class_Initialize
         Name = "" : Enabled = True : Radius = 25
         X = 0 : Y = 0 : HitAccuracy = 0.5
         TimerEnabled = False : TimerInterval = 100
         FallThrough = False : Legacy = False
+        m_ballCnt = 0
     End Sub
 End Class
 
@@ -666,6 +666,13 @@ Sub InitializeOptions : End Sub
 Dim NightDay : NightDay = 100
 Dim RenderingMode : RenderingMode = 0
 Dim UserDirectory : UserDirectory = ""
+' VPX host globals: engine version. core.vbs uses these to decide
+' which PlaySound / Pan / Fade features are available.
+Dim Version : Version = 10801
+Dim VPBuildVersion : VPBuildVersion = 10801.9999
+Dim VersionMajor : VersionMajor = 10
+Dim VersionMinor : VersionMinor = 8
+Dim VersionRevision : VersionRevision = 1
 Const SeqUpOn = 1
 Const SeqUpOff = 2
 Const SeqDownOn = 3
