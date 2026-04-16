@@ -1,0 +1,344 @@
+From f30c68f1351d9655c1cb5e258452cf649d02aa40 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Thu, 26 Mar 2026 14:28:38 +0100
+Subject: [PATCH] vbscript: Implement DateDiff built-in function.
+
+Implement DateDiff(interval, date1, date2 [, firstdayofweek [, firstweekofyear]])
+with support for all interval types: yyyy, q, m, y, d, w, ww, h, n, s.
+
+For yyyy/q/m the difference is computed from calendar fields via VarUdateFromDate.
+For d/y the day number difference is used. For w it is the day difference
+integer-divided by 7 (not affected by firstdayofweek). For ww it counts
+week boundary crossings based on firstdayofweek. For h/n/s the dates are
+converted to the respective unit and truncated before subtracting.
+
+Returns VT_I4 (Long). Null date arguments return Null; null interval or
+null firstdayofweek/firstweekofyear return VBSE_ILLEGAL_NULL_USE.
+---
+ dlls/vbscript/global.c      | 153 +++++++++++++++++++++++++++++++++++-
+ dlls/vbscript/tests/api.vbs | 144 +++++++++++++++++++++++++++++++++
+ 2 files changed, 294 insertions(+), 3 deletions(-)
+
+diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
+index 3578625d154..35264acbfee 100644
+--- a/dlls/vbscript/global.c
++++ b/dlls/vbscript/global.c
+@@ -2503,10 +2503,157 @@ static HRESULT Global_DateAdd(BuiltinDisp *This, VARIANT *args, unsigned args_cn
+     return hres;
+ }
+ 
+-static HRESULT Global_DateDiff(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
++static HRESULT Global_DateDiff(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
+ {
+-    FIXME("\n");
+-    return E_NOTIMPL;
++    BSTR interval = NULL;
++    int firstday = 0;
++    UDATE ud1, ud2;
++    DATE date1, date2;
++    VARIANT date_var;
++    HRESULT hres;
++    LONG result;
++
++    TRACE("\n");
++
++    assert(args_cnt >= 3 && args_cnt <= 5);
++
++    if(V_VT(args) == VT_NULL)
++        return MAKE_VBSERROR(VBSE_ILLEGAL_NULL_USE);
++
++    if(args_cnt >= 4)
++    {
++        if(V_VT(args + 3) == VT_NULL)
++            return MAKE_VBSERROR(VBSE_ILLEGAL_NULL_USE);
++    }
++
++    if(args_cnt >= 5)
++    {
++        if(V_VT(args + 4) == VT_NULL)
++            return MAKE_VBSERROR(VBSE_ILLEGAL_NULL_USE);
++    }
++
++    if(V_VT(args + 1) == VT_NULL || V_VT(args + 2) == VT_NULL)
++        return return_null(res);
++
++    hres = to_string(args, &interval);
++    if(FAILED(hres))
++        return hres;
++
++    V_VT(&date_var) = VT_EMPTY;
++    hres = VariantChangeType(&date_var, args + 1, 0, VT_DATE);
++    if(FAILED(hres))
++    {
++        SysFreeString(interval);
++        return hres;
++    }
++    date1 = V_DATE(&date_var);
++
++    V_VT(&date_var) = VT_EMPTY;
++    hres = VariantChangeType(&date_var, args + 2, 0, VT_DATE);
++    if(FAILED(hres))
++    {
++        SysFreeString(interval);
++        return hres;
++    }
++    date2 = V_DATE(&date_var);
++
++    if(!wcsicmp(interval, L"yyyy"))
++    {
++        hres = VarUdateFromDate(date1, 0, &ud1);
++        if(SUCCEEDED(hres))
++            hres = VarUdateFromDate(date2, 0, &ud2);
++        if(SUCCEEDED(hres))
++            result = (LONG)ud2.st.wYear - (LONG)ud1.st.wYear;
++    }
++    else if(!wcsicmp(interval, L"q"))
++    {
++        hres = VarUdateFromDate(date1, 0, &ud1);
++        if(SUCCEEDED(hres))
++            hres = VarUdateFromDate(date2, 0, &ud2);
++        if(SUCCEEDED(hres))
++            result = ((LONG)ud2.st.wYear * 4 + (ud2.st.wMonth - 1) / 3)
++                   - ((LONG)ud1.st.wYear * 4 + (ud1.st.wMonth - 1) / 3);
++    }
++    else if(!wcsicmp(interval, L"m"))
++    {
++        hres = VarUdateFromDate(date1, 0, &ud1);
++        if(SUCCEEDED(hres))
++            hres = VarUdateFromDate(date2, 0, &ud2);
++        if(SUCCEEDED(hres))
++            result = ((LONG)ud2.st.wYear - (LONG)ud1.st.wYear) * 12
++                   + (LONG)ud2.st.wMonth - (LONG)ud1.st.wMonth;
++    }
++    else if(!wcsicmp(interval, L"y") || !wcsicmp(interval, L"d"))
++    {
++        result = (LONG)date2 - (LONG)date1;
++    }
++    else if(!wcsicmp(interval, L"w"))
++    {
++        result = ((LONG)date2 - (LONG)date1) / 7;
++    }
++    else if(!wcsicmp(interval, L"ww"))
++    {
++        LONG day1, day2, anchor;
++        int firstday_wday;
++
++        if(args_cnt >= 4)
++        {
++            hres = to_int(args + 3, &firstday);
++            if(FAILED(hres))
++            {
++                SysFreeString(interval);
++                return hres;
++            }
++        }
++
++        /* firstday: 0=system default, 1=vbSunday(wday 0), ..., 7=vbSaturday(wday 6) */
++        if(firstday >= 1 && firstday <= 7)
++        {
++            firstday_wday = firstday - 1;
++        }
++        else
++        {
++            int locale_firstday = 0;
++            GetLocaleInfoW(This->ctx->lcid, LOCALE_RETURN_NUMBER | LOCALE_IFIRSTDAYOFWEEK,
++                    (LPWSTR)&locale_firstday, sizeof(locale_firstday) / sizeof(WCHAR));
++            firstday_wday = (locale_firstday + 1) % 7;
++        }
++
++        day1 = (LONG)date1;
++        day2 = (LONG)date2;
++        /* anchor is any day number whose day-of-week equals firstday_wday.
++         * Day 0 (12/30/1899) is Saturday (wday 6), so dow(d) = (d + 6) % 7.
++         * We need (anchor + 6) % 7 == firstday_wday, i.e. anchor = (firstday_wday + 1) % 7. */
++        anchor = (firstday_wday + 1) % 7;
++
++        /* Use floor division so negative day numbers are handled correctly */
++        result = (LONG)floor((double)(day2 - anchor) / 7.0)
++               - (LONG)floor((double)(day1 - anchor) / 7.0);
++    }
++    else if(!wcsicmp(interval, L"h"))
++    {
++        result = (LONG)floor(date2 * 24.0) - (LONG)floor(date1 * 24.0);
++    }
++    else if(!wcsicmp(interval, L"n"))
++    {
++        result = (LONG)floor(date2 * 1440.0) - (LONG)floor(date1 * 1440.0);
++    }
++    else if(!wcsicmp(interval, L"s"))
++    {
++        result = (LONG)(floor(date2 * 86400.0 + 0.5) - floor(date1 * 86400.0 + 0.5));
++    }
++    else
++    {
++        WARN("Unrecognized interval %s.\n", debugstr_w(interval));
++        SysFreeString(interval);
++        return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
++    }
++
++    SysFreeString(interval);
++    if(FAILED(hres))
++        return hres;
++
++    return return_int(res, result);
+ }
+ 
+ static HRESULT Global_DatePart(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
+diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
+index 47e3ddee84b..e7cba4d4219 100644
+--- a/dlls/vbscript/tests/api.vbs
++++ b/dlls/vbscript/tests/api.vbs
+@@ -2395,6 +2395,150 @@ call testDateAdd(DateSerial(2000, 1, 1), "ww", -1, DateSerial(1999, 12, 25))
+ call testDateAdd(DateSerial(2000, 1, 1), "Ww", -1, DateSerial(1999, 12, 25))
+ call testDateAddError()
+ 
++sub testDateDiff(interval, d1, d2, expected)
++    dim x
++    x = DateDiff(interval, d1, d2)
++    call ok(x = expected, "DateDiff(""" & interval & """, " & d1 & ", " & d2 & ") = " & x & " expected " & expected)
++    call ok(getVT(x) = "VT_I4*", "DateDiff getVT = " & getVT(x))
++end sub
++
++sub testDateDiffFdow(interval, d1, d2, fdow, expected)
++    dim x
++    x = DateDiff(interval, d1, d2, fdow)
++    call ok(x = expected, "DateDiff(""" & interval & """, " & d1 & ", " & d2 & ", " & fdow & ") = " & x & " expected " & expected)
++    call ok(getVT(x) = "VT_I4*", "DateDiff fdow getVT = " & getVT(x))
++end sub
++
++' yyyy (year)
++call testDateDiff("yyyy", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1), 1)
++call testDateDiff("yyyy", DateSerial(2000, 12, 31), DateSerial(2001, 1, 1), 1)
++call testDateDiff("yyyy", DateSerial(2001, 1, 1), DateSerial(2000, 1, 1), -1)
++call testDateDiff("yyyy", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++call testDateDiff("yyyy", DateSerial(2000, 6, 15), DateSerial(2005, 3, 15), 5)
++call testDateDiff("yyyy", DateSerial(2000, 1, 1), DateSerial(2000, 12, 31), 0)
++
++' Case insensitive
++call testDateDiff("YYYY", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1), 1)
++call testDateDiff("Yyyy", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1), 1)
++
++' q (quarter)
++call testDateDiff("q", DateSerial(2000, 1, 1), DateSerial(2000, 4, 1), 1)
++call testDateDiff("q", DateSerial(2000, 1, 1), DateSerial(2000, 3, 31), 0)
++call testDateDiff("q", DateSerial(2000, 1, 1), DateSerial(2000, 7, 1), 2)
++call testDateDiff("q", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1), 4)
++call testDateDiff("q", DateSerial(2000, 3, 31), DateSerial(2000, 4, 1), 1)
++call testDateDiff("q", DateSerial(2000, 4, 1), DateSerial(2000, 1, 1), -1)
++call testDateDiff("q", DateSerial(2000, 1, 15), DateSerial(2001, 12, 15), 7)
++
++' m (month)
++call testDateDiff("m", DateSerial(2000, 1, 1), DateSerial(2000, 2, 1), 1)
++call testDateDiff("m", DateSerial(2000, 1, 31), DateSerial(2000, 2, 1), 1)
++call testDateDiff("m", DateSerial(2000, 1, 1), DateSerial(2000, 1, 31), 0)
++call testDateDiff("m", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1), 12)
++call testDateDiff("m", DateSerial(2000, 2, 1), DateSerial(2000, 1, 1), -1)
++call testDateDiff("m", DateSerial(2000, 3, 15), DateSerial(2002, 6, 15), 27)
++
++' y (day of year) - same as d
++call testDateDiff("y", DateSerial(2000, 1, 1), DateSerial(2000, 1, 2), 1)
++call testDateDiff("y", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1), 366)
++call testDateDiff("y", DateSerial(2000, 1, 2), DateSerial(2000, 1, 1), -1)
++
++' d (day)
++call testDateDiff("d", DateSerial(2000, 1, 1), DateSerial(2000, 1, 2), 1)
++call testDateDiff("d", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1), 366)
++call testDateDiff("d", DateSerial(2000, 1, 2), DateSerial(2000, 1, 1), -1)
++call testDateDiff("d", DateSerial(2000, 1, 1), DateSerial(2000, 12, 31), 365)
++call testDateDiff("d", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++
++' w (weekday) - integer division of day diff by 7
++call testDateDiff("w", DateSerial(2000, 1, 1), DateSerial(2000, 1, 8), 1)
++call testDateDiff("w", DateSerial(2000, 1, 1), DateSerial(2000, 1, 2), 0)
++call testDateDiff("w", DateSerial(2000, 1, 1), DateSerial(2000, 1, 7), 0)
++call testDateDiff("w", DateSerial(2000, 1, 1), DateSerial(2000, 1, 15), 2)
++call testDateDiff("w", DateSerial(2000, 1, 8), DateSerial(2000, 1, 1), -1)
++
++' ww (calendar week) with firstdayofweek
++' 1/1/2000 = Saturday, 1/3/2000 = Monday
++call testDateDiffFdow("ww", DateSerial(2000, 1, 1), DateSerial(2000, 1, 3), vbSunday, 1)
++call testDateDiffFdow("ww", DateSerial(2000, 1, 1), DateSerial(2000, 1, 3), vbMonday, 1)
++call testDateDiffFdow("ww", DateSerial(2000, 1, 1), DateSerial(2000, 1, 3), vbSaturday, 0)
++call testDateDiffFdow("ww", DateSerial(2000, 1, 1), DateSerial(2000, 1, 8), vbSunday, 1)
++call testDateDiffFdow("ww", DateSerial(2000, 1, 1), DateSerial(2000, 1, 15), vbSunday, 2)
++call testDateDiffFdow("ww", DateSerial(2000, 1, 8), DateSerial(2000, 1, 1), vbSunday, -1)
++
++' h (hour)
++call testDateDiff("h", DateSerial(2000, 1, 1), DateSerial(2000, 1, 2), 24)
++call testDateDiff("h", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1), 8784)
++
++' n (minute)
++call testDateDiff("n", DateSerial(2000, 1, 1), DateSerial(2000, 1, 2), 1440)
++
++' s (second)
++call testDateDiff("s", DateSerial(2000, 1, 1), DateSerial(2000, 1, 2), 86400)
++
++' Same date for all intervals
++call testDateDiff("yyyy", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++call testDateDiff("q", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++call testDateDiff("m", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++call testDateDiff("d", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++call testDateDiff("h", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++call testDateDiff("n", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++call testDateDiff("s", DateSerial(2000, 1, 1), DateSerial(2000, 1, 1), 0)
++
++sub testDateDiffError()
++    on error resume next
++    dim x
++
++    ' Null date1 returns Null
++    err.clear
++    x = DateDiff("d", null, DateSerial(2000, 1, 1))
++    call ok(getVT(x) = "VT_NULL*", "null date1 getVT = " & getVT(x))
++    call ok(err.number = 0, "null date1 err = " & err.number)
++
++    ' Null date2 returns Null
++    err.clear
++    x = DateDiff("d", DateSerial(2000, 1, 1), null)
++    call ok(getVT(x) = "VT_NULL*", "null date2 getVT = " & getVT(x))
++    call ok(err.number = 0, "null date2 err = " & err.number)
++
++    ' Null interval is error 94
++    err.clear
++    x = DateDiff(null, DateSerial(2000, 1, 1), DateSerial(2001, 1, 1))
++    call ok(err.number = 94, "null interval err = " & err.number)
++
++    ' Invalid interval is error 5
++    err.clear
++    x = DateDiff("k", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1))
++    call ok(err.number = 5, "invalid interval err = " & err.number)
++
++    ' Empty interval is error 5
++    err.clear
++    x = DateDiff("", DateSerial(2000, 1, 1), DateSerial(2001, 1, 1))
++    call ok(err.number = 5, "empty interval err = " & err.number)
++
++    ' Invalid date is error 13
++    err.clear
++    x = DateDiff("d", "not a date", DateSerial(2001, 1, 1))
++    call ok(err.number = 13, "invalid date1 err = " & err.number)
++
++    ' String date conversion
++    err.clear
++    x = DateDiff("d", "1/1/2000", "1/2/2000")
++    call ok(err.number = 0, "string date err = " & err.number)
++
++    ' Null firstdayofweek is error 94
++    err.clear
++    x = DateDiff("d", DateSerial(2000, 1, 1), DateSerial(2000, 1, 2), null)
++    call ok(err.number = 94, "null fdow err = " & err.number)
++
++    ' Null firstweekofyear is error 94
++    err.clear
++    x = DateDiff("ww", DateSerial(2000, 1, 1), DateSerial(2000, 1, 8), vbSunday, null)
++    call ok(err.number = 94, "null fwoy err = " & err.number)
++end sub
++
++call testDateDiffError()
++
+ sub testWeekday(d, firstday, wd)
+     dim x, x2
+     x = Weekday(d, firstday)
+-- 
+GitLab
+

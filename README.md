@@ -189,6 +189,7 @@ have a branch that's intentionally not upstreamed.
 | 0009 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | [`fix/vbscript-chained-array-assign`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10363) ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
 | 0010 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
 | 0011 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
+| 0012 | `vbscript: Implement DateDiff built-in function` | **[upstream]** | [`fix/vbscript-datediff`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10459) |
 
 What each one unlocks for the framework:
 

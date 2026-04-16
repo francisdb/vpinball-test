@@ -60,11 +60,11 @@ index 7ff524461c6..9083ac0f433 100644
 +Dim coll
 +Set coll = CreateCollection(10, 20, 30)
 +Call ok(coll.Count = 3, "coll.Count = " & coll.Count)
-+Call ok(coll.Item(1) = 10, "coll.Item(1) = " & coll.Item(1))
-+Call ok(coll.Item(2) = 20, "coll.Item(2) = " & coll.Item(2))
-+Call ok(coll.Item(3) = 30, "coll.Item(3) = " & coll.Item(3))
-+Call ok(coll(1) = 10, "coll(1) = " & coll(1))
-+Call ok(coll(3) = 30, "coll(3) = " & coll(3))
++Call ok(coll.Item(0) = 10, "coll.Item(0) = " & coll.Item(0))
++Call ok(coll.Item(1) = 20, "coll.Item(1) = " & coll.Item(1))
++Call ok(coll.Item(2) = 30, "coll.Item(2) = " & coll.Item(2))
++Call ok(coll(0) = 10, "coll(0) = " & coll(0))
++Call ok(coll(2) = 30, "coll(2) = " & coll(2))
 +
 +' For Each over collection
 +Dim collSum, collItem
@@ -96,11 +96,11 @@ index 7ff524461c6..9083ac0f433 100644
 +' Out of bounds
 +On Error Resume Next
 +Err.Clear
-+Dim badItem : badItem = coll.Item(0)
-+Call ok(Err.Number = 9, "coll.Item(0) err = " & Err.Number)
++Dim badItem : badItem = coll.Item(-1)
++Call ok(Err.Number = 9, "coll.Item(-1) err = " & Err.Number)
 +Err.Clear
-+badItem = coll.Item(4)
-+Call ok(Err.Number = 9, "coll.Item(4) err = " & Err.Number)
++badItem = coll.Item(3)
++Call ok(Err.Number = 9, "coll.Item(3) err = " & Err.Number)
 +On Error GoTo 0
 +
 +' Set assignment works with collections
@@ -354,10 +354,10 @@ index a6d68e31c51..a2ff4df3766 100644
 +    if(FAILED(hres)) return hres;
 +
 +    idx = V_I4(&v);
-+    if(idx < 1 || idx > This->count)
++    if(idx < 0 || idx >= (int)This->count)
 +        return MAKE_VBSERROR(VBSE_OUT_OF_BOUNDS);
 +
-+    return VariantCopy(res, &This->items[idx - 1]);
++    return VariantCopy(res, &This->items[idx]);
 +}
 +
 +static HRESULT WINAPI Collection_Invoke(IDispatch *iface, DISPID dispIdMember, REFIID riid, LCID lcid,
