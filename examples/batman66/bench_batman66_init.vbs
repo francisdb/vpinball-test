@@ -16,6 +16,11 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Batman 66 (Stern 
 Dim TABLE_FILE          : TABLE_FILE          = "Batman66_1.2.32.vpx"
 
 Sub PatchTableCode(ByRef code)
+    ' No patches needed. Remaining warnings (all OERN-swallowed):
+    ' - PuPInit: FileExists() is Private inside PinupNULL class but
+    '   called at module scope — table bug, function not accessible.
+    ' - PuPInit: DMDMode = 2 assigns to a Const — table bug, should
+    '   be Dim not Const if PUP option override is intended.
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
