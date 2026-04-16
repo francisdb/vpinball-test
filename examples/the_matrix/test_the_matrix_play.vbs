@@ -16,9 +16,6 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\The Matrix (Origi
 Dim TABLE_FILE          : TABLE_FILE          = "The Matrix (Original) 0.99.0.vpx"
 
 Sub PatchTableCode(ByRef code)
-    ' Disable PUP playfield display — PFClip system references flasher
-    ' arrays (PFScreenModes) not populated in headless mode.
-    code = Replace(code, "Const PlayfieldPup 				= 1", "Const PlayfieldPup 				= 0")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
