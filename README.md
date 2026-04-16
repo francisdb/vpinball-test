@@ -190,12 +190,6 @@ have a branch that's intentionally not upstreamed.
 | 0010 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
 | 0011 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
 
-Previously included patches now merged upstream (removed):
-- `vbscript: Support bracketed identifiers like [my var]` — [MR !10579](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579)
-- `vbscript: Reject identifiers longer than 255 characters` — [MR !10579](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579)
-- `vbscript: Fix crash when GetRef is called as a statement` — [MR !10650](https://gitlab.winehq.org/wine/wine/-/merge_requests/10650)
-- `vbscript: Silence FuncRef::QueryInterface(IID_IDispatchEx) warning` — [MR !10658](https://gitlab.winehq.org/wine/wine/-/merge_requests/10658)
-
 What each one unlocks for the framework:
 
 - **GetBoundRef** — lets the framework bind `Me` when invoking
