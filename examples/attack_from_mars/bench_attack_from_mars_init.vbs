@@ -16,13 +16,12 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Attack from Mars 
 Dim TABLE_FILE          : TABLE_FILE          = "Attack from Mars (Bally 1995) g5k 1.3.11.vpx"
 
 Sub PatchTableCode(ByRef code)
-    ' Skip cvpmMagnet.CreateEvents: the call Execute's a chunk of
-    ' core.vbs code that trips "Object doesn't support this property
-    ' or method" under our sim. Only bypass THAT call, not the whole
-    ' WobbleMagnet_Init sub -- the sub also creates cBall via
-    ' `Set cBall = ckicker.createball`, which UfoShaker_Timer reads
-    ' every frame.
-    code = Replace(code, ".CreateEvents mMagnet", "' .CreateEvents mMagnet (stubbed)")
+    ' Table bug: `.CreateEvents mMagnet` passes the cvpmMagnet object
+    ' instead of the string "mMagnet". The `aName & ".AddBall"` concat
+    ' fails coercing the object to string. Harmless in real VPX (OERN
+    ' swallows it) but fatal here because it kills WobbleMagnet_Init
+    ' before the cBall creation that UfoShaker_Timer needs.
+    code = Replace(code, ".CreateEvents mMagnet", "' .CreateEvents mMagnet (table bug: object instead of string)")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
