@@ -16,11 +16,8 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\The Matrix (Origi
 Dim TABLE_FILE          : TABLE_FILE          = "The Matrix (Original) 0.99.0.vpx"
 
 Sub PatchTableCode(ByRef code)
-    code = Replace(code, "Sub CheckPupVersion", "Sub CheckPupVersion : Exit Sub '")
-    code = Replace(code, ".CreateEvents ""plungerIM""", "' .CreateEvents ""plungerIM"" (stubbed)")
-    code = Replace(code, ".CreateEvents ""mFlipperMagnet""", "' .CreateEvents ""mFlipperMagnet"" (stubbed)")
-    code = Replace(code, "DTDrop 4", "' DTDrop 4 (stubbed)")
-    code = Replace(code, "Sub Realtime_Timer", "Sub Realtime_Timer : Exit Sub '")
+    ' Disable PUP playfield display — PFClip system references flasher
+    ' arrays (PFScreenModes) not populated in headless mode.
     code = Replace(code, "Const PlayfieldPup 				= 1", "Const PlayfieldPup 				= 0")
 End Sub
 
