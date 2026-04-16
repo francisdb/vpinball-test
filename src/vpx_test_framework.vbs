@@ -48,24 +48,13 @@ Function GetTextFile(filename)
     ' normalise both to Run(0) in the loader script.
     content = Replace(content, "B2SController.Run()", "B2SController.Run(0)")
     content = Replace(content, "Controller.Run()",    "Controller.Run(0)")
-    ' Same PlaySound / LightSequencer patches we apply to tableCode. Core
-    ' scripts like core.vbs contain e.g. `PlaySound mExitSnd` (cvpmImpulseP
-    ' AutoFire), which would reach our 9-arg PlaySound stub and raise
-    ' err 450 when the plunger flow is exercised.
+    ' Log sound names for literal-string PlaySound/StopSound calls.
+    ' The actual PlaySound/StopSound calls go through to the variadic
+    ' builtins (patch 0006) and do nothing — no rewrite needed.
     Dim psLit2_ : Set psLit2_ = New RegExp
     psLit2_.Global = True : psLit2_.IgnoreCase = True
     psLit2_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)\s+""([^""]*)"""
-    content = psLit2_.Replace(content, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : Noop ""$4""")
-    Dim psRe2_ : Set psRe2_ = New RegExp
-    psRe2_.Global = True : psRe2_.IgnoreCase = True
-    psRe2_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)( |\()"
-    content = psRe2_.Replace(content, "$1$2Noop$4")
-    content = Replace(content, """PlaySound ", """Noop ", 1, -1, vbTextCompare)
-    content = Replace(content, """StopSound ", """Noop ", 1, -1, vbTextCompare)
-    Dim playRe2_ : Set playRe2_ = New RegExp
-    playRe2_.Global = True : playRe2_.IgnoreCase = True
-    playRe2_.Pattern = "(\w+)\.(Play|StopPlay)\b"
-    content = playRe2_.Replace(content, "Noop")
+    content = psLit2_.Replace(content, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : $3 ""$4""")
     GetTextFile = content
 End Function
 
@@ -262,43 +251,23 @@ Sub SetUpTable(verbose)
     ' gets rewritten so the name is also appended to g_SoundLog, letting
     ' scenarios assert on sound playback via tester.ExpectSound. Two
     ' shapes: the bare `PlaySound "name", ...` and the parenthesised
-    ' `PlaySound ("name"), ...` form (Die Hard's coin handler uses the
-    ' latter); both need to be caught BEFORE the variable-arg fallback
-    ' below or the name gets lost.
+    ' Log sound names for literal-string PlaySound/StopSound calls.
+    ' The actual PlaySound/StopSound calls go through to the variadic
+    ' builtins (patch 0006) and do nothing — no rewrite needed.
     Dim psLit_ : Set psLit_ = New RegExp
     psLit_.Global = True : psLit_.IgnoreCase = True
     psLit_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)\s+""([^""]*)"""
-    tableCode = psLit_.Replace(tableCode, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : Noop ""$4""")
+    tableCode = psLit_.Replace(tableCode, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : $3 ""$4""")
     Dim psLitParen_ : Set psLitParen_ = New RegExp
     psLitParen_.Global = True : psLitParen_.IgnoreCase = True
     psLitParen_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)\s*\(\s*""([^""]*)""\s*\)"
-    tableCode = psLitParen_.Replace(tableCode, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : Noop ""$4""")
-    ' Pass 2: anything not yet caught (variable-name form like
-    ' `PlaySound mySound, 1, 2` or parenthesised non-literal form) falls
-    ' through to plain Noop without recording -- we don't know the name.
-    Dim psRe_ : Set psRe_ = New RegExp
-    psRe_.Global = True : psRe_.IgnoreCase = True
-    psRe_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)( |\()"
-    tableCode = psRe_.Replace(tableCode, "$1$2Noop$4")
-    ' Tables also queue PlaySound / StopSound calls as string literals
-    ' (e.g. DD's EOBQueue.Add "Line0a", "Playsound ""di_sword3""", ...) that
-    ' get Execute'd later by a queue manager. The statement-level regex
-    ' above doesn't catch those because the identifier is inside a
-    ' "..." literal. Rewrite them at byte level.
-    tableCode = Replace(tableCode, """PlaySound ", """Noop ", 1, -1, vbTextCompare)
-    tableCode = Replace(tableCode, """StopSound ", """Noop ", 1, -1, vbTextCompare)
-    ' LightSeq.Play arg-count normalization, MUST run before the generic
-    ' .Play -> Noop rewrite below. Real VPX exposes ILightSeq::Play as a
-    ' COM method with four optional parameters (Animation, TailLength,
-    ' Repeat, Pause); tables call it with any of `Seq, , 5, 150` (missing
-    ' middle args), `Seq, 50, 1` (3 args) or bare `SeqAllOff` (1 arg),
-    ' which COM turns into DISPID_PARAMNOTFOUND. After rewriting to Noop,
-    ' the `, ,` / arity-mismatch forms would still raise 0x80020101 at
-    ' Execute time, so pad every `.Play SeqXxx` call site to the full
-    ' 4-arg form first, filling missing slots with 0. Trigger is the
-    ' `SeqXxx` literal first arg, which is distinctive enough not to
-    ' collide with unrelated .Play methods (Primitive.PlayAnim etc. use
-    ' different names).
+    tableCode = psLitParen_.Replace(tableCode, "$1$2g_SoundLog.Add g_SoundLog.Count, ""$4"" : $3 ""$4""")
+    ' LightSeq.Play arg-count normalization. Real VPX exposes
+    ' ILightSeq::Play as a COM method with four optional parameters
+    ' (Animation, TailLength, Repeat, Pause); tables call it with
+    ' missing middle args, 1-3 args, etc. Our LightSequencer stub is a
+    ' plain VBScript class (no optional args), so pad every `.Play
+    ' SeqXxx` call site to the full 4-arg form.
     Dim lsPlayA_ : Set lsPlayA_ = New RegExp
     lsPlayA_.Global = True : lsPlayA_.IgnoreCase = True
     lsPlayA_.Pattern = "\.Play\s+(Seq\w+)\s*,\s*,\s*(\d+)\s*,\s*(\d+)"
@@ -327,14 +296,6 @@ Sub SetUpTable(verbose)
     lsPlayD_.Global = True : lsPlayD_.IgnoreCase = True
     lsPlayD_.Pattern = "\.Play\s+(Seq\w+)(?=\s*(?:[\r\n':]|$))"
     tableCode = lsPlayD_.Replace(tableCode, ".Play $1, 0, 0, 0")
-
-    ' LightSequencer.Play/StopPlay accept variable args; replace with Noop.
-    ' Skip `.Play Seq*` -- those were normalized to 4 args above and go
-    ' through the real LightSequencer.Play(a,b,c,d) stub.
-    Dim playRe_ : Set playRe_ = New RegExp
-    playRe_.Global = True : playRe_.IgnoreCase = True
-    playRe_.Pattern = "(\w+)\.(Play|StopPlay)\b(?!\s+Seq)"
-    tableCode = playRe_.Replace(tableCode, "Noop")
 
     ' Kicker.Kick accepts an optional `inclination` third arg in real VPX,
     ' but VBScript user-class methods can't express Optional. Our stub

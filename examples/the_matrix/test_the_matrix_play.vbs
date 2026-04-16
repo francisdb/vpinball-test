@@ -22,12 +22,6 @@ Sub PatchTableCode(ByRef code)
     code = Replace(code, "DTDrop 4", "' DTDrop 4 (stubbed)")
     code = Replace(code, "Sub Realtime_Timer", "Sub Realtime_Timer : Exit Sub '")
     code = Replace(code, "Const PlayfieldPup 				= 1", "Const PlayfieldPup 				= 0")
-    code = Replace(code, "Sub PlaySoundVol(soundname, Volume)", "Sub PlaySoundVol(soundname, Volume) : Exit Sub '")
-    code = Replace(code, "Sub PlaySoundAtLevelStatic(playsoundparams, aVol, tableobj)", _
-        "Sub PlaySoundAtLevelStatic(playsoundparams, aVol, tableobj) : Exit Sub '")
-    code = Replace(code, "Sub SoundStartButton()", "Sub SoundStartButton() : Exit Sub '")
-    ' CheckHighscore uses sound wrappers that fail in headless mode.
-    code = Replace(code, "Sub CheckHighscore(bInit)", "Sub CheckHighscore(bInit) : Exit Sub '")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
@@ -63,11 +57,6 @@ For ball = 1 To 3
     tester.AdvanceMs 3000
     tester.Echo "  bGameInPlay=" & bGameInPlay & " BallsRemaining=" & BallsRemaining(0)
 Next
-
-' CheckHighScore is bypassed (sound wrappers fail headless), so
-' EndOfGame doesn't fire naturally. Call it directly.
-EndOfGame
-tester.AdvanceMs 1000
 
 Dim terminalOk : terminalOk = (bGameInPlay = False)
 tester.Assert terminalOk, "expected game over, bGameInPlay=" & bGameInPlay

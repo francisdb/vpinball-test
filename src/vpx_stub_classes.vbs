@@ -625,8 +625,9 @@ End Class
 ' Signatures from vpinball.idl
 ' ---------------------------------------------------------------------------
 
-Sub PlaySound(Sound, LoopCount, Volume, pan, randompitch, pitch, usesame, restart, front_rear_fade) : End Sub
-Sub StopSound(Sound) : End Sub
+' PlaySound and StopSound are registered as variadic builtins in
+' patch 0006, matching real VPX's host API (optional positional args).
+' No VBScript Sub stubs needed.
 Sub PlayMusic(str, Volume) : End Sub
 Sub StopMusic() : End Sub
 Sub EndMusic() : End Sub
