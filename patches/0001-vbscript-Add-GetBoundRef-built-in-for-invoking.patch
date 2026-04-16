@@ -1,14 +1,8 @@
-From 02ab0b564d0854a514c60275dfcc184b12335598 Mon Sep 17 00:00:00 2001
+From 7a339a270c5120010bc41908a7426799c805f3aa Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 9 Apr 2026 18:22:50 +0200
-Subject: [PATCH 01/13] vbscript: Add GetBoundRef built-in for invoking
- functions with a bound Me.
+Date: Thu, 16 Apr 2026 14:08:59 +0200
+Subject: [PATCH 01/11] vbscript: Add GetBoundRef built-in for invoking
 
-Add GetBoundRef(name, obj) which works like GetRef(name) but binds
-the returned function reference to obj, so that Me resolves to obj
-when the function is invoked. This is a Wine extension to support
-VPX-style event dispatch where _Init and _Timer handlers reference
-Me to access the element they belong to.
 ---
  dlls/vbscript/global.c        | 68 ++++++++++++++++++++++++++++++++++-
  dlls/vbscript/vbdisp.c        | 31 +++++++++++++++-
@@ -17,10 +11,10 @@ Me to access the element they belong to.
  4 files changed, 100 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index ea137cdb478..a67268f6bcc 100644
+index 23a5f235c85..cb3330f52c9 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -3816,7 +3816,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -3820,7 +3820,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -94,7 +88,7 @@ index ea137cdb478..a67268f6bcc 100644
  {
      TRACE("\n");
  
-@@ -3883,6 +3948,7 @@ static const builtin_prop_t global_props[] = {
+@@ -3887,6 +3952,7 @@ static const builtin_prop_t global_props[] = {
      {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
      {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
      {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},
@@ -103,7 +97,7 @@ index ea137cdb478..a67268f6bcc 100644
      {L"GetObject",                 Global_GetObject, 0, 0, 2},
      {L"GetRef",                    Global_GetRef, 0, 1},
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 79b1a728a52..da2cf77553d 100644
+index 38185dd0411..a6d68e31c51 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
 @@ -504,6 +504,11 @@ static inline vbdisp_t *unsafe_impl_from_IDispatch(IDispatch *iface)
@@ -126,7 +120,7 @@ index 79b1a728a52..da2cf77553d 100644
  } FuncRef;
  
  static inline FuncRef *FuncRef_from_IDispatch(IDispatch *iface)
-@@ -607,6 +613,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
+@@ -608,6 +614,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
  
      TRACE("(%p) ref=%ld\n", This, ref);
      if(!ref) {
@@ -135,7 +129,7 @@ index 79b1a728a52..da2cf77553d 100644
          release_vbscode(This->func->code_ctx);
          free(This);
      }
-@@ -647,7 +655,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
+@@ -648,7 +656,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
      if(dispIdMember != DISPID_VALUE)
          return DISP_E_MEMBERNOTFOUND;
  
@@ -144,7 +138,7 @@ index 79b1a728a52..da2cf77553d 100644
  }
  
  static const IDispatchVtbl FuncRefVtbl = {
-@@ -678,6 +686,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
+@@ -679,6 +687,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
      return S_OK;
  }
  
@@ -186,7 +180,7 @@ index 19c9260a342..d5bf562d481 100644
  HRESULT to_int(VARIANT*,int*);
  
 diff --git a/dlls/vbscript/vbscript_defs.h b/dlls/vbscript/vbscript_defs.h
-index 9cf9cce7ad9..7ce05e75b7a 100644
+index 200e1ac4929..780bb374f22 100644
 --- a/dlls/vbscript/vbscript_defs.h
 +++ b/dlls/vbscript/vbscript_defs.h
 @@ -210,6 +210,7 @@

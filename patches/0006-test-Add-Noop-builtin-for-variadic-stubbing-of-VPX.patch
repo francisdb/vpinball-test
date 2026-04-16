@@ -1,26 +1,17 @@
-From 1c47107ce91fbc1b401683f402681a931cbfd757 Mon Sep 17 00:00:00 2001
+From 017e0e70beaa8ef948fabcf1aa6759ab88bd201b Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Mon, 13 Apr 2026 23:37:20 +0200
-Subject: [PATCH 07/13] test: Add Noop builtin for variadic stubbing of VPX
- host APIs.
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Thu, 16 Apr 2026 14:09:00 +0200
+Subject: [PATCH 06/11] test: Add Noop builtin for variadic stubbing of VPX
 
-Adds a Noop(…) builtin that accepts 0..N args and does nothing. Used
-by the vpinball test framework to replace PlaySound/StopSound and
-LightSequencer.Play calls during table script load.
-
-[test-only — not intended for upstream]
 ---
  dlls/vbscript/global.c | 6 ++++++
  1 file changed, 6 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index c051225e04d..6522d11905e 100644
+index ba9cb52fd64..d16237fc6da 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -3859,6 +3859,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -3863,6 +3863,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -32,7 +23,7 @@ index c051225e04d..6522d11905e 100644
  static HRESULT Global_CreateCollection(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      IDispatch *disp;
-@@ -4044,6 +4049,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4048,6 +4053,7 @@ static const builtin_prop_t global_props[] = {
      {L"Month",                     Global_Month, 0, 1},
      {L"MonthName",                 Global_MonthName, 0, 1, 2},
      {L"MsgBox",                    Global_MsgBox, 0, 1, 5},

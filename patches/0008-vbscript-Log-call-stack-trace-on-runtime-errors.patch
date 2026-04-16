@@ -1,26 +1,17 @@
-From d4ed15ad0e53aee217d2e81f1f70f7d7732a0b5a Mon Sep 17 00:00:00 2001
+From 348650d66f6f292a237250abb23dc23a7137079a Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Wed, 8 Apr 2026 00:18:25 +0200
-Subject: [PATCH 09/13] vbscript: Log call stack trace on runtime errors.
+Date: Thu, 16 Apr 2026 14:09:00 +0200
+Subject: [PATCH 08/11] vbscript: Log call stack trace on runtime errors.
 
-Add WARN-level trace output showing the call chain when a runtime
-error propagates through nested function calls. This helps diagnose
-errors in ExecuteGlobal/Execute code where the reported error
-location has no context about which call chain led to it.
-
-Example output for WINEDEBUG=warn+vbscript:
-  error 0x80020012 in L"Broken", line 3
-    called from L"Wrapper", line 2
-    called from <global>, line 16
 ---
  dlls/vbscript/interp.c | 13 +++++++++++++
  1 file changed, 13 insertions(+)
 
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 4508160ef72..16928b37f74 100644
+index 04db2e558ef..34cf697c077 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
-@@ -2826,9 +2826,22 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
+@@ -2831,9 +2831,22 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
                  continue;
              }else {
                  if(!ctx->error_loc_code) {

@@ -179,20 +179,22 @@ have a branch that's intentionally not upstreamed.
 | # | Patch | Status | Branch / MR |
 |---|---|---|---|
 | 0001 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
-| 0002 | `vbscript: Support bracketed identifiers like [my var]` | **[upstream]** | [`fix/vbscript-identifier-improvements`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579) |
-| 0003 | `wscript: Implement error messages, usage output, and //nologo banner` | **[upstream]** | [`wscript-unknown-option-error`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10518) |
-| 0004 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
-| 0005 | `vbscript: Implement GetLocale and SetLocale functions` | **[upstream]** | [`fix/vbscript-getlocale-setlocale`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10504) (draft) |
-| 0006 | `vbscript: Fix Sub first argument parentheses handling` | **[upstream]** | [`fix/bug-54177`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10244) ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177)) |
-| 0007 | `test: Add Noop builtin for variadic stubbing of VPX host APIs` | **[test-only]** | *(this repo only)* |
-| 0008 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
-| 0009 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft — same rationale as 0008, diagnostic-only) |
-| 0010 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | [`fix/vbscript-chained-array-assign`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10363) ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
-| 0011 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
-| 0012 | `vbscript: Fix crash when GetRef is called as a statement` | **[upstream]** | [`fix/vbscript-getref-null-res`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10650) |
-| 0013 | `vbscript: Reject identifiers longer than 255 characters` | **[upstream]** | [`fix/vbscript-identifier-improvements`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579) (paired with 0002; adds the `VBSE_IDENTIFIER_TOO_LONG` constant 0002 references) |
-| 0014 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
-| 0015 | `vbscript: Silence FuncRef::QueryInterface(IID_IDispatchEx) warning` | **[upstream]** | [`fix/vbscript-funcref-quiet-dispatchex`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10658) (mirrors Jacek Caban's 2019 `BuiltinDisp` fix `ce6c9f6d338a` for the `FuncRef` dispatch wrapper added later) |
+| 0002 | `wscript: Implement error messages, usage output, and //nologo banner` | **[upstream]** | [`wscript-unknown-option-error`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10518) |
+| 0003 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
+| 0004 | `vbscript: Implement GetLocale and SetLocale functions` | **[upstream]** | [`fix/vbscript-getlocale-setlocale`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10504) (draft) |
+| 0005 | `vbscript: Fix Sub first argument parentheses handling` | **[upstream]** | [`fix/bug-54177`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10244) ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177)) |
+| 0006 | `test: Add Noop builtin for variadic stubbing of VPX host APIs` | **[test-only]** | *(this repo only)* |
+| 0007 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
+| 0008 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft — same rationale as 0007, diagnostic-only) |
+| 0009 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | [`fix/vbscript-chained-array-assign`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10363) ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
+| 0010 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
+| 0011 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
+
+Previously included patches now merged upstream (removed):
+- `vbscript: Support bracketed identifiers like [my var]` — [MR !10579](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579)
+- `vbscript: Reject identifiers longer than 255 characters` — [MR !10579](https://gitlab.winehq.org/wine/wine/-/merge_requests/10579)
+- `vbscript: Fix crash when GetRef is called as a statement` — [MR !10650](https://gitlab.winehq.org/wine/wine/-/merge_requests/10650)
+- `vbscript: Silence FuncRef::QueryInterface(IID_IDispatchEx) warning` — [MR !10658](https://gitlab.winehq.org/wine/wine/-/merge_requests/10658)
 
 What each one unlocks for the framework:
 
@@ -213,10 +215,6 @@ What each one unlocks for the framework:
   intentionally non-upstream; the test-framework build is not a
   drop-in replacement for stock `vbscript.dll`. See the long block
   comment on `Global_GetBoundRef` in the patch for the full rationale.
-- **Bracketed identifiers** — stub classes in `src/vpx_stub_classes.vbs`
-  use reserved words as method names (`Public Sub [Exit]()`,
-  `[Stop]()`, `[loop]`). The lexer must accept `[ident]` to compile
-  them.
 - **wscript error messages** — `cscript` on master prints errors to
   stdout but always exits 0, so CI can't tell a compile error from
   a successful run. This patch adds proper exit codes for input
@@ -256,7 +254,7 @@ What each one unlocks for the framework:
     called from L"Wrapper", line 2
     called from <global>, line 16
   ```
-  Combined with patch 0008, this turns anonymous `Failed …`
+  Combined with patch 0007, this turns anonymous `Failed …`
   warnings into diagnosable bug reports.
 - **Chained array-index assignment (bug 53877)** — master doesn't
   support `x(0)(1) = value` where the outer call is on the result
@@ -267,25 +265,8 @@ What each one unlocks for the framework:
   `QueueItem` class does `CurrentItem.Label1(2) = label(2)` every
   DMD tick. This patch adds indexed-argument handling to the VBS
   class dispatch's property-put path.
-- **GetTypeInfo for class instances** — master's
-  `IDispatch::GetTypeInfo` stub returns `E_NOTIMPL` for VBScript
-  class instances, which makes `TypeName(New MyClass)` fall back to
-  the generic string `"Object"` instead of `"MyClass"`. Dark Chaos's
-  GLF segment-display code does `If typename(Eval(lightName)) =
-  "Light" Then ...` — against master that check is always false, so
-  `CalculateLights` takes the fallback branch and then subscripts
-  past an empty `m_light_groups` array and fails with "Subscript out
-  of range". With this patch applied, `TypeName` returns the class
-  name and dark_chaos's init walks the lights array cleanly.
-- **Silence FuncRef::QueryInterface(IDispatchEx) WARN** — the
-  vbscript engine probes `IDispatchEx` on every dispatch lookup
-  (`get_disp_id()` in `vbdisp.c`) and falls back cleanly to plain
-  `IDispatch` on `E_NOINTERFACE`. The `FuncRef` wrapper added by the
-  upstream-merged GetRef commit (and used by every `GetRef(...)` /
-  bound-callback path in our scenarios) is plain IDispatch, so the
-  probe currently emits a WARN per call — ~58 000 across the suite,
-  ~16 000 of them inside DD's drain cascade alone. The patch mirrors
-  Jacek Caban's 2019 `BuiltinDisp` fix (`ce6c9f6d338a`): keep the
-  catch-all WARN for genuinely unknown IIDs but skip it for
-  `IID_IDispatchEx` specifically. Same fix applied locally to
-  patch 0004's `Collection_QueryInterface`.
+- **GetTypeInfo for class instances** — not yet merged upstream
+  ([MR !10461](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461)).
+  Without this, `TypeName(New MyClass)` returns `"Object"` instead of
+  `"MyClass"`, breaking Dark Chaos's GLF segment-display
+  `CalculateLights` that checks `typename(Eval(lightName)) = "Light"`.

@@ -1,16 +1,8 @@
-From 5a645a924f151786193e10ebf767111a9a3548a1 Mon Sep 17 00:00:00 2001
+From 373e2716faa22579bb12d6abc5aa1c328ebe0a89 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Wed, 18 Mar 2026 15:40:17 +0100
-Subject: [PATCH 10/13] vbscript: Support assignment to chained array index
- expressions.
+Date: Thu, 16 Apr 2026 14:09:00 +0200
+Subject: [PATCH 09/11] vbscript: Support assignment to chained array index
 
-Handle expressions like x(0)(1) = 5 where the left side of an
-assignment is a call expression whose inner expression is also a call
-(not a direct member). The compiler now evaluates the inner expression
-as a read, then emits a new OP_assign_call opcode to assign to the
-resulting array element or default dispatch property.
-
-Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=53877
 ---
  dlls/vbscript/compile.c      | 25 +++++++++++-
  dlls/vbscript/interp.c       | 74 +++++++++++++++++++++++++++++++++++-
@@ -55,7 +47,7 @@ index 54314372a13..779a89d9c2d 100644
          break;
      default:
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 16928b37f74..a775c0b3694 100644
+index 34cf697c077..a9ced8b8dc3 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
 @@ -793,7 +793,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
@@ -147,7 +139,7 @@ index 16928b37f74..a775c0b3694 100644
  {
      BSTR arg = ctx->instr->arg1.bstr;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 7513b8693c4..b8fa5d3127e 100644
+index fb30537315f..3ffaa3b1cc3 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -2044,6 +2044,34 @@ x = Array(Array(3))

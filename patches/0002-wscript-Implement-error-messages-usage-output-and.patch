@@ -1,17 +1,8 @@
-From e79aa34cf4eee5af26abe5a02f3aff9c39081af8 Mon Sep 17 00:00:00 2001
+From 08d1a58863cac98f81464c9a3b61d5ae0856ec4c Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Tue, 31 Mar 2026 01:08:22 +0200
-Subject: [PATCH 03/13] wscript: Implement error messages, usage output, and
- //nologo banner.
+Date: Thu, 16 Apr 2026 14:08:59 +0200
+Subject: [PATCH 02/11] wscript: Implement error messages, usage output, and
 
-Report user-visible "Input Error" messages to stdout matching Windows
-behavior for missing script files and nonexistent files. Display usage
-information with Wine version when invoked with no arguments. Script
-runtime errors (OnScriptError) remain on stderr. Implement //nologo and
-//logo flags to control the banner displayed before script execution.
-Treat unrecognized options as filenames to support Unix-style paths on
-Wine. Add FIXME stubs for other recognized but unimplemented options
-(//X, //S, //E:, //H:, //Job:, //T:).
 ---
  programs/cscript/Makefile.in |   3 +-
  programs/wscript/Makefile.in |   3 +-

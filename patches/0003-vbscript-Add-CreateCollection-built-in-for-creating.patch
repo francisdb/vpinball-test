@@ -1,25 +1,20 @@
-From 1a45fced0a7eb57efae517070e0ecec89e98ae0d Mon Sep 17 00:00:00 2001
+From 8bef30570473e6b3b48ac05cab8f8d453f904e4e Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 10 Apr 2026 00:11:38 +0200
-Subject: [PATCH 04/13] vbscript: Add CreateCollection built-in for creating
- COM collection objects.
+Date: Thu, 16 Apr 2026 14:08:59 +0200
+Subject: [PATCH 03/11] vbscript: Add CreateCollection built-in for creating
 
-Add a generic CreateCollection() function that creates a COM collection
-object from its arguments. The collection supports Set assignment,
-For Each enumeration via IEnumVARIANT, 1-based indexed access via
-Item(i) or default property, and a Count property.
 ---
  dlls/vbscript/global.c       |  20 +++
  dlls/vbscript/tests/lang.vbs |  60 +++++++
- dlls/vbscript/vbdisp.c       | 314 ++++++++++++++++++++++++++++++++++++
+ dlls/vbscript/vbdisp.c       | 314 +++++++++++++++++++++++++++++++++++
  dlls/vbscript/vbscript.h     |   1 +
  4 files changed, 395 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index a67268f6bcc..fa7b0ae8763 100644
+index cb3330f52c9..1f919a3d112 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -3816,6 +3816,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -3820,6 +3820,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -45,7 +40,7 @@ index a67268f6bcc..fa7b0ae8763 100644
  static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      named_item_t *item;
-@@ -3925,6 +3944,7 @@ static const builtin_prop_t global_props[] = {
+@@ -3929,6 +3948,7 @@ static const builtin_prop_t global_props[] = {
      {L"CInt",                      Global_CInt, 0, 1},
      {L"CLng",                      Global_CLng, 0, 1},
      {L"Cos",                       Global_Cos, 0, 1},
@@ -54,10 +49,10 @@ index a67268f6bcc..fa7b0ae8763 100644
      {L"CSng",                      Global_CSng, 0, 1},
      {L"CStr",                      Global_CStr, 0, 1},
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index f74979cb109..f44b4d1c759 100644
+index 7ff524461c6..9083ac0f433 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -3229,4 +3229,64 @@ Call ok(Err.Number = 13, "bool var as statement: err = " & Err.Number)
+@@ -3385,4 +3385,64 @@ Call ok(Err.Number = 506, "New non-class variable: err.number = " & Err.Number)
  
  On Error GoTo 0
  
@@ -123,10 +118,10 @@ index f74979cb109..f44b4d1c759 100644
 +
  reportSuccess()
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index da2cf77553d..001e2838ba2 100644
+index a6d68e31c51..a2ff4df3766 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -707,6 +707,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
+@@ -708,6 +708,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
      return S_OK;
  }
  

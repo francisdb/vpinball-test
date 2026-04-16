@@ -1,26 +1,15 @@
-From 693ee819651b12ab0a467c64c7bcc6c78f7d71de Mon Sep 17 00:00:00 2001
+From f0357e8d6d3266a245c1e8b5870cb58a3c6eaffb Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 19 Mar 2026 17:00:13 +0100
-Subject: [PATCH 11/13] vbscript: Support element access on public array
- properties of class instances.
+Date: Thu, 16 Apr 2026 14:09:00 +0200
+Subject: [PATCH 10/11] vbscript: Support element access on public array
 
-On Windows, public array properties declared in a class (e.g.
-"Public arr(3)") can be accessed element-wise from outside the class
-using obj.arr(i) for both reading and writing. Wine failed to handle
-this because invoke_variant_prop() used V_ARRAY() which does not
-work for VT_ARRAY|VT_BYREF|VT_VARIANT arrays, and the property put
-path did not support indexed arguments at all.
-
-Fix both by adding a helper to extract the SAFEARRAY from either
-BYREF or direct array variants, and implementing indexed array
-element writes in the property put path.
 ---
  dlls/vbscript/tests/lang.vbs |  9 +++---
  dlls/vbscript/vbdisp.c       | 55 ++++++++++++++++++++++++++++++++----
  2 files changed, 54 insertions(+), 10 deletions(-)
 
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index b8fa5d3127e..25fc37842a2 100644
+index 3ffaa3b1cc3..c089ab31a8f 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -2473,7 +2473,7 @@ End Class
@@ -32,7 +21,7 @@ index b8fa5d3127e..25fc37842a2 100644
  
  obj.var = arr
  Call ok(getVT(obj.var) = "VT_ARRAY|VT_VARIANT", "getVT(obj.var) = " & getVT(obj.var))
-@@ -2844,8 +2844,7 @@ call ok(x.pub2 = 2, "x.pub2 = " & x.pub2)
+@@ -2935,8 +2935,7 @@ call ok(x.pub2 = 2, "x.pub2 = " & x.pub2)
  call ok(ubound(x.pubArray) = 3, "ubound(x.pubArray) = " & ubound(x.pubArray))
  call ok(ubound(x.pubArray2, 1) = 5, "ubound(x.pubArray2, 1) = " & ubound(x.pubArray2, 1))
  call ok(ubound(x.pubArray2, 2) = 10, "ubound(x.pubArray2, 2) = " & ubound(x.pubArray2, 2))
@@ -42,7 +31,7 @@ index b8fa5d3127e..25fc37842a2 100644
  call ok(x.dim1 = 7, "x.dim1 = " & x.dim1)
  call ok(x.dim2 = 8, "x.dim2 = " & x.dim2)
  
-@@ -2856,9 +2855,9 @@ err.clear
+@@ -2947,9 +2946,9 @@ err.clear
  x.priv2 = 2
  call ok(err.number = 438, "err.number = " & err.number)
  err.clear
@@ -55,7 +44,7 @@ index b8fa5d3127e..25fc37842a2 100644
  
  funcCalled = ""
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 001e2838ba2..05b677a9f58 100644
+index a2ff4df3766..3338b0df105 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
 @@ -114,6 +114,21 @@ static HRESULT get_propput_arg(script_ctx_t *ctx, const DISPPARAMS *dp, WORD fla

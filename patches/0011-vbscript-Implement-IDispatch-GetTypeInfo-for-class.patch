@@ -1,12 +1,8 @@
-From d3abb4135db48ad2edf20d121c0116d87ffefbe9 Mon Sep 17 00:00:00 2001
+From 0a578dceda27e542847fa3d9f481d3d5c126c9b8 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 26 Mar 2026 14:42:55 +0100
-Subject: [PATCH] vbscript: Implement IDispatch::GetTypeInfo for class
- instances.
+Date: Thu, 16 Apr 2026 14:09:00 +0200
+Subject: [PATCH 11/11] vbscript: Implement IDispatch::GetTypeInfo for class
 
-Use ParseScriptText with SCRIPTTEXT_ISEXPRESSION to obtain class
-instance dispatch in the test, since GetDispID on ScriptDisp for
-variables is not reliably supported on native Windows.
 ---
  dlls/vbscript/tests/api.vbs    |  11 +
  dlls/vbscript/tests/vbscript.c | 289 ++++++++++++++++++
@@ -14,7 +10,7 @@ variables is not reliably supported on native Windows.
  3 files changed, 822 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
-index 2a4f69f0f59..1d5b744bcb7 100644
+index 91b4bd10bb6..58d35393a61 100644
 --- a/dlls/vbscript/tests/api.vbs
 +++ b/dlls/vbscript/tests/api.vbs
 @@ -1711,6 +1711,17 @@ Dim regex
@@ -343,10 +339,10 @@ index 7500ec30a8d..efd0f5ff82f 100644
          test_RegExp_Replace();
      }else {
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 79b1a728a52..77cb32a540b 100644
+index 3338b0df105..57e97ba10de 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -358,12 +358,532 @@ static HRESULT WINAPI DispatchEx_GetTypeInfoCount(IDispatchEx *iface, UINT *pcti
+@@ -403,12 +403,532 @@ static HRESULT WINAPI DispatchEx_GetTypeInfoCount(IDispatchEx *iface, UINT *pcti
      return S_OK;
  }
  
@@ -882,5 +878,5 @@ index 79b1a728a52..77cb32a540b 100644
  
  static HRESULT WINAPI DispatchEx_GetIDsOfNames(IDispatchEx *iface, REFIID riid,
 -- 
-GitLab
+2.53.0
 
