@@ -1,29 +1,18 @@
-From f30c68f1351d9655c1cb5e258452cf649d02aa40 Mon Sep 17 00:00:00 2001
+From 384127e3812b122f6cca6d8c3ad0ee4916bc60b5 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 26 Mar 2026 14:28:38 +0100
-Subject: [PATCH] vbscript: Implement DateDiff built-in function.
+Date: Thu, 16 Apr 2026 22:50:11 +0200
+Subject: [PATCH 07/12] vbscript: Implement DateDiff built-in function.
 
-Implement DateDiff(interval, date1, date2 [, firstdayofweek [, firstweekofyear]])
-with support for all interval types: yyyy, q, m, y, d, w, ww, h, n, s.
-
-For yyyy/q/m the difference is computed from calendar fields via VarUdateFromDate.
-For d/y the day number difference is used. For w it is the day difference
-integer-divided by 7 (not affected by firstdayofweek). For ww it counts
-week boundary crossings based on firstdayofweek. For h/n/s the dates are
-converted to the respective unit and truncated before subtracting.
-
-Returns VT_I4 (Long). Null date arguments return Null; null interval or
-null firstdayofweek/firstweekofyear return VBSE_ILLEGAL_NULL_USE.
 ---
  dlls/vbscript/global.c      | 153 +++++++++++++++++++++++++++++++++++-
  dlls/vbscript/tests/api.vbs | 144 +++++++++++++++++++++++++++++++++
  2 files changed, 294 insertions(+), 3 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 3578625d154..35264acbfee 100644
+index 5cc21928e43..3bc533d9ac9 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -2503,10 +2503,157 @@ static HRESULT Global_DateAdd(BuiltinDisp *This, VARIANT *args, unsigned args_cn
+@@ -2546,10 +2546,157 @@ static HRESULT Global_DateAdd(BuiltinDisp *This, VARIANT *args, unsigned args_cn
      return hres;
  }
  
@@ -185,10 +174,10 @@ index 3578625d154..35264acbfee 100644
  
  static HRESULT Global_DatePart(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
 diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
-index 47e3ddee84b..e7cba4d4219 100644
+index 58d35393a61..bfc8ea6966f 100644
 --- a/dlls/vbscript/tests/api.vbs
 +++ b/dlls/vbscript/tests/api.vbs
-@@ -2395,6 +2395,150 @@ call testDateAdd(DateSerial(2000, 1, 1), "ww", -1, DateSerial(1999, 12, 25))
+@@ -2406,6 +2406,150 @@ call testDateAdd(DateSerial(2000, 1, 1), "ww", -1, DateSerial(1999, 12, 25))
  call testDateAdd(DateSerial(2000, 1, 1), "Ww", -1, DateSerial(1999, 12, 25))
  call testDateAddError()
  
@@ -340,5 +329,5 @@ index 47e3ddee84b..e7cba4d4219 100644
      dim x, x2
      x = Weekday(d, firstday)
 -- 
-GitLab
+2.53.0
 

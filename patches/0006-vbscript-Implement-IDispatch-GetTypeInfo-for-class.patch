@@ -1,7 +1,7 @@
-From 0a578dceda27e542847fa3d9f481d3d5c126c9b8 Mon Sep 17 00:00:00 2001
+From 79cdd7e4b1e02799540f0208c191ba801a4c290e Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 14:09:00 +0200
-Subject: [PATCH 11/11] vbscript: Implement IDispatch::GetTypeInfo for class
+Date: Thu, 16 Apr 2026 22:50:11 +0200
+Subject: [PATCH 06/12] vbscript: Implement IDispatch::GetTypeInfo for class
 
 ---
  dlls/vbscript/tests/api.vbs    |  11 +
@@ -339,7 +339,7 @@ index 7500ec30a8d..efd0f5ff82f 100644
          test_RegExp_Replace();
      }else {
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 3338b0df105..57e97ba10de 100644
+index cc2e0c269c8..20d6ca10f18 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
 @@ -403,12 +403,532 @@ static HRESULT WINAPI DispatchEx_GetTypeInfoCount(IDispatchEx *iface, UINT *pcti

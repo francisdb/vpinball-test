@@ -1,7 +1,7 @@
-From 373e2716faa22579bb12d6abc5aa1c328ebe0a89 Mon Sep 17 00:00:00 2001
+From 794297ce7551ef578249d8d59765380b5f617e8a Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 14:09:00 +0200
-Subject: [PATCH 09/11] vbscript: Support assignment to chained array index
+Date: Thu, 16 Apr 2026 22:50:11 +0200
+Subject: [PATCH 04/12] vbscript: Support assignment to chained array index
 
 ---
  dlls/vbscript/compile.c      | 25 +++++++++++-
@@ -47,7 +47,7 @@ index 54314372a13..779a89d9c2d 100644
          break;
      default:
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 34cf697c077..a9ced8b8dc3 100644
+index ba530fca38c..de5a064cad1 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
 @@ -793,7 +793,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
@@ -139,7 +139,7 @@ index 34cf697c077..a9ced8b8dc3 100644
  {
      BSTR arg = ctx->instr->arg1.bstr;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index fb30537315f..3ffaa3b1cc3 100644
+index 7cd755b9602..195bb69cca8 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -2044,6 +2044,34 @@ x = Array(Array(3))
@@ -178,10 +178,10 @@ index fb30537315f..3ffaa3b1cc3 100644
  ok y = 1, "y = " & y
  
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index 732d4d9a622..fe25c69e3c8 100644
+index 19c9260a342..3027607b41c 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
-@@ -245,6 +245,7 @@ typedef enum {
+@@ -242,6 +242,7 @@ typedef enum {
      X(and,            1, 0,           0)          \
      X(assign_ident,   1, ARG_BSTR,    ARG_UINT)   \
      X(assign_member,  1, ARG_BSTR,    ARG_UINT)   \
@@ -189,7 +189,7 @@ index 732d4d9a622..fe25c69e3c8 100644
      X(bool,           1, ARG_INT,     0)          \
      X(catch,          1, ARG_ADDR,    ARG_UINT)   \
      X(case,           0, ARG_ADDR,    0)          \
-@@ -299,6 +300,7 @@ typedef enum {
+@@ -296,6 +297,7 @@ typedef enum {
      X(retval,         1, 0,           0)          \
      X(set_ident,      1, ARG_BSTR,    ARG_UINT)   \
      X(set_member,     1, ARG_BSTR,    ARG_UINT)   \

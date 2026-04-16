@@ -1,7 +1,7 @@
-From 43b598af14fd546b74f6e19e1c2e70ee0aa00010 Mon Sep 17 00:00:00 2001
+From 0c5c78e4ebd7bb71b987f9b45d8dc674104750f6 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 14:09:00 +0200
-Subject: [PATCH 05/11] vbscript: Fix Sub first argument parentheses handling.
+Date: Thu, 16 Apr 2026 22:50:11 +0200
+Subject: [PATCH 03/12] vbscript: Fix Sub first argument parentheses handling.
 
 ---
  dlls/vbscript/lex.c          | 74 ++++++++++++++++++++++++++++++++-
@@ -156,7 +156,7 @@ index ea025dbd81c..e43cca67a40 100644
      ctx->stats = ctx->stats_tail = NULL;
      ctx->class_decls = NULL;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 9083ac0f433..fb30537315f 100644
+index 7ff524461c6..7cd755b9602 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -1217,6 +1217,86 @@ Call TestSubExit2

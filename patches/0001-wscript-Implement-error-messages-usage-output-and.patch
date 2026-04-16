@@ -1,7 +1,7 @@
-From 08d1a58863cac98f81464c9a3b61d5ae0856ec4c Mon Sep 17 00:00:00 2001
+From ba95bf0e0c56286ba90721ec32a4fd99fe9186bb Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 14:08:59 +0200
-Subject: [PATCH 02/11] wscript: Implement error messages, usage output, and
+Date: Thu, 16 Apr 2026 22:50:11 +0200
+Subject: [PATCH 01/12] wscript: Implement error messages, usage output, and
 
 ---
  programs/cscript/Makefile.in |   3 +-

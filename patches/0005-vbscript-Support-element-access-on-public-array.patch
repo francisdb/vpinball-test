@@ -1,7 +1,7 @@
-From f0357e8d6d3266a245c1e8b5870cb58a3c6eaffb Mon Sep 17 00:00:00 2001
+From 4c21139cd2a9f025f357ac8b088b2ab1f9332a4a Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 14:09:00 +0200
-Subject: [PATCH 10/11] vbscript: Support element access on public array
+Date: Thu, 16 Apr 2026 22:50:11 +0200
+Subject: [PATCH 05/12] vbscript: Support element access on public array
 
 ---
  dlls/vbscript/tests/lang.vbs |  9 +++---
@@ -9,7 +9,7 @@ Subject: [PATCH 10/11] vbscript: Support element access on public array
  2 files changed, 54 insertions(+), 10 deletions(-)
 
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 3ffaa3b1cc3..c089ab31a8f 100644
+index 195bb69cca8..0c54f6c567c 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -2473,7 +2473,7 @@ End Class
@@ -44,7 +44,7 @@ index 3ffaa3b1cc3..c089ab31a8f 100644
  
  funcCalled = ""
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index a2ff4df3766..3338b0df105 100644
+index 38185dd0411..cc2e0c269c8 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
 @@ -114,6 +114,21 @@ static HRESULT get_propput_arg(script_ctx_t *ctx, const DISPPARAMS *dp, WORD fla

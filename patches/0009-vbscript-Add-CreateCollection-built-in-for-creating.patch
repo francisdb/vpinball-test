@@ -1,7 +1,7 @@
-From 8bef30570473e6b3b48ac05cab8f8d453f904e4e Mon Sep 17 00:00:00 2001
+From 2211dbc3b904331c85975ad9f5979fda7608c164 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 14:08:59 +0200
-Subject: [PATCH 03/11] vbscript: Add CreateCollection built-in for creating
+Date: Thu, 16 Apr 2026 22:50:11 +0200
+Subject: [PATCH 09/12] vbscript: Add CreateCollection built-in for creating
 
 ---
  dlls/vbscript/global.c       |  20 +++
@@ -11,10 +11,10 @@ Subject: [PATCH 03/11] vbscript: Add CreateCollection built-in for creating
  4 files changed, 395 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index cb3330f52c9..1f919a3d112 100644
+index 601180fe14b..1d824b08685 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -3820,6 +3820,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4010,6 +4010,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -40,7 +40,7 @@ index cb3330f52c9..1f919a3d112 100644
  static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      named_item_t *item;
-@@ -3929,6 +3948,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4119,6 +4138,7 @@ static const builtin_prop_t global_props[] = {
      {L"CInt",                      Global_CInt, 0, 1},
      {L"CLng",                      Global_CLng, 0, 1},
      {L"Cos",                       Global_Cos, 0, 1},
@@ -49,10 +49,10 @@ index cb3330f52c9..1f919a3d112 100644
      {L"CSng",                      Global_CSng, 0, 1},
      {L"CStr",                      Global_CStr, 0, 1},
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 7ff524461c6..9083ac0f433 100644
+index 0c54f6c567c..68b6396f801 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -3385,4 +3385,64 @@ Call ok(Err.Number = 506, "New non-class variable: err.number = " & Err.Number)
+@@ -3492,4 +3492,64 @@ Call ok(Err.Number = 506, "New non-class variable: err.number = " & Err.Number)
  
  On Error GoTo 0
  
@@ -118,10 +118,10 @@ index 7ff524461c6..9083ac0f433 100644
 +
  reportSuccess()
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index a6d68e31c51..a2ff4df3766 100644
+index aab0b030e56..4bccc37bfe7 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -708,6 +708,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
+@@ -1273,6 +1273,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
      return S_OK;
  }
  
@@ -443,7 +443,7 @@ index a6d68e31c51..a2ff4df3766 100644
      function_t *func;
      MEMBERID memid;
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index d5bf562d481..732d4d9a622 100644
+index 2c30aeb0c76..fe25c69e3c8 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
 @@ -170,6 +170,7 @@ void collect_objects(script_ctx_t*);

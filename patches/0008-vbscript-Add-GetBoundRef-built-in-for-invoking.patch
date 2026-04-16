@@ -1,7 +1,7 @@
-From 7a339a270c5120010bc41908a7426799c805f3aa Mon Sep 17 00:00:00 2001
+From c7b37ac646996fc20e798b6434873afe674b3190 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 14:08:59 +0200
-Subject: [PATCH 01/11] vbscript: Add GetBoundRef built-in for invoking
+Date: Thu, 16 Apr 2026 22:50:11 +0200
+Subject: [PATCH 08/12] vbscript: Add GetBoundRef built-in for invoking
 
 ---
  dlls/vbscript/global.c        | 68 ++++++++++++++++++++++++++++++++++-
@@ -11,10 +11,10 @@ Subject: [PATCH 01/11] vbscript: Add GetBoundRef built-in for invoking
  4 files changed, 100 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 23a5f235c85..cb3330f52c9 100644
+index 3bc533d9ac9..601180fe14b 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -3820,7 +3820,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4010,7 +4010,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -88,7 +88,7 @@ index 23a5f235c85..cb3330f52c9 100644
  {
      TRACE("\n");
  
-@@ -3887,6 +3952,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4077,6 +4142,7 @@ static const builtin_prop_t global_props[] = {
      {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
      {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
      {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},
@@ -97,10 +97,10 @@ index 23a5f235c85..cb3330f52c9 100644
      {L"GetObject",                 Global_GetObject, 0, 0, 2},
      {L"GetRef",                    Global_GetRef, 0, 1},
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 38185dd0411..a6d68e31c51 100644
+index 20d6ca10f18..aab0b030e56 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -504,6 +504,11 @@ static inline vbdisp_t *unsafe_impl_from_IDispatch(IDispatch *iface)
+@@ -1069,6 +1069,11 @@ static inline vbdisp_t *unsafe_impl_from_IDispatch(IDispatch *iface)
          : NULL;
  }
  
@@ -112,7 +112,7 @@ index 38185dd0411..a6d68e31c51 100644
  HRESULT create_vbdisp(const class_desc_t *desc, vbdisp_t **ret)
  {
      vbdisp_t *vbdisp;
-@@ -568,6 +573,7 @@ typedef struct {
+@@ -1133,6 +1138,7 @@ typedef struct {
      LONG ref;
      function_t *func;
      script_ctx_t *ctx;
@@ -120,7 +120,7 @@ index 38185dd0411..a6d68e31c51 100644
  } FuncRef;
  
  static inline FuncRef *FuncRef_from_IDispatch(IDispatch *iface)
-@@ -608,6 +614,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
+@@ -1173,6 +1179,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
  
      TRACE("(%p) ref=%ld\n", This, ref);
      if(!ref) {
@@ -129,7 +129,7 @@ index 38185dd0411..a6d68e31c51 100644
          release_vbscode(This->func->code_ctx);
          free(This);
      }
-@@ -648,7 +656,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
+@@ -1213,7 +1221,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
      if(dispIdMember != DISPID_VALUE)
          return DISP_E_MEMBERNOTFOUND;
  
@@ -138,7 +138,7 @@ index 38185dd0411..a6d68e31c51 100644
  }
  
  static const IDispatchVtbl FuncRefVtbl = {
-@@ -679,6 +687,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
+@@ -1244,6 +1252,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
      return S_OK;
  }
  
@@ -167,7 +167,7 @@ index 38185dd0411..a6d68e31c51 100644
      function_t *func;
      MEMBERID memid;
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index 19c9260a342..d5bf562d481 100644
+index 3027607b41c..2c30aeb0c76 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
 @@ -169,6 +169,8 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);
