@@ -70,7 +70,7 @@ PROP_MAP = {
 KNOWN_TYPES = {
     "Bumper", "Decal", "Flasher", "Flipper", "Gate", "HitTarget",
     "Kicker", "Light", "LightSequencer", "Plunger", "Primitive",
-    "Ramp", "Rubber", "Spinner", "TextBox", "Timer", "Trigger", "Wall",
+    "Ramp", "Reel", "Rubber", "Spinner", "TextBox", "Timer", "Trigger", "Wall",
 }
 
 

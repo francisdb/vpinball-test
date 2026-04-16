@@ -213,8 +213,10 @@ Class Flipper
         X = 0 : Y = 0 : Height = 0
         StartAngle = 0 : EndAngle = 0 : CurrentAngle = 0
         TimerEnabled = False : TimerInterval = 100
-        Mass = 1 : Strength = 1 : Return = 0
-        EOSTorque = 0 : EOSTorqueAngle = 0
+        Mass = 1 : Strength = 2200 : Return = 0.058
+        Elasticity = 0.88 : ElasticityFalloff = 0.43
+        Friction = 0.6 : RampUp = 3
+        EOSTorque = 0.75 : EOSTorqueAngle = 6
     End Sub
 End Class
 
@@ -473,6 +475,24 @@ Class Rubber
     Private Sub Class_Initialize
         Name = "" : Visible = True : Collidable = True
         TimerEnabled = False : TimerInterval = 100
+    End Sub
+End Class
+
+' IDispReel
+Class Reel
+    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Visible, IsTransparent, Image, Sound
+    Public Width, Height, ReelCount, ReelSpacing
+    Public MotorSteps, DigitRange, UpdateInterval
+    Public UseImageGrid, ImagesPerGridRow, BackColor
+    Public Sub AddValue(val) : End Sub
+    Public Sub ResetToZero() : End Sub
+    Public Sub SetValue(val) : End Sub
+    Public Sub SpinReel(reelNum, pulseCount) : End Sub
+    Private Sub Class_Initialize
+        Name = "" : Visible = True : IsTransparent = False
+        TimerEnabled = False : TimerInterval = 100
+        ReelCount = 5 : DigitRange = 9 : UpdateInterval = 50
     End Sub
 End Class
 
