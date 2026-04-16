@@ -1,6 +1,6 @@
-From 4c21139cd2a9f025f357ac8b088b2ab1f9332a4a Mon Sep 17 00:00:00 2001
+From 55d6da8d340998dbf969a026e241ad51a376d250 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 22:50:11 +0200
+Date: Fri, 17 Apr 2026 00:36:03 +0200
 Subject: [PATCH 05/12] vbscript: Support element access on public array
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH 05/12] vbscript: Support element access on public array
  2 files changed, 54 insertions(+), 10 deletions(-)
 
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 195bb69cca8..0c54f6c567c 100644
+index 1af02873943..05f4f6c90b0 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -2473,7 +2473,7 @@ End Class
@@ -21,7 +21,7 @@ index 195bb69cca8..0c54f6c567c 100644
  
  obj.var = arr
  Call ok(getVT(obj.var) = "VT_ARRAY|VT_VARIANT", "getVT(obj.var) = " & getVT(obj.var))
-@@ -2935,8 +2935,7 @@ call ok(x.pub2 = 2, "x.pub2 = " & x.pub2)
+@@ -2964,8 +2964,7 @@ call ok(x.pub2 = 2, "x.pub2 = " & x.pub2)
  call ok(ubound(x.pubArray) = 3, "ubound(x.pubArray) = " & ubound(x.pubArray))
  call ok(ubound(x.pubArray2, 1) = 5, "ubound(x.pubArray2, 1) = " & ubound(x.pubArray2, 1))
  call ok(ubound(x.pubArray2, 2) = 10, "ubound(x.pubArray2, 2) = " & ubound(x.pubArray2, 2))
@@ -31,7 +31,7 @@ index 195bb69cca8..0c54f6c567c 100644
  call ok(x.dim1 = 7, "x.dim1 = " & x.dim1)
  call ok(x.dim2 = 8, "x.dim2 = " & x.dim2)
  
-@@ -2947,9 +2946,9 @@ err.clear
+@@ -2976,9 +2975,9 @@ err.clear
  x.priv2 = 2
  call ok(err.number = 438, "err.number = " & err.number)
  err.clear

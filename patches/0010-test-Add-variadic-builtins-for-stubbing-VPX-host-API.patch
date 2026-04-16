@@ -1,6 +1,6 @@
-From 40ea56cb3de91ab2a24cec5839a243e3c0f43367 Mon Sep 17 00:00:00 2001
+From acbc7101178e993a1aa7cc24a9011e5d03ed2fad Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 22:50:11 +0200
+Date: Fri, 17 Apr 2026 00:36:04 +0200
 Subject: [PATCH 10/12] test: Add variadic builtins for stubbing VPX host APIs
 
 ---

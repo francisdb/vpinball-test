@@ -1,6 +1,6 @@
-From 794297ce7551ef578249d8d59765380b5f617e8a Mon Sep 17 00:00:00 2001
+From 030964061be17f295e0977f6b039cbce3e50f850 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 22:50:11 +0200
+Date: Fri, 17 Apr 2026 00:36:03 +0200
 Subject: [PATCH 04/12] vbscript: Support assignment to chained array index
 
 ---
@@ -47,7 +47,7 @@ index 54314372a13..779a89d9c2d 100644
          break;
      default:
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index ba530fca38c..de5a064cad1 100644
+index 2510c1ee05a..00c65b1ddfc 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
 @@ -793,7 +793,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
@@ -139,7 +139,7 @@ index ba530fca38c..de5a064cad1 100644
  {
      BSTR arg = ctx->instr->arg1.bstr;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 7cd755b9602..195bb69cca8 100644
+index 00d56977e61..1af02873943 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -2044,6 +2044,34 @@ x = Array(Array(3))

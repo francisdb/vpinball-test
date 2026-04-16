@@ -1,6 +1,6 @@
-From 313e1b7b5643a47b2f3782bc7a477a58ded0922c Mon Sep 17 00:00:00 2001
+From 56d189fefd823f343983323ed87a7b43904fef37 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 22:50:11 +0200
+Date: Fri, 17 Apr 2026 00:36:04 +0200
 Subject: [PATCH 12/12] vbscript: Log call stack trace on runtime errors.
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH 12/12] vbscript: Log call stack trace on runtime errors.
  1 file changed, 13 insertions(+)
 
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 9dcb004dc6b..a9ced8b8dc3 100644
+index 5e5d3996820..8ac7f23d7e2 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
 @@ -2903,9 +2903,22 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd

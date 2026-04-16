@@ -1,6 +1,6 @@
-From c7b37ac646996fc20e798b6434873afe674b3190 Mon Sep 17 00:00:00 2001
+From 99bb933c8bf5de9deacad608f8f394aafd0f5cfc Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 22:50:11 +0200
+Date: Fri, 17 Apr 2026 00:36:04 +0200
 Subject: [PATCH 08/12] vbscript: Add GetBoundRef built-in for invoking
 
 ---

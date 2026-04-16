@@ -1,6 +1,6 @@
-From 57d1094fbc846fb31d54bb9c93826e49b74fc147 Mon Sep 17 00:00:00 2001
+From 5b5f464a74054668a2db40338b8e6a7134d29866 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 22:50:11 +0200
+Date: Fri, 17 Apr 2026 00:36:03 +0200
 Subject: [PATCH 02/12] vbscript: Implement GetLocale and SetLocale functions.
 
 ---

@@ -16,11 +16,13 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Batman 66 (Stern 
 Dim TABLE_FILE          : TABLE_FILE          = "Batman66_1.2.32.vpx"
 
 Sub PatchTableCode(ByRef code)
-    ' No patches needed. Remaining warnings (all OERN-swallowed):
-    ' - PuPInit: FileExists() is Private inside PinupNULL class but
-    '   called at module scope — table bug, function not accessible.
-    ' - PuPInit: DMDMode = 2 assigns to a Const — table bug, should
-    '   be Dim not Const if PUP option override is intended.
+    ' Table bugs in PuPInit (OERN-swallowed but still wrong):
+    ' - fso is declared but not initialized before the If
+    ' - the If condition is a bare string concat, not fso.FileExists()
+    ' Fix: move fso init before the If and add the FileExists check.
+    code = Replace(code, _
+        "dim fso" & vbCrLf & vbCrLf & vbTab & "if (puplayer.getroot", _
+        "dim fso" & vbCrLf & vbTab & "Set fso = CreateObject(""Scripting.FileSystemObject"")" & vbCrLf & vbCrLf & vbTab & "if fso.FileExists(puplayer.getroot")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

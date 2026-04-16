@@ -1,6 +1,6 @@
-From 2211dbc3b904331c85975ad9f5979fda7608c164 Mon Sep 17 00:00:00 2001
+From 72cfa0d9e51175253cfcb802125244c5a5c669f8 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 22:50:11 +0200
+Date: Fri, 17 Apr 2026 00:36:04 +0200
 Subject: [PATCH 09/12] vbscript: Add CreateCollection built-in for creating
 
 ---
@@ -49,10 +49,10 @@ index 601180fe14b..1d824b08685 100644
      {L"CSng",                      Global_CSng, 0, 1},
      {L"CStr",                      Global_CStr, 0, 1},
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 0c54f6c567c..68b6396f801 100644
+index 05f4f6c90b0..6d243302563 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -3492,4 +3492,64 @@ Call ok(Err.Number = 506, "New non-class variable: err.number = " & Err.Number)
+@@ -3521,4 +3521,64 @@ Call ok(Err.Number = 506, "New non-class variable: err.number = " & Err.Number)
  
  On Error GoTo 0
  

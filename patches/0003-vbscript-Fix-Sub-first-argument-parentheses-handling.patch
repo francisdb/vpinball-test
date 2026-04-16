@@ -1,6 +1,6 @@
-From 0c5c78e4ebd7bb71b987f9b45d8dc674104750f6 Mon Sep 17 00:00:00 2001
+From eb934b549893de0830cf206f709361f44071037a Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 16 Apr 2026 22:50:11 +0200
+Date: Fri, 17 Apr 2026 00:36:03 +0200
 Subject: [PATCH 03/12] vbscript: Fix Sub first argument parentheses handling.
 
 ---
@@ -126,10 +126,10 @@ index a4d5079d10e..a181f814c0f 100644
      BOOL after_continuation;
  
 diff --git a/dlls/vbscript/parser.y b/dlls/vbscript/parser.y
-index ea025dbd81c..e43cca67a40 100644
+index e716bf98d3a..6a630813803 100644
 --- a/dlls/vbscript/parser.y
 +++ b/dlls/vbscript/parser.y
-@@ -822,9 +822,13 @@ static call_expression_t *make_call_expression(parser_ctx_t *ctx, expression_t *
+@@ -824,9 +824,13 @@ static call_expression_t *make_call_expression(parser_ctx_t *ctx, expression_t *
          return call_expr;
  
      if(arguments->type != EXPR_NOARG) {
@@ -146,7 +146,7 @@ index ea025dbd81c..e43cca67a40 100644
      }
  
      call_expr->args->next = arguments->next;
-@@ -1307,6 +1311,8 @@ HRESULT parse_script(parser_ctx_t *ctx, const WCHAR *code, const WCHAR *delimite
+@@ -1335,6 +1339,8 @@ HRESULT parse_script(parser_ctx_t *ctx, const WCHAR *code, const WCHAR *delimite
      ctx->hres = S_OK;
      ctx->error_loc = -1;
      ctx->last_token = tNL;
@@ -156,7 +156,7 @@ index ea025dbd81c..e43cca67a40 100644
      ctx->stats = ctx->stats_tail = NULL;
      ctx->class_decls = NULL;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 7ff524461c6..7cd755b9602 100644
+index d59f05c54a0..00d56977e61 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -1217,6 +1217,86 @@ Call TestSubExit2
