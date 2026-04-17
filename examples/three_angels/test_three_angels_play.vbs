@@ -34,13 +34,11 @@ tester.Assert vpGameInPlay = True, "expected vpGameInPlay=True after start"
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
-    BallSaverActive = FALSE              ' Ball saver has no timer in this table;
-                                         ' it stays active until manually cleared.
-                                         ' In real VPX it expires when the ball
-                                         ' passes through gameplay triggers.
+    tester.FireHit "LeftInLaneTrigger"    ' Ball passes inlane -> SSOver -> ActivateBallSaver (starts timer)
+    tester.AdvanceMs 15000               ' Let ball saver timer expire (~13s cascade)
     tester.KeepBallMoving
     tester.FireHit "Drain"
-    tester.AdvanceMs 25000
+    tester.AdvanceMs 20000
     tester.StopBall
     tester.Echo "  vpGameInPlay=" & vpGameInPlay & " BallsRemaining=" & BallsRemaining(1)
 Next
