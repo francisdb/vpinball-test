@@ -1,13 +1,18 @@
 # TODO
 
-## Timer scheduler performance
+## Performance
 
 Play tests take too long wall time for the amount of sim time.
 Since we simulate time (not real-time), wall time should be
-negligible. The scheduler likely has O(n) overhead per tick —
-scanning g_AllTimers dictionary, property lookups on each entry,
-m_nextFire dictionary operations. Needs profiling and optimization
-(e.g. pre-resolved arrays instead of dictionary lookups per tick).
+negligible. Investigate both:
+
+- **Framework scheduler** — O(n) overhead per tick from dictionary
+  scans, property lookups, m_nextFire operations. Consider
+  pre-resolved arrays instead of dictionary lookups per tick.
+- **Wine vbscript engine** — MR !10546 (indexed function/variable
+  lookup) showed 3-11x improvement across all tables. Other Wine-side
+  optimizations (dispatch caching, property resolution) could help.
+  The test framework is a good benchmark for Wine vbscript perf work.
 
 ## Play test drain cascade issues
 
