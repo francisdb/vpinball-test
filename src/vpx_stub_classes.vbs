@@ -4,7 +4,7 @@
 
 ' Table stub (host Table1 object)
 Class Table
-    Public Name, ShowDT, FileName, UserValue
+    Public Name, ShowDT, ShowFSS, FileName, UserValue
     Public Width, Height, TableHeight
     Public BallImage, BallDecalMode, BallFrontDecal, DefaultBulbIntensityScale
     Public ColorGradeImage, Inclination, Layback

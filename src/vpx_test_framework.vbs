@@ -81,6 +81,8 @@ Dim VPBuildVersion  : VPBuildVersion = 10801
 ' are NOT pre-defined here. Tables define them as Const/Dim before
 ' core.vbs runs, and core.vbs detects them via IsEmpty(Eval(...)).
 Dim ScriptsDirectory: ScriptsDirectory = VPINBALL_DIR & "\scripts\"
+Dim MusicDirectory  : MusicDirectory   = VPINBALL_DIR & "\music\"
+Dim TablesDirectory : TablesDirectory  = TABLES_DIR & "\"
 Dim GameTime        : GameTime = 0
 Dim ActiveBall      : ActiveBall = Empty
 Dim DisableStaticPreRendering : DisableStaticPreRendering = False
