@@ -1,43 +1,40 @@
-From eb934b549893de0830cf206f709361f44071037a Mon Sep 17 00:00:00 2001
+From 5dae99f56b507788ab4d44cabd99124192d337b0 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 00:36:03 +0200
-Subject: [PATCH 03/12] vbscript: Fix Sub first argument parentheses handling.
+Date: Wed, 4 Mar 2026 14:37:30 +0100
+Subject: [PATCH] vbscript: Fix Sub first argument parentheses handling.
 
+Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=54177
 ---
- dlls/vbscript/lex.c          | 74 ++++++++++++++++++++++++++++++++-
- dlls/vbscript/parse.h        |  2 +
- dlls/vbscript/parser.y       | 12 ++++--
- dlls/vbscript/tests/lang.vbs | 80 ++++++++++++++++++++++++++++++++++++
- 4 files changed, 163 insertions(+), 5 deletions(-)
+ dlls/vbscript/lex.c          |  77 ++++++++++++++-
+ dlls/vbscript/parse.h        |   2 +
+ dlls/vbscript/parser.y       |   6 +-
+ dlls/vbscript/tests/lang.vbs | 177 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 260 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/lex.c b/dlls/vbscript/lex.c
-index 81cc67e037b..bcc0365fb39 100644
+index 81cc67e037b..19235e0d2b9 100644
 --- a/dlls/vbscript/lex.c
 +++ b/dlls/vbscript/lex.c
-@@ -509,7 +509,8 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
-             return comment_line(ctx);
-         ctx->ptr++;
-         return '-';
--    case '(':
-+    case '(': {
-+        const WCHAR *paren_pos = ctx->ptr;
-         /* NOTE:
-          * We resolve empty brackets in lexer instead of parser to avoid complex conflicts
-          * in call statement special case |f()| without 'call' keyword
-@@ -523,11 +524,39 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
+@@ -523,10 +523,46 @@ static int parse_next_token(void *lval, unsigned *loc, parser_ctx_t *ctx)
          /*
           * Parser can't predict if bracket is part of argument expression or an argument
           * in call expression. We predict it here instead.
 +         *
-+         * In statement context, 'f (x) * 8, y' treats (x) as expression grouping,
-+         * not call parens. Detect this when: identifier/')' precedes '(' with a space,
-+         * and a binary-only operator (*, /, \, ^, &) follows the matching ')'.
++         * At statement level, `f(` always opens an expression group — VBScript
++         * disallows multi-arg paren calls without the `Call` keyword, so the
++         * paren can only hold a single expression that's the Sub's first argument.
           */
          if(ctx->last_token == tIdentifier || ctx->last_token == ')' || ctx->last_token == tME
 -                || ctx->last_token == tEMPTYBRACKETS)
 +                || ctx->last_token == tEMPTYBRACKETS) {
-+            if(paren_pos > ctx->code && (paren_pos[-1] == ' ' || paren_pos[-1] == '\t')
-+               && ctx->is_statement_ctx) {
++            if(ctx->is_statement_ctx && ctx->paren_depth == 0) {
++                /* Disambiguate `(` as expression grouping vs call paren.
++                 * When the token after the matching ')' continues the call
++                 * chain — `=` (property put), `.` (member), `(` (another call),
++                 * `,` / ')' (nested arg list), or end-of-statement — keep
++                 * call-paren semantics. Anything else (binary operators,
++                 * keywords like Mod/And/...) means `f(x) OP y`, so emit
++                 * tEXPRLBRACKET and let `(x)` parse as grouping. */
 +                const WCHAR *p = ctx->ptr;
 +                int depth = 1;
 +
@@ -49,23 +46,24 @@ index 81cc67e037b..bcc0365fb39 100644
 +                    if(depth > 0)
 +                        p++;
 +                }
-+
 +                if(depth == 0) {
 +                    p++;
 +                    while(p < ctx->end && (*p == ' ' || *p == '\t'))
 +                        p++;
-+                    if(p < ctx->end && (*p == '*' || *p == '/' || *p == '\\' || *p == '^' || *p == '&'))
-+                        return tEXPRLBRACKET;
++                    if(p >= ctx->end
++                            || *p == '=' || *p == '.' || *p == '('
++                            || *p == ',' || *p == ')'
++                            || *p == '\n' || *p == '\r' || *p == ':')
++                        return '(';
 +                }
++                return tEXPRLBRACKET;
 +            }
              return '(';
 +        }
          return tEXPRLBRACKET;
-+    }
      case '[':
          return parse_bracket_identifier(ctx, lval);
-     case '"':
-@@ -609,5 +638,46 @@ int parser_lex(void *lval, unsigned *loc, parser_ctx_t *ctx)
+@@ -609,5 +645,44 @@ int parser_lex(void *lval, unsigned *loc, parser_ctx_t *ctx)
      }
  
      ctx->after_continuation = FALSE;
@@ -86,7 +84,6 @@ index 81cc67e037b..bcc0365fb39 100644
 +        case ':':
 +        case tTHEN:
 +        case tELSE:
-+        case tELSEIF:
 +            ctx->is_statement_ctx = TRUE;
 +            break;
 +        case tDOT:
@@ -101,8 +98,7 @@ index 81cc67e037b..bcc0365fb39 100644
 +             * we're in argument context, so set to FALSE. */
 +            if(ctx->last_token != '.' && ctx->last_token != tDOT
 +               && ctx->last_token != tNL && ctx->last_token != ':'
-+               && ctx->last_token != tTHEN && ctx->last_token != tELSE
-+               && ctx->last_token != tELSEIF)
++               && ctx->last_token != tTHEN && ctx->last_token != tELSE)
 +                ctx->is_statement_ctx = FALSE;
 +            break;
 +        default:
@@ -126,27 +122,10 @@ index a4d5079d10e..a181f814c0f 100644
      BOOL after_continuation;
  
 diff --git a/dlls/vbscript/parser.y b/dlls/vbscript/parser.y
-index e716bf98d3a..6a630813803 100644
+index ea025dbd81c..516ef1d074b 100644
 --- a/dlls/vbscript/parser.y
 +++ b/dlls/vbscript/parser.y
-@@ -824,9 +824,13 @@ static call_expression_t *make_call_expression(parser_ctx_t *ctx, expression_t *
-         return call_expr;
- 
-     if(arguments->type != EXPR_NOARG) {
--        FIXME("Invalid syntax: missing comma\n");
--        ctx->hres = E_FAIL;
--        return NULL;
-+        /* 'f (x) + expr, ...' — combine bracketed arg with the +/- expression. */
-+        expression_t *remaining = arguments->next;
-+        call_expr->args = new_binary_expression(ctx, EXPR_ADD, call_expr->args, arguments);
-+        if(!call_expr->args)
-+            return NULL;
-+        call_expr->args->next = remaining;
-+        return call_expr;
-     }
- 
-     call_expr->args->next = arguments->next;
-@@ -1335,6 +1339,8 @@ HRESULT parse_script(parser_ctx_t *ctx, const WCHAR *code, const WCHAR *delimite
+@@ -1307,14 +1307,18 @@ HRESULT parse_script(parser_ctx_t *ctx, const WCHAR *code, const WCHAR *delimite
      ctx->hres = S_OK;
      ctx->error_loc = -1;
      ctx->last_token = tNL;
@@ -155,11 +134,22 @@ index e716bf98d3a..6a630813803 100644
      ctx->last_nl = 0;
      ctx->stats = ctx->stats_tail = NULL;
      ctx->class_decls = NULL;
+     ctx->option_explicit = FALSE;
+     ctx->is_html = delimiter && !wcsicmp(delimiter, L"</script>");
+ 
+-    if(flags & SCRIPTTEXT_ISEXPRESSION)
++    if(flags & SCRIPTTEXT_ISEXPRESSION) {
+         ctx->last_token = tEXPRESSION;
++        ctx->is_statement_ctx = FALSE;
++    }
+ 
+     parser_parse(ctx);
+ 
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index d59f05c54a0..00d56977e61 100644
+index 7ff524461c6..9f550e47e7d 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -1217,6 +1217,86 @@ Call TestSubExit2
+@@ -1217,6 +1217,183 @@ Call TestSubExit2
  TestSubMultiArgs 1, 2, 3, 4, 5
  Call TestSubMultiArgs(1, 2, 3, 4, 5)
  
@@ -242,10 +232,107 @@ index d59f05c54a0..00d56977e61 100644
 +Call idxObj.Init()
 +idxObj(0).Check (2) * 8, 7
 +
++' No-space variants of Sub-first-arg paren pattern.
++' On native VBScript, `S(x) OP y` in statement context treats the whole
++' `S(x) OP y` as a call to S with argument `(x) OP y` — for every binary
++' operator except `=` (parsed as assignment).
++' Each case is wrapped in Execute so parse failures of one don't abort the rest.
++Dim npArg, npArgA, npArgB
++Sub NpS(a)
++    npArg = a
++End Sub
++Sub NpT(a, b)
++    npArgA = a
++    npArgB = b
++End Sub
++
++Sub CheckNpS(src, expected)
++    npArg = Empty
++    On Error Resume Next
++    Err.Clear
++    Execute src
++    Dim e : e = Err.Number
++    On Error GoTo 0
++    Call ok(e = 0, "parse error for " & src & ": err=" & e)
++    If e = 0 Then Call ok(npArg = expected, src & ": npArg = " & npArg & " expected " & expected)
++End Sub
++
++CheckNpS "NpS(10)+5",                15
++CheckNpS "NpS(10)-3",                7
++CheckNpS "NpS(10)*3",                30
++CheckNpS "NpS(10)/2",                5
++CheckNpS "NpS(10)\3",                3
++CheckNpS "NpS(10)^2",                100
++CheckNpS "NpS(""hi"")&""!""",        "hi!"
++CheckNpS "NpS(10) Mod 3",            1
++CheckNpS "NpS(10)<>10",              False
++CheckNpS "NpS(10)<5",                False
++CheckNpS "NpS(10)>5",                True
++CheckNpS "NpS(10)<=10",              True
++CheckNpS "NpS(10)>=5",               True
++CheckNpS "NpS(1) And 1",             1
++CheckNpS "NpS(0) Or 1",              1
++CheckNpS "NpS(1) Xor 1",             0
++CheckNpS "NpS(1) Eqv 1",             -1
++CheckNpS "NpS(1) Imp 1",             -1
++CheckNpS "NpS(Nothing) Is Nothing",  True
++
++' Two-arg form: S(x) OP y, z — result of `(x) OP y` is first arg, z is second.
++Sub CheckNpT(src, expectedA, expectedB)
++    npArgA = Empty
++    npArgB = Empty
++    On Error Resume Next
++    Err.Clear
++    Execute src
++    Dim e : e = Err.Number
++    On Error GoTo 0
++    Call ok(e = 0, "parse error for " & src & ": err=" & e)
++    If e = 0 Then Call ok(npArgA = expectedA and npArgB = expectedB, _
++        src & ": a=" & npArgA & " b=" & npArgB)
++End Sub
++
++CheckNpT "NpT(10)+5, 7",             15,      7
++CheckNpT "NpT(10)*3, 7",             30,      7
++CheckNpT "NpT(""hi"")&""!"", 7",     "hi!",   7
++
++' Member expression: obj.Method(x) OP y — no space, same pattern.
++Class NpCls
++    Sub Check(a)
++        npArg = a
++    End Sub
++End Class
++Dim npObj
++Set npObj = New NpCls
++CheckNpS "npObj.Check(10)+5",        15
++CheckNpS "npObj.Check(10)*3",        30
++
++Dim elseifHit
++elseifHit = 0
++If False Then
++    elseifHit = 1
++ElseIf Abs(3) <= Abs(4) + 0.1 Then
++    elseifHit = 2
++End If
++Call ok(elseifHit = 2, "ElseIf with Abs(...) <= ...: elseifHit = " & elseifHit)
++
++Dim elseifStar
++elseifStar = 0
++If False Then
++ElseIf Abs(3) * 2 > 0 Then
++    elseifStar = 1
++End If
++Call ok(elseifStar = 1, "ElseIf with Abs(...) * ...: elseifStar = " & elseifStar)
++
++Dim dipsArr, srcArr, idx
++ReDim dipsArr(3)
++srcArr = Array(7, 14, 21, 28)
++idx = 1
++dipsArr(srcArr(idx) And &H01) = 99
++Call ok(dipsArr(0) = 99, "nested paren with And in arg list: dipsArr(0) = " & dipsArr(0))
 +
  Sub TestSubLocalVal
      x = false
      Call ok(not x, "local x is not false?")
 -- 
-2.53.0
+GitLab
 
