@@ -74,8 +74,12 @@ Dim VPBuildVersion  : VPBuildVersion = 10801
 ' are NOT pre-defined here. Tables define them as Const/Dim before
 ' core.vbs runs, and core.vbs detects them via IsEmpty(Eval(...)).
 Dim ScriptsDirectory: ScriptsDirectory = VPINBALL_DIR & "\scripts\"
-Dim MusicDirectory  : MusicDirectory   = VPINBALL_DIR & "\music\"
 Dim TablesDirectory : TablesDirectory  = TABLES_DIR & "\"
+' MusicDirectory: VPX resolves to <table_dir>/music/ first (AppPrefData),
+' falling back to <app_dir>/music/. Use the table's parent dir.
+Dim MusicDirectory
+MusicDirectory = fso.GetParentFolderName(EXTRACTED_TABLE_DIR) & "\music\"
+If Not fso.FolderExists(MusicDirectory) Then MusicDirectory = VPINBALL_DIR & "\music\"
 Dim GameTime        : GameTime = 0
 Dim ActiveBall      : ActiveBall = Empty
 Dim DisableStaticPreRendering : DisableStaticPreRendering = False

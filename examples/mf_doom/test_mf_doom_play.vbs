@@ -32,8 +32,7 @@ Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
     tester.FireHit "ballsavestarttrigger"  ' Ball launched, enables ball saver
-    LPressStart.state = 0                  ' MusicTrigger_hit resets this but errors
-                                           ' on UpdateMusicNow (no MP3s in MusicDirectory)
+    tester.FireHit "MusicTrigger"          ' Ball passes music trigger, resets LPressStart
     tester.AdvanceMs 17000                  ' Let ball saver expire (15s + grace)
     tester.KeepBallMoving
     tester.FireHit "Drain"
