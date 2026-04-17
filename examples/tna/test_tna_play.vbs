@@ -32,8 +32,6 @@ tester.AdvanceMs 2000          ' FirstBall fires at 1500ms
 tester.Echo "bGameInPlay=" & bGameInPlay & " BallsOnPlayfield=" & BallsOnPlayfield & " BallsRemaining=" & BallsRemaining(1)
 tester.Assert bGameInPlay = True, "expected bGameInPlay=True after start"
 
-bBallSaverActive = False
-
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
