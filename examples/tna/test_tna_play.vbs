@@ -26,9 +26,8 @@ ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 
 Dim tester : Set tester = New VpxTester
 tester.Init
 
-' bFreePlay is False — add a credit first
-Credits = 1
-ResetForNewGame
+tester.InsertCoin
+tester.StartGame
 tester.AdvanceMs 2000          ' FirstBall fires at 1500ms
 tester.Echo "bGameInPlay=" & bGameInPlay & " BallsOnPlayfield=" & BallsOnPlayfield & " BallsRemaining=" & BallsRemaining(1)
 tester.Assert bGameInPlay = True, "expected bGameInPlay=True after start"
