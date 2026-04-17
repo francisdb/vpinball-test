@@ -31,9 +31,11 @@ tester.Assert bGameInPlay = True, "expected bGameInPlay=True after start"
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
+    tester.FireHit "ballsavestarttrigger"  ' Ball launched, enables ball saver
+    tester.AdvanceMs 17000                  ' Let ball saver expire (15s + grace)
     tester.KeepBallMoving
     tester.FireHit "Drain"
-    tester.AdvanceMs 10000
+    tester.AdvanceMs 15000
     tester.StopBall
     tester.Echo "  bGameInPlay=" & bGameInPlay & " BallsRemaining=" & BallsRemaining(1)
 Next
