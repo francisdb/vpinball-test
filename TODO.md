@@ -1,5 +1,14 @@
 # TODO
 
+## Timer scheduler performance
+
+Play tests take too long wall time for the amount of sim time.
+Since we simulate time (not real-time), wall time should be
+negligible. The scheduler likely has O(n) overhead per tick —
+scanning g_AllTimers dictionary, property lookups on each entry,
+m_nextFire dictionary operations. Needs profiling and optimization
+(e.g. pre-resolved arrays instead of dictionary lookups per tick).
+
 ## Play test drain cascade issues
 
 Root cause found: each ball needs a plunger/launch trigger hit to
