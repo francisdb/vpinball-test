@@ -8,11 +8,13 @@ Dim fso, scriptDir
 Set fso = CreateObject("Scripting.FileSystemObject")
 scriptDir = fso.GetParentFolderName(WScript.ScriptFullName)
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\vpx_config.vbs", 1).ReadAll
+ExecuteGlobal fso.OpenTextFile(scriptDir & "\table_patch.vbs", 1).ReadAll
 
 Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Dark Chaos (Original 2025)\DarkChaos590"
 Dim TABLE_FILE          : TABLE_FILE          = "DarkChaos590.vpx"
 
 Sub PatchTableCode(ByRef code)
+    PatchDarkChaosTableCode code
     ' Disable GLF debug logging — avoids file I/O during benchmark
     code = Replace(code, vbTab & "glf_debugEnabled = True" & vbCrLf, vbTab & "glf_debugEnabled = False" & vbCrLf)
 End Sub
