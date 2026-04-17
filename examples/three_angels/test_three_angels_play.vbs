@@ -34,8 +34,13 @@ tester.Assert vpGameInPlay = True, "expected vpGameInPlay=True after start"
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
-    tester.FireHit "LeftInLaneTrigger"    ' Ball passes inlane -> SSOver -> ActivateBallSaver (starts timer)
-    tester.AdvanceMs 15000               ' Let ball saver timer expire (~13s cascade)
+    tester.FireHit "LeftInLaneTrigger"    ' Ball passes inlane -> SSOver -> ActivateBallSaver
+    If ball < 3 Then
+        tester.AdvanceMs 100             ' Let ball saver activate
+        tester.ExpectLight "ShootAgainLight1", 0, 20000  ' Wait for shoot-again light off
+    Else
+        tester.AdvanceMs 15000           ' Last ball: light stays on (Power of God mode)
+    End If
     tester.KeepBallMoving
     tester.FireHit "Drain"
     tester.AdvanceMs 20000
