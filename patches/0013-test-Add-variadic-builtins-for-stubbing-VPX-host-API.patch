@@ -1,18 +1,17 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 683726852e4ecfc69f9a882fa0ac2302cb0f8f9f Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Thu, 17 Apr 2026 12:00:00 +0200
-Subject: [PATCH 10/12] test: Add variadic builtins for stubbing VPX host APIs
+Date: Fri, 17 Apr 2026 15:59:02 +0200
+Subject: [PATCH 13/13] test: Add variadic builtins for stubbing VPX host APIs
 
-Adds Noop, PlayMusic, PlaySound, and StopSound as variadic builtins
-(0..N args). Real VPX exposes these as host APIs with optional
-positional parameters; VBScript user-class Subs can't express optional
-args, so these builtins accept any arity and do nothing.
 ---
+ dlls/vbscript/global.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 1d824b08685..84edda55155 100644
+index 0b68463743a..94014f3c2b6 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4010,6 +4010,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4003,6 +4003,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -24,7 +23,7 @@ index 1d824b08685..84edda55155 100644
  static HRESULT Global_CreateCollection(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      IDispatch *disp;
-@@ -4195,8 +4200,11 @@ static const builtin_prop_t global_props[] = {
+@@ -4188,8 +4193,11 @@ static const builtin_prop_t global_props[] = {
      {L"Month",                     Global_Month, 0, 1},
      {L"MonthName",                 Global_MonthName, 0, 1, 2},
      {L"MsgBox",                    Global_MsgBox, 0, 1, 5},
@@ -36,7 +35,7 @@ index 1d824b08685..84edda55155 100644
      {L"Randomize",                 Global_Randomize, 0, 0, 1},
      {L"Replace",                   Global_Replace, 0, 3, 6},
      {L"RGB",                       Global_RGB, 0, 3},
-@@ -4216,6 +4224,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4209,6 +4217,7 @@ static const builtin_prop_t global_props[] = {
      {L"Space",                     Global_Space, 0, 1},
      {L"Split",                     Global_Split, 0, 1, 4},
      {L"Sqr",                       Global_Sqr, 0, 1},
@@ -44,3 +43,6 @@ index 1d824b08685..84edda55155 100644
      {L"StrComp",                   Global_StrComp, 0, 2, 3},
      {L"String",                    Global_String, 0, 0, 2},
      {L"StrReverse",                Global_StrReverse, 0, 1},
+-- 
+2.53.0
+

@@ -1,7 +1,7 @@
-From 5b5f464a74054668a2db40338b8e6a7134d29866 Mon Sep 17 00:00:00 2001
+From 3b0d78b7b3dfebd367fbe1433289cbb62e963f8d Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 00:36:03 +0200
-Subject: [PATCH 02/12] vbscript: Implement GetLocale and SetLocale functions.
+Date: Fri, 17 Apr 2026 15:58:02 +0200
+Subject: [PATCH 03/13] vbscript: Implement GetLocale and SetLocale functions.
 
 ---
  dlls/vbscript/global.c      | 51 ++++++++++++++++++++++++++++++++++---
@@ -9,7 +9,7 @@ Subject: [PATCH 02/12] vbscript: Implement GetLocale and SetLocale functions.
  2 files changed, 98 insertions(+), 4 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 23a5f235c85..5cc21928e43 100644
+index 0a9258cf043..ea1460e278b 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
 @@ -2229,8 +2229,51 @@ static HRESULT Global_Second(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,

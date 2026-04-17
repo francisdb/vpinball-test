@@ -1,16 +1,8 @@
-From 6f2140bfc5066e0ec190887829825d0a6a5da24c Mon Sep 17 00:00:00 2001
+From c37976fc57895babbf332927fb43b1837001cb45 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 15:17:53 +0200
-Subject: [PATCH] vbscript: Fix Sub first argument parentheses handling.
+Date: Fri, 17 Apr 2026 15:58:02 +0200
+Subject: [PATCH 04/13] vbscript: Fix Sub first argument parentheses handling.
 
-Disambiguation is handled entirely in the parser grammar. A new
-SimpleStatement production handles the 'CallExpression Arguments OP
-Expression [, rest]' pattern and rewrites it as 'f((args) OP expr)'
-via the action.
-
-Cost: +2 shift/reduce conflicts (12 vs baseline 10).
-
-Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=54177
 ---
  dlls/vbscript/parser.y       |  39 +++++++-
  dlls/vbscript/tests/lang.vbs | 178 +++++++++++++++++++++++++++++++++++
@@ -270,5 +262,5 @@ index d59f05c54a0..c598857553b 100644
      x = false
      Call ok(not x, "local x is not false?")
 -- 
-GitLab
+2.53.0
 

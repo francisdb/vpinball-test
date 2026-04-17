@@ -1,7 +1,7 @@
-From 55d6da8d340998dbf969a026e241ad51a376d250 Mon Sep 17 00:00:00 2001
+From bc3daf4c103f3bac6fc869ba5f63e672cc0fdc21 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 00:36:03 +0200
-Subject: [PATCH 05/12] vbscript: Support element access on public array
+Date: Fri, 17 Apr 2026 15:58:02 +0200
+Subject: [PATCH 06/13] vbscript: Support element access on public array
 
 ---
  dlls/vbscript/tests/lang.vbs |  9 +++---
@@ -9,10 +9,10 @@ Subject: [PATCH 05/12] vbscript: Support element access on public array
  2 files changed, 54 insertions(+), 10 deletions(-)
 
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 1af02873943..05f4f6c90b0 100644
+index 3ccd768df19..e86d4966818 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -2473,7 +2473,7 @@ End Class
+@@ -2571,7 +2571,7 @@ End Class
  
  Set obj = new ArrClass
  Call ok(getVT(obj.classarr) = "VT_ARRAY|VT_VARIANT", "getVT(obj.classarr) = " & getVT(obj.classarr))
@@ -21,7 +21,7 @@ index 1af02873943..05f4f6c90b0 100644
  
  obj.var = arr
  Call ok(getVT(obj.var) = "VT_ARRAY|VT_VARIANT", "getVT(obj.var) = " & getVT(obj.var))
-@@ -2964,8 +2964,7 @@ call ok(x.pub2 = 2, "x.pub2 = " & x.pub2)
+@@ -3062,8 +3062,7 @@ call ok(x.pub2 = 2, "x.pub2 = " & x.pub2)
  call ok(ubound(x.pubArray) = 3, "ubound(x.pubArray) = " & ubound(x.pubArray))
  call ok(ubound(x.pubArray2, 1) = 5, "ubound(x.pubArray2, 1) = " & ubound(x.pubArray2, 1))
  call ok(ubound(x.pubArray2, 2) = 10, "ubound(x.pubArray2, 2) = " & ubound(x.pubArray2, 2))
@@ -31,7 +31,7 @@ index 1af02873943..05f4f6c90b0 100644
  call ok(x.dim1 = 7, "x.dim1 = " & x.dim1)
  call ok(x.dim2 = 8, "x.dim2 = " & x.dim2)
  
-@@ -2976,9 +2975,9 @@ err.clear
+@@ -3074,9 +3073,9 @@ err.clear
  x.priv2 = 2
  call ok(err.number = 438, "err.number = " & err.number)
  err.clear
@@ -44,10 +44,10 @@ index 1af02873943..05f4f6c90b0 100644
  
  funcCalled = ""
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 38185dd0411..cc2e0c269c8 100644
+index 9f6cf2e446a..818c1805592 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -114,6 +114,21 @@ static HRESULT get_propput_arg(script_ctx_t *ctx, const DISPPARAMS *dp, WORD fla
+@@ -146,6 +146,21 @@ static HRESULT get_propput_arg(script_ctx_t *ctx, const DISPPARAMS *dp, WORD fla
      return S_OK;
  }
  
@@ -69,7 +69,7 @@ index 38185dd0411..cc2e0c269c8 100644
  static HRESULT invoke_variant_prop(script_ctx_t *ctx, VARIANT *v, WORD flags, DISPPARAMS *dp, VARIANT *res)
  {
      HRESULT hres;
-@@ -122,13 +137,21 @@ static HRESULT invoke_variant_prop(script_ctx_t *ctx, VARIANT *v, WORD flags, DI
+@@ -154,13 +169,21 @@ static HRESULT invoke_variant_prop(script_ctx_t *ctx, VARIANT *v, WORD flags, DI
      case DISPATCH_PROPERTYGET|DISPATCH_METHOD:
      case DISPATCH_PROPERTYGET:
          if(dp->cArgs) {
@@ -92,7 +92,7 @@ index 38185dd0411..cc2e0c269c8 100644
              {
                  WARN("failed to access array element\n");
                  return hres;
-@@ -149,17 +172,39 @@ static HRESULT invoke_variant_prop(script_ctx_t *ctx, VARIANT *v, WORD flags, DI
+@@ -181,17 +204,39 @@ static HRESULT invoke_variant_prop(script_ctx_t *ctx, VARIANT *v, WORD flags, DI
              return hres;
  
          if(arg_cnt(dp)) {

@@ -178,18 +178,19 @@ have a branch that's intentionally not upstreamed.
 
 | # | Patch | Status | Branch / MR |
 |---|---|---|---|
-| 0001 | `wscript: Implement error messages, usage output, and //nologo banner` | **[upstream]** | [`wscript-unknown-option-error`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10518) |
-| 0002 | `vbscript: Implement GetLocale and SetLocale functions` | **[upstream]** | [`fix/vbscript-getlocale-setlocale`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10504) (draft) |
-| 0003 | `vbscript: Fix Sub first argument parentheses handling` | **[upstream]** | [`fix/bug-54177`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10244) ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177)) |
-| 0004 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | [`fix/vbscript-chained-array-assign`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10363) ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
-| 0005 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
-| 0006 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
-| 0007 | `vbscript: Implement DateDiff built-in function` | **[upstream]** | [`fix/vbscript-datediff`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10459) |
-| 0008 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
-| 0009 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
-| 0010 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
-| 0011 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
-| 0012 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft — same rationale as 0011, diagnostic-only) |
+| 0001 | `vbscript: Use indexed lookup for global functions/variables` | **[upstream]** | [`vbscript-function-lookup`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10546) (3-11x perf improvement — `lookup_identifier` was 49% of CPU) |
+| 0002 | `wscript: Implement error messages, usage output, and //nologo banner` | **[upstream]** | [`wscript-unknown-option-error`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10518) |
+| 0003 | `vbscript: Implement GetLocale and SetLocale functions` | **[upstream]** | [`fix/vbscript-getlocale-setlocale`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10504) (draft) |
+| 0004 | `vbscript: Fix Sub first argument parentheses handling` | **[upstream]** | [`fix/bug-54177-alt2`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10692) ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177)) |
+| 0005 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | [`fix/vbscript-chained-array-assign`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10363) ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
+| 0006 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
+| 0007 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
+| 0008 | `vbscript: Implement DateDiff built-in function` | **[upstream]** | [`fix/vbscript-datediff`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10459) |
+| 0009 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
+| 0010 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft — same rationale as 0009, diagnostic-only) |
+| 0011 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
+| 0012 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
+| 0013 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlayMusic, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
 
 What each one unlocks for the framework:
 

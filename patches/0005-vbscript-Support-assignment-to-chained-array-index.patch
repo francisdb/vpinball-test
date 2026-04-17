@@ -1,7 +1,7 @@
-From 030964061be17f295e0977f6b039cbce3e50f850 Mon Sep 17 00:00:00 2001
+From 5eba2a24d6aa85ecc545a255f10103f51ae7cc26 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 00:36:03 +0200
-Subject: [PATCH 04/12] vbscript: Support assignment to chained array index
+Date: Fri, 17 Apr 2026 15:58:02 +0200
+Subject: [PATCH 05/13] vbscript: Support assignment to chained array index
 
 ---
  dlls/vbscript/compile.c      | 25 +++++++++++-
@@ -11,7 +11,7 @@ Subject: [PATCH 04/12] vbscript: Support assignment to chained array index
  4 files changed, 127 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/compile.c b/dlls/vbscript/compile.c
-index 54314372a13..779a89d9c2d 100644
+index f75f039f0f7..745a690d9de 100644
 --- a/dlls/vbscript/compile.c
 +++ b/dlls/vbscript/compile.c
 @@ -1140,7 +1140,30 @@ static HRESULT compile_assignment(compile_ctx_t *ctx, expression_t *left, expres
@@ -47,10 +47,10 @@ index 54314372a13..779a89d9c2d 100644
          break;
      default:
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 2510c1ee05a..00c65b1ddfc 100644
+index 692cba7fa72..adcc83cc3ff 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
-@@ -793,7 +793,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
+@@ -790,7 +790,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
  
      v = stack_pop(ctx);
      hres = variant_call(ctx, v, arg_cnt, &res);
@@ -65,7 +65,7 @@ index 2510c1ee05a..00c65b1ddfc 100644
          VARIANT tmp;
          V_VT(&tmp) = VT_EMPTY;
          hres = VariantCopyInd(&tmp, &res);
-@@ -1115,6 +1121,72 @@ static HRESULT interp_set_member(exec_ctx_t *ctx)
+@@ -1112,6 +1118,72 @@ static HRESULT interp_set_member(exec_ctx_t *ctx)
      return S_OK;
  }
  
@@ -139,10 +139,10 @@ index 2510c1ee05a..00c65b1ddfc 100644
  {
      BSTR arg = ctx->instr->arg1.bstr;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 00d56977e61..1af02873943 100644
+index c598857553b..3ccd768df19 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -2044,6 +2044,34 @@ x = Array(Array(3))
+@@ -2142,6 +2142,34 @@ x = Array(Array(3))
  seta0 (x(0))
  call ok(x(0)(0) = 3, "x(0)(0) = " & x(0)(0))
  
@@ -178,10 +178,10 @@ index 00d56977e61..1af02873943 100644
  ok y = 1, "y = " & y
  
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index 19c9260a342..3027607b41c 100644
+index f41664cf309..6ebe0c51194 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
-@@ -242,6 +242,7 @@ typedef enum {
+@@ -250,6 +250,7 @@ typedef enum {
      X(and,            1, 0,           0)          \
      X(assign_ident,   1, ARG_BSTR,    ARG_UINT)   \
      X(assign_member,  1, ARG_BSTR,    ARG_UINT)   \
@@ -189,7 +189,7 @@ index 19c9260a342..3027607b41c 100644
      X(bool,           1, ARG_INT,     0)          \
      X(catch,          1, ARG_ADDR,    ARG_UINT)   \
      X(case,           0, ARG_ADDR,    0)          \
-@@ -296,6 +297,7 @@ typedef enum {
+@@ -304,6 +305,7 @@ typedef enum {
      X(retval,         1, 0,           0)          \
      X(set_ident,      1, ARG_BSTR,    ARG_UINT)   \
      X(set_member,     1, ARG_BSTR,    ARG_UINT)   \

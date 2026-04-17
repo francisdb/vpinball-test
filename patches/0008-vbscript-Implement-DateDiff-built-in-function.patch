@@ -1,7 +1,7 @@
-From 2e1e163602cdb5f982a2fc41b0fb9a35913b4a01 Mon Sep 17 00:00:00 2001
+From d5d895a57973851e7fbc8512026ecbc5af11f075 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 00:36:04 +0200
-Subject: [PATCH 07/12] vbscript: Implement DateDiff built-in function.
+Date: Fri, 17 Apr 2026 15:58:02 +0200
+Subject: [PATCH 08/13] vbscript: Implement DateDiff built-in function.
 
 ---
  dlls/vbscript/global.c      | 153 +++++++++++++++++++++++++++++++++++-
@@ -9,7 +9,7 @@ Subject: [PATCH 07/12] vbscript: Implement DateDiff built-in function.
  2 files changed, 294 insertions(+), 3 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 5cc21928e43..3bc533d9ac9 100644
+index ea1460e278b..d6638d4b60d 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
 @@ -2546,10 +2546,157 @@ static HRESULT Global_DateAdd(BuiltinDisp *This, VARIANT *args, unsigned args_cn
