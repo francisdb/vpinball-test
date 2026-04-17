@@ -1,7 +1,7 @@
-From 3263974b0b30a9651c9bb1539b6df7e38c68fd4b Mon Sep 17 00:00:00 2001
+From 616765b49bbb42b1eaba49e18fbbe4a2d41d4883 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 15:58:02 +0200
-Subject: [PATCH 07/13] vbscript: Implement IDispatch::GetTypeInfo for class
+Date: Fri, 17 Apr 2026 22:11:41 +0200
+Subject: [PATCH 05/11] vbscript: Implement IDispatch::GetTypeInfo for class
 
 ---
  dlls/vbscript/tests/api.vbs    |  11 +

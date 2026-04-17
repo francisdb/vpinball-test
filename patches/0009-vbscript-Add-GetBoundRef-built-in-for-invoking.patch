@@ -1,8 +1,7 @@
-From a8a75b327f79839d3f3537d4ef746ce4c0a7f80d Mon Sep 17 00:00:00 2001
+From b9958ce62a7154e251677a60cf2774e46ba01728 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 15:59:01 +0200
-Subject: [PATCH 11/13] vbscript: Add GetBoundRef built-in for invoking
- functions with a bound Me
+Date: Fri, 17 Apr 2026 22:11:41 +0200
+Subject: [PATCH 09/11] vbscript: Add GetBoundRef built-in for invoking
 
 ---
  dlls/vbscript/global.c        | 68 ++++++++++++++++++++++++++++++++++-
@@ -168,7 +167,7 @@ index 688f0bb5b35..91d36deac23 100644
      function_t *func;
      MEMBERID memid;
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index 6ebe0c51194..5af2e10e885 100644
+index f5f410cf3b3..c036d5223f0 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
 @@ -176,6 +176,8 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);
@@ -181,7 +180,7 @@ index 6ebe0c51194..5af2e10e885 100644
  
  HRESULT to_int(VARIANT*,int*);
 diff --git a/dlls/vbscript/vbscript_defs.h b/dlls/vbscript/vbscript_defs.h
-index 200e1ac4929..780bb374f22 100644
+index 610c4f54b15..c342b36fd86 100644
 --- a/dlls/vbscript/vbscript_defs.h
 +++ b/dlls/vbscript/vbscript_defs.h
 @@ -210,6 +210,7 @@

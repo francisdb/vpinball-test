@@ -1,7 +1,7 @@
-From bc3daf4c103f3bac6fc869ba5f63e672cc0fdc21 Mon Sep 17 00:00:00 2001
+From a4afad289e7651d705283d7948aa4044043b838c Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 15:58:02 +0200
-Subject: [PATCH 06/13] vbscript: Support element access on public array
+Date: Fri, 17 Apr 2026 22:11:40 +0200
+Subject: [PATCH 04/11] vbscript: Support element access on public array
 
 ---
  dlls/vbscript/tests/lang.vbs |  9 +++---
@@ -9,7 +9,7 @@ Subject: [PATCH 06/13] vbscript: Support element access on public array
  2 files changed, 54 insertions(+), 10 deletions(-)
 
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 3ccd768df19..e86d4966818 100644
+index 8c4e6ada9fe..180b1619579 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -2571,7 +2571,7 @@ End Class

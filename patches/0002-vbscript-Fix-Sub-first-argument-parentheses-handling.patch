@@ -1,7 +1,7 @@
-From c37976fc57895babbf332927fb43b1837001cb45 Mon Sep 17 00:00:00 2001
+From 1b815d0bf4d0754d3bb4143204449f55298cc512 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 15:58:02 +0200
-Subject: [PATCH 04/13] vbscript: Fix Sub first argument parentheses handling.
+Date: Fri, 17 Apr 2026 22:11:40 +0200
+Subject: [PATCH 02/11] vbscript: Fix Sub first argument parentheses handling.
 
 ---
  dlls/vbscript/parser.y       |  39 +++++++-
@@ -9,7 +9,7 @@ Subject: [PATCH 04/13] vbscript: Fix Sub first argument parentheses handling.
  2 files changed, 216 insertions(+), 1 deletion(-)
 
 diff --git a/dlls/vbscript/parser.y b/dlls/vbscript/parser.y
-index e716bf98d3a..2230171c61b 100644
+index 0bb45192698..4ddc253154f 100644
 --- a/dlls/vbscript/parser.y
 +++ b/dlls/vbscript/parser.y
 @@ -153,7 +153,8 @@ static statement_t *link_statements(statement_t*,statement_t*);
@@ -40,7 +40,7 @@ index e716bf98d3a..2230171c61b 100644
      | tCALL UnaryExpression                 { $$ = new_call_statement(ctx, @$, $2); CHECK_ERROR; }
      | CallExpression '=' Expression
                                              { $$ = new_assign_statement(ctx, @$, $1, $3); CHECK_ERROR; }
-@@ -328,6 +340,31 @@ Step_opt
+@@ -333,6 +345,31 @@ Step_opt
      : /* empty */                           { $$ = NULL;}
      | tSTEP Expression                      { $$ = $2; }
  
@@ -73,7 +73,7 @@ index e716bf98d3a..2230171c61b 100644
      : tIF Expression tTHEN tNL StSep_opt StatementsNl_opt ElseIfs_opt Else_opt tEND tIF
                                                  { $$ = new_if_statement(ctx, @$, $2, $6, $7, $8); CHECK_ERROR; }
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index d59f05c54a0..c598857553b 100644
+index 69cf42178e0..9550e5f4205 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -1217,6 +1217,184 @@ Call TestSubExit2

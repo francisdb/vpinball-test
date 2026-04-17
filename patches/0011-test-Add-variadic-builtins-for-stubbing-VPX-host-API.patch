@@ -1,7 +1,7 @@
-From 683726852e4ecfc69f9a882fa0ac2302cb0f8f9f Mon Sep 17 00:00:00 2001
+From 0978689384c2f9eafe2938a5b978f1ba2c1afb69 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 15:59:02 +0200
-Subject: [PATCH 13/13] test: Add variadic builtins for stubbing VPX host APIs
+Date: Fri, 17 Apr 2026 22:11:41 +0200
+Subject: [PATCH 11/11] test: Add variadic builtins for stubbing VPX host APIs
 
 ---
  dlls/vbscript/global.c | 9 +++++++++

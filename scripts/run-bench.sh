@@ -26,7 +26,7 @@ bench="$(realpath "$1")"
 cd "$(dirname "$bench")"
 
 # Silence all Wine chatter except vbscript warnings. Those are the channel
-# used by our patches 0009/0010 to emit the runtime-error call trace
+# used by our patches 0007/0008 to emit the runtime-error call trace
 # (error code + function + line + caller chain), which turns an opaque
 # "runtime error" line into an actionable stack. Override WINEDEBUG from
 # the environment if you need to trace additional channels.

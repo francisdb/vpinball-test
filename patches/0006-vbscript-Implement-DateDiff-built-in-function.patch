@@ -1,7 +1,7 @@
-From d5d895a57973851e7fbc8512026ecbc5af11f075 Mon Sep 17 00:00:00 2001
+From e939ee220a75d60337faa4373d99475cf9f9eb6d Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
-Date: Fri, 17 Apr 2026 15:58:02 +0200
-Subject: [PATCH 08/13] vbscript: Implement DateDiff built-in function.
+Date: Fri, 17 Apr 2026 22:11:41 +0200
+Subject: [PATCH 06/11] vbscript: Implement DateDiff built-in function.
 
 ---
  dlls/vbscript/global.c      | 153 +++++++++++++++++++++++++++++++++++-
