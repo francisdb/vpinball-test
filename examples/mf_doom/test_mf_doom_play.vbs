@@ -29,21 +29,20 @@ tester.Init
 
 tester.InsertCoin
 tester.StartGame
-tester.AdvanceMs 3000
-tester.Echo "bGameInPlay=" & bGameInPlay & " BallsRemaining=" & BallsRemaining(1)
-tester.Assert BallsOnPlayfield = 1, "expected BallsOnPlayfield=1 after start, got " & BallsOnPlayfield
+tester.ExpectBalls 1, 5000             ' Wait for ball to appear on playfield
+tester.Echo "BallsOnPlayfield=" & BallsOnPlayfield & " BallsRemaining=" & BallsRemaining(1)
 
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
     tester.FireHit "ballsavestarttrigger"  ' Ball launched, enables ball saver
     tester.FireHit "MusicTrigger"          ' Ball passes music trigger, resets LPressStart
-    tester.AdvanceMs 17000                  ' Let ball saver expire (15s + grace)
+    tester.AdvanceMs 17000                 ' Let ball saver expire (15s + grace)
     tester.KeepBallMoving
     tester.FireHit "Drain"
     tester.AdvanceMs 15000
     tester.StopBall
-    tester.Echo "  bGameInPlay=" & bGameInPlay & " BallsRemaining=" & BallsRemaining(1)
+    tester.Echo "  BallsOnPlayfield=" & BallsOnPlayfield & " BallsRemaining=" & BallsRemaining(1)
 Next
 
 tester.Assert BallsOnPlayfield = 0, "expected BallsOnPlayfield=0 after game over, got " & BallsOnPlayfield
