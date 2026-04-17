@@ -436,6 +436,25 @@ Sub SetUpTable(verbose)
         WScript.Echo ""
     End If
 
+    ' Register element-level timers. In real VPX, every table element
+    ' Register element-level timers into g_AllTimers. In real VPX,
+    ' TimerSetup() creates a HitTimer for EVERY editable element —
+    ' Kickers, Triggers, Lights, etc. all have TimerEnabled/TimerInterval.
+    ' Timer elements already registered via .Register(); add the rest.
+    Dim elemName_, elem_, te_
+    For Each elemName_ In g_AllItems.Keys()
+        If Not g_AllTimers.Exists(elemName_) Then
+            Set elem_ = g_AllItems(elemName_)
+            On Error Resume Next
+            te_ = elem_.TimerEnabled
+            If Err.Number = 0 Then
+                g_AllTimers.Add elemName_, elem_
+            End If
+            Err.Clear
+            On Error GoTo 0
+        End If
+    Next
+
     g_TableLoaded = True
 End Sub
 
@@ -468,7 +487,7 @@ Sub RunTableBenchmark()
     Dim timerRef
     For Each tn In timerNames
         timerCount = timerCount + 1
-        If Not CBool(g_AllTimers(tn).Enabled) Then
+        If Not CBool(g_AllTimers(tn).TimerEnabled) Then
             WScript.Echo "  [OFF]  " & tn
             timerDisabled = timerDisabled + 1
         Else
@@ -716,7 +735,7 @@ Class VpxTester
             ' entries whose timer is no longer enabled.
             For i = 0 To UBound(names)
                 tn = names(i)
-                If CBool(g_AllTimers(tn).Enabled) Then
+                If CBool(g_AllTimers(tn).TimerEnabled) Then
                     If Not m_nextFire.Exists(tn) Then
                         m_nextFire.Add tn, GameTime + TimerIntervalMs(tn)
                     End If
@@ -755,7 +774,7 @@ Class VpxTester
                 tn = names(i)
                 If m_nextFire.Exists(tn) Then
                     If CLng(m_nextFire(tn)) <= GameTime Then
-                        If CBool(g_AllTimers(tn).Enabled) Then
+                        If CBool(g_AllTimers(tn).TimerEnabled) Then
                             ' Refresh ball velocity immediately before
                             ' each fire so a handler earlier in this
                             ' bucket can't create a ball that the next
@@ -781,7 +800,7 @@ Class VpxTester
     ' with Interval 0 (from a stub default or buggy table code) still
     ' makes progress instead of spinning the outer loop.
     Private Function TimerIntervalMs(tn)
-        Dim iv : iv = CLng(g_AllTimers(tn).Interval)
+        Dim iv : iv = CLng(g_AllTimers(tn).TimerInterval)
         If iv < 1 Then iv = 1
         TimerIntervalMs = iv
     End Function
@@ -1141,7 +1160,7 @@ Class VpxTester
         names = g_AllTimers.Keys()
         On Error Resume Next
         For i = 0 To UBound(names)
-            If CBool(g_AllTimers(names(i)).Enabled) Then c = c + 1
+            If CBool(g_AllTimers(names(i)).TimerEnabled) Then c = c + 1
         Next
         On Error GoTo 0
         EnabledTimerCount = c

@@ -116,13 +116,21 @@ Set g_CollectionNames = CreateObject("Scripting.Dictionary")
 Dim g_AllTimers
 Set g_AllTimers = CreateObject("Scripting.Dictionary")
 
-' ITimer
+' ITimer — in real VPX, Timer elements use TimerEnabled/TimerInterval
+' like every other element. We also expose Enabled/Interval as aliases
+' because gen_vpx_stubs.py generates `.Enabled = True` for Timer stubs.
 Class Timer
-    Public Name, Enabled, Interval, UserValue
+    Public Name, UserValue
+    Public TimerEnabled, TimerInterval
+    Public Property Get Enabled() : Enabled = TimerEnabled : End Property
+    Public Property Let Enabled(v) : TimerEnabled = v : End Property
+    Public Property Get Interval() : Interval = TimerInterval : End Property
+    Public Property Let Interval(v) : TimerInterval = v : End Property
     Private Sub Class_Initialize
-        Name = "" : Enabled = False : Interval = 100
+        Name = "" : TimerEnabled = False : TimerInterval = 100
     End Sub
-    ' Called after Name is set (from stub init lines)
+    ' Called after Name is set (from stub init lines).
+    ' Adds to g_AllTimers so the framework's scheduler fires _Timer.
     Public Sub Register()
         If Len(Name) > 0 Then g_AllTimers.Add Name, Me
     End Sub
