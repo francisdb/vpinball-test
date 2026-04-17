@@ -35,6 +35,14 @@ Remaining:
   PlayMusic builtins bypass the issue. Root cause in Wine's
   `Builtin_Invoke` dispatch path not investigated.
 
+- **ExecuteGlobal Sub/Collection name collision** — When a Sub and a
+  Collection share the same name (e.g. MF DOOM's `ClearSmoke`),
+  `ExecuteGlobal "ClearSmoke"` resolves to the Collection variable
+  instead of calling the Sub. Wine tries to invoke the Collection as
+  a default call with no args → error 450. In real VPX/Windows
+  VBScript, Subs take priority over variables in statement context.
+  Non-fatal (OERN-swallowed), but causes repeated warnings.
+
 ## Table-specific issues
 
 - **Dark Chaos 590/Dark Chaos play** — 650-842 warnings from
