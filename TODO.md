@@ -2,22 +2,16 @@
 
 ## Play test drain cascade issues
 
-Several play tests only complete 1 of 3 drain cycles. The EndOfBall
-timer cascade fires for the first drain but doesn't reset properly
-for subsequent balls.
+Root cause found: each ball needs a plunger/launch trigger hit to
+start the ball saver timer. Without it, the drain always takes the
+ball-saver path. Fixed for SpongeBob and TNA.
 
-Affected tables:
-- **SpongeBob** — Drain_Timer (Kicker element timer) fires for ball 1,
-  CurrentBall goes 3→2, but balls 2-3 don't advance.
-- **TNA** — BallsRemaining goes 3→2 on one drain, stays at 2.
-- **Three Angels** — BallsRemaining only decrements once across 3 drains.
-  Also very slow (~30s wall time per 15s sim time due to 102k-line
-  script with heavy flasher/light operations).
-- **MF DOOM** — BallsRemaining goes 3→2 on drain 1 (with
-  BallHandlingQueue Execute errors), balls 2-3 don't advance.
-
-Root cause likely shared: a state flag or timer doesn't reset between
-balls, preventing the next EndOfBall cascade from completing.
+Remaining:
+- **Three Angels** — drain cascade very slow (~30s wall time per 15s
+  sim time due to 102k-line script). Needs investigation.
+- **MF DOOM** — Ball 1 drains correctly, balls 2-3 don't advance
+  despite plunger trigger fix. BallHandlingQueue Execute callback
+  errors (DISP_E_BADPARAMCOUNT) may be the cause.
 
 ## Wine VBScript gaps
 
@@ -53,9 +47,3 @@ balls, preventing the next EndOfBall cascade from completing.
 | [!10504](https://gitlab.winehq.org/wine/wine/-/merge_requests/10504) | GetLocale/SetLocale | draft |
 | [!10518](https://gitlab.winehq.org/wine/wine/-/merge_requests/10518) | wscript error messages | open |
 | [!10661](https://gitlab.winehq.org/wine/wine/-/merge_requests/10661) | Folder.ParentFolder | open |
-
-## Upstream VPX PR pending
-
-| PR | Description |
-|----|-------------|
-| [francisdb/vpinball `fix/core-vbs-mfasttimer-guard-v2`](https://github.com/francisdb/vpinball/tree/fix/core-vbs-mfasttimer-guard-v2) | core.vbs: guard mFastTimer in EnableUpdate |

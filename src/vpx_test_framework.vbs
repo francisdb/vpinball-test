@@ -31,13 +31,6 @@ Function GetTextFile(filename)
     Set f2 = fso.OpenTextFile(path, 1)
     content = f2.ReadAll
     f2.Close
-    ' core.vbs cvpmTurntable.Class_Initialize calls AdjustTargets, which
-    ' sets NeedUpdate before InitTurntable has called InitTimer to set
-    ' mFastTimer. Guard the access so the error doesn't fire. Upstream
-    ' fix: https://github.com/francisdb/vpinball/tree/fix/core-vbs-mfasttimer-guard
-    content = Replace(content, _
-        "mFastTimer.TimerEnabled = mFastUpdates.Count > 0", _
-        "If IsObject(mFastTimer) Then mFastTimer.TimerEnabled = mFastUpdates.Count > 0")
     content = Replace(content, "CreateObject(""VPinMAME.Controller"")", "(New VPinMAMEControllerStub)")
     content = Replace(content, "CreateObject(""VPinMAME.WSHDlg"")", "(New VPinMAMEWSHDlgStub)")
     content = Replace(content, "CreateObject(""PinUpPlayer.PinDisplay"")", "(New PinUpPlayerStub)")
