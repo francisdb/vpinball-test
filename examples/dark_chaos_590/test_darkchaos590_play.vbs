@@ -1,6 +1,8 @@
-' Test: Dark Chaos 590 gameplay scenario
+' Test: Dark Chaos 590 gameplay scenario - 3-ball drain
 '
 ' GLF-framework table — pure VBS game logic, no VPinMAME.
+'
+' Same drain cascade as Dark Chaos (see test_dark_chaos_play.vbs).
 '
 Option Explicit
 
@@ -26,9 +28,27 @@ tester.Init
 
 tester.InsertCoin
 tester.StartGame
-tester.AdvanceMs 3000
-tester.Echo "BallsInPlay after start: " & tester.BallsInPlay
+tester.ExpectTrue "glf_BIP >= 1", 5000         ' Ball ejected + auto-launched
+tester.Echo "glf_BIP=" & glf_BIP & " glf_gameStarted=" & glf_gameStarted
 
-tester.Benchmark "Sustained play", 5000
+Dim ball
+For ball = 1 To 3
+    tester.Echo "--- drain ball " & ball & " ---"
+    tester.KeepBallMoving
+    tester.FireHit "Drain"
+    If ball < 3 Then
+        ' Wait for next ball — same queue flow as Dark Chaos
+        tester.ExpectTrue "glf_BIP >= 1", 30000
+    Else
+        ' After last ball, game should end
+        tester.ExpectTrue "glf_gameStarted = False", 30000
+    End If
+    tester.StopBall
+    tester.Echo "  glf_BIP=" & glf_BIP & " glf_gameStarted=" & glf_gameStarted
+Next
+
+tester.Echo "Game over confirmed"
+
+tester.Benchmark "Sustained play (game over)", 5000
 
 tester.Exit

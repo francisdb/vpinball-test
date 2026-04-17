@@ -21,6 +21,13 @@ start the ball saver timer. Without it, the drain always takes the
 ball-saver path. Fixed for SpongeBob and TNA.
 
 Remaining:
+- **Dark Chaos / DC590** — GLF queue-driven ball-ending sequence:
+  `DispatchQueuePinEvent(GLF_BALL_ENDING)` is timer-driven (processed
+  incrementally in `Glf_GameTimer_Timer`). The `eob_bonus` mode uses
+  `UseWaitQueue = True`, pausing ball-ending until `bonus_finished`
+  fires. `GlfShowStepHandler` errors (DISP_E_BADINDEX on ColorLookup
+  array access — show step > ColorLookup size) may disrupt the queue.
+  Patched with UBound bounds check. Needs testing.
 - **Three Angels** — drain cascade very slow (~30s wall time per 15s
   sim time due to 102k-line script). Needs investigation.
 - **MF DOOM** — Ball 1 drains correctly, balls 2-3 don't advance
@@ -45,9 +52,12 @@ Remaining:
 
 ## Table-specific issues
 
-- **Dark Chaos 590/Dark Chaos play** — 650-842 warnings from
-  `.Play`/`.StopPlay` on table-specific VBScript player classes
-  (sound_player, dof_player, etc.). Not blocking but noisy.
+- **Dark Chaos 590/Dark Chaos play** — `GlfShowStepHandler`
+  `DISP_E_BADINDEX` warnings from ColorLookup array out-of-bounds
+  access. Patched with UBound bounds check in `table_patch.vbs`.
+  Also: `glf_flex_alphadmd.Segments` Nothing check (reported upstream:
+  https://github.com/mpcarr/vpx-glf/issues/20). Drain cascade needs
+  testing with the patches applied.
 
 - **AFM** — `.CreateEvents mMagnet` passes cvpmMagnet object instead
   of string "mMagnet". Table bug, workaround in PatchTableCode.
