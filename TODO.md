@@ -11,7 +11,10 @@ Affected tables:
   CurrentBall goes 3→2, but balls 2-3 don't advance.
 - **TNA** — BallsRemaining goes 3→2 on one drain, stays at 2.
 - **Three Angels** — BallsRemaining only decrements once across 3 drains.
-  Also very slow (~30s wall time per 15s sim time).
+  Also very slow (~30s wall time per 15s sim time due to 102k-line
+  script with heavy flasher/light operations).
+- **MF DOOM** — BallsRemaining goes 3→2 on drain 1 (with
+  BallHandlingQueue Execute errors), balls 2-3 don't advance.
 
 Root cause likely shared: a state flag or timer doesn't reset between
 balls, preventing the next EndOfBall cascade from completing.
@@ -26,10 +29,6 @@ balls, preventing the next EndOfBall cascade from completing.
 
 ## Table-specific issues
 
-- **Three Angels play** — drain cascade very slow. The table's 102k-line
-  script with many flasher/light operations per drain makes AdvanceMs
-  expensive.
-
 - **Dark Chaos 590/Dark Chaos play** — 650-842 warnings from
   `.Play`/`.StopPlay` on table-specific VBScript player classes
   (sound_player, dof_player, etc.). Not blocking but noisy.
@@ -39,12 +38,8 @@ balls, preventing the next EndOfBall cascade from completing.
 
 - **Pizza Time** — same `.CreateEvents mMagnet` table bug as AFM.
 
-## Framework improvements
-
-- **`vpinball/core.vbs` mFastTimer guard** — upstream fix branch
-  `fix/core-vbs-mfasttimer-guard-v2` on francisdb/vpinball fork.
-  cvpmTurntable.Class_Initialize calls AdjustTargets which sets
-  NeedUpdate before InitTurntable has called InitTimer.
+- **MF DOOM** — BallHandlingQueue Execute callback errors
+  (DISP_E_BADPARAMCOUNT) during drain cascade. Ball 1 still completes.
 
 ## Upstream Wine MRs pending
 
