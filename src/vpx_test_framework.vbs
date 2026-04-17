@@ -209,6 +209,7 @@ Sub SetUpTable(verbose)
     tableCode = Replace(tableCode, "CreateObject(""PinUpPlayer.PinDisplay"")", "(New PinUpPlayerStub)")
     tableCode = Replace(tableCode, "CreateObject(""B2S.Server"")", "(New B2SServerStub)")
     tableCode = Replace(tableCode, "CreateObject(""FlexDMD.FlexDMD"")", "(New FlexDMDStub)")
+    tableCode = Replace(tableCode, "CreateObject(""UltraDMD.DMDObject"")", "(New UltraDMDStub)")
     ' .NET ArrayList isn't available because run-bench.sh disables
     ' Wine's mscoree (WINEDLLOVERRIDES="mshtml,mscoree="). Fall back
     ' to ArrayListStub which implements Add/Insert/RemoveAt/Clear/

@@ -656,7 +656,8 @@ End Class
 ' PlaySound and StopSound are registered as variadic builtins in
 ' patch 0006, matching real VPX's host API (optional positional args).
 ' No VBScript Sub stubs needed.
-Sub PlayMusic(str, Volume) : End Sub
+' PlayMusic is registered as a variadic builtin in patch 0010,
+' same as PlaySound/StopSound. No VBScript Sub stub needed.
 Sub StopMusic() : End Sub
 Sub EndMusic() : End Sub
 Sub MusicVolume(vol) : End Sub
@@ -823,6 +824,30 @@ Const SeqRandom = 1003
 '      "Object doesn't support this property or method" because it can't
 '      pick a value to assign. See DMDTimer_Timer in Cyber Race's script:
 '      `FlexDMD.Stage.GetLabel("Content_1").Font = FontScoreActive`.
+' ---------------------------------------------------------------------------
+
+' UltraDMD.DMDObject stub. UltraDMD is an older DMD rendering system
+' used by tables like Three Angels and TNA. All display methods are
+' no-ops; IsRendering returns False so callers don't wait.
+Class UltraDMDStub
+    Public Sub Init() : End Sub
+    Public Function GetMajorVersion() : GetMajorVersion = 1 : End Function
+    Public Function GetMinorVersion() : GetMinorVersion = 0 : End Function
+    Public Sub SetProjectFolder(path) : End Sub
+    Public Sub SetVideoStretchMode(mode) : End Sub
+    Public Function IsRendering() : IsRendering = False : End Function
+    Public Sub CancelRendering() : End Sub
+    Public Sub CancelRenderingWithId(id) : End Sub
+    Public Sub DisplayScene00(bg, topText, topBrightness, bottomText, bottomBrightness, anim, msec, finalState) : End Sub
+    Public Sub DisplayScene00Ex(bg, topText, topBrightness, topOutline, bottomText, bottomBrightness, bottomOutline, anim, msec, finalState) : End Sub
+    Public Sub DisplayScene00ExWithId(id, onTop, bg, topText, topBrightness, topOutline, bottomText, bottomBrightness, bottomOutline, anim, msec, finalState) : End Sub
+    Public Sub ModifyScene00(bg, topText, bottomText) : End Sub
+    Public Sub ModifyScene00Ex(bg, topText, bottomText) : End Sub
+    Public Sub DisplayScoreboard(nPlayers, highlighted, s1, s2, s3, s4, title, footer) : End Sub
+    Public Sub DisplayScoreboard00(nPlayers, highlighted, s1, s2, s3, s4, title, footer) : End Sub
+    Public Sub ScrollingCredits(bg, credits, topText, topBrightness, topOutline, bottomText, bottomBrightness, bottomOutline, anim, msec, finalState) : End Sub
+End Class
+
 ' ---------------------------------------------------------------------------
 
 ' Base Actor class. Real VPX Actor exposes name + bounds + visibility +
