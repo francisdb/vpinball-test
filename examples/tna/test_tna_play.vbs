@@ -35,9 +35,11 @@ tester.Assert bGameInPlay = True, "expected bGameInPlay=True after start"
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
+    tester.HitUnhit "swPlungerRest", 100  ' Ball launched, enables ball saver
+    tester.AdvanceMs 16000                 ' Let ball saver + grace period expire
     tester.KeepBallMoving
     tester.FireHit "Drain"
-    tester.AdvanceMs 10000
+    tester.AdvanceMs 15000
     tester.StopBall
     tester.Echo "  bGameInPlay=" & bGameInPlay & " BallsOnPlayfield=" & BallsOnPlayfield & " BallsRemaining=" & BallsRemaining(1)
 Next
