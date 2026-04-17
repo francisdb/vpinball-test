@@ -925,6 +925,12 @@ Class VpxTester
 
     Private Sub InvokeFreeSub(subName)
         If Not SubDefined(subName) Then Exit Sub
+        ' Set ActiveBall to the most recently created ball, matching
+        ' how real VPX sets it to the ball that triggered the event.
+        If g_ActiveBalls.Count > 0 Then
+            Dim abKeys : abKeys = g_ActiveBalls.Keys()
+            Set ActiveBall = g_ActiveBalls(abKeys(UBound(abKeys)))
+        End If
         Dim r : Set r = GetRef(subName)
         r
     End Sub
