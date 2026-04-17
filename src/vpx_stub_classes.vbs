@@ -112,18 +112,35 @@ End Sub
 Dim g_CollectionNames
 Set g_CollectionNames = CreateObject("Scripting.Dictionary")
 
-' Global timer registry (populated by Timer.Register)
+' Global timer registry. Timer elements register via .Register().
+' Other elements register lazily when TimerEnabled is set to True.
 Dim g_AllTimers
 Set g_AllTimers = CreateObject("Scripting.Dictionary")
+
+' Called by element stubs when TimerEnabled is set to True.
+' Registers the element into g_AllTimers so the scheduler fires it.
+Sub OnTimerEnabled(elem)
+    If Len(elem.Name) > 0 And Not g_AllTimers.Exists(elem.Name) Then
+        g_AllTimers.Add elem.Name, elem
+    End If
+End Sub
 
 ' ITimer — in real VPX, Timer elements use TimerEnabled/TimerInterval
 ' like every other element. We also expose Enabled/Interval as aliases
 ' because gen_vpx_stubs.py generates `.Enabled = True` for Timer stubs.
 Class Timer
-    Public Name, UserValue
-    Public TimerEnabled, TimerInterval
-    Public Property Get Enabled() : Enabled = TimerEnabled : End Property
-    Public Property Let Enabled(v) : TimerEnabled = v : End Property
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
+    Public Property Get Enabled() : Enabled = m_timerEnabled : End Property
+    Public Property Let Enabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Property Get Interval() : Interval = TimerInterval : End Property
     Public Property Let Interval(v) : TimerInterval = v : End Property
     Private Sub Class_Initialize
@@ -132,13 +149,19 @@ Class Timer
     ' Called after Name is set (from stub init lines).
     ' Adds to g_AllTimers so the framework's scheduler fires _Timer.
     Public Sub Register()
-        If Len(Name) > 0 Then g_AllTimers.Add Name, Me
+        If Len(Name) > 0 And Not g_AllTimers.Exists(Name) Then g_AllTimers.Add Name, Me
     End Sub
 End Class
 
 ' IPrimitive
 Class Primitive
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Visible, Material, Image, NormalMap, Color, Opacity, AddBlend
     Public X, Y, Z, Size_X, Size_Y, Size_Z
     Public RotX, RotY, RotZ, TransX, TransY, TransZ
@@ -180,7 +203,13 @@ End Class
 
 ' ILight
 Class Light
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public State, Color, ColorFull, Visible, Image, ImageMode
     Public X, Y, Falloff, FalloffPower, Intensity, TransmissionScale, IntensityScale
     Public BlinkPattern, BlinkInterval, Surface, DepthBias
@@ -207,7 +236,13 @@ End Class
 
 ' IFlipper
 Class Flipper
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public X, Y, Height, BaseRadius, EndRadius, Length
     Public StartAngle, EndAngle, CurrentAngle
     Public Material, RubberMaterial, RubberThickness, RubberHeight, RubberWidth
@@ -230,7 +265,13 @@ End Class
 
 ' IKicker
 Class Kicker
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public X, Y, Enabled, DrawStyle, Material, Surface
     Public Scatter, HitAccuracy, HitHeight, Orientation, Radius
     Public FallThrough, Legacy
@@ -290,7 +331,13 @@ End Class
 
 ' IGate
 Class Gate
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public X, Y, Length, Height, Rotation
     Public Open, Damping, GravityFactor, Elasticity, Friction
     Public Material, Surface, Collidable, Visible
@@ -307,7 +354,13 @@ End Class
 
 ' IWall
 Class Wall
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public HasHitEvent, Threshold, Image, SideMaterial, ImageAlignment
     Public HeightBottom, HeightTop, TopMaterial
     Public CanDrop, Collidable, IsDropped, DisplayTexture
@@ -327,7 +380,13 @@ End Class
 
 ' ITrigger
 Class Trigger
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Radius, X, Y, Enabled, Visible, TriggerShape
     Public Surface, HitHeight, Material, Rotation
     Public WireThickness, AnimSpeed, ReflectionEnabled
@@ -353,7 +412,13 @@ End Class
 
 ' IBumper
 Class Bumper
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Radius, X, Y, Surface, Force, Threshold
     Public BaseMaterial, SkirtMaterial, CapMaterial, RingMaterial
     Public HeightScale, Orientation, RingSpeed, RingDropOffset
@@ -384,7 +449,13 @@ End Class
 
 ' ISpinner
 Class Spinner
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Length, Rotation, Height, Damping
     Public Image, Material, X, Y, Surface
     Public ShowBracket, AngleMax, AngleMin
@@ -400,7 +471,13 @@ End Class
 
 ' IRamp
 Class Ramp
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public HeightBottom, HeightTop, WidthBottom, WidthTop
     Public Material, Type, Image, ImageAlignment, HasWallImage
     Public LeftWallHeight, RightWallHeight
@@ -417,7 +494,13 @@ End Class
 
 ' IPlunger
 Class Plunger
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public PullSpeed, FireSpeed, X, Y, Width, ZAdjust
     Public Surface, Type, Material, Image
     Public AnimFrames, Shape
@@ -442,7 +525,13 @@ End Class
 
 ' IHitTarget
 Class HitTarget
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Visible, Material, Image, X, Y, Z
     Public Rotation, Size, Elasticity, ElasticityFalloff
     Public Collidable, HasHitEvent, Threshold, Friction, Scatter
@@ -459,7 +548,13 @@ End Class
 
 ' IFlasher
 Class Flasher
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Visible, X, Y, Height, RotX, RotY, RotZ
     Public Color, ImageA, ImageB, Opacity
     Public IntensityScale, ModulateVsAdd, AddBlend
@@ -475,7 +570,13 @@ End Class
 
 ' IRubber
 Class Rubber
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Height, HitHeight, Thickness, Material, Image
     Public Elasticity, ElasticityFalloff, Friction, Scatter
     Public Collidable, HasHitEvent, Visible, OverwritePhysics
@@ -488,7 +589,13 @@ End Class
 
 ' IDispReel
 Class Reel
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Visible, IsTransparent, Image, Sound
     Public Width, Height, ReelCount, ReelSpacing
     Public MotorSteps, DigitRange, UpdateInterval
@@ -506,7 +613,13 @@ End Class
 
 ' ILightSeq
 Class LightSequencer
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Collection, CenterX, CenterY, UpdateInterval
     ' Real VPX ILightSeq::Play is (Animation, TailLength, Repeat, Pause).
     ' Some tables use trailing `,` omissions (e.g. `.Play SeqBlinking, , 5,
@@ -523,7 +636,13 @@ End Class
 
 ' ITextbox
 Class TextBox
-    Public Name, UserValue, TimerEnabled, TimerInterval
+    Public Name, UserValue, TimerInterval
+    Private m_timerEnabled
+    Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
+    Public Property Let TimerEnabled(v)
+        m_timerEnabled = v
+        If v Then OnTimerEnabled Me
+    End Property
     Public Text, X, Y, Width, Height, Alignment
     Public IsTransparent, BackColor, FontColor, Font, Visible
     Public IntensityScale

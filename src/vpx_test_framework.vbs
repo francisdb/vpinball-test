@@ -438,23 +438,10 @@ Sub SetUpTable(verbose)
     End If
 
     ' Register element-level timers. In real VPX, every table element
-    ' Register element-level timers into g_AllTimers. In real VPX,
-    ' TimerSetup() creates a HitTimer for EVERY editable element —
-    ' Kickers, Triggers, Lights, etc. all have TimerEnabled/TimerInterval.
-    ' Timer elements already registered via .Register(); add the rest.
-    Dim elemName_, elem_, te_
-    For Each elemName_ In g_AllItems.Keys()
-        If Not g_AllTimers.Exists(elemName_) Then
-            Set elem_ = g_AllItems(elemName_)
-            On Error Resume Next
-            te_ = elem_.TimerEnabled
-            If Err.Number = 0 Then
-                g_AllTimers.Add elemName_, elem_
-            End If
-            Err.Clear
-            On Error GoTo 0
-        End If
-    Next
+    ' Element-level timers register lazily: when any element's
+    ' TimerEnabled is set to True, the Property Let calls
+    ' OnTimerEnabled which adds it to g_AllTimers. No bulk
+    ' registration needed — only active timers are scheduled.
 
     g_TableLoaded = True
 End Sub
