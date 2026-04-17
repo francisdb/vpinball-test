@@ -27,16 +27,20 @@ tester.Init
 tester.AdvanceMs 5000          ' Boot sequence (MachineBootFinished at BootupTimer case 4)
 tester.InsertCoin
 tester.StartGame
-tester.AdvanceMs 3000          ' FirstBallDelayTimer -> ResetForNewPlayerBall
+tester.ExpectTrue "BallsOnPlayfield >= 1", 15000  ' Ball served after long startup (~8s)          ' FirstBallDelayTimer -> ResetForNewPlayerBall
 tester.Echo "vpGameInPlay=" & vpGameInPlay & " BallsRemaining=" & BallsRemaining(1)
 tester.Assert vpGameInPlay = True, "expected vpGameInPlay=True after start"
 
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
+    BallSaverActive = FALSE              ' Ball saver has no timer in this table;
+                                         ' it stays active until manually cleared.
+                                         ' In real VPX it expires when the ball
+                                         ' passes through gameplay triggers.
     tester.KeepBallMoving
     tester.FireHit "Drain"
-    tester.AdvanceMs 15000
+    tester.AdvanceMs 25000
     tester.StopBall
     tester.Echo "  vpGameInPlay=" & vpGameInPlay & " BallsRemaining=" & BallsRemaining(1)
 Next
