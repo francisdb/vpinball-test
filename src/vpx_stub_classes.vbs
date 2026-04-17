@@ -1016,6 +1016,8 @@ Class VPinMAMEControllerStub
     Public Sub B2SSetCredits(val) : End Sub
     Public Sub B2SSetGameOver(val) : End Sub
     Public Sub B2SSetTilt(val) : End Sub
+    Public Sub B2SSetScorePlayer(player, score) : End Sub
+    Public Sub B2SSetScore(pos, score) : End Sub
 
     Private Sub Class_Initialize
         Version = "03060000" : mSolMask(0) = &HFFFFFFFF : mSolMask(1) = &HFFFFFFFF
@@ -1057,6 +1059,8 @@ Class B2SServerStub
     Public Sub B2SSetCredits(val) : End Sub
     Public Sub B2SSetGameOver(val) : End Sub
     Public Sub B2SSetTilt(val) : End Sub
+    Public Sub B2SSetScorePlayer(player, score) : End Sub
+    Public Sub B2SSetScore(pos, score) : End Sub
 
     Private Sub Class_Initialize
         Version = "03060000" : mSolMask(0) = &HFFFFFFFF : mSolMask(1) = &HFFFFFFFF
