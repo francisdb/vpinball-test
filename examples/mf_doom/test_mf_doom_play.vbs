@@ -4,6 +4,11 @@
 ' ball management. Standard drain cascade: Drain_Hit -> EndOfBall ->
 ' EndOfBallComplete. EndOfGame when BallsRemaining <= 0.
 '
+' Table bug: UpdateMusicNow crashes if MusicDirectory\MFDOOM has no
+' MP3 files (RndNbr on empty Songs array). This kills MusicTrigger_hit
+' before it resets LPressStart.state, blocking CreateNewBall for
+' subsequent balls.
+'
 Option Explicit
 
 Dim fso, scriptDir
