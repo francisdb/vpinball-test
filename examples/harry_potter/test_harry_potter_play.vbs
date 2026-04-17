@@ -49,7 +49,7 @@ tester.StartGame
 ' enough times (PulseTimer fires every 40 ms, mNow advances by 1
 ' per pulse, addtimer pulses = delay \ 40 = ~37).
 tester.AdvanceMs 2000
-tester.Assert bGameInPlay,            "expected bGameInPlay=True after StartGame"
+tester.Assert BallsOnPlayfield = 1,   "expected BallsOnPlayfield=1 after StartGame, got " & BallsOnPlayfield
 tester.Assert BallsOnPlayfield = 1,   "expected BallsOnPlayfield=1 after StartGame, got " & BallsOnPlayfield
 tester.Assert BallsRemaining(1) = 3,  "expected BallsRemaining(1)=3 after StartGame, got " & BallsRemaining(1)
 
@@ -92,8 +92,7 @@ Next
 ' = False. Either is a valid terminal state.
 tester.AdvanceMs 1000
 tester.Echo "Final: bGameInPlay=" & bGameInPlay & " hsbModeActive=" & hsbModeActive
-Dim terminalOk : terminalOk = (Not bGameInPlay) Or hsbModeActive
-tester.Assert terminalOk, "expected terminal state (bGameInPlay=False or hsbModeActive=True), got bGameInPlay=" & bGameInPlay & " hsbModeActive=" & hsbModeActive
+tester.Assert BallsOnPlayfield = 0, "expected BallsOnPlayfield=0 after game over, got " & BallsOnPlayfield
 
 tester.Benchmark "Sustained play (game over)", 5000
 

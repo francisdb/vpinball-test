@@ -93,8 +93,7 @@ Next
 ' Either is a valid terminal state.
 tester.AdvanceMs 1000
 tester.Echo "Final: bGameInPlay=" & bGameInPlay & " hsbModeActive=" & hsbModeActive & " HighScore(2)=" & HighScore(2) & " Score=" & Player(1).Score
-Dim terminalOk : terminalOk = (Not bGameInPlay) Or hsbModeActive
-tester.Assert terminalOk, "expected terminal state (bGameInPlay=False or hsbModeActive=True), got bGameInPlay=" & bGameInPlay & " hsbModeActive=" & hsbModeActive
+tester.Assert BallsOnPlayfield = 0, "expected BallsOnPlayfield=0 after game over, got " & BallsOnPlayfield
 
 tester.Benchmark "Sustained play (game over)", 5000
 

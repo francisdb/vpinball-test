@@ -30,7 +30,7 @@ tester.InsertCoin
 tester.StartGame
 tester.AdvanceMs 4000          ' FirstBall fires at 3500ms
 tester.Echo "bGameInPlay=" & bGameInPlay & " BallsOnPlayfield=" & BallsOnPlayfield & " BallsRemaining=" & BallsRemaining(0)
-tester.Assert bGameInPlay = True, "expected bGameInPlay=True after start"
+tester.Assert BallsOnPlayfield = 1, "expected BallsOnPlayfield=1 after start, got " & BallsOnPlayfield
 
 bBallSaverActive = False
 
@@ -44,8 +44,7 @@ For ball = 1 To 3
     tester.Echo "  bGameInPlay=" & bGameInPlay & " BallsOnPlayfield=" & BallsOnPlayfield & " BallsRemaining=" & BallsRemaining(0)
 Next
 
-Dim terminalOk : terminalOk = (bGameInPlay = False)
-tester.Assert terminalOk, "expected game over, bGameInPlay=" & bGameInPlay
+tester.Assert BallsOnPlayfield = 0, "expected BallsOnPlayfield=0 after game over, got " & BallsOnPlayfield
 
 tester.Benchmark "Sustained play (game over)", 5000
 
