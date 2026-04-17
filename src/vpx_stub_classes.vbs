@@ -117,12 +117,15 @@ Set g_CollectionNames = CreateObject("Scripting.Dictionary")
 Dim g_AllTimers
 Set g_AllTimers = CreateObject("Scripting.Dictionary")
 
-' Called by element stubs when TimerEnabled is set to True.
-' Registers the element into g_AllTimers so the scheduler fires it.
+' Called by element stubs when TimerEnabled changes.
+' Registers the element into g_AllTimers and sets a dirty flag so
+' the scheduler re-scans on the next tick (instead of every tick).
+Dim g_TimersDirty : g_TimersDirty = False
 Sub OnTimerEnabled(elem)
     If Len(elem.Name) > 0 And Not g_AllTimers.Exists(elem.Name) Then
         g_AllTimers.Add elem.Name, elem
     End If
+    g_TimersDirty = True
 End Sub
 
 ' ITimer — in real VPX, Timer elements use TimerEnabled/TimerInterval
@@ -134,7 +137,7 @@ Class Timer
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Property Get Enabled() : Enabled = m_timerEnabled : End Property
     Public Property Let Enabled(v)
@@ -160,7 +163,7 @@ Class Primitive
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Visible, Material, Image, NormalMap, Color, Opacity, AddBlend
     Public X, Y, Z, Size_X, Size_Y, Size_Z
@@ -208,7 +211,7 @@ Class Light
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public State, Color, ColorFull, Visible, Image, ImageMode
     Public X, Y, Falloff, FalloffPower, Intensity, TransmissionScale, IntensityScale
@@ -241,7 +244,7 @@ Class Flipper
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public X, Y, Height, BaseRadius, EndRadius, Length
     Public StartAngle, EndAngle, CurrentAngle
@@ -270,7 +273,7 @@ Class Kicker
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public X, Y, Enabled, DrawStyle, Material, Surface
     Public Scatter, HitAccuracy, HitHeight, Orientation, Radius
@@ -336,7 +339,7 @@ Class Gate
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public X, Y, Length, Height, Rotation
     Public Open, Damping, GravityFactor, Elasticity, Friction
@@ -359,7 +362,7 @@ Class Wall
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public HasHitEvent, Threshold, Image, SideMaterial, ImageAlignment
     Public HeightBottom, HeightTop, TopMaterial
@@ -385,7 +388,7 @@ Class Trigger
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Radius, X, Y, Enabled, Visible, TriggerShape
     Public Surface, HitHeight, Material, Rotation
@@ -417,7 +420,7 @@ Class Bumper
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Radius, X, Y, Surface, Force, Threshold
     Public BaseMaterial, SkirtMaterial, CapMaterial, RingMaterial
@@ -454,7 +457,7 @@ Class Spinner
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Length, Rotation, Height, Damping
     Public Image, Material, X, Y, Surface
@@ -476,7 +479,7 @@ Class Ramp
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public HeightBottom, HeightTop, WidthBottom, WidthTop
     Public Material, Type, Image, ImageAlignment, HasWallImage
@@ -499,7 +502,7 @@ Class Plunger
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public PullSpeed, FireSpeed, X, Y, Width, ZAdjust
     Public Surface, Type, Material, Image
@@ -530,7 +533,7 @@ Class HitTarget
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Visible, Material, Image, X, Y, Z
     Public Rotation, Size, Elasticity, ElasticityFalloff
@@ -553,7 +556,7 @@ Class Flasher
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Visible, X, Y, Height, RotX, RotY, RotZ
     Public Color, ImageA, ImageB, Opacity
@@ -575,7 +578,7 @@ Class Rubber
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Height, HitHeight, Thickness, Material, Image
     Public Elasticity, ElasticityFalloff, Friction, Scatter
@@ -594,7 +597,7 @@ Class Reel
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Visible, IsTransparent, Image, Sound
     Public Width, Height, ReelCount, ReelSpacing
@@ -618,7 +621,7 @@ Class LightSequencer
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Collection, CenterX, CenterY, UpdateInterval
     ' Real VPX ILightSeq::Play is (Animation, TailLength, Repeat, Pause).
@@ -641,7 +644,7 @@ Class TextBox
     Public Property Get TimerEnabled() : TimerEnabled = m_timerEnabled : End Property
     Public Property Let TimerEnabled(v)
         m_timerEnabled = v
-        If v Then OnTimerEnabled Me
+        If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public Text, X, Y, Width, Height, Alignment
     Public IsTransparent, BackColor, FontColor, Font, Visible

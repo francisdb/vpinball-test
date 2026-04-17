@@ -584,6 +584,8 @@ Class VpxTester
     ' Disabled so the next re-enable restarts its countdown from
     ' `Interval`, matching VPX semantics.
     Private m_nextFire
+    ' Timers that have already been warned about (sub-16ms interval).
+    Private m_warnedTimers
     ' Total sim ms advanced via AdvanceMs.
     Private m_simMs
     ' Opt-in flag toggled by KeepBallMoving. When set, AdvanceMs stamps
@@ -613,9 +615,10 @@ Class VpxTester
         m_hasKeyUp = False
         m_simMs = 0
         m_keepBallMoving = False
-        Set m_refCache   = CreateObject("Scripting.Dictionary")
-        Set m_firedNames = CreateObject("Scripting.Dictionary")
-        Set m_nextFire   = CreateObject("Scripting.Dictionary")
+        Set m_refCache     = CreateObject("Scripting.Dictionary")
+        Set m_firedNames   = CreateObject("Scripting.Dictionary")
+        Set m_nextFire     = CreateObject("Scripting.Dictionary")
+        Set m_warnedTimers = CreateObject("Scripting.Dictionary")
         ResolveKeyHandlers
         m_baselineBalls = BallCount
         Dim soundsDuringInit : soundsDuringInit = g_SoundLog.Count
@@ -779,12 +782,22 @@ Class VpxTester
         On Error GoTo 0
     End Sub
 
-    ' Read a timer's declared Interval, clamped to >= 1 ms so a timer
-    ' with Interval 0 (from a stub default or buggy table code) still
-    ' makes progress instead of spinning the outer loop.
+    ' Read a timer's declared Interval. In real VPX:
+    '   -1 = fire every rendered frame (OnNewFrame)
+    '   -2 = fire every game sync (OnGameSync)
+    '   0+ = time-based, but only checked once per frame
+    ' All effectively fire at frame rate (~16ms at 60fps). VPX warns
+    ' about Bumper/Flipper/Gate timers below 17ms. Clamp to 16ms.
     Private Function TimerIntervalMs(tn)
         Dim iv : iv = CLng(g_AllTimers(tn).TimerInterval)
-        If iv < 1 Then iv = 1
+        If iv < 16 Then
+            If iv >= 0 And Not m_warnedTimers.Exists(tn) Then
+                ' 0-15ms: below frame rate, warn once like VPX does
+                WScript.Echo "warn: timer '" & tn & "' interval " & iv & "ms is below 60fps frame rate, clamping to 16ms"
+                m_warnedTimers.Add tn, True
+            End If
+            iv = 16
+        End If
         TimerIntervalMs = iv
     End Function
 
