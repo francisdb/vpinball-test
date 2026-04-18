@@ -608,6 +608,9 @@ Class VpxTester
     ' Balls alive at the end of Init (captive balls, pre-placed trough
     ' balls) that don't count as "the player's ball".
     Private m_baselineBalls
+    ' Per-timer cumulative wall time (seconds) and fire count.
+    Private m_timerWallTime  ' Dictionary: timerName -> cumulative seconds
+    Private m_timerFireCount ' Dictionary: timerName -> fire count
 
     ' Load the table (if not already loaded) and set up tester state.
     ' Play benchmarks call `tester.Init` -- SetUpTable runs quietly (no
@@ -623,6 +626,8 @@ Class VpxTester
         Set m_firedNames   = CreateObject("Scripting.Dictionary")
         Set m_nextFire     = CreateObject("Scripting.Dictionary")
         Set m_warnedTimers = CreateObject("Scripting.Dictionary")
+        Set m_timerWallTime  = CreateObject("Scripting.Dictionary")
+        Set m_timerFireCount = CreateObject("Scripting.Dictionary")
         ResolveKeyHandlers
         m_baselineBalls = BallCount
         Dim soundsDuringInit : soundsDuringInit = g_SoundLog.Count
@@ -772,7 +777,16 @@ Class VpxTester
                             ' as stationary.
                             If m_keepBallMoving Then RefreshBallVelocity
                             Set ref = ResolveTimerRef(tn)
+                            Dim tFire0 : tFire0 = Timer
                             CallTimerRef ref
+                            Dim tFire1 : tFire1 = Timer
+                            If m_timerWallTime.Exists(tn) Then
+                                m_timerWallTime(tn) = m_timerWallTime(tn) + (tFire1 - tFire0)
+                                m_timerFireCount(tn) = m_timerFireCount(tn) + 1
+                            Else
+                                m_timerWallTime.Add tn, (tFire1 - tFire0)
+                                m_timerFireCount.Add tn, 1
+                            End If
                             Err.Clear
                             If Not m_firedNames.Exists(tn) Then m_firedNames.Add tn, True
                             m_nextFire(tn) = GameTime + TimerIntervalMs(tn)
@@ -1154,7 +1168,43 @@ Class VpxTester
         End If
         Echo "Sim time run:    " & m_simMs & " ms"
         Echo "Timers fired:    " & m_firedNames.Count
+        PrintTimerStats
         Echo "=== Exit complete ==="
+    End Sub
+
+    Private Sub PrintTimerStats()
+        If m_timerWallTime.Count = 0 Then Exit Sub
+        ' Sort by cumulative wall time descending (simple selection sort).
+        Dim keys, vals, counts, n
+        keys = m_timerWallTime.Keys()
+        vals = m_timerWallTime.Items()
+        counts = m_timerFireCount.Items()
+        n = UBound(keys)
+        Dim i, j, maxIdx
+        Dim tmpK, tmpV, tmpC
+        For i = 0 To n
+            maxIdx = i
+            For j = i + 1 To n
+                If vals(j) > vals(maxIdx) Then maxIdx = j
+            Next
+            If maxIdx <> i Then
+                tmpK = keys(i) : keys(i) = keys(maxIdx) : keys(maxIdx) = tmpK
+                tmpV = vals(i) : vals(i) = vals(maxIdx) : vals(maxIdx) = tmpV
+                tmpC = counts(i) : counts(i) = counts(maxIdx) : counts(maxIdx) = tmpC
+            End If
+        Next
+        Echo "=== Timer stats (top 10 by wall time) ==="
+        Dim limit : limit = n : If limit > 9 Then limit = 9
+        Dim wallMs, avgUs
+        For i = 0 To limit
+            wallMs = Int(vals(i) * 1000 * 100) / 100
+            If counts(i) > 0 Then
+                avgUs = Int(vals(i) / counts(i) * 1000000 * 10) / 10
+            Else
+                avgUs = 0
+            End If
+            Echo "  " & wallMs & " ms  (" & counts(i) & "x, " & avgUs & " us/call)  " & keys(i) & "_Timer"
+        Next
     End Sub
 
     Public Property Get SimMs() : SimMs = m_simMs : End Property
