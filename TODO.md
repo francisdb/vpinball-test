@@ -10,9 +10,13 @@ negligible. Investigate both:
   scans, property lookups, m_nextFire operations. Consider
   pre-resolved arrays instead of dictionary lookups per tick.
 - **Wine vbscript engine** — MR !10546 (indexed function/variable
-  lookup) showed 3-11x improvement across all tables. Other Wine-side
-  optimizations (dispatch caching, property resolution) could help.
-  The test framework is a good benchmark for Wine vbscript perf work.
+  lookup) is *already in* our pinned Wine (commits `966709b2dea` +
+  `8681d44e4b6` landed on master 2026-04-01/02, well before
+  wine-11.7 — current play-test wall times are post-win). The
+  next-in-line perf commit is `1b080090b12` "Bind global-scope
+  Dim variables at compile time" — on master but not in 11.7.
+  Further Wine-side wins (dispatch caching, property resolution)
+  would compound.
 
 ## Play test drain cascade issues
 
