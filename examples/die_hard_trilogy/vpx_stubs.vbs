@@ -1554,53 +1554,53 @@ Dim AirplaneFall, autoplungerdelay, BallSaveTimer, BGFlickerTimer, BulletCollect
 Dim pTriggerScript, PulseTimer, pupDMDUpdate, PuPGameTimer, RampRoll, ResetTopBanks, subwaydelaykick, TargetHReset, TargetL1Reset, TargetL2Reset, TargetOReset, TargetYReset, TiltDebounceTimer, TiltDecreaseTimer, TiltRecoveryTimer
 Dim TowerRlease, TowerRleaseB, TowerVukB, UCAttractTimer, UCFadeInTimer, UCFadeOutBlueTimer, UCFadeOutTimer, UCShortStrobeBlueTimer, UCShortStrobeTimer, UCStrobeTimer, UnderCabTimer, UpdateSubwayTimer, UpdateTroughTimer, VaultDoorTimer, VRHeliTimer
 Dim VRMainTimer, WizardRecoveryTimer
-Set AirplaneFall = New Timer : AirplaneFall.Name = "AirplaneFall" : AirplaneFall.Enabled = False : g_AllItems.Add "AirplaneFall", AirplaneFall : AirplaneFall.Register
-Set autoplungerdelay = New Timer : autoplungerdelay.Name = "autoplungerdelay" : autoplungerdelay.Enabled = False : g_AllItems.Add "autoplungerdelay", autoplungerdelay : autoplungerdelay.Register
-Set BallSaveTimer = New Timer : BallSaveTimer.Name = "BallSaveTimer" : BallSaveTimer.Enabled = False : g_AllItems.Add "BallSaveTimer", BallSaveTimer : BallSaveTimer.Register
-Set BGFlickerTimer = New Timer : BGFlickerTimer.Name = "BGFlickerTimer" : BGFlickerTimer.Enabled = False : g_AllItems.Add "BGFlickerTimer", BGFlickerTimer : BGFlickerTimer.Register
-Set BulletCollector = New Timer : BulletCollector.Name = "BulletCollector" : BulletCollector.Enabled = False : g_AllItems.Add "BulletCollector", BulletCollector : BulletCollector.Register
-Set CreateMultiballTimer = New Timer : CreateMultiballTimer.Name = "CreateMultiballTimer" : CreateMultiballTimer.Enabled = False : g_AllItems.Add "CreateMultiballTimer", CreateMultiballTimer : CreateMultiballTimer.Register
-Set DoOldAttractTimer = New Timer : DoOldAttractTimer.Name = "DoOldAttractTimer" : DoOldAttractTimer.Enabled = False : g_AllItems.Add "DoOldAttractTimer", DoOldAttractTimer : DoOldAttractTimer.Register
-Set FrameTimer = New Timer : FrameTimer.Name = "FrameTimer" : FrameTimer.Enabled = True : g_AllItems.Add "FrameTimer", FrameTimer : FrameTimer.Register
-Set GameTimer = New Timer : GameTimer.Name = "GameTimer" : GameTimer.Enabled = True : g_AllItems.Add "GameTimer", GameTimer : GameTimer.Register
-Set GITimer = New Timer : GITimer.Name = "GITimer" : GITimer.Enabled = False : g_AllItems.Add "GITimer", GITimer : GITimer.Register
-Set LampTimer = New Timer : LampTimer.Name = "LampTimer" : LampTimer.Enabled = True : g_AllItems.Add "LampTimer", LampTimer : LampTimer.Register
-Set LampTimer2 = New Timer : LampTimer2.Name = "LampTimer2" : LampTimer2.Enabled = True : g_AllItems.Add "LampTimer2", LampTimer2 : LampTimer2.Register
-Set MobileMovement = New Timer : MobileMovement.Name = "MobileMovement" : MobileMovement.Enabled = False : g_AllItems.Add "MobileMovement", MobileMovement : MobileMovement.Register
-Set ModeTimer = New Timer : ModeTimer.Name = "ModeTimer" : ModeTimer.Enabled = True : g_AllItems.Add "ModeTimer", ModeTimer : ModeTimer.Register
-Set ParkMBTimer = New Timer : ParkMBTimer.Name = "ParkMBTimer" : ParkMBTimer.Enabled = False : g_AllItems.Add "ParkMBTimer", ParkMBTimer : ParkMBTimer.Register
-Set pTriggerScript = New Timer : pTriggerScript.Name = "pTriggerScript" : pTriggerScript.Enabled = True : g_AllItems.Add "pTriggerScript", pTriggerScript : pTriggerScript.Register
-Set PulseTimer = New Timer : PulseTimer.Name = "PulseTimer" : PulseTimer.Enabled = True : g_AllItems.Add "PulseTimer", PulseTimer : PulseTimer.Register
-Set pupDMDUpdate = New Timer : pupDMDUpdate.Name = "pupDMDUpdate" : pupDMDUpdate.Enabled = True : g_AllItems.Add "pupDMDUpdate", pupDMDUpdate : pupDMDUpdate.Register
-Set PuPGameTimer = New Timer : PuPGameTimer.Name = "PuPGameTimer" : PuPGameTimer.Enabled = False : g_AllItems.Add "PuPGameTimer", PuPGameTimer : PuPGameTimer.Register
-Set RampRoll = New Timer : RampRoll.Name = "RampRoll" : RampRoll.Enabled = False : g_AllItems.Add "RampRoll", RampRoll : RampRoll.Register
-Set ResetTopBanks = New Timer : ResetTopBanks.Name = "ResetTopBanks" : ResetTopBanks.Enabled = False : g_AllItems.Add "ResetTopBanks", ResetTopBanks : ResetTopBanks.Register
-Set subwaydelaykick = New Timer : subwaydelaykick.Name = "subwaydelaykick" : subwaydelaykick.Enabled = False : g_AllItems.Add "subwaydelaykick", subwaydelaykick : subwaydelaykick.Register
-Set TargetHReset = New Timer : TargetHReset.Name = "TargetHReset" : TargetHReset.Enabled = False : g_AllItems.Add "TargetHReset", TargetHReset : TargetHReset.Register
-Set TargetL1Reset = New Timer : TargetL1Reset.Name = "TargetL1Reset" : TargetL1Reset.Enabled = False : g_AllItems.Add "TargetL1Reset", TargetL1Reset : TargetL1Reset.Register
-Set TargetL2Reset = New Timer : TargetL2Reset.Name = "TargetL2Reset" : TargetL2Reset.Enabled = False : g_AllItems.Add "TargetL2Reset", TargetL2Reset : TargetL2Reset.Register
-Set TargetOReset = New Timer : TargetOReset.Name = "TargetOReset" : TargetOReset.Enabled = False : g_AllItems.Add "TargetOReset", TargetOReset : TargetOReset.Register
-Set TargetYReset = New Timer : TargetYReset.Name = "TargetYReset" : TargetYReset.Enabled = False : g_AllItems.Add "TargetYReset", TargetYReset : TargetYReset.Register
-Set TiltDebounceTimer = New Timer : TiltDebounceTimer.Name = "TiltDebounceTimer" : TiltDebounceTimer.Enabled = False : g_AllItems.Add "TiltDebounceTimer", TiltDebounceTimer : TiltDebounceTimer.Register
-Set TiltDecreaseTimer = New Timer : TiltDecreaseTimer.Name = "TiltDecreaseTimer" : TiltDecreaseTimer.Enabled = False : g_AllItems.Add "TiltDecreaseTimer", TiltDecreaseTimer : TiltDecreaseTimer.Register
-Set TiltRecoveryTimer = New Timer : TiltRecoveryTimer.Name = "TiltRecoveryTimer" : TiltRecoveryTimer.Enabled = False : g_AllItems.Add "TiltRecoveryTimer", TiltRecoveryTimer : TiltRecoveryTimer.Register
-Set TowerRlease = New Timer : TowerRlease.Name = "TowerRlease" : TowerRlease.Enabled = False : g_AllItems.Add "TowerRlease", TowerRlease : TowerRlease.Register
-Set TowerRleaseB = New Timer : TowerRleaseB.Name = "TowerRleaseB" : TowerRleaseB.Enabled = False : g_AllItems.Add "TowerRleaseB", TowerRleaseB : TowerRleaseB.Register
-Set TowerVukB = New Timer : TowerVukB.Name = "TowerVukB" : TowerVukB.Enabled = False : g_AllItems.Add "TowerVukB", TowerVukB : TowerVukB.Register
-Set UCAttractTimer = New Timer : UCAttractTimer.Name = "UCAttractTimer" : UCAttractTimer.Enabled = False : g_AllItems.Add "UCAttractTimer", UCAttractTimer : UCAttractTimer.Register
-Set UCFadeInTimer = New Timer : UCFadeInTimer.Name = "UCFadeInTimer" : UCFadeInTimer.Enabled = False : g_AllItems.Add "UCFadeInTimer", UCFadeInTimer : UCFadeInTimer.Register
-Set UCFadeOutBlueTimer = New Timer : UCFadeOutBlueTimer.Name = "UCFadeOutBlueTimer" : UCFadeOutBlueTimer.Enabled = False : g_AllItems.Add "UCFadeOutBlueTimer", UCFadeOutBlueTimer : UCFadeOutBlueTimer.Register
-Set UCFadeOutTimer = New Timer : UCFadeOutTimer.Name = "UCFadeOutTimer" : UCFadeOutTimer.Enabled = False : g_AllItems.Add "UCFadeOutTimer", UCFadeOutTimer : UCFadeOutTimer.Register
-Set UCShortStrobeBlueTimer = New Timer : UCShortStrobeBlueTimer.Name = "UCShortStrobeBlueTimer" : UCShortStrobeBlueTimer.Enabled = False : g_AllItems.Add "UCShortStrobeBlueTimer", UCShortStrobeBlueTimer : UCShortStrobeBlueTimer.Register
-Set UCShortStrobeTimer = New Timer : UCShortStrobeTimer.Name = "UCShortStrobeTimer" : UCShortStrobeTimer.Enabled = False : g_AllItems.Add "UCShortStrobeTimer", UCShortStrobeTimer : UCShortStrobeTimer.Register
-Set UCStrobeTimer = New Timer : UCStrobeTimer.Name = "UCStrobeTimer" : UCStrobeTimer.Enabled = False : g_AllItems.Add "UCStrobeTimer", UCStrobeTimer : UCStrobeTimer.Register
-Set UnderCabTimer = New Timer : UnderCabTimer.Name = "UnderCabTimer" : UnderCabTimer.Enabled = False : g_AllItems.Add "UnderCabTimer", UnderCabTimer : UnderCabTimer.Register
-Set UpdateSubwayTimer = New Timer : UpdateSubwayTimer.Name = "UpdateSubwayTimer" : UpdateSubwayTimer.Enabled = False : g_AllItems.Add "UpdateSubwayTimer", UpdateSubwayTimer : UpdateSubwayTimer.Register
-Set UpdateTroughTimer = New Timer : UpdateTroughTimer.Name = "UpdateTroughTimer" : UpdateTroughTimer.Enabled = False : g_AllItems.Add "UpdateTroughTimer", UpdateTroughTimer : UpdateTroughTimer.Register
-Set VaultDoorTimer = New Timer : VaultDoorTimer.Name = "VaultDoorTimer" : VaultDoorTimer.Enabled = False : g_AllItems.Add "VaultDoorTimer", VaultDoorTimer : VaultDoorTimer.Register
-Set VRHeliTimer = New Timer : VRHeliTimer.Name = "VRHeliTimer" : VRHeliTimer.Enabled = False : g_AllItems.Add "VRHeliTimer", VRHeliTimer : VRHeliTimer.Register
-Set VRMainTimer = New Timer : VRMainTimer.Name = "VRMainTimer" : VRMainTimer.Enabled = False : g_AllItems.Add "VRMainTimer", VRMainTimer : VRMainTimer.Register
-Set WizardRecoveryTimer = New Timer : WizardRecoveryTimer.Name = "WizardRecoveryTimer" : WizardRecoveryTimer.Enabled = False : g_AllItems.Add "WizardRecoveryTimer", WizardRecoveryTimer : WizardRecoveryTimer.Register
+Set AirplaneFall = New Timer : AirplaneFall.Name = "AirplaneFall" : AirplaneFall.Interval = 300 : AirplaneFall.Enabled = False : g_AllItems.Add "AirplaneFall", AirplaneFall : AirplaneFall.Register
+Set autoplungerdelay = New Timer : autoplungerdelay.Name = "autoplungerdelay" : autoplungerdelay.Interval = 100 : autoplungerdelay.Enabled = False : g_AllItems.Add "autoplungerdelay", autoplungerdelay : autoplungerdelay.Register
+Set BallSaveTimer = New Timer : BallSaveTimer.Name = "BallSaveTimer" : BallSaveTimer.Interval = 500 : BallSaveTimer.Enabled = False : g_AllItems.Add "BallSaveTimer", BallSaveTimer : BallSaveTimer.Register
+Set BGFlickerTimer = New Timer : BGFlickerTimer.Name = "BGFlickerTimer" : BGFlickerTimer.Interval = 1000 : BGFlickerTimer.Enabled = False : g_AllItems.Add "BGFlickerTimer", BGFlickerTimer : BGFlickerTimer.Register
+Set BulletCollector = New Timer : BulletCollector.Name = "BulletCollector" : BulletCollector.Interval = 5000 : BulletCollector.Enabled = False : g_AllItems.Add "BulletCollector", BulletCollector : BulletCollector.Register
+Set CreateMultiballTimer = New Timer : CreateMultiballTimer.Name = "CreateMultiballTimer" : CreateMultiballTimer.Interval = 1250 : CreateMultiballTimer.Enabled = False : g_AllItems.Add "CreateMultiballTimer", CreateMultiballTimer : CreateMultiballTimer.Register
+Set DoOldAttractTimer = New Timer : DoOldAttractTimer.Name = "DoOldAttractTimer" : DoOldAttractTimer.Interval = 6000 : DoOldAttractTimer.Enabled = False : g_AllItems.Add "DoOldAttractTimer", DoOldAttractTimer : DoOldAttractTimer.Register
+Set FrameTimer = New Timer : FrameTimer.Name = "FrameTimer" : FrameTimer.Interval = -1 : FrameTimer.Enabled = True : g_AllItems.Add "FrameTimer", FrameTimer : FrameTimer.Register
+Set GameTimer = New Timer : GameTimer.Name = "GameTimer" : GameTimer.Interval = 10 : GameTimer.Enabled = True : g_AllItems.Add "GameTimer", GameTimer : GameTimer.Register
+Set GITimer = New Timer : GITimer.Name = "GITimer" : GITimer.Interval = 500 : GITimer.Enabled = False : g_AllItems.Add "GITimer", GITimer : GITimer.Register
+Set LampTimer = New Timer : LampTimer.Name = "LampTimer" : LampTimer.Interval = 16 : LampTimer.Enabled = True : g_AllItems.Add "LampTimer", LampTimer : LampTimer.Register
+Set LampTimer2 = New Timer : LampTimer2.Name = "LampTimer2" : LampTimer2.Interval = -1 : LampTimer2.Enabled = True : g_AllItems.Add "LampTimer2", LampTimer2 : LampTimer2.Register
+Set MobileMovement = New Timer : MobileMovement.Name = "MobileMovement" : MobileMovement.Interval = 30 : MobileMovement.Enabled = False : g_AllItems.Add "MobileMovement", MobileMovement : MobileMovement.Register
+Set ModeTimer = New Timer : ModeTimer.Name = "ModeTimer" : ModeTimer.Interval = 250 : ModeTimer.Enabled = True : g_AllItems.Add "ModeTimer", ModeTimer : ModeTimer.Register
+Set ParkMBTimer = New Timer : ParkMBTimer.Name = "ParkMBTimer" : ParkMBTimer.Interval = 5000 : ParkMBTimer.Enabled = False : g_AllItems.Add "ParkMBTimer", ParkMBTimer : ParkMBTimer.Register
+Set pTriggerScript = New Timer : pTriggerScript.Name = "pTriggerScript" : pTriggerScript.Interval = 50 : pTriggerScript.Enabled = True : g_AllItems.Add "pTriggerScript", pTriggerScript : pTriggerScript.Register
+Set PulseTimer = New Timer : PulseTimer.Name = "PulseTimer" : PulseTimer.Interval = 40 : PulseTimer.Enabled = True : g_AllItems.Add "PulseTimer", PulseTimer : PulseTimer.Register
+Set pupDMDUpdate = New Timer : pupDMDUpdate.Name = "pupDMDUpdate" : pupDMDUpdate.Interval = 250 : pupDMDUpdate.Enabled = True : g_AllItems.Add "pupDMDUpdate", pupDMDUpdate : pupDMDUpdate.Register
+Set PuPGameTimer = New Timer : PuPGameTimer.Name = "PuPGameTimer" : PuPGameTimer.Interval = 300 : PuPGameTimer.Enabled = False : g_AllItems.Add "PuPGameTimer", PuPGameTimer : PuPGameTimer.Register
+Set RampRoll = New Timer : RampRoll.Name = "RampRoll" : RampRoll.Interval = 100 : RampRoll.Enabled = False : g_AllItems.Add "RampRoll", RampRoll : RampRoll.Register
+Set ResetTopBanks = New Timer : ResetTopBanks.Name = "ResetTopBanks" : ResetTopBanks.Interval = 1234 : ResetTopBanks.Enabled = False : g_AllItems.Add "ResetTopBanks", ResetTopBanks : ResetTopBanks.Register
+Set subwaydelaykick = New Timer : subwaydelaykick.Name = "subwaydelaykick" : subwaydelaykick.Interval = 888 : subwaydelaykick.Enabled = False : g_AllItems.Add "subwaydelaykick", subwaydelaykick : subwaydelaykick.Register
+Set TargetHReset = New Timer : TargetHReset.Name = "TargetHReset" : TargetHReset.Interval = 100 : TargetHReset.Enabled = False : g_AllItems.Add "TargetHReset", TargetHReset : TargetHReset.Register
+Set TargetL1Reset = New Timer : TargetL1Reset.Name = "TargetL1Reset" : TargetL1Reset.Interval = 100 : TargetL1Reset.Enabled = False : g_AllItems.Add "TargetL1Reset", TargetL1Reset : TargetL1Reset.Register
+Set TargetL2Reset = New Timer : TargetL2Reset.Name = "TargetL2Reset" : TargetL2Reset.Interval = 100 : TargetL2Reset.Enabled = False : g_AllItems.Add "TargetL2Reset", TargetL2Reset : TargetL2Reset.Register
+Set TargetOReset = New Timer : TargetOReset.Name = "TargetOReset" : TargetOReset.Interval = 100 : TargetOReset.Enabled = False : g_AllItems.Add "TargetOReset", TargetOReset : TargetOReset.Register
+Set TargetYReset = New Timer : TargetYReset.Name = "TargetYReset" : TargetYReset.Interval = 100 : TargetYReset.Enabled = False : g_AllItems.Add "TargetYReset", TargetYReset : TargetYReset.Register
+Set TiltDebounceTimer = New Timer : TiltDebounceTimer.Name = "TiltDebounceTimer" : TiltDebounceTimer.Interval = 3000 : TiltDebounceTimer.Enabled = False : g_AllItems.Add "TiltDebounceTimer", TiltDebounceTimer : TiltDebounceTimer.Register
+Set TiltDecreaseTimer = New Timer : TiltDecreaseTimer.Name = "TiltDecreaseTimer" : TiltDecreaseTimer.Interval = 50 : TiltDecreaseTimer.Enabled = False : g_AllItems.Add "TiltDecreaseTimer", TiltDecreaseTimer : TiltDecreaseTimer.Register
+Set TiltRecoveryTimer = New Timer : TiltRecoveryTimer.Name = "TiltRecoveryTimer" : TiltRecoveryTimer.Interval = 2500 : TiltRecoveryTimer.Enabled = False : g_AllItems.Add "TiltRecoveryTimer", TiltRecoveryTimer : TiltRecoveryTimer.Register
+Set TowerRlease = New Timer : TowerRlease.Name = "TowerRlease" : TowerRlease.Interval = 500 : TowerRlease.Enabled = False : g_AllItems.Add "TowerRlease", TowerRlease : TowerRlease.Register
+Set TowerRleaseB = New Timer : TowerRleaseB.Name = "TowerRleaseB" : TowerRleaseB.Interval = 25 : TowerRleaseB.Enabled = False : g_AllItems.Add "TowerRleaseB", TowerRleaseB : TowerRleaseB.Register
+Set TowerVukB = New Timer : TowerVukB.Name = "TowerVukB" : TowerVukB.Interval = 15 : TowerVukB.Enabled = False : g_AllItems.Add "TowerVukB", TowerVukB : TowerVukB.Register
+Set UCAttractTimer = New Timer : UCAttractTimer.Name = "UCAttractTimer" : UCAttractTimer.Interval = 4000 : UCAttractTimer.Enabled = False : g_AllItems.Add "UCAttractTimer", UCAttractTimer : UCAttractTimer.Register
+Set UCFadeInTimer = New Timer : UCFadeInTimer.Name = "UCFadeInTimer" : UCFadeInTimer.Interval = 11 : UCFadeInTimer.Enabled = False : g_AllItems.Add "UCFadeInTimer", UCFadeInTimer : UCFadeInTimer.Register
+Set UCFadeOutBlueTimer = New Timer : UCFadeOutBlueTimer.Name = "UCFadeOutBlueTimer" : UCFadeOutBlueTimer.Interval = 11 : UCFadeOutBlueTimer.Enabled = False : g_AllItems.Add "UCFadeOutBlueTimer", UCFadeOutBlueTimer : UCFadeOutBlueTimer.Register
+Set UCFadeOutTimer = New Timer : UCFadeOutTimer.Name = "UCFadeOutTimer" : UCFadeOutTimer.Interval = 11 : UCFadeOutTimer.Enabled = False : g_AllItems.Add "UCFadeOutTimer", UCFadeOutTimer : UCFadeOutTimer.Register
+Set UCShortStrobeBlueTimer = New Timer : UCShortStrobeBlueTimer.Name = "UCShortStrobeBlueTimer" : UCShortStrobeBlueTimer.Interval = 66 : UCShortStrobeBlueTimer.Enabled = False : g_AllItems.Add "UCShortStrobeBlueTimer", UCShortStrobeBlueTimer : UCShortStrobeBlueTimer.Register
+Set UCShortStrobeTimer = New Timer : UCShortStrobeTimer.Name = "UCShortStrobeTimer" : UCShortStrobeTimer.Interval = 66 : UCShortStrobeTimer.Enabled = False : g_AllItems.Add "UCShortStrobeTimer", UCShortStrobeTimer : UCShortStrobeTimer.Register
+Set UCStrobeTimer = New Timer : UCStrobeTimer.Name = "UCStrobeTimer" : UCStrobeTimer.Interval = 66 : UCStrobeTimer.Enabled = False : g_AllItems.Add "UCStrobeTimer", UCStrobeTimer : UCStrobeTimer.Register
+Set UnderCabTimer = New Timer : UnderCabTimer.Name = "UnderCabTimer" : UnderCabTimer.Interval = 22 : UnderCabTimer.Enabled = False : g_AllItems.Add "UnderCabTimer", UnderCabTimer : UnderCabTimer.Register
+Set UpdateSubwayTimer = New Timer : UpdateSubwayTimer.Name = "UpdateSubwayTimer" : UpdateSubwayTimer.Interval = 300 : UpdateSubwayTimer.Enabled = False : g_AllItems.Add "UpdateSubwayTimer", UpdateSubwayTimer : UpdateSubwayTimer.Register
+Set UpdateTroughTimer = New Timer : UpdateTroughTimer.Name = "UpdateTroughTimer" : UpdateTroughTimer.Interval = 300 : UpdateTroughTimer.Enabled = False : g_AllItems.Add "UpdateTroughTimer", UpdateTroughTimer : UpdateTroughTimer.Register
+Set VaultDoorTimer = New Timer : VaultDoorTimer.Name = "VaultDoorTimer" : VaultDoorTimer.Interval = 10 : VaultDoorTimer.Enabled = False : g_AllItems.Add "VaultDoorTimer", VaultDoorTimer : VaultDoorTimer.Register
+Set VRHeliTimer = New Timer : VRHeliTimer.Name = "VRHeliTimer" : VRHeliTimer.Interval = 11 : VRHeliTimer.Enabled = False : g_AllItems.Add "VRHeliTimer", VRHeliTimer : VRHeliTimer.Register
+Set VRMainTimer = New Timer : VRMainTimer.Name = "VRMainTimer" : VRMainTimer.Interval = 2000 : VRMainTimer.Enabled = False : g_AllItems.Add "VRMainTimer", VRMainTimer : VRMainTimer.Register
+Set WizardRecoveryTimer = New Timer : WizardRecoveryTimer.Name = "WizardRecoveryTimer" : WizardRecoveryTimer.Interval = 100 : WizardRecoveryTimer.Enabled = False : g_AllItems.Add "WizardRecoveryTimer", WizardRecoveryTimer : WizardRecoveryTimer.Register
 
 ' --- Trigger (39) ---
 Dim AirDuctEnter, AirDuctEnter001, AirDuctEnter002, BIPL, RailMotorPosition, SkillshotTrigger, SneekInTrigger, SubwayVUKHelper, swDivPark, swDivRamp, swDivRamp2, swLeftInlane, swLeftOrb1, swLeftOrb2, swLeftOutlane

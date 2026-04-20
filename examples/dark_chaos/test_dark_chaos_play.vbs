@@ -38,18 +38,19 @@ tester.StartGame
 tester.ExpectTrue "glf_BIP >= 1", 5000         ' Ball ejected from trough + auto-launched
 tester.Echo "glf_BIP=" & glf_BIP & " glf_gameStarted=" & glf_gameStarted
 
+' GLF eob_bonus runs with UseWaitQueue=True: after Drain_Hit the
+' ball-ending queue pauses until the 24-tick bonus tally finishes
+' (~8 s on a real table). Simulator's dispatch queue is backed up
+' during a drain, so per-ball sim time is ~10–15 s end-to-end.
+' Keep the timeout loose — each ball's mode state is different.
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
     tester.KeepBallMoving
     tester.FireHit "Drain"
     If ball < 3 Then
-        ' Wait for next ball — GLF queue processes: eob_bonus (wait queue)
-        ' → ball_ending → ball_ended → Glf_EndOfBall → 1s delay → next_player
-        ' → Glf_ReleaseBall. glf_BIP goes 0 on drain, back to 1 on eject.
         tester.ExpectTrue "glf_BIP >= 1", 30000
     Else
-        ' After last ball, game should end
         tester.ExpectTrue "glf_gameStarted = False", 30000
     End If
     tester.StopBall

@@ -27,7 +27,7 @@ tester.Init
 tester.AdvanceMs 5000          ' Boot sequence (startupscreen transitions)
 tester.InsertCoin
 tester.StartGame
-tester.AdvanceMs 1000          ' RoosterTimer fires ball creation
+tester.AdvanceMs 1100          ' RoosterTimer (1000 ms Interval) fires ball creation
 tester.Echo "StartGame=" & StartGame & " CurrentBall=" & CurrentBall
 tester.Assert StartGame = 1, "expected StartGame=1 after start, got " & StartGame
 
@@ -35,7 +35,9 @@ Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
     tester.FireHit "PlungerLaneTrigger"  ' Ball passes plunger lane, starts BallSaverTimer
-    tester.AdvanceMs 2000                ' Let Playtime exceed BallSaveTime
+    ' BallSaverTimer ticks at 1000 ms (real Interval): Playtime increments
+    ' by 1 per tick and must reach BallSaveTime (9) before a drain counts.
+    tester.AdvanceMs 10000
     tester.KeepBallMoving
     tester.FireHit "Drain"
     tester.AdvanceMs 10000               ' EobContinue + Drain_Timer + StartNewPlayer

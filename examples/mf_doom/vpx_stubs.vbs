@@ -1183,79 +1183,79 @@ Dim dank1Timer, dank2Timer, dank3Timer, dank4Timer, dank5Timer, dank6Timer, dank
 Dim Disc4Timer, Disc5Timer, Disc6Timer, Disc7Timer, Disc8Timer, dmdattract, DMDEffectTimer, dmdtimer, DoubleScoringTimerExpired, DoubleSpinnerTimerExpired, endofgametimer, flashflash, FlipperTimer, FrameTimer, GIUpdateTimer
 Dim helptime, HighScoreFlashTimer, intromover, LampTimer, LampTimer2, LaserTimer, LutSlctr, PhilliesSmoketimer, PulseTimer, QueueTimer, RainbowTimer, RainbowTimer1, RDampen, ResetSkillShotTimer, RightFlipperTimer
 Dim RollingTimer, SpliffSmoketimer, SuperOrbitsTimerExpired, SuperPopsTimerExpired, SuperRampsTimerExpired, TiltDecreaseTimer, TiltRecoveryTimer, tilttableclear, Timer1, TimerVRPlunger, TimerVRPlunger2, tmrScorbit, WarpSpeedMultiballTimerExpired
-Set autoplungerdelay = New Timer : autoplungerdelay.Name = "autoplungerdelay" : autoplungerdelay.Enabled = False : g_AllItems.Add "autoplungerdelay", autoplungerdelay : autoplungerdelay.Register
-Set BallControl = New Timer : BallControl.Name = "BallControl" : BallControl.Enabled = True : g_AllItems.Add "BallControl", BallControl : BallControl.Register
-Set BallControlTimer = New Timer : BallControlTimer.Name = "BallControlTimer" : BallControlTimer.Enabled = True : g_AllItems.Add "BallControlTimer", BallControlTimer : BallControlTimer.Register
-Set BallControlTimer1 = New Timer : BallControlTimer1.Name = "BallControlTimer1" : BallControlTimer1.Enabled = True : g_AllItems.Add "BallControlTimer1", BallControlTimer1 : BallControlTimer1.Register
-Set BallSaverSpeedUpTimer = New Timer : BallSaverSpeedUpTimer.Name = "BallSaverSpeedUpTimer" : BallSaverSpeedUpTimer.Enabled = True : g_AllItems.Add "BallSaverSpeedUpTimer", BallSaverSpeedUpTimer : BallSaverSpeedUpTimer.Register
-Set BallSaverTimerExpired = New Timer : BallSaverTimerExpired.Name = "BallSaverTimerExpired" : BallSaverTimerExpired.Enabled = False : g_AllItems.Add "BallSaverTimerExpired", BallSaverTimerExpired : BallSaverTimerExpired.Register
-Set BluntSmoketimer = New Timer : BluntSmoketimer.Name = "BluntSmoketimer" : BluntSmoketimer.Enabled = True : g_AllItems.Add "BluntSmoketimer", BluntSmoketimer : BluntSmoketimer.Register
-Set Bongtimer = New Timer : Bongtimer.Name = "Bongtimer" : Bongtimer.Enabled = True : g_AllItems.Add "Bongtimer", Bongtimer : Bongtimer.Register
-Set CheckNoMusicTimer = New Timer : CheckNoMusicTimer.Name = "CheckNoMusicTimer" : CheckNoMusicTimer.Enabled = False : g_AllItems.Add "CheckNoMusicTimer", CheckNoMusicTimer : CheckNoMusicTimer.Register
-Set ComboTimerExpired = New Timer : ComboTimerExpired.Name = "ComboTimerExpired" : ComboTimerExpired.Enabled = True : g_AllItems.Add "ComboTimerExpired", ComboTimerExpired : ComboTimerExpired.Register
-Set CorTimer = New Timer : CorTimer.Name = "CorTimer" : CorTimer.Enabled = True : g_AllItems.Add "CorTimer", CorTimer : CorTimer.Register
-Set CreateMultiballBallLockTimer = New Timer : CreateMultiballBallLockTimer.Name = "CreateMultiballBallLockTimer" : CreateMultiballBallLockTimer.Enabled = False : g_AllItems.Add "CreateMultiballBallLockTimer", CreateMultiballBallLockTimer : CreateMultiballBallLockTimer.Register
-Set CreateMultiballTimer = New Timer : CreateMultiballTimer.Name = "CreateMultiballTimer" : CreateMultiballTimer.Enabled = False : g_AllItems.Add "CreateMultiballTimer", CreateMultiballTimer : CreateMultiballTimer.Register
-Set dank10Timer = New Timer : dank10Timer.Name = "dank10Timer" : dank10Timer.Enabled = False : g_AllItems.Add "dank10Timer", dank10Timer : dank10Timer.Register
-Set dank11Timer = New Timer : dank11Timer.Name = "dank11Timer" : dank11Timer.Enabled = False : g_AllItems.Add "dank11Timer", dank11Timer : dank11Timer.Register
-Set dank1Timer = New Timer : dank1Timer.Name = "dank1Timer" : dank1Timer.Enabled = False : g_AllItems.Add "dank1Timer", dank1Timer : dank1Timer.Register
-Set dank2Timer = New Timer : dank2Timer.Name = "dank2Timer" : dank2Timer.Enabled = False : g_AllItems.Add "dank2Timer", dank2Timer : dank2Timer.Register
-Set dank3Timer = New Timer : dank3Timer.Name = "dank3Timer" : dank3Timer.Enabled = False : g_AllItems.Add "dank3Timer", dank3Timer : dank3Timer.Register
-Set dank4Timer = New Timer : dank4Timer.Name = "dank4Timer" : dank4Timer.Enabled = False : g_AllItems.Add "dank4Timer", dank4Timer : dank4Timer.Register
-Set dank5Timer = New Timer : dank5Timer.Name = "dank5Timer" : dank5Timer.Enabled = False : g_AllItems.Add "dank5Timer", dank5Timer : dank5Timer.Register
-Set dank6Timer = New Timer : dank6Timer.Name = "dank6Timer" : dank6Timer.Enabled = False : g_AllItems.Add "dank6Timer", dank6Timer : dank6Timer.Register
-Set dank7Timer = New Timer : dank7Timer.Name = "dank7Timer" : dank7Timer.Enabled = False : g_AllItems.Add "dank7Timer", dank7Timer : dank7Timer.Register
-Set dank8Timer = New Timer : dank8Timer.Name = "dank8Timer" : dank8Timer.Enabled = False : g_AllItems.Add "dank8Timer", dank8Timer : dank8Timer.Register
-Set dank9Timer = New Timer : dank9Timer.Name = "dank9Timer" : dank9Timer.Enabled = False : g_AllItems.Add "dank9Timer", dank9Timer : dank9Timer.Register
-Set DbgTimer = New Timer : DbgTimer.Name = "DbgTimer" : DbgTimer.Enabled = False : g_AllItems.Add "DbgTimer", DbgTimer : DbgTimer.Register
-Set DelayQRClaim = New Timer : DelayQRClaim.Name = "DelayQRClaim" : DelayQRClaim.Enabled = False : g_AllItems.Add "DelayQRClaim", DelayQRClaim : DelayQRClaim.Register
-Set Disc11Timer = New Timer : Disc11Timer.Name = "Disc11Timer" : Disc11Timer.Enabled = False : g_AllItems.Add "Disc11Timer", Disc11Timer : Disc11Timer.Register
-Set Disc1Timer = New Timer : Disc1Timer.Name = "Disc1Timer" : Disc1Timer.Enabled = False : g_AllItems.Add "Disc1Timer", Disc1Timer : Disc1Timer.Register
-Set Disc2Timer = New Timer : Disc2Timer.Name = "Disc2Timer" : Disc2Timer.Enabled = False : g_AllItems.Add "Disc2Timer", Disc2Timer : Disc2Timer.Register
-Set Disc3Timer = New Timer : Disc3Timer.Name = "Disc3Timer" : Disc3Timer.Enabled = False : g_AllItems.Add "Disc3Timer", Disc3Timer : Disc3Timer.Register
-Set Disc4Timer = New Timer : Disc4Timer.Name = "Disc4Timer" : Disc4Timer.Enabled = False : g_AllItems.Add "Disc4Timer", Disc4Timer : Disc4Timer.Register
-Set Disc5Timer = New Timer : Disc5Timer.Name = "Disc5Timer" : Disc5Timer.Enabled = False : g_AllItems.Add "Disc5Timer", Disc5Timer : Disc5Timer.Register
-Set Disc6Timer = New Timer : Disc6Timer.Name = "Disc6Timer" : Disc6Timer.Enabled = False : g_AllItems.Add "Disc6Timer", Disc6Timer : Disc6Timer.Register
-Set Disc7Timer = New Timer : Disc7Timer.Name = "Disc7Timer" : Disc7Timer.Enabled = False : g_AllItems.Add "Disc7Timer", Disc7Timer : Disc7Timer.Register
-Set Disc8Timer = New Timer : Disc8Timer.Name = "Disc8Timer" : Disc8Timer.Enabled = False : g_AllItems.Add "Disc8Timer", Disc8Timer : Disc8Timer.Register
-Set dmdattract = New Timer : dmdattract.Name = "dmdattract" : dmdattract.Enabled = False : g_AllItems.Add "dmdattract", dmdattract : dmdattract.Register
-Set DMDEffectTimer = New Timer : DMDEffectTimer.Name = "DMDEffectTimer" : DMDEffectTimer.Enabled = False : g_AllItems.Add "DMDEffectTimer", DMDEffectTimer : DMDEffectTimer.Register
-Set dmdtimer = New Timer : dmdtimer.Name = "dmdtimer" : dmdtimer.Enabled = False : g_AllItems.Add "dmdtimer", dmdtimer : dmdtimer.Register
-Set DoubleScoringTimerExpired = New Timer : DoubleScoringTimerExpired.Name = "DoubleScoringTimerExpired" : DoubleScoringTimerExpired.Enabled = True : g_AllItems.Add "DoubleScoringTimerExpired", DoubleScoringTimerExpired : DoubleScoringTimerExpired.Register
-Set DoubleSpinnerTimerExpired = New Timer : DoubleSpinnerTimerExpired.Name = "DoubleSpinnerTimerExpired" : DoubleSpinnerTimerExpired.Enabled = True : g_AllItems.Add "DoubleSpinnerTimerExpired", DoubleSpinnerTimerExpired : DoubleSpinnerTimerExpired.Register
-Set endofgametimer = New Timer : endofgametimer.Name = "endofgametimer" : endofgametimer.Enabled = False : g_AllItems.Add "endofgametimer", endofgametimer : endofgametimer.Register
-Set flashflash = New Timer : flashflash.Name = "flashflash" : flashflash.Enabled = True : g_AllItems.Add "flashflash", flashflash : flashflash.Register
-Set FlipperTimer = New Timer : FlipperTimer.Name = "FlipperTimer" : FlipperTimer.Enabled = True : g_AllItems.Add "FlipperTimer", FlipperTimer : FlipperTimer.Register
-Set FrameTimer = New Timer : FrameTimer.Name = "FrameTimer" : FrameTimer.Enabled = True : g_AllItems.Add "FrameTimer", FrameTimer : FrameTimer.Register
-Set GIUpdateTimer = New Timer : GIUpdateTimer.Name = "GIUpdateTimer" : GIUpdateTimer.Enabled = True : g_AllItems.Add "GIUpdateTimer", GIUpdateTimer : GIUpdateTimer.Register
-Set helptime = New Timer : helptime.Name = "helptime" : helptime.Enabled = True : g_AllItems.Add "helptime", helptime : helptime.Register
-Set HighScoreFlashTimer = New Timer : HighScoreFlashTimer.Name = "HighScoreFlashTimer" : HighScoreFlashTimer.Enabled = False : g_AllItems.Add "HighScoreFlashTimer", HighScoreFlashTimer : HighScoreFlashTimer.Register
-Set intromover = New Timer : intromover.Name = "intromover" : intromover.Enabled = True : g_AllItems.Add "intromover", intromover : intromover.Register
-Set LampTimer = New Timer : LampTimer.Name = "LampTimer" : LampTimer.Enabled = False : g_AllItems.Add "LampTimer", LampTimer : LampTimer.Register
-Set LampTimer2 = New Timer : LampTimer2.Name = "LampTimer2" : LampTimer2.Enabled = False : g_AllItems.Add "LampTimer2", LampTimer2 : LampTimer2.Register
-Set LaserTimer = New Timer : LaserTimer.Name = "LaserTimer" : LaserTimer.Enabled = True : g_AllItems.Add "LaserTimer", LaserTimer : LaserTimer.Register
-Set LutSlctr = New Timer : LutSlctr.Name = "LutSlctr" : LutSlctr.Enabled = False : g_AllItems.Add "LutSlctr", LutSlctr : LutSlctr.Register
-Set PhilliesSmoketimer = New Timer : PhilliesSmoketimer.Name = "PhilliesSmoketimer" : PhilliesSmoketimer.Enabled = True : g_AllItems.Add "PhilliesSmoketimer", PhilliesSmoketimer : PhilliesSmoketimer.Register
-Set PulseTimer = New Timer : PulseTimer.Name = "PulseTimer" : PulseTimer.Enabled = True : g_AllItems.Add "PulseTimer", PulseTimer : PulseTimer.Register
-Set QueueTimer = New Timer : QueueTimer.Name = "QueueTimer" : QueueTimer.Enabled = True : g_AllItems.Add "QueueTimer", QueueTimer : QueueTimer.Register
-Set RainbowTimer = New Timer : RainbowTimer.Name = "RainbowTimer" : RainbowTimer.Enabled = False : g_AllItems.Add "RainbowTimer", RainbowTimer : RainbowTimer.Register
-Set RainbowTimer1 = New Timer : RainbowTimer1.Name = "RainbowTimer1" : RainbowTimer1.Enabled = False : g_AllItems.Add "RainbowTimer1", RainbowTimer1 : RainbowTimer1.Register
-Set RDampen = New Timer : RDampen.Name = "RDampen" : RDampen.Enabled = True : g_AllItems.Add "RDampen", RDampen : RDampen.Register
-Set ResetSkillShotTimer = New Timer : ResetSkillShotTimer.Name = "ResetSkillShotTimer" : ResetSkillShotTimer.Enabled = False : g_AllItems.Add "ResetSkillShotTimer", ResetSkillShotTimer : ResetSkillShotTimer.Register
-Set RightFlipperTimer = New Timer : RightFlipperTimer.Name = "RightFlipperTimer" : RightFlipperTimer.Enabled = True : g_AllItems.Add "RightFlipperTimer", RightFlipperTimer : RightFlipperTimer.Register
-Set RollingTimer = New Timer : RollingTimer.Name = "RollingTimer" : RollingTimer.Enabled = True : g_AllItems.Add "RollingTimer", RollingTimer : RollingTimer.Register
-Set SpliffSmoketimer = New Timer : SpliffSmoketimer.Name = "SpliffSmoketimer" : SpliffSmoketimer.Enabled = True : g_AllItems.Add "SpliffSmoketimer", SpliffSmoketimer : SpliffSmoketimer.Register
-Set SuperOrbitsTimerExpired = New Timer : SuperOrbitsTimerExpired.Name = "SuperOrbitsTimerExpired" : SuperOrbitsTimerExpired.Enabled = True : g_AllItems.Add "SuperOrbitsTimerExpired", SuperOrbitsTimerExpired : SuperOrbitsTimerExpired.Register
-Set SuperPopsTimerExpired = New Timer : SuperPopsTimerExpired.Name = "SuperPopsTimerExpired" : SuperPopsTimerExpired.Enabled = True : g_AllItems.Add "SuperPopsTimerExpired", SuperPopsTimerExpired : SuperPopsTimerExpired.Register
-Set SuperRampsTimerExpired = New Timer : SuperRampsTimerExpired.Name = "SuperRampsTimerExpired" : SuperRampsTimerExpired.Enabled = True : g_AllItems.Add "SuperRampsTimerExpired", SuperRampsTimerExpired : SuperRampsTimerExpired.Register
-Set TiltDecreaseTimer = New Timer : TiltDecreaseTimer.Name = "TiltDecreaseTimer" : TiltDecreaseTimer.Enabled = False : g_AllItems.Add "TiltDecreaseTimer", TiltDecreaseTimer : TiltDecreaseTimer.Register
-Set TiltRecoveryTimer = New Timer : TiltRecoveryTimer.Name = "TiltRecoveryTimer" : TiltRecoveryTimer.Enabled = False : g_AllItems.Add "TiltRecoveryTimer", TiltRecoveryTimer : TiltRecoveryTimer.Register
-Set tilttableclear = New Timer : tilttableclear.Name = "tilttableclear" : tilttableclear.Enabled = False : g_AllItems.Add "tilttableclear", tilttableclear : tilttableclear.Register
-Set Timer1 = New Timer : Timer1.Name = "Timer1" : Timer1.Enabled = True : g_AllItems.Add "Timer1", Timer1 : Timer1.Register
-Set TimerVRPlunger = New Timer : TimerVRPlunger.Name = "TimerVRPlunger" : TimerVRPlunger.Enabled = True : g_AllItems.Add "TimerVRPlunger", TimerVRPlunger : TimerVRPlunger.Register
-Set TimerVRPlunger2 = New Timer : TimerVRPlunger2.Name = "TimerVRPlunger2" : TimerVRPlunger2.Enabled = True : g_AllItems.Add "TimerVRPlunger2", TimerVRPlunger2 : TimerVRPlunger2.Register
-Set tmrScorbit = New Timer : tmrScorbit.Name = "tmrScorbit" : tmrScorbit.Enabled = False : g_AllItems.Add "tmrScorbit", tmrScorbit : tmrScorbit.Register
-Set WarpSpeedMultiballTimerExpired = New Timer : WarpSpeedMultiballTimerExpired.Name = "WarpSpeedMultiballTimerExpired" : WarpSpeedMultiballTimerExpired.Enabled = False : g_AllItems.Add "WarpSpeedMultiballTimerExpired", WarpSpeedMultiballTimerExpired : WarpSpeedMultiballTimerExpired.Register
+Set autoplungerdelay = New Timer : autoplungerdelay.Name = "autoplungerdelay" : autoplungerdelay.Interval = 300 : autoplungerdelay.Enabled = False : g_AllItems.Add "autoplungerdelay", autoplungerdelay : autoplungerdelay.Register
+Set BallControl = New Timer : BallControl.Name = "BallControl" : BallControl.Interval = 1 : BallControl.Enabled = True : g_AllItems.Add "BallControl", BallControl : BallControl.Register
+Set BallControlTimer = New Timer : BallControlTimer.Name = "BallControlTimer" : BallControlTimer.Interval = 1 : BallControlTimer.Enabled = True : g_AllItems.Add "BallControlTimer", BallControlTimer : BallControlTimer.Register
+Set BallControlTimer1 = New Timer : BallControlTimer1.Name = "BallControlTimer1" : BallControlTimer1.Interval = 1 : BallControlTimer1.Enabled = True : g_AllItems.Add "BallControlTimer1", BallControlTimer1 : BallControlTimer1.Register
+Set BallSaverSpeedUpTimer = New Timer : BallSaverSpeedUpTimer.Name = "BallSaverSpeedUpTimer" : BallSaverSpeedUpTimer.Interval = 15000 : BallSaverSpeedUpTimer.Enabled = True : g_AllItems.Add "BallSaverSpeedUpTimer", BallSaverSpeedUpTimer : BallSaverSpeedUpTimer.Register
+Set BallSaverTimerExpired = New Timer : BallSaverTimerExpired.Name = "BallSaverTimerExpired" : BallSaverTimerExpired.Interval = 1000 : BallSaverTimerExpired.Enabled = False : g_AllItems.Add "BallSaverTimerExpired", BallSaverTimerExpired : BallSaverTimerExpired.Register
+Set BluntSmoketimer = New Timer : BluntSmoketimer.Name = "BluntSmoketimer" : BluntSmoketimer.Interval = 75 : BluntSmoketimer.Enabled = True : g_AllItems.Add "BluntSmoketimer", BluntSmoketimer : BluntSmoketimer.Register
+Set Bongtimer = New Timer : Bongtimer.Name = "Bongtimer" : Bongtimer.Interval = 75 : Bongtimer.Enabled = True : g_AllItems.Add "Bongtimer", Bongtimer : Bongtimer.Register
+Set CheckNoMusicTimer = New Timer : CheckNoMusicTimer.Name = "CheckNoMusicTimer" : CheckNoMusicTimer.Interval = 2000 : CheckNoMusicTimer.Enabled = False : g_AllItems.Add "CheckNoMusicTimer", CheckNoMusicTimer : CheckNoMusicTimer.Register
+Set ComboTimerExpired = New Timer : ComboTimerExpired.Name = "ComboTimerExpired" : ComboTimerExpired.Interval = 1000 : ComboTimerExpired.Enabled = True : g_AllItems.Add "ComboTimerExpired", ComboTimerExpired : ComboTimerExpired.Register
+Set CorTimer = New Timer : CorTimer.Name = "CorTimer" : CorTimer.Interval = 10 : CorTimer.Enabled = True : g_AllItems.Add "CorTimer", CorTimer : CorTimer.Register
+Set CreateMultiballBallLockTimer = New Timer : CreateMultiballBallLockTimer.Name = "CreateMultiballBallLockTimer" : CreateMultiballBallLockTimer.Interval = 1000 : CreateMultiballBallLockTimer.Enabled = False : g_AllItems.Add "CreateMultiballBallLockTimer", CreateMultiballBallLockTimer : CreateMultiballBallLockTimer.Register
+Set CreateMultiballTimer = New Timer : CreateMultiballTimer.Name = "CreateMultiballTimer" : CreateMultiballTimer.Interval = 1000 : CreateMultiballTimer.Enabled = False : g_AllItems.Add "CreateMultiballTimer", CreateMultiballTimer : CreateMultiballTimer.Register
+Set dank10Timer = New Timer : dank10Timer.Name = "dank10Timer" : dank10Timer.Interval = 10 : dank10Timer.Enabled = False : g_AllItems.Add "dank10Timer", dank10Timer : dank10Timer.Register
+Set dank11Timer = New Timer : dank11Timer.Name = "dank11Timer" : dank11Timer.Interval = 10 : dank11Timer.Enabled = False : g_AllItems.Add "dank11Timer", dank11Timer : dank11Timer.Register
+Set dank1Timer = New Timer : dank1Timer.Name = "dank1Timer" : dank1Timer.Interval = 10 : dank1Timer.Enabled = False : g_AllItems.Add "dank1Timer", dank1Timer : dank1Timer.Register
+Set dank2Timer = New Timer : dank2Timer.Name = "dank2Timer" : dank2Timer.Interval = 10 : dank2Timer.Enabled = False : g_AllItems.Add "dank2Timer", dank2Timer : dank2Timer.Register
+Set dank3Timer = New Timer : dank3Timer.Name = "dank3Timer" : dank3Timer.Interval = 10 : dank3Timer.Enabled = False : g_AllItems.Add "dank3Timer", dank3Timer : dank3Timer.Register
+Set dank4Timer = New Timer : dank4Timer.Name = "dank4Timer" : dank4Timer.Interval = 10 : dank4Timer.Enabled = False : g_AllItems.Add "dank4Timer", dank4Timer : dank4Timer.Register
+Set dank5Timer = New Timer : dank5Timer.Name = "dank5Timer" : dank5Timer.Interval = 10 : dank5Timer.Enabled = False : g_AllItems.Add "dank5Timer", dank5Timer : dank5Timer.Register
+Set dank6Timer = New Timer : dank6Timer.Name = "dank6Timer" : dank6Timer.Interval = 10 : dank6Timer.Enabled = False : g_AllItems.Add "dank6Timer", dank6Timer : dank6Timer.Register
+Set dank7Timer = New Timer : dank7Timer.Name = "dank7Timer" : dank7Timer.Interval = 10 : dank7Timer.Enabled = False : g_AllItems.Add "dank7Timer", dank7Timer : dank7Timer.Register
+Set dank8Timer = New Timer : dank8Timer.Name = "dank8Timer" : dank8Timer.Interval = 10 : dank8Timer.Enabled = False : g_AllItems.Add "dank8Timer", dank8Timer : dank8Timer.Register
+Set dank9Timer = New Timer : dank9Timer.Name = "dank9Timer" : dank9Timer.Interval = 10 : dank9Timer.Enabled = False : g_AllItems.Add "dank9Timer", dank9Timer : dank9Timer.Register
+Set DbgTimer = New Timer : DbgTimer.Name = "DbgTimer" : DbgTimer.Interval = 500 : DbgTimer.Enabled = False : g_AllItems.Add "DbgTimer", DbgTimer : DbgTimer.Register
+Set DelayQRClaim = New Timer : DelayQRClaim.Name = "DelayQRClaim" : DelayQRClaim.Interval = 6000 : DelayQRClaim.Enabled = False : g_AllItems.Add "DelayQRClaim", DelayQRClaim : DelayQRClaim.Register
+Set Disc11Timer = New Timer : Disc11Timer.Name = "Disc11Timer" : Disc11Timer.Interval = 10 : Disc11Timer.Enabled = False : g_AllItems.Add "Disc11Timer", Disc11Timer : Disc11Timer.Register
+Set Disc1Timer = New Timer : Disc1Timer.Name = "Disc1Timer" : Disc1Timer.Interval = 10 : Disc1Timer.Enabled = False : g_AllItems.Add "Disc1Timer", Disc1Timer : Disc1Timer.Register
+Set Disc2Timer = New Timer : Disc2Timer.Name = "Disc2Timer" : Disc2Timer.Interval = 10 : Disc2Timer.Enabled = False : g_AllItems.Add "Disc2Timer", Disc2Timer : Disc2Timer.Register
+Set Disc3Timer = New Timer : Disc3Timer.Name = "Disc3Timer" : Disc3Timer.Interval = 10 : Disc3Timer.Enabled = False : g_AllItems.Add "Disc3Timer", Disc3Timer : Disc3Timer.Register
+Set Disc4Timer = New Timer : Disc4Timer.Name = "Disc4Timer" : Disc4Timer.Interval = 10 : Disc4Timer.Enabled = False : g_AllItems.Add "Disc4Timer", Disc4Timer : Disc4Timer.Register
+Set Disc5Timer = New Timer : Disc5Timer.Name = "Disc5Timer" : Disc5Timer.Interval = 10 : Disc5Timer.Enabled = False : g_AllItems.Add "Disc5Timer", Disc5Timer : Disc5Timer.Register
+Set Disc6Timer = New Timer : Disc6Timer.Name = "Disc6Timer" : Disc6Timer.Interval = 10 : Disc6Timer.Enabled = False : g_AllItems.Add "Disc6Timer", Disc6Timer : Disc6Timer.Register
+Set Disc7Timer = New Timer : Disc7Timer.Name = "Disc7Timer" : Disc7Timer.Interval = 10 : Disc7Timer.Enabled = False : g_AllItems.Add "Disc7Timer", Disc7Timer : Disc7Timer.Register
+Set Disc8Timer = New Timer : Disc8Timer.Name = "Disc8Timer" : Disc8Timer.Interval = 10 : Disc8Timer.Enabled = False : g_AllItems.Add "Disc8Timer", Disc8Timer : Disc8Timer.Register
+Set dmdattract = New Timer : dmdattract.Name = "dmdattract" : dmdattract.Interval = 2000 : dmdattract.Enabled = False : g_AllItems.Add "dmdattract", dmdattract : dmdattract.Register
+Set DMDEffectTimer = New Timer : DMDEffectTimer.Name = "DMDEffectTimer" : DMDEffectTimer.Interval = 20 : DMDEffectTimer.Enabled = False : g_AllItems.Add "DMDEffectTimer", DMDEffectTimer : DMDEffectTimer.Register
+Set dmdtimer = New Timer : dmdtimer.Name = "dmdtimer" : dmdtimer.Interval = 17 : dmdtimer.Enabled = False : g_AllItems.Add "dmdtimer", dmdtimer : dmdtimer.Register
+Set DoubleScoringTimerExpired = New Timer : DoubleScoringTimerExpired.Name = "DoubleScoringTimerExpired" : DoubleScoringTimerExpired.Interval = 1000 : DoubleScoringTimerExpired.Enabled = True : g_AllItems.Add "DoubleScoringTimerExpired", DoubleScoringTimerExpired : DoubleScoringTimerExpired.Register
+Set DoubleSpinnerTimerExpired = New Timer : DoubleSpinnerTimerExpired.Name = "DoubleSpinnerTimerExpired" : DoubleSpinnerTimerExpired.Interval = 1000 : DoubleSpinnerTimerExpired.Enabled = True : g_AllItems.Add "DoubleSpinnerTimerExpired", DoubleSpinnerTimerExpired : DoubleSpinnerTimerExpired.Register
+Set endofgametimer = New Timer : endofgametimer.Name = "endofgametimer" : endofgametimer.Interval = 3500 : endofgametimer.Enabled = False : g_AllItems.Add "endofgametimer", endofgametimer : endofgametimer.Register
+Set flashflash = New Timer : flashflash.Name = "flashflash" : flashflash.Interval = 100 : flashflash.Enabled = True : g_AllItems.Add "flashflash", flashflash : flashflash.Register
+Set FlipperTimer = New Timer : FlipperTimer.Name = "FlipperTimer" : FlipperTimer.Interval = 10 : FlipperTimer.Enabled = True : g_AllItems.Add "FlipperTimer", FlipperTimer : FlipperTimer.Register
+Set FrameTimer = New Timer : FrameTimer.Name = "FrameTimer" : FrameTimer.Interval = -1 : FrameTimer.Enabled = True : g_AllItems.Add "FrameTimer", FrameTimer : FrameTimer.Register
+Set GIUpdateTimer = New Timer : GIUpdateTimer.Name = "GIUpdateTimer" : GIUpdateTimer.Interval = 50 : GIUpdateTimer.Enabled = True : g_AllItems.Add "GIUpdateTimer", GIUpdateTimer : GIUpdateTimer.Register
+Set helptime = New Timer : helptime.Name = "helptime" : helptime.Interval = 1000 : helptime.Enabled = True : g_AllItems.Add "helptime", helptime : helptime.Register
+Set HighScoreFlashTimer = New Timer : HighScoreFlashTimer.Name = "HighScoreFlashTimer" : HighScoreFlashTimer.Interval = 20 : HighScoreFlashTimer.Enabled = False : g_AllItems.Add "HighScoreFlashTimer", HighScoreFlashTimer : HighScoreFlashTimer.Register
+Set intromover = New Timer : intromover.Name = "intromover" : intromover.Interval = 1000 : intromover.Enabled = True : g_AllItems.Add "intromover", intromover : intromover.Register
+Set LampTimer = New Timer : LampTimer.Name = "LampTimer" : LampTimer.Interval = 10 : LampTimer.Enabled = False : g_AllItems.Add "LampTimer", LampTimer : LampTimer.Register
+Set LampTimer2 = New Timer : LampTimer2.Name = "LampTimer2" : LampTimer2.Interval = -1 : LampTimer2.Enabled = False : g_AllItems.Add "LampTimer2", LampTimer2 : LampTimer2.Register
+Set LaserTimer = New Timer : LaserTimer.Name = "LaserTimer" : LaserTimer.Interval = 75 : LaserTimer.Enabled = True : g_AllItems.Add "LaserTimer", LaserTimer : LaserTimer.Register
+Set LutSlctr = New Timer : LutSlctr.Name = "LutSlctr" : LutSlctr.Interval = 300 : LutSlctr.Enabled = False : g_AllItems.Add "LutSlctr", LutSlctr : LutSlctr.Register
+Set PhilliesSmoketimer = New Timer : PhilliesSmoketimer.Name = "PhilliesSmoketimer" : PhilliesSmoketimer.Interval = 75 : PhilliesSmoketimer.Enabled = True : g_AllItems.Add "PhilliesSmoketimer", PhilliesSmoketimer : PhilliesSmoketimer.Register
+Set PulseTimer = New Timer : PulseTimer.Name = "PulseTimer" : PulseTimer.Interval = 50 : PulseTimer.Enabled = True : g_AllItems.Add "PulseTimer", PulseTimer : PulseTimer.Register
+Set QueueTimer = New Timer : QueueTimer.Name = "QueueTimer" : QueueTimer.Interval = 100 : QueueTimer.Enabled = True : g_AllItems.Add "QueueTimer", QueueTimer : QueueTimer.Register
+Set RainbowTimer = New Timer : RainbowTimer.Name = "RainbowTimer" : RainbowTimer.Interval = 20 : RainbowTimer.Enabled = False : g_AllItems.Add "RainbowTimer", RainbowTimer : RainbowTimer.Register
+Set RainbowTimer1 = New Timer : RainbowTimer1.Name = "RainbowTimer1" : RainbowTimer1.Interval = 20 : RainbowTimer1.Enabled = False : g_AllItems.Add "RainbowTimer1", RainbowTimer1 : RainbowTimer1.Register
+Set RDampen = New Timer : RDampen.Name = "RDampen" : RDampen.Interval = 10 : RDampen.Enabled = True : g_AllItems.Add "RDampen", RDampen : RDampen.Register
+Set ResetSkillShotTimer = New Timer : ResetSkillShotTimer.Name = "ResetSkillShotTimer" : ResetSkillShotTimer.Interval = 15000 : ResetSkillShotTimer.Enabled = False : g_AllItems.Add "ResetSkillShotTimer", ResetSkillShotTimer : ResetSkillShotTimer.Register
+Set RightFlipperTimer = New Timer : RightFlipperTimer.Name = "RightFlipperTimer" : RightFlipperTimer.Interval = 100 : RightFlipperTimer.Enabled = True : g_AllItems.Add "RightFlipperTimer", RightFlipperTimer : RightFlipperTimer.Register
+Set RollingTimer = New Timer : RollingTimer.Name = "RollingTimer" : RollingTimer.Interval = 10 : RollingTimer.Enabled = True : g_AllItems.Add "RollingTimer", RollingTimer : RollingTimer.Register
+Set SpliffSmoketimer = New Timer : SpliffSmoketimer.Name = "SpliffSmoketimer" : SpliffSmoketimer.Interval = 75 : SpliffSmoketimer.Enabled = True : g_AllItems.Add "SpliffSmoketimer", SpliffSmoketimer : SpliffSmoketimer.Register
+Set SuperOrbitsTimerExpired = New Timer : SuperOrbitsTimerExpired.Name = "SuperOrbitsTimerExpired" : SuperOrbitsTimerExpired.Interval = 1000 : SuperOrbitsTimerExpired.Enabled = True : g_AllItems.Add "SuperOrbitsTimerExpired", SuperOrbitsTimerExpired : SuperOrbitsTimerExpired.Register
+Set SuperPopsTimerExpired = New Timer : SuperPopsTimerExpired.Name = "SuperPopsTimerExpired" : SuperPopsTimerExpired.Interval = 20000 : SuperPopsTimerExpired.Enabled = True : g_AllItems.Add "SuperPopsTimerExpired", SuperPopsTimerExpired : SuperPopsTimerExpired.Register
+Set SuperRampsTimerExpired = New Timer : SuperRampsTimerExpired.Name = "SuperRampsTimerExpired" : SuperRampsTimerExpired.Interval = 1000 : SuperRampsTimerExpired.Enabled = True : g_AllItems.Add "SuperRampsTimerExpired", SuperRampsTimerExpired : SuperRampsTimerExpired.Register
+Set TiltDecreaseTimer = New Timer : TiltDecreaseTimer.Name = "TiltDecreaseTimer" : TiltDecreaseTimer.Interval = 50 : TiltDecreaseTimer.Enabled = False : g_AllItems.Add "TiltDecreaseTimer", TiltDecreaseTimer : TiltDecreaseTimer.Register
+Set TiltRecoveryTimer = New Timer : TiltRecoveryTimer.Name = "TiltRecoveryTimer" : TiltRecoveryTimer.Interval = 1000 : TiltRecoveryTimer.Enabled = False : g_AllItems.Add "TiltRecoveryTimer", TiltRecoveryTimer : TiltRecoveryTimer.Register
+Set tilttableclear = New Timer : tilttableclear.Name = "tilttableclear" : tilttableclear.Interval = 1000 : tilttableclear.Enabled = False : g_AllItems.Add "tilttableclear", tilttableclear : tilttableclear.Register
+Set Timer1 = New Timer : Timer1.Name = "Timer1" : Timer1.Interval = 50 : Timer1.Enabled = True : g_AllItems.Add "Timer1", Timer1 : Timer1.Register
+Set TimerVRPlunger = New Timer : TimerVRPlunger.Name = "TimerVRPlunger" : TimerVRPlunger.Interval = 10 : TimerVRPlunger.Enabled = True : g_AllItems.Add "TimerVRPlunger", TimerVRPlunger : TimerVRPlunger.Register
+Set TimerVRPlunger2 = New Timer : TimerVRPlunger2.Name = "TimerVRPlunger2" : TimerVRPlunger2.Interval = 10 : TimerVRPlunger2.Enabled = True : g_AllItems.Add "TimerVRPlunger2", TimerVRPlunger2 : TimerVRPlunger2.Register
+Set tmrScorbit = New Timer : tmrScorbit.Name = "tmrScorbit" : tmrScorbit.Interval = 10 : tmrScorbit.Enabled = False : g_AllItems.Add "tmrScorbit", tmrScorbit : tmrScorbit.Register
+Set WarpSpeedMultiballTimerExpired = New Timer : WarpSpeedMultiballTimerExpired.Name = "WarpSpeedMultiballTimerExpired" : WarpSpeedMultiballTimerExpired.Interval = 1000 : WarpSpeedMultiballTimerExpired.Enabled = False : g_AllItems.Add "WarpSpeedMultiballTimerExpired", WarpSpeedMultiballTimerExpired : WarpSpeedMultiballTimerExpired.Register
 
 ' --- Trigger (142) ---
 Dim ballsavestarttrigger, LeftInlane, LeftInlane2, MusicTrigger, RightInlane, RightInlane2, SkillshotOff, SkillShotRotateLights, StartControl, StopControl, StopTracks, swplunger, swPlungerRest, Trigger001, Trigger002

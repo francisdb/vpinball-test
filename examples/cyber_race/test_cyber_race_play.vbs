@@ -38,9 +38,9 @@ tester.Init
 tester.KeepBallMoving                  ' BallSearch / stuck-ball
                                        ' detectors expect motion
 
-' AttractTimer_Timer fires once at startup (default 100 ms Interval)
-' and sets gameBooted = True before disabling itself. Wait for it.
-tester.AdvanceMs 200
+' AttractTimer_Timer (3000 ms Interval) fires once at startup and
+' sets gameBooted = True before disabling itself. Wait for it.
+tester.AdvanceMs 3500
 tester.Assert gameBooted, "expected gameBooted=True after init advance"
 
 tester.InsertCoin                      ' CR's coin handler plays

@@ -35,7 +35,7 @@ PROP_MAP = {
         ("center.y", "y", vbs_num),
     ],
     "Timer": [
-        ("interval", "Interval", vbs_num),
+        ("timer_interval", "Interval", vbs_num),
         ("is_timer_enabled", "Enabled", vbs_bool),
     ],
     "Flipper": [

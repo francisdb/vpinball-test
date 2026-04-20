@@ -1456,32 +1456,32 @@ Set Spinner2 = New Spinner : Spinner2.Name = "Spinner2" : g_AllItems.Add "Spinne
 ' --- Timer (26) ---
 Dim AttractTimer, AutoPlungerDelay, BallControl, BallReleaseTimer, BallSaverTimerExpired, BoostTimer, BridgeRelease, ComboTimer, DiscMotor, DMD_Display, DMDModeUpdate, DMDTimer, EMPTimer, FlexModeUpdate, Frametimer
 Dim GameTimer, GameTimersUpdate, GrabMagnetTimer, lightTimer, RaceModeTimer, RampRoll, TiltDecreaseTimer, TimerPlunger, TimerPlunger2, tmrScorbit, UpdateTroughTimer
-Set AttractTimer = New Timer : AttractTimer.Name = "AttractTimer" : AttractTimer.Enabled = True : g_AllItems.Add "AttractTimer", AttractTimer : AttractTimer.Register
-Set AutoPlungerDelay = New Timer : AutoPlungerDelay.Name = "AutoPlungerDelay" : AutoPlungerDelay.Enabled = False : g_AllItems.Add "AutoPlungerDelay", AutoPlungerDelay : AutoPlungerDelay.Register
-Set BallControl = New Timer : BallControl.Name = "BallControl" : BallControl.Enabled = True : g_AllItems.Add "BallControl", BallControl : BallControl.Register
-Set BallReleaseTimer = New Timer : BallReleaseTimer.Name = "BallReleaseTimer" : BallReleaseTimer.Enabled = False : g_AllItems.Add "BallReleaseTimer", BallReleaseTimer : BallReleaseTimer.Register
-Set BallSaverTimerExpired = New Timer : BallSaverTimerExpired.Name = "BallSaverTimerExpired" : BallSaverTimerExpired.Enabled = False : g_AllItems.Add "BallSaverTimerExpired", BallSaverTimerExpired : BallSaverTimerExpired.Register
-Set BoostTimer = New Timer : BoostTimer.Name = "BoostTimer" : BoostTimer.Enabled = False : g_AllItems.Add "BoostTimer", BoostTimer : BoostTimer.Register
-Set BridgeRelease = New Timer : BridgeRelease.Name = "BridgeRelease" : BridgeRelease.Enabled = False : g_AllItems.Add "BridgeRelease", BridgeRelease : BridgeRelease.Register
-Set ComboTimer = New Timer : ComboTimer.Name = "ComboTimer" : ComboTimer.Enabled = False : g_AllItems.Add "ComboTimer", ComboTimer : ComboTimer.Register
-Set DiscMotor = New Timer : DiscMotor.Name = "DiscMotor" : DiscMotor.Enabled = False : g_AllItems.Add "DiscMotor", DiscMotor : DiscMotor.Register
-Set DMD_Display = New Timer : DMD_Display.Name = "DMD_Display" : DMD_Display.Enabled = False : g_AllItems.Add "DMD_Display", DMD_Display : DMD_Display.Register
-Set DMDModeUpdate = New Timer : DMDModeUpdate.Name = "DMDModeUpdate" : DMDModeUpdate.Enabled = False : g_AllItems.Add "DMDModeUpdate", DMDModeUpdate : DMDModeUpdate.Register
-Set DMDTimer = New Timer : DMDTimer.Name = "DMDTimer" : DMDTimer.Enabled = True : g_AllItems.Add "DMDTimer", DMDTimer : DMDTimer.Register
-Set EMPTimer = New Timer : EMPTimer.Name = "EMPTimer" : EMPTimer.Enabled = True : g_AllItems.Add "EMPTimer", EMPTimer : EMPTimer.Register
-Set FlexModeUpdate = New Timer : FlexModeUpdate.Name = "FlexModeUpdate" : FlexModeUpdate.Enabled = True : g_AllItems.Add "FlexModeUpdate", FlexModeUpdate : FlexModeUpdate.Register
-Set Frametimer = New Timer : Frametimer.Name = "Frametimer" : Frametimer.Enabled = True : g_AllItems.Add "Frametimer", Frametimer : Frametimer.Register
-Set GameTimer = New Timer : GameTimer.Name = "GameTimer" : GameTimer.Enabled = True : g_AllItems.Add "GameTimer", GameTimer : GameTimer.Register
-Set GameTimersUpdate = New Timer : GameTimersUpdate.Name = "GameTimersUpdate" : GameTimersUpdate.Enabled = True : g_AllItems.Add "GameTimersUpdate", GameTimersUpdate : GameTimersUpdate.Register
-Set GrabMagnetTimer = New Timer : GrabMagnetTimer.Name = "GrabMagnetTimer" : GrabMagnetTimer.Enabled = False : g_AllItems.Add "GrabMagnetTimer", GrabMagnetTimer : GrabMagnetTimer.Register
-Set lightTimer = New Timer : lightTimer.Name = "lightTimer" : lightTimer.Enabled = True : g_AllItems.Add "lightTimer", lightTimer : lightTimer.Register
-Set RaceModeTimer = New Timer : RaceModeTimer.Name = "RaceModeTimer" : RaceModeTimer.Enabled = False : g_AllItems.Add "RaceModeTimer", RaceModeTimer : RaceModeTimer.Register
-Set RampRoll = New Timer : RampRoll.Name = "RampRoll" : RampRoll.Enabled = False : g_AllItems.Add "RampRoll", RampRoll : RampRoll.Register
-Set TiltDecreaseTimer = New Timer : TiltDecreaseTimer.Name = "TiltDecreaseTimer" : TiltDecreaseTimer.Enabled = False : g_AllItems.Add "TiltDecreaseTimer", TiltDecreaseTimer : TiltDecreaseTimer.Register
-Set TimerPlunger = New Timer : TimerPlunger.Name = "TimerPlunger" : TimerPlunger.Enabled = False : g_AllItems.Add "TimerPlunger", TimerPlunger : TimerPlunger.Register
-Set TimerPlunger2 = New Timer : TimerPlunger2.Name = "TimerPlunger2" : TimerPlunger2.Enabled = True : g_AllItems.Add "TimerPlunger2", TimerPlunger2 : TimerPlunger2.Register
-Set tmrScorbit = New Timer : tmrScorbit.Name = "tmrScorbit" : tmrScorbit.Enabled = False : g_AllItems.Add "tmrScorbit", tmrScorbit : tmrScorbit.Register
-Set UpdateTroughTimer = New Timer : UpdateTroughTimer.Name = "UpdateTroughTimer" : UpdateTroughTimer.Enabled = False : g_AllItems.Add "UpdateTroughTimer", UpdateTroughTimer : UpdateTroughTimer.Register
+Set AttractTimer = New Timer : AttractTimer.Name = "AttractTimer" : AttractTimer.Interval = 3000 : AttractTimer.Enabled = True : g_AllItems.Add "AttractTimer", AttractTimer : AttractTimer.Register
+Set AutoPlungerDelay = New Timer : AutoPlungerDelay.Name = "AutoPlungerDelay" : AutoPlungerDelay.Interval = 100 : AutoPlungerDelay.Enabled = False : g_AllItems.Add "AutoPlungerDelay", AutoPlungerDelay : AutoPlungerDelay.Register
+Set BallControl = New Timer : BallControl.Name = "BallControl" : BallControl.Interval = 1 : BallControl.Enabled = True : g_AllItems.Add "BallControl", BallControl : BallControl.Register
+Set BallReleaseTimer = New Timer : BallReleaseTimer.Name = "BallReleaseTimer" : BallReleaseTimer.Interval = 500 : BallReleaseTimer.Enabled = False : g_AllItems.Add "BallReleaseTimer", BallReleaseTimer : BallReleaseTimer.Register
+Set BallSaverTimerExpired = New Timer : BallSaverTimerExpired.Name = "BallSaverTimerExpired" : BallSaverTimerExpired.Interval = 20300 : BallSaverTimerExpired.Enabled = False : g_AllItems.Add "BallSaverTimerExpired", BallSaverTimerExpired : BallSaverTimerExpired.Register
+Set BoostTimer = New Timer : BoostTimer.Name = "BoostTimer" : BoostTimer.Interval = 3000 : BoostTimer.Enabled = False : g_AllItems.Add "BoostTimer", BoostTimer : BoostTimer.Register
+Set BridgeRelease = New Timer : BridgeRelease.Name = "BridgeRelease" : BridgeRelease.Interval = 1000 : BridgeRelease.Enabled = False : g_AllItems.Add "BridgeRelease", BridgeRelease : BridgeRelease.Register
+Set ComboTimer = New Timer : ComboTimer.Name = "ComboTimer" : ComboTimer.Interval = 6000 : ComboTimer.Enabled = False : g_AllItems.Add "ComboTimer", ComboTimer : ComboTimer.Register
+Set DiscMotor = New Timer : DiscMotor.Name = "DiscMotor" : DiscMotor.Interval = 100 : DiscMotor.Enabled = False : g_AllItems.Add "DiscMotor", DiscMotor : DiscMotor.Register
+Set DMD_Display = New Timer : DMD_Display.Name = "DMD_Display" : DMD_Display.Interval = 1000 : DMD_Display.Enabled = False : g_AllItems.Add "DMD_Display", DMD_Display : DMD_Display.Register
+Set DMDModeUpdate = New Timer : DMDModeUpdate.Name = "DMDModeUpdate" : DMDModeUpdate.Interval = 1000 : DMDModeUpdate.Enabled = False : g_AllItems.Add "DMDModeUpdate", DMDModeUpdate : DMDModeUpdate.Register
+Set DMDTimer = New Timer : DMDTimer.Name = "DMDTimer" : DMDTimer.Interval = 32 : DMDTimer.Enabled = True : g_AllItems.Add "DMDTimer", DMDTimer : DMDTimer.Register
+Set EMPTimer = New Timer : EMPTimer.Name = "EMPTimer" : EMPTimer.Interval = 30000 : EMPTimer.Enabled = True : g_AllItems.Add "EMPTimer", EMPTimer : EMPTimer.Register
+Set FlexModeUpdate = New Timer : FlexModeUpdate.Name = "FlexModeUpdate" : FlexModeUpdate.Interval = 300 : FlexModeUpdate.Enabled = True : g_AllItems.Add "FlexModeUpdate", FlexModeUpdate : FlexModeUpdate.Register
+Set Frametimer = New Timer : Frametimer.Name = "Frametimer" : Frametimer.Interval = -1 : Frametimer.Enabled = True : g_AllItems.Add "Frametimer", Frametimer : Frametimer.Register
+Set GameTimer = New Timer : GameTimer.Name = "GameTimer" : GameTimer.Interval = 10 : GameTimer.Enabled = True : g_AllItems.Add "GameTimer", GameTimer : GameTimer.Register
+Set GameTimersUpdate = New Timer : GameTimersUpdate.Name = "GameTimersUpdate" : GameTimersUpdate.Interval = 100 : GameTimersUpdate.Enabled = True : g_AllItems.Add "GameTimersUpdate", GameTimersUpdate : GameTimersUpdate.Register
+Set GrabMagnetTimer = New Timer : GrabMagnetTimer.Name = "GrabMagnetTimer" : GrabMagnetTimer.Interval = 2000 : GrabMagnetTimer.Enabled = False : g_AllItems.Add "GrabMagnetTimer", GrabMagnetTimer : GrabMagnetTimer.Register
+Set lightTimer = New Timer : lightTimer.Name = "lightTimer" : lightTimer.Interval = 20 : lightTimer.Enabled = True : g_AllItems.Add "lightTimer", lightTimer : lightTimer.Register
+Set RaceModeTimer = New Timer : RaceModeTimer.Name = "RaceModeTimer" : RaceModeTimer.Interval = 4000 : RaceModeTimer.Enabled = False : g_AllItems.Add "RaceModeTimer", RaceModeTimer : RaceModeTimer.Register
+Set RampRoll = New Timer : RampRoll.Name = "RampRoll" : RampRoll.Interval = 100 : RampRoll.Enabled = False : g_AllItems.Add "RampRoll", RampRoll : RampRoll.Register
+Set TiltDecreaseTimer = New Timer : TiltDecreaseTimer.Name = "TiltDecreaseTimer" : TiltDecreaseTimer.Interval = 50 : TiltDecreaseTimer.Enabled = False : g_AllItems.Add "TiltDecreaseTimer", TiltDecreaseTimer : TiltDecreaseTimer.Register
+Set TimerPlunger = New Timer : TimerPlunger.Name = "TimerPlunger" : TimerPlunger.Interval = 20 : TimerPlunger.Enabled = False : g_AllItems.Add "TimerPlunger", TimerPlunger : TimerPlunger.Register
+Set TimerPlunger2 = New Timer : TimerPlunger2.Name = "TimerPlunger2" : TimerPlunger2.Interval = 20 : TimerPlunger2.Enabled = True : g_AllItems.Add "TimerPlunger2", TimerPlunger2 : TimerPlunger2.Register
+Set tmrScorbit = New Timer : tmrScorbit.Name = "tmrScorbit" : tmrScorbit.Interval = 2000 : tmrScorbit.Enabled = False : g_AllItems.Add "tmrScorbit", tmrScorbit : tmrScorbit.Register
+Set UpdateTroughTimer = New Timer : UpdateTroughTimer.Name = "UpdateTroughTimer" : UpdateTroughTimer.Interval = 100 : UpdateTroughTimer.Enabled = False : g_AllItems.Add "UpdateTroughTimer", UpdateTroughTimer : UpdateTroughTimer.Register
 
 ' --- Trigger (30) ---
 Dim BIPL, BIPL_Top, GrabMagnet, StartControl, sw01, sw02, sw03, sw04, sw05, sw06, sw07, sw08, sw14, sw15, sw16

@@ -31,16 +31,16 @@ tester.StartGame
 tester.ExpectTrue "glf_BIP >= 1", 5000         ' Ball ejected + auto-launched
 tester.Echo "glf_BIP=" & glf_BIP & " glf_gameStarted=" & glf_gameStarted
 
+' See test_dark_chaos_play.vbs for rationale — GLF eob_bonus stalls
+' the ball-ending queue via UseWaitQueue; per-ball sim ~10–15 s.
 Dim ball
 For ball = 1 To 3
     tester.Echo "--- drain ball " & ball & " ---"
     tester.KeepBallMoving
     tester.FireHit "Drain"
     If ball < 3 Then
-        ' Wait for next ball — same queue flow as Dark Chaos
         tester.ExpectTrue "glf_BIP >= 1", 30000
     Else
-        ' After last ball, game should end
         tester.ExpectTrue "glf_gameStarted = False", 30000
     End If
     tester.StopBall

@@ -1274,84 +1274,84 @@ Dim tmrBallSearch, tmrBelieve, tmrBonusCountdown, tmrBonusTotal, tmrBulletLoop, 
 Dim tmrHSHoldFlipper, tmrInsertCycle, tmrKickback, tmrLightSeqAttract, tmrLockbar, tmrMagBulletBounce, tmrModeMorpheusTrin, tmrModeStart, tmrMorpheusNeo, tmrPauseTimers, tmrPFLoopQueue, tmrPopperGate, tmrPupBumper, tmrQueue1, tmrQueue2
 Dim tmrQueue3, tmrQueue4, tmrService, tmrShotMultStart, tmrSmithNeo, tmrSquiddyArm, tmrSquiddyMBSentinal, tmrStackedLights, tmrStats, tmrStats001, tmrSubwayDelayKick, tmrTrainDojo, tmrTraining, tmrTrainJump, tmrTrainRed
 Dim tmrTrinNiobe, tmrZionFrenzy, UpdateTroughTimer
-Set AttractTimer = New Timer : AttractTimer.Name = "AttractTimer" : AttractTimer.Enabled = True : g_AllItems.Add "AttractTimer", AttractTimer : AttractTimer.Register
-Set AutoQAStartGame = New Timer : AutoQAStartGame.Name = "AutoQAStartGame" : AutoQAStartGame.Enabled = False : g_AllItems.Add "AutoQAStartGame", AutoQAStartGame : AutoQAStartGame.Register
-Set BallControlTimer = New Timer : BallControlTimer.Name = "BallControlTimer" : BallControlTimer.Enabled = False : g_AllItems.Add "BallControlTimer", BallControlTimer : BallControlTimer.Register
-Set BallSaverTimerExpired = New Timer : BallSaverTimerExpired.Name = "BallSaverTimerExpired" : BallSaverTimerExpired.Enabled = False : g_AllItems.Add "BallSaverTimerExpired", BallSaverTimerExpired : BallSaverTimerExpired.Register
-Set BallShadowUpdate = New Timer : BallShadowUpdate.Name = "BallShadowUpdate" : BallShadowUpdate.Enabled = False : g_AllItems.Add "BallShadowUpdate", BallShadowUpdate : BallShadowUpdate.Register
-Set CreateMultiballTimer = New Timer : CreateMultiballTimer.Name = "CreateMultiballTimer" : CreateMultiballTimer.Enabled = False : g_AllItems.Add "CreateMultiballTimer", CreateMultiballTimer : CreateMultiballTimer.Register
-Set FlipperTimer = New Timer : FlipperTimer.Name = "FlipperTimer" : FlipperTimer.Enabled = True : g_AllItems.Add "FlipperTimer", FlipperTimer : FlipperTimer.Register
-Set HighScoreFlashTimer = New Timer : HighScoreFlashTimer.Name = "HighScoreFlashTimer" : HighScoreFlashTimer.Enabled = False : g_AllItems.Add "HighScoreFlashTimer", HighScoreFlashTimer : HighScoreFlashTimer.Register
-Set InstantInfoTimer = New Timer : InstantInfoTimer.Name = "InstantInfoTimer" : InstantInfoTimer.Enabled = False : g_AllItems.Add "InstantInfoTimer", InstantInfoTimer : InstantInfoTimer.Register
-Set LampTimer = New Timer : LampTimer.Name = "LampTimer" : LampTimer.Enabled = True : g_AllItems.Add "LampTimer", LampTimer : LampTimer.Register
-Set LampTimer1 = New Timer : LampTimer1.Name = "LampTimer1" : LampTimer1.Enabled = True : g_AllItems.Add "LampTimer1", LampTimer1 : LampTimer1.Register
-Set LampTimer2 = New Timer : LampTimer2.Name = "LampTimer2" : LampTimer2.Enabled = True : g_AllItems.Add "LampTimer2", LampTimer2 : LampTimer2.Register
-Set pfxtimer = New Timer : pfxtimer.Name = "pfxtimer" : pfxtimer.Enabled = False : g_AllItems.Add "pfxtimer", pfxtimer : pfxtimer.Register
-Set pTriggerScript = New Timer : pTriggerScript.Name = "pTriggerScript" : pTriggerScript.Enabled = False : g_AllItems.Add "pTriggerScript", pTriggerScript : pTriggerScript.Register
-Set PulseTimer = New Timer : PulseTimer.Name = "PulseTimer" : PulseTimer.Enabled = True : g_AllItems.Add "PulseTimer", PulseTimer : PulseTimer.Register
-Set pupDMDupdate = New Timer : pupDMDupdate.Name = "pupDMDupdate" : pupDMDupdate.Enabled = True : g_AllItems.Add "pupDMDupdate", pupDMDupdate : pupDMDupdate.Register
-Set RainbowTimer = New Timer : RainbowTimer.Name = "RainbowTimer" : RainbowTimer.Enabled = False : g_AllItems.Add "RainbowTimer", RainbowTimer : RainbowTimer.Register
-Set RDampen = New Timer : RDampen.Name = "RDampen" : RDampen.Enabled = True : g_AllItems.Add "RDampen", RDampen : RDampen.Register
-Set Realtime = New Timer : Realtime.Name = "Realtime" : Realtime.Enabled = True : g_AllItems.Add "Realtime", Realtime : Realtime.Register
-Set ResetSkillShotTimer = New Timer : ResetSkillShotTimer.Name = "ResetSkillShotTimer" : ResetSkillShotTimer.Enabled = False : g_AllItems.Add "ResetSkillShotTimer", ResetSkillShotTimer : ResetSkillShotTimer.Register
-Set RollingTimer = New Timer : RollingTimer.Name = "RollingTimer" : RollingTimer.Enabled = False : g_AllItems.Add "RollingTimer", RollingTimer : RollingTimer.Register
-Set TiltDecreaseTimer = New Timer : TiltDecreaseTimer.Name = "TiltDecreaseTimer" : TiltDecreaseTimer.Enabled = False : g_AllItems.Add "TiltDecreaseTimer", TiltDecreaseTimer : TiltDecreaseTimer.Register
-Set TiltRecoveryTimer = New Timer : TiltRecoveryTimer.Name = "TiltRecoveryTimer" : TiltRecoveryTimer.Enabled = False : g_AllItems.Add "TiltRecoveryTimer", TiltRecoveryTimer : TiltRecoveryTimer.Register
-Set TimerVRPlunger = New Timer : TimerVRPlunger.Name = "TimerVRPlunger" : TimerVRPlunger.Enabled = False : g_AllItems.Add "TimerVRPlunger", TimerVRPlunger : TimerVRPlunger.Register
-Set TimerVRPlunger1 = New Timer : TimerVRPlunger1.Name = "TimerVRPlunger1" : TimerVRPlunger1.Enabled = False : g_AllItems.Add "TimerVRPlunger1", TimerVRPlunger1 : TimerVRPlunger1.Register
-Set tmrActionPressHold = New Timer : tmrActionPressHold.Name = "tmrActionPressHold" : tmrActionPressHold.Enabled = False : g_AllItems.Add "tmrActionPressHold", tmrActionPressHold : tmrActionPressHold.Register
-Set tmrAgentImage = New Timer : tmrAgentImage.Name = "tmrAgentImage" : tmrAgentImage.Enabled = False : g_AllItems.Add "tmrAgentImage", tmrAgentImage : tmrAgentImage.Register
-Set tmrAgentMode = New Timer : tmrAgentMode.Name = "tmrAgentMode" : tmrAgentMode.Enabled = False : g_AllItems.Add "tmrAgentMode", tmrAgentMode : tmrAgentMode.Register
-Set tmrAgents = New Timer : tmrAgents.Name = "tmrAgents" : tmrAgents.Enabled = False : g_AllItems.Add "tmrAgents", tmrAgents : tmrAgents.Register
-Set tmrAnimateZionGif = New Timer : tmrAnimateZionGif.Name = "tmrAnimateZionGif" : tmrAnimateZionGif.Enabled = False : g_AllItems.Add "tmrAnimateZionGif", tmrAnimateZionGif : tmrAnimateZionGif.Register
-Set tmrBallSearch = New Timer : tmrBallSearch.Name = "tmrBallSearch" : tmrBallSearch.Enabled = False : g_AllItems.Add "tmrBallSearch", tmrBallSearch : tmrBallSearch.Register
-Set tmrBelieve = New Timer : tmrBelieve.Name = "tmrBelieve" : tmrBelieve.Enabled = False : g_AllItems.Add "tmrBelieve", tmrBelieve : tmrBelieve.Register
-Set tmrBonusCountdown = New Timer : tmrBonusCountdown.Name = "tmrBonusCountdown" : tmrBonusCountdown.Enabled = False : g_AllItems.Add "tmrBonusCountdown", tmrBonusCountdown : tmrBonusCountdown.Register
-Set tmrBonusTotal = New Timer : tmrBonusTotal.Name = "tmrBonusTotal" : tmrBonusTotal.Enabled = False : g_AllItems.Add "tmrBonusTotal", tmrBonusTotal : tmrBonusTotal.Register
-Set tmrBulletLoop = New Timer : tmrBulletLoop.Name = "tmrBulletLoop" : tmrBulletLoop.Enabled = False : g_AllItems.Add "tmrBulletLoop", tmrBulletLoop : tmrBulletLoop.Register
-Set tmrCallouts = New Timer : tmrCallouts.Name = "tmrCallouts" : tmrCallouts.Enabled = False : g_AllItems.Add "tmrCallouts", tmrCallouts : tmrCallouts.Register
-Set tmrDejaVu = New Timer : tmrDejaVu.Name = "tmrDejaVu" : tmrDejaVu.Enabled = False : g_AllItems.Add "tmrDejaVu", tmrDejaVu : tmrDejaVu.Register
-Set tmrEMPMBFire = New Timer : tmrEMPMBFire.Name = "tmrEMPMBFire" : tmrEMPMBFire.Enabled = False : g_AllItems.Add "tmrEMPMBFire", tmrEMPMBFire : tmrEMPMBFire.Register
-Set tmrFlashTrain = New Timer : tmrFlashTrain.Name = "tmrFlashTrain" : tmrFlashTrain.Enabled = True : g_AllItems.Add "tmrFlashTrain", tmrFlashTrain : tmrFlashTrain.Register
-Set tmrFreeMorpheus2 = New Timer : tmrFreeMorpheus2.Name = "tmrFreeMorpheus2" : tmrFreeMorpheus2.Enabled = False : g_AllItems.Add "tmrFreeMorpheus2", tmrFreeMorpheus2 : tmrFreeMorpheus2.Register
-Set tmrFreeMorpheus3 = New Timer : tmrFreeMorpheus3.Name = "tmrFreeMorpheus3" : tmrFreeMorpheus3.Enabled = False : g_AllItems.Add "tmrFreeMorpheus3", tmrFreeMorpheus3 : tmrFreeMorpheus3.Register
-Set tmrHack = New Timer : tmrHack.Name = "tmrHack" : tmrHack.Enabled = False : g_AllItems.Add "tmrHack", tmrHack : tmrHack.Register
-Set tmrHelpLoop = New Timer : tmrHelpLoop.Name = "tmrHelpLoop" : tmrHelpLoop.Enabled = False : g_AllItems.Add "tmrHelpLoop", tmrHelpLoop : tmrHelpLoop.Register
-Set tmrHoldFlippers = New Timer : tmrHoldFlippers.Name = "tmrHoldFlippers" : tmrHoldFlippers.Enabled = False : g_AllItems.Add "tmrHoldFlippers", tmrHoldFlippers : tmrHoldFlippers.Register
-Set tmrHoldKey = New Timer : tmrHoldKey.Name = "tmrHoldKey" : tmrHoldKey.Enabled = False : g_AllItems.Add "tmrHoldKey", tmrHoldKey : tmrHoldKey.Register
-Set tmrHSHoldFlipper = New Timer : tmrHSHoldFlipper.Name = "tmrHSHoldFlipper" : tmrHSHoldFlipper.Enabled = False : g_AllItems.Add "tmrHSHoldFlipper", tmrHSHoldFlipper : tmrHSHoldFlipper.Register
-Set tmrInsertCycle = New Timer : tmrInsertCycle.Name = "tmrInsertCycle" : tmrInsertCycle.Enabled = False : g_AllItems.Add "tmrInsertCycle", tmrInsertCycle : tmrInsertCycle.Register
-Set tmrKickback = New Timer : tmrKickback.Name = "tmrKickback" : tmrKickback.Enabled = False : g_AllItems.Add "tmrKickback", tmrKickback : tmrKickback.Register
-Set tmrLightSeqAttract = New Timer : tmrLightSeqAttract.Name = "tmrLightSeqAttract" : tmrLightSeqAttract.Enabled = True : g_AllItems.Add "tmrLightSeqAttract", tmrLightSeqAttract : tmrLightSeqAttract.Register
-Set tmrLockbar = New Timer : tmrLockbar.Name = "tmrLockbar" : tmrLockbar.Enabled = False : g_AllItems.Add "tmrLockbar", tmrLockbar : tmrLockbar.Register
-Set tmrMagBulletBounce = New Timer : tmrMagBulletBounce.Name = "tmrMagBulletBounce" : tmrMagBulletBounce.Enabled = False : g_AllItems.Add "tmrMagBulletBounce", tmrMagBulletBounce : tmrMagBulletBounce.Register
-Set tmrModeMorpheusTrin = New Timer : tmrModeMorpheusTrin.Name = "tmrModeMorpheusTrin" : tmrModeMorpheusTrin.Enabled = False : g_AllItems.Add "tmrModeMorpheusTrin", tmrModeMorpheusTrin : tmrModeMorpheusTrin.Register
-Set tmrModeStart = New Timer : tmrModeStart.Name = "tmrModeStart" : tmrModeStart.Enabled = False : g_AllItems.Add "tmrModeStart", tmrModeStart : tmrModeStart.Register
-Set tmrMorpheusNeo = New Timer : tmrMorpheusNeo.Name = "tmrMorpheusNeo" : tmrMorpheusNeo.Enabled = False : g_AllItems.Add "tmrMorpheusNeo", tmrMorpheusNeo : tmrMorpheusNeo.Register
-Set tmrPauseTimers = New Timer : tmrPauseTimers.Name = "tmrPauseTimers" : tmrPauseTimers.Enabled = False : g_AllItems.Add "tmrPauseTimers", tmrPauseTimers : tmrPauseTimers.Register
-Set tmrPFLoopQueue = New Timer : tmrPFLoopQueue.Name = "tmrPFLoopQueue" : tmrPFLoopQueue.Enabled = False : g_AllItems.Add "tmrPFLoopQueue", tmrPFLoopQueue : tmrPFLoopQueue.Register
-Set tmrPopperGate = New Timer : tmrPopperGate.Name = "tmrPopperGate" : tmrPopperGate.Enabled = False : g_AllItems.Add "tmrPopperGate", tmrPopperGate : tmrPopperGate.Register
-Set tmrPupBumper = New Timer : tmrPupBumper.Name = "tmrPupBumper" : tmrPupBumper.Enabled = False : g_AllItems.Add "tmrPupBumper", tmrPupBumper : tmrPupBumper.Register
-Set tmrQueue1 = New Timer : tmrQueue1.Name = "tmrQueue1" : tmrQueue1.Enabled = False : g_AllItems.Add "tmrQueue1", tmrQueue1 : tmrQueue1.Register
-Set tmrQueue2 = New Timer : tmrQueue2.Name = "tmrQueue2" : tmrQueue2.Enabled = False : g_AllItems.Add "tmrQueue2", tmrQueue2 : tmrQueue2.Register
-Set tmrQueue3 = New Timer : tmrQueue3.Name = "tmrQueue3" : tmrQueue3.Enabled = False : g_AllItems.Add "tmrQueue3", tmrQueue3 : tmrQueue3.Register
-Set tmrQueue4 = New Timer : tmrQueue4.Name = "tmrQueue4" : tmrQueue4.Enabled = False : g_AllItems.Add "tmrQueue4", tmrQueue4 : tmrQueue4.Register
-Set tmrService = New Timer : tmrService.Name = "tmrService" : tmrService.Enabled = False : g_AllItems.Add "tmrService", tmrService : tmrService.Register
-Set tmrShotMultStart = New Timer : tmrShotMultStart.Name = "tmrShotMultStart" : tmrShotMultStart.Enabled = True : g_AllItems.Add "tmrShotMultStart", tmrShotMultStart : tmrShotMultStart.Register
-Set tmrSmithNeo = New Timer : tmrSmithNeo.Name = "tmrSmithNeo" : tmrSmithNeo.Enabled = False : g_AllItems.Add "tmrSmithNeo", tmrSmithNeo : tmrSmithNeo.Register
-Set tmrSquiddyArm = New Timer : tmrSquiddyArm.Name = "tmrSquiddyArm" : tmrSquiddyArm.Enabled = False : g_AllItems.Add "tmrSquiddyArm", tmrSquiddyArm : tmrSquiddyArm.Register
-Set tmrSquiddyMBSentinal = New Timer : tmrSquiddyMBSentinal.Name = "tmrSquiddyMBSentinal" : tmrSquiddyMBSentinal.Enabled = False : g_AllItems.Add "tmrSquiddyMBSentinal", tmrSquiddyMBSentinal : tmrSquiddyMBSentinal.Register
-Set tmrStackedLights = New Timer : tmrStackedLights.Name = "tmrStackedLights" : tmrStackedLights.Enabled = True : g_AllItems.Add "tmrStackedLights", tmrStackedLights : tmrStackedLights.Register
-Set tmrStats = New Timer : tmrStats.Name = "tmrStats" : tmrStats.Enabled = False : g_AllItems.Add "tmrStats", tmrStats : tmrStats.Register
-Set tmrStats001 = New Timer : tmrStats001.Name = "tmrStats001" : tmrStats001.Enabled = False : g_AllItems.Add "tmrStats001", tmrStats001 : tmrStats001.Register
-Set tmrSubwayDelayKick = New Timer : tmrSubwayDelayKick.Name = "tmrSubwayDelayKick" : tmrSubwayDelayKick.Enabled = False : g_AllItems.Add "tmrSubwayDelayKick", tmrSubwayDelayKick : tmrSubwayDelayKick.Register
-Set tmrTrainDojo = New Timer : tmrTrainDojo.Name = "tmrTrainDojo" : tmrTrainDojo.Enabled = False : g_AllItems.Add "tmrTrainDojo", tmrTrainDojo : tmrTrainDojo.Register
-Set tmrTraining = New Timer : tmrTraining.Name = "tmrTraining" : tmrTraining.Enabled = False : g_AllItems.Add "tmrTraining", tmrTraining : tmrTraining.Register
-Set tmrTrainJump = New Timer : tmrTrainJump.Name = "tmrTrainJump" : tmrTrainJump.Enabled = False : g_AllItems.Add "tmrTrainJump", tmrTrainJump : tmrTrainJump.Register
-Set tmrTrainRed = New Timer : tmrTrainRed.Name = "tmrTrainRed" : tmrTrainRed.Enabled = False : g_AllItems.Add "tmrTrainRed", tmrTrainRed : tmrTrainRed.Register
-Set tmrTrinNiobe = New Timer : tmrTrinNiobe.Name = "tmrTrinNiobe" : tmrTrinNiobe.Enabled = False : g_AllItems.Add "tmrTrinNiobe", tmrTrinNiobe : tmrTrinNiobe.Register
-Set tmrZionFrenzy = New Timer : tmrZionFrenzy.Name = "tmrZionFrenzy" : tmrZionFrenzy.Enabled = False : g_AllItems.Add "tmrZionFrenzy", tmrZionFrenzy : tmrZionFrenzy.Register
-Set UpdateTroughTimer = New Timer : UpdateTroughTimer.Name = "UpdateTroughTimer" : UpdateTroughTimer.Enabled = False : g_AllItems.Add "UpdateTroughTimer", UpdateTroughTimer : UpdateTroughTimer.Register
+Set AttractTimer = New Timer : AttractTimer.Name = "AttractTimer" : AttractTimer.Interval = 25000 : AttractTimer.Enabled = True : g_AllItems.Add "AttractTimer", AttractTimer : AttractTimer.Register
+Set AutoQAStartGame = New Timer : AutoQAStartGame.Name = "AutoQAStartGame" : AutoQAStartGame.Interval = 10000 : AutoQAStartGame.Enabled = False : g_AllItems.Add "AutoQAStartGame", AutoQAStartGame : AutoQAStartGame.Register
+Set BallControlTimer = New Timer : BallControlTimer.Name = "BallControlTimer" : BallControlTimer.Interval = 1 : BallControlTimer.Enabled = False : g_AllItems.Add "BallControlTimer", BallControlTimer : BallControlTimer.Register
+Set BallSaverTimerExpired = New Timer : BallSaverTimerExpired.Name = "BallSaverTimerExpired" : BallSaverTimerExpired.Interval = 10 : BallSaverTimerExpired.Enabled = False : g_AllItems.Add "BallSaverTimerExpired", BallSaverTimerExpired : BallSaverTimerExpired.Register
+Set BallShadowUpdate = New Timer : BallShadowUpdate.Name = "BallShadowUpdate" : BallShadowUpdate.Interval = 10 : BallShadowUpdate.Enabled = False : g_AllItems.Add "BallShadowUpdate", BallShadowUpdate : BallShadowUpdate.Register
+Set CreateMultiballTimer = New Timer : CreateMultiballTimer.Name = "CreateMultiballTimer" : CreateMultiballTimer.Interval = 2000 : CreateMultiballTimer.Enabled = False : g_AllItems.Add "CreateMultiballTimer", CreateMultiballTimer : CreateMultiballTimer.Register
+Set FlipperTimer = New Timer : FlipperTimer.Name = "FlipperTimer" : FlipperTimer.Interval = 10 : FlipperTimer.Enabled = True : g_AllItems.Add "FlipperTimer", FlipperTimer : FlipperTimer.Register
+Set HighScoreFlashTimer = New Timer : HighScoreFlashTimer.Name = "HighScoreFlashTimer" : HighScoreFlashTimer.Interval = 100 : HighScoreFlashTimer.Enabled = False : g_AllItems.Add "HighScoreFlashTimer", HighScoreFlashTimer : HighScoreFlashTimer.Register
+Set InstantInfoTimer = New Timer : InstantInfoTimer.Name = "InstantInfoTimer" : InstantInfoTimer.Interval = 100 : InstantInfoTimer.Enabled = False : g_AllItems.Add "InstantInfoTimer", InstantInfoTimer : InstantInfoTimer.Register
+Set LampTimer = New Timer : LampTimer.Name = "LampTimer" : LampTimer.Interval = 16 : LampTimer.Enabled = True : g_AllItems.Add "LampTimer", LampTimer : LampTimer.Register
+Set LampTimer1 = New Timer : LampTimer1.Name = "LampTimer1" : LampTimer1.Interval = -1 : LampTimer1.Enabled = True : g_AllItems.Add "LampTimer1", LampTimer1 : LampTimer1.Register
+Set LampTimer2 = New Timer : LampTimer2.Name = "LampTimer2" : LampTimer2.Interval = -1 : LampTimer2.Enabled = True : g_AllItems.Add "LampTimer2", LampTimer2 : LampTimer2.Register
+Set pfxtimer = New Timer : pfxtimer.Name = "pfxtimer" : pfxtimer.Interval = 1000 : pfxtimer.Enabled = False : g_AllItems.Add "pfxtimer", pfxtimer : pfxtimer.Register
+Set pTriggerScript = New Timer : pTriggerScript.Name = "pTriggerScript" : pTriggerScript.Interval = 50 : pTriggerScript.Enabled = False : g_AllItems.Add "pTriggerScript", pTriggerScript : pTriggerScript.Register
+Set PulseTimer = New Timer : PulseTimer.Name = "PulseTimer" : PulseTimer.Interval = 40 : PulseTimer.Enabled = True : g_AllItems.Add "PulseTimer", PulseTimer : PulseTimer.Register
+Set pupDMDupdate = New Timer : pupDMDupdate.Name = "pupDMDupdate" : pupDMDupdate.Interval = 50 : pupDMDupdate.Enabled = True : g_AllItems.Add "pupDMDupdate", pupDMDupdate : pupDMDupdate.Register
+Set RainbowTimer = New Timer : RainbowTimer.Name = "RainbowTimer" : RainbowTimer.Interval = 100 : RainbowTimer.Enabled = False : g_AllItems.Add "RainbowTimer", RainbowTimer : RainbowTimer.Register
+Set RDampen = New Timer : RDampen.Name = "RDampen" : RDampen.Interval = 10 : RDampen.Enabled = True : g_AllItems.Add "RDampen", RDampen : RDampen.Register
+Set Realtime = New Timer : Realtime.Name = "Realtime" : Realtime.Interval = 10 : Realtime.Enabled = True : g_AllItems.Add "Realtime", Realtime : Realtime.Register
+Set ResetSkillShotTimer = New Timer : ResetSkillShotTimer.Name = "ResetSkillShotTimer" : ResetSkillShotTimer.Interval = 1000 : ResetSkillShotTimer.Enabled = False : g_AllItems.Add "ResetSkillShotTimer", ResetSkillShotTimer : ResetSkillShotTimer.Register
+Set RollingTimer = New Timer : RollingTimer.Name = "RollingTimer" : RollingTimer.Interval = 10 : RollingTimer.Enabled = False : g_AllItems.Add "RollingTimer", RollingTimer : RollingTimer.Register
+Set TiltDecreaseTimer = New Timer : TiltDecreaseTimer.Name = "TiltDecreaseTimer" : TiltDecreaseTimer.Interval = 50 : TiltDecreaseTimer.Enabled = False : g_AllItems.Add "TiltDecreaseTimer", TiltDecreaseTimer : TiltDecreaseTimer.Register
+Set TiltRecoveryTimer = New Timer : TiltRecoveryTimer.Name = "TiltRecoveryTimer" : TiltRecoveryTimer.Interval = 2500 : TiltRecoveryTimer.Enabled = False : g_AllItems.Add "TiltRecoveryTimer", TiltRecoveryTimer : TiltRecoveryTimer.Register
+Set TimerVRPlunger = New Timer : TimerVRPlunger.Name = "TimerVRPlunger" : TimerVRPlunger.Interval = 20 : TimerVRPlunger.Enabled = False : g_AllItems.Add "TimerVRPlunger", TimerVRPlunger : TimerVRPlunger.Register
+Set TimerVRPlunger1 = New Timer : TimerVRPlunger1.Name = "TimerVRPlunger1" : TimerVRPlunger1.Interval = 15 : TimerVRPlunger1.Enabled = False : g_AllItems.Add "TimerVRPlunger1", TimerVRPlunger1 : TimerVRPlunger1.Register
+Set tmrActionPressHold = New Timer : tmrActionPressHold.Name = "tmrActionPressHold" : tmrActionPressHold.Interval = 50 : tmrActionPressHold.Enabled = False : g_AllItems.Add "tmrActionPressHold", tmrActionPressHold : tmrActionPressHold.Register
+Set tmrAgentImage = New Timer : tmrAgentImage.Name = "tmrAgentImage" : tmrAgentImage.Interval = 100 : tmrAgentImage.Enabled = False : g_AllItems.Add "tmrAgentImage", tmrAgentImage : tmrAgentImage.Register
+Set tmrAgentMode = New Timer : tmrAgentMode.Name = "tmrAgentMode" : tmrAgentMode.Interval = 100 : tmrAgentMode.Enabled = False : g_AllItems.Add "tmrAgentMode", tmrAgentMode : tmrAgentMode.Register
+Set tmrAgents = New Timer : tmrAgents.Name = "tmrAgents" : tmrAgents.Interval = 100 : tmrAgents.Enabled = False : g_AllItems.Add "tmrAgents", tmrAgents : tmrAgents.Register
+Set tmrAnimateZionGif = New Timer : tmrAnimateZionGif.Name = "tmrAnimateZionGif" : tmrAnimateZionGif.Interval = 100 : tmrAnimateZionGif.Enabled = False : g_AllItems.Add "tmrAnimateZionGif", tmrAnimateZionGif : tmrAnimateZionGif.Register
+Set tmrBallSearch = New Timer : tmrBallSearch.Name = "tmrBallSearch" : tmrBallSearch.Interval = 100 : tmrBallSearch.Enabled = False : g_AllItems.Add "tmrBallSearch", tmrBallSearch : tmrBallSearch.Register
+Set tmrBelieve = New Timer : tmrBelieve.Name = "tmrBelieve" : tmrBelieve.Interval = 100 : tmrBelieve.Enabled = False : g_AllItems.Add "tmrBelieve", tmrBelieve : tmrBelieve.Register
+Set tmrBonusCountdown = New Timer : tmrBonusCountdown.Name = "tmrBonusCountdown" : tmrBonusCountdown.Interval = 100 : tmrBonusCountdown.Enabled = False : g_AllItems.Add "tmrBonusCountdown", tmrBonusCountdown : tmrBonusCountdown.Register
+Set tmrBonusTotal = New Timer : tmrBonusTotal.Name = "tmrBonusTotal" : tmrBonusTotal.Interval = 100 : tmrBonusTotal.Enabled = False : g_AllItems.Add "tmrBonusTotal", tmrBonusTotal : tmrBonusTotal.Register
+Set tmrBulletLoop = New Timer : tmrBulletLoop.Name = "tmrBulletLoop" : tmrBulletLoop.Interval = 100 : tmrBulletLoop.Enabled = False : g_AllItems.Add "tmrBulletLoop", tmrBulletLoop : tmrBulletLoop.Register
+Set tmrCallouts = New Timer : tmrCallouts.Name = "tmrCallouts" : tmrCallouts.Interval = 100 : tmrCallouts.Enabled = False : g_AllItems.Add "tmrCallouts", tmrCallouts : tmrCallouts.Register
+Set tmrDejaVu = New Timer : tmrDejaVu.Name = "tmrDejaVu" : tmrDejaVu.Interval = 100 : tmrDejaVu.Enabled = False : g_AllItems.Add "tmrDejaVu", tmrDejaVu : tmrDejaVu.Register
+Set tmrEMPMBFire = New Timer : tmrEMPMBFire.Name = "tmrEMPMBFire" : tmrEMPMBFire.Interval = 100 : tmrEMPMBFire.Enabled = False : g_AllItems.Add "tmrEMPMBFire", tmrEMPMBFire : tmrEMPMBFire.Register
+Set tmrFlashTrain = New Timer : tmrFlashTrain.Name = "tmrFlashTrain" : tmrFlashTrain.Interval = 150 : tmrFlashTrain.Enabled = True : g_AllItems.Add "tmrFlashTrain", tmrFlashTrain : tmrFlashTrain.Register
+Set tmrFreeMorpheus2 = New Timer : tmrFreeMorpheus2.Name = "tmrFreeMorpheus2" : tmrFreeMorpheus2.Interval = 100 : tmrFreeMorpheus2.Enabled = False : g_AllItems.Add "tmrFreeMorpheus2", tmrFreeMorpheus2 : tmrFreeMorpheus2.Register
+Set tmrFreeMorpheus3 = New Timer : tmrFreeMorpheus3.Name = "tmrFreeMorpheus3" : tmrFreeMorpheus3.Interval = 100 : tmrFreeMorpheus3.Enabled = False : g_AllItems.Add "tmrFreeMorpheus3", tmrFreeMorpheus3 : tmrFreeMorpheus3.Register
+Set tmrHack = New Timer : tmrHack.Name = "tmrHack" : tmrHack.Interval = 1000 : tmrHack.Enabled = False : g_AllItems.Add "tmrHack", tmrHack : tmrHack.Register
+Set tmrHelpLoop = New Timer : tmrHelpLoop.Name = "tmrHelpLoop" : tmrHelpLoop.Interval = 100 : tmrHelpLoop.Enabled = False : g_AllItems.Add "tmrHelpLoop", tmrHelpLoop : tmrHelpLoop.Register
+Set tmrHoldFlippers = New Timer : tmrHoldFlippers.Name = "tmrHoldFlippers" : tmrHoldFlippers.Interval = 100 : tmrHoldFlippers.Enabled = False : g_AllItems.Add "tmrHoldFlippers", tmrHoldFlippers : tmrHoldFlippers.Register
+Set tmrHoldKey = New Timer : tmrHoldKey.Name = "tmrHoldKey" : tmrHoldKey.Interval = 100 : tmrHoldKey.Enabled = False : g_AllItems.Add "tmrHoldKey", tmrHoldKey : tmrHoldKey.Register
+Set tmrHSHoldFlipper = New Timer : tmrHSHoldFlipper.Name = "tmrHSHoldFlipper" : tmrHSHoldFlipper.Interval = 100 : tmrHSHoldFlipper.Enabled = False : g_AllItems.Add "tmrHSHoldFlipper", tmrHSHoldFlipper : tmrHSHoldFlipper.Register
+Set tmrInsertCycle = New Timer : tmrInsertCycle.Name = "tmrInsertCycle" : tmrInsertCycle.Interval = 100 : tmrInsertCycle.Enabled = False : g_AllItems.Add "tmrInsertCycle", tmrInsertCycle : tmrInsertCycle.Register
+Set tmrKickback = New Timer : tmrKickback.Name = "tmrKickback" : tmrKickback.Interval = 100 : tmrKickback.Enabled = False : g_AllItems.Add "tmrKickback", tmrKickback : tmrKickback.Register
+Set tmrLightSeqAttract = New Timer : tmrLightSeqAttract.Name = "tmrLightSeqAttract" : tmrLightSeqAttract.Interval = 100 : tmrLightSeqAttract.Enabled = True : g_AllItems.Add "tmrLightSeqAttract", tmrLightSeqAttract : tmrLightSeqAttract.Register
+Set tmrLockbar = New Timer : tmrLockbar.Name = "tmrLockbar" : tmrLockbar.Interval = 100 : tmrLockbar.Enabled = False : g_AllItems.Add "tmrLockbar", tmrLockbar : tmrLockbar.Register
+Set tmrMagBulletBounce = New Timer : tmrMagBulletBounce.Name = "tmrMagBulletBounce" : tmrMagBulletBounce.Interval = 100 : tmrMagBulletBounce.Enabled = False : g_AllItems.Add "tmrMagBulletBounce", tmrMagBulletBounce : tmrMagBulletBounce.Register
+Set tmrModeMorpheusTrin = New Timer : tmrModeMorpheusTrin.Name = "tmrModeMorpheusTrin" : tmrModeMorpheusTrin.Interval = 100 : tmrModeMorpheusTrin.Enabled = False : g_AllItems.Add "tmrModeMorpheusTrin", tmrModeMorpheusTrin : tmrModeMorpheusTrin.Register
+Set tmrModeStart = New Timer : tmrModeStart.Name = "tmrModeStart" : tmrModeStart.Interval = 100 : tmrModeStart.Enabled = False : g_AllItems.Add "tmrModeStart", tmrModeStart : tmrModeStart.Register
+Set tmrMorpheusNeo = New Timer : tmrMorpheusNeo.Name = "tmrMorpheusNeo" : tmrMorpheusNeo.Interval = 100 : tmrMorpheusNeo.Enabled = False : g_AllItems.Add "tmrMorpheusNeo", tmrMorpheusNeo : tmrMorpheusNeo.Register
+Set tmrPauseTimers = New Timer : tmrPauseTimers.Name = "tmrPauseTimers" : tmrPauseTimers.Interval = 100 : tmrPauseTimers.Enabled = False : g_AllItems.Add "tmrPauseTimers", tmrPauseTimers : tmrPauseTimers.Register
+Set tmrPFLoopQueue = New Timer : tmrPFLoopQueue.Name = "tmrPFLoopQueue" : tmrPFLoopQueue.Interval = 100 : tmrPFLoopQueue.Enabled = False : g_AllItems.Add "tmrPFLoopQueue", tmrPFLoopQueue : tmrPFLoopQueue.Register
+Set tmrPopperGate = New Timer : tmrPopperGate.Name = "tmrPopperGate" : tmrPopperGate.Interval = 1500 : tmrPopperGate.Enabled = False : g_AllItems.Add "tmrPopperGate", tmrPopperGate : tmrPopperGate.Register
+Set tmrPupBumper = New Timer : tmrPupBumper.Name = "tmrPupBumper" : tmrPupBumper.Interval = 100 : tmrPupBumper.Enabled = False : g_AllItems.Add "tmrPupBumper", tmrPupBumper : tmrPupBumper.Register
+Set tmrQueue1 = New Timer : tmrQueue1.Name = "tmrQueue1" : tmrQueue1.Interval = 100 : tmrQueue1.Enabled = False : g_AllItems.Add "tmrQueue1", tmrQueue1 : tmrQueue1.Register
+Set tmrQueue2 = New Timer : tmrQueue2.Name = "tmrQueue2" : tmrQueue2.Interval = 100 : tmrQueue2.Enabled = False : g_AllItems.Add "tmrQueue2", tmrQueue2 : tmrQueue2.Register
+Set tmrQueue3 = New Timer : tmrQueue3.Name = "tmrQueue3" : tmrQueue3.Interval = 100 : tmrQueue3.Enabled = False : g_AllItems.Add "tmrQueue3", tmrQueue3 : tmrQueue3.Register
+Set tmrQueue4 = New Timer : tmrQueue4.Name = "tmrQueue4" : tmrQueue4.Interval = 100 : tmrQueue4.Enabled = False : g_AllItems.Add "tmrQueue4", tmrQueue4 : tmrQueue4.Register
+Set tmrService = New Timer : tmrService.Name = "tmrService" : tmrService.Interval = 100 : tmrService.Enabled = False : g_AllItems.Add "tmrService", tmrService : tmrService.Register
+Set tmrShotMultStart = New Timer : tmrShotMultStart.Name = "tmrShotMultStart" : tmrShotMultStart.Interval = 100 : tmrShotMultStart.Enabled = True : g_AllItems.Add "tmrShotMultStart", tmrShotMultStart : tmrShotMultStart.Register
+Set tmrSmithNeo = New Timer : tmrSmithNeo.Name = "tmrSmithNeo" : tmrSmithNeo.Interval = 100 : tmrSmithNeo.Enabled = False : g_AllItems.Add "tmrSmithNeo", tmrSmithNeo : tmrSmithNeo.Register
+Set tmrSquiddyArm = New Timer : tmrSquiddyArm.Name = "tmrSquiddyArm" : tmrSquiddyArm.Interval = 100 : tmrSquiddyArm.Enabled = False : g_AllItems.Add "tmrSquiddyArm", tmrSquiddyArm : tmrSquiddyArm.Register
+Set tmrSquiddyMBSentinal = New Timer : tmrSquiddyMBSentinal.Name = "tmrSquiddyMBSentinal" : tmrSquiddyMBSentinal.Interval = 100 : tmrSquiddyMBSentinal.Enabled = False : g_AllItems.Add "tmrSquiddyMBSentinal", tmrSquiddyMBSentinal : tmrSquiddyMBSentinal.Register
+Set tmrStackedLights = New Timer : tmrStackedLights.Name = "tmrStackedLights" : tmrStackedLights.Interval = 400 : tmrStackedLights.Enabled = True : g_AllItems.Add "tmrStackedLights", tmrStackedLights : tmrStackedLights.Register
+Set tmrStats = New Timer : tmrStats.Name = "tmrStats" : tmrStats.Interval = 100 : tmrStats.Enabled = False : g_AllItems.Add "tmrStats", tmrStats : tmrStats.Register
+Set tmrStats001 = New Timer : tmrStats001.Name = "tmrStats001" : tmrStats001.Interval = 100 : tmrStats001.Enabled = False : g_AllItems.Add "tmrStats001", tmrStats001 : tmrStats001.Register
+Set tmrSubwayDelayKick = New Timer : tmrSubwayDelayKick.Name = "tmrSubwayDelayKick" : tmrSubwayDelayKick.Interval = 100 : tmrSubwayDelayKick.Enabled = False : g_AllItems.Add "tmrSubwayDelayKick", tmrSubwayDelayKick : tmrSubwayDelayKick.Register
+Set tmrTrainDojo = New Timer : tmrTrainDojo.Name = "tmrTrainDojo" : tmrTrainDojo.Interval = 100 : tmrTrainDojo.Enabled = False : g_AllItems.Add "tmrTrainDojo", tmrTrainDojo : tmrTrainDojo.Register
+Set tmrTraining = New Timer : tmrTraining.Name = "tmrTraining" : tmrTraining.Interval = 100 : tmrTraining.Enabled = False : g_AllItems.Add "tmrTraining", tmrTraining : tmrTraining.Register
+Set tmrTrainJump = New Timer : tmrTrainJump.Name = "tmrTrainJump" : tmrTrainJump.Interval = 100 : tmrTrainJump.Enabled = False : g_AllItems.Add "tmrTrainJump", tmrTrainJump : tmrTrainJump.Register
+Set tmrTrainRed = New Timer : tmrTrainRed.Name = "tmrTrainRed" : tmrTrainRed.Interval = 2000 : tmrTrainRed.Enabled = False : g_AllItems.Add "tmrTrainRed", tmrTrainRed : tmrTrainRed.Register
+Set tmrTrinNiobe = New Timer : tmrTrinNiobe.Name = "tmrTrinNiobe" : tmrTrinNiobe.Interval = 100 : tmrTrinNiobe.Enabled = False : g_AllItems.Add "tmrTrinNiobe", tmrTrinNiobe : tmrTrinNiobe.Register
+Set tmrZionFrenzy = New Timer : tmrZionFrenzy.Name = "tmrZionFrenzy" : tmrZionFrenzy.Interval = 100 : tmrZionFrenzy.Enabled = False : g_AllItems.Add "tmrZionFrenzy", tmrZionFrenzy : tmrZionFrenzy.Register
+Set UpdateTroughTimer = New Timer : UpdateTroughTimer.Name = "UpdateTroughTimer" : UpdateTroughTimer.Interval = 100 : UpdateTroughTimer.Enabled = False : g_AllItems.Add "UpdateTroughTimer", UpdateTroughTimer : UpdateTroughTimer.Register
 
 ' --- Trigger (46) ---
 Dim magnaSave, StartBallControl, sw001, sw002, sw003, sw005, sw10, sw24, sw7, sw8, sw9, swPlunger, swPlungerRest, SwSquiddySubway, SwSubway

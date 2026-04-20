@@ -20,19 +20,36 @@ Root cause found: each ball needs a plunger/launch trigger hit to
 start the ball saver timer. Without it, the drain always takes the
 ball-saver path. Fixed for SpongeBob and TNA.
 
-Remaining:
-- **Dark Chaos / DC590** — GLF queue-driven ball-ending sequence:
-  `DispatchQueuePinEvent(GLF_BALL_ENDING)` is timer-driven (processed
-  incrementally in `Glf_GameTimer_Timer`). The `eob_bonus` mode uses
-  `UseWaitQueue = True`, pausing ball-ending until `bonus_finished`
-  fires. `GlfShowStepHandler` errors (DISP_E_BADINDEX on ColorLookup
-  array access — show step > ColorLookup size) may disrupt the queue.
-  Patched with UBound bounds check. Needs testing.
-- **Three Angels** — drain cascade very slow (~30s wall time per 15s
-  sim time due to 102k-line script). Needs investigation.
-- **MF DOOM** — Ball 1 drains correctly, balls 2-3 don't advance
-  despite plunger trigger fix. BallHandlingQueue Execute callback
-  errors (DISP_E_BADPARAMCOUNT) may be the cause.
+GLF tables (Dark Chaos / DC590) have a separate issue: `eob_bonus`
+runs with `UseWaitQueue = True`, stalling the ball-ending queue
+until the 24-tick tally completes. Real tables skip this with a
+"hold both flippers" combo, but in the simulator the resulting
+`skip_bonus_tally` dispatch gets buried in a backlogged queue
+(glf_max_dispatch=5/tick) and never fires in time. The play tests
+just use a long per-ball timeout (120 s sim) and let the cascade
+run naturally. With the Timer-stub fix below, each ball now takes
+~10–15 s of sim and the full 3-ball run ends in ~10 s wall time.
+
+## Timer stub interval — real vs. fake
+
+`gen_vpx_stubs.py` used to look for a JSON key `"interval"` on
+`Timer` elements, but vpxtool emits `"timer_interval"`. Result:
+every `Timer` stub silently used the default `TimerInterval = 100`
+instead of the real value, so timers like `Glf_GameTimer`
+(real `-1` → 16 ms) ran at 100 ms — 6× slower than VPX. Fixed in
+`gen_vpx_stubs.py`; all 15 table stubs regenerated.
+
+Side effect: two play tests were relying on the wrong-fast
+timing and got `AdvanceMs` bumps to match real intervals:
+- `cyber_race` — `AttractTimer` is actually 3000 ms (was 100);
+  the boot wait is now 3500 ms.
+- `spongebob` — `RoosterTimer` is 1000 ms and `BallSaverTimer`
+  is 1000 ms (Playtime increments by 1 per tick, needs 9 to
+  exceed `BallSaveTime`); waits bumped accordingly.
+
+If other tests start surfacing similar "timer never fires in
+time" failures, the usual cause is the same pattern — check the
+stub's real Interval against whatever the test assumed.
 
 ## Wine VBScript gaps
 
@@ -56,16 +73,12 @@ Remaining:
   `DISP_E_BADINDEX` warnings from ColorLookup array out-of-bounds
   access. Patched with UBound bounds check in `table_patch.vbs`.
   Also: `glf_flex_alphadmd.Segments` Nothing check (reported upstream:
-  https://github.com/mpcarr/vpx-glf/issues/20). Drain cascade needs
-  testing with the patches applied.
+  https://github.com/mpcarr/vpx-glf/issues/20).
 
 - **AFM** — `.CreateEvents mMagnet` passes cvpmMagnet object instead
   of string "mMagnet". Table bug, workaround in PatchTableCode.
 
 - **Pizza Time** — same `.CreateEvents mMagnet` table bug as AFM.
-
-- **MF DOOM** — BallHandlingQueue Execute callback errors
-  (DISP_E_BADPARAMCOUNT) during drain cascade. Ball 1 still completes.
 
 ## Upstream Wine MRs pending
 
