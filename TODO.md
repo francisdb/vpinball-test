@@ -4,11 +4,17 @@
 
 Play tests take too long wall time for the amount of sim time.
 Since we simulate time (not real-time), wall time should be
-negligible. Investigate both:
+negligible. Remaining levers:
 
-- **Framework scheduler** — O(n) overhead per tick from dictionary
-  scans, property lookups, m_nextFire operations. Consider
-  pre-resolved arrays instead of dictionary lookups per tick.
+- **Framework scheduler** — active-names cache (rebuilt only when
+  `g_TimersDirty` flips) landed; cut the per-tick overhead from
+  O(all-timers) to O(enabled-timers). Suite total: 101 s → 68 s;
+  tables with many registered-but-disabled timers saw 2–4×
+  (three_angels 16 s→4 s, blizzard 12→5, tna 12→6, darkest 9→4).
+  Dark Chaos barely moves — there the Glf_GameTimer *handler*
+  (pin-event dispatch) dominates, not scheduler overhead.
+  Next candidates: binary-heap next-fire ordering to kill the
+  min-scan; parallel array instead of Dictionary for `m_nextFire`.
 - **Wine vbscript engine** — MR !10546 (indexed function/variable
   lookup) is *already in* our pinned Wine (commits `966709b2dea` +
   `8681d44e4b6` landed on master 2026-04-01/02, well before

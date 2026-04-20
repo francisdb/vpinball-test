@@ -592,6 +592,13 @@ Class VpxTester
     ' Disabled so the next re-enable restarts its countdown from
     ' `Interval`, matching VPX semantics.
     Private m_nextFire
+    ' Cached list of currently-enabled timer names. Refreshed only
+    ' when g_TimersDirty flips True (stub classes set it whenever
+    ' any TimerEnabled Let runs). Avoids enumerating every timer
+    ' in g_AllTimers (100+ on larger tables) on every AdvanceMs
+    ' outer iteration.
+    Private m_activeNames
+    Private m_activeCount
     ' Timers that have already been warned about (sub-16ms interval).
     Private m_warnedTimers
     ' Total sim ms advanced via AdvanceMs.
@@ -632,6 +639,9 @@ Class VpxTester
         Set m_warnedTimers = CreateObject("Scripting.Dictionary")
         Set m_timerWallTime  = CreateObject("Scripting.Dictionary")
         Set m_timerFireCount = CreateObject("Scripting.Dictionary")
+        ReDim m_activeNames(31)
+        m_activeCount = 0
+        g_TimersDirty = True    ' force RebuildActive on first AdvanceMs
         ResolveKeyHandlers
         m_baselineBalls = BallCount
         Dim soundsDuringInit : soundsDuringInit = g_SoundLog.Count
@@ -724,29 +734,25 @@ Class VpxTester
     ' full Interval instead of resuming where the previous run left off.
     Public Sub AdvanceMs(ms)
         Dim targetTime : targetTime = GameTime + ms
-        Dim names, i, tn, nf
+        Dim i, tn, nf
         Dim minNext, haveMin
         Dim ref
         On Error Resume Next
         Do
-            names = g_AllTimers.Keys()
-            ' Seed nextFire for any newly-enabled timer and prune
-            ' entries whose timer is no longer enabled.
-            For i = 0 To UBound(names)
-                tn = names(i)
-                If CBool(g_AllTimers(tn).TimerEnabled) Then
-                    If Not m_nextFire.Exists(tn) Then
-                        m_nextFire.Add tn, GameTime + TimerIntervalMs(tn)
-                    End If
-                ElseIf m_nextFire.Exists(tn) Then
-                    m_nextFire.Remove tn
-                End If
-            Next
+            ' Timer-enable/disable flips the shared g_TimersDirty flag
+            ' (set in vpx_stub_classes.vbs). Rebuild the active-names
+            ' cache only when needed, instead of re-enumerating every
+            ' timer on every outer iteration.
+            If g_TimersDirty Then RebuildActiveTimers
 
-            ' Find the earliest nextFire across all scheduled timers.
+            ' Find the earliest nextFire across currently-enabled timers.
+            ' A timer handler fired earlier in this outer iteration may
+            ' have disabled another timer — its entry is gone from
+            ' m_nextFire but m_activeNames still holds its name until
+            ' the next rebuild; skip those stale entries here.
             haveMin = False : minNext = 0
-            For i = 0 To UBound(names)
-                tn = names(i)
+            For i = 0 To m_activeCount - 1
+                tn = m_activeNames(i)
                 If m_nextFire.Exists(tn) Then
                     nf = CLng(m_nextFire(tn))
                     If Not haveMin Then
@@ -769,39 +775,69 @@ Class VpxTester
             ' that's now due at (or before) that instant.
             m_simMs = m_simMs + (minNext - GameTime)
             GameTime = minNext
-            For i = 0 To UBound(names)
-                tn = names(i)
+            For i = 0 To m_activeCount - 1
+                tn = m_activeNames(i)
                 If m_nextFire.Exists(tn) Then
-                    If CLng(m_nextFire(tn)) <= GameTime Then
-                        If CBool(g_AllTimers(tn).TimerEnabled) Then
-                            ' Refresh ball velocity immediately before
-                            ' each fire so a handler earlier in this
-                            ' bucket can't create a ball that the next
-                            ' handler (e.g. ballfinder_timer) then sees
-                            ' as stationary.
-                            If m_keepBallMoving Then RefreshBallVelocity
-                            Set ref = ResolveTimerRef(tn)
-                            Dim tFire0 : tFire0 = Timer
-                            CallTimerRef ref
-                            Dim tFire1 : tFire1 = Timer
-                            If m_timerWallTime.Exists(tn) Then
-                                m_timerWallTime(tn) = m_timerWallTime(tn) + (tFire1 - tFire0)
-                                m_timerFireCount(tn) = m_timerFireCount(tn) + 1
-                            Else
-                                m_timerWallTime.Add tn, (tFire1 - tFire0)
-                                m_timerFireCount.Add tn, 1
-                            End If
-                            Err.Clear
-                            If Not m_firedNames.Exists(tn) Then m_firedNames.Add tn, True
-                            m_nextFire(tn) = GameTime + TimerIntervalMs(tn)
+                If CLng(m_nextFire(tn)) <= GameTime Then
+                    If CBool(g_AllTimers(tn).TimerEnabled) Then
+                        ' Refresh ball velocity immediately before
+                        ' each fire so a handler earlier in this
+                        ' bucket can't create a ball that the next
+                        ' handler (e.g. ballfinder_timer) then sees
+                        ' as stationary.
+                        If m_keepBallMoving Then RefreshBallVelocity
+                        Set ref = ResolveTimerRef(tn)
+                        Dim tFire0 : tFire0 = Timer
+                        CallTimerRef ref
+                        Dim tFire1 : tFire1 = Timer
+                        If m_timerWallTime.Exists(tn) Then
+                            m_timerWallTime(tn) = m_timerWallTime(tn) + (tFire1 - tFire0)
+                            m_timerFireCount(tn) = m_timerFireCount(tn) + 1
                         Else
-                            m_nextFire.Remove tn
+                            m_timerWallTime.Add tn, (tFire1 - tFire0)
+                            m_timerFireCount.Add tn, 1
                         End If
+                        Err.Clear
+                        If Not m_firedNames.Exists(tn) Then m_firedNames.Add tn, True
+                        m_nextFire(tn) = GameTime + TimerIntervalMs(tn)
+                    Else
+                        m_nextFire.Remove tn
+                        ' m_activeNames may now contain a disabled entry;
+                        ' let the next g_TimersDirty check reconcile.
                     End If
+                End If
                 End If
             Next
         Loop
         On Error GoTo 0
+    End Sub
+
+    ' Rebuild m_activeNames from the current g_AllTimers state and
+    ' reconcile m_nextFire: seed entries for newly-enabled timers,
+    ' drop entries for disabled ones. Called only when g_TimersDirty
+    ' is True. Clears the flag on exit.
+    Private Sub RebuildActiveTimers()
+        Dim allNames, i, tn, count
+        allNames = g_AllTimers.Keys()
+        count = 0
+        ' Grow output array if needed (1.5x heuristic).
+        If UBound(m_activeNames) < UBound(allNames) Then
+            ReDim m_activeNames(UBound(allNames) + 16)
+        End If
+        For i = 0 To UBound(allNames)
+            tn = allNames(i)
+            If CBool(g_AllTimers(tn).TimerEnabled) Then
+                If Not m_nextFire.Exists(tn) Then
+                    m_nextFire.Add tn, GameTime + TimerIntervalMs(tn)
+                End If
+                m_activeNames(count) = tn
+                count = count + 1
+            ElseIf m_nextFire.Exists(tn) Then
+                m_nextFire.Remove tn
+            End If
+        Next
+        m_activeCount = count
+        g_TimersDirty = False
     End Sub
 
     ' Read a timer's declared Interval. In real VPX:
