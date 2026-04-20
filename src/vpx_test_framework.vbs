@@ -70,6 +70,10 @@ Sub BenchmarkNoop : End Sub
 ' VPX globals
 ' ---------------------------------------------------------------------------
 Dim VPBuildVersion  : VPBuildVersion = 10801
+' Some tables (Blizzard of Ozz, ...) gate PuPInit / DMD selection on
+' PlatformOS. Real VPX exposes this global; default to "windows" so
+' the Windows-preferred code path runs.
+Dim PlatformOS      : PlatformOS = "windows"
 ' UseVPMDMD, UseVPMModSol, UseVPMColoredDMD, UseVPMNVRAM, UsePdbLeds
 ' are NOT pre-defined here. Tables define them as Const/Dim before
 ' core.vbs runs, and core.vbs detects them via IsEmpty(Eval(...)).
