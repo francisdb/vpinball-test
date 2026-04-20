@@ -17,12 +17,12 @@ negligible. Remaining levers:
   min-scan; parallel array instead of Dictionary for `m_nextFire`.
 - **Wine vbscript engine** — MR !10546 (indexed function/variable
   lookup) is *already in* our pinned Wine (commits `966709b2dea` +
-  `8681d44e4b6` landed on master 2026-04-01/02, well before
-  wine-11.7 — current play-test wall times are post-win). The
-  next-in-line perf commit is `1b080090b12` "Bind global-scope
-  Dim variables at compile time" — on master but not in 11.7.
-  Further Wine-side wins (dispatch caching, property resolution)
-  would compound.
+  `8681d44e4b6` landed on master 2026-04-01/02 — current
+  play-test wall times are post-win). Next perf commit in
+  flight: `1b080090b12` "Bind global-scope Dim variables at
+  compile time" on francisdb/vbscript-compile-time-binding,
+  not yet upstream. Further Wine-side wins (dispatch caching,
+  property resolution) would compound.
 
 ## Play test drain cascade issues
 
