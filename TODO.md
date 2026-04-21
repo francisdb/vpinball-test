@@ -85,10 +85,6 @@ stub's real Interval against whatever the test assumed.
   Also: `glf_flex_alphadmd.Segments` Nothing check (reported upstream:
   https://github.com/mpcarr/vpx-glf/issues/20).
 
-- **AFM** — `.CreateEvents mMagnet` passes cvpmMagnet object instead
-  of string "mMagnet". Table bug, workaround in PatchTableCode.
-
-- **Pizza Time** — same `.CreateEvents mMagnet` table bug as AFM.
 
 ## Upstream Wine MRs pending
 
