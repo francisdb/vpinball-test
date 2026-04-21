@@ -11,6 +11,7 @@ Class Table
     Public BackdropImage_DT, BackdropImage_FS, BackdropImage_FSS
     Public ImageBackdropNightDay, GlobalAlphaAcc, GlobalDifficulty
     Public AmbientOcclusionScale, SSRScale, EnableAmbientOcclusion, EnableSSR
+    Public GlassHeight
     Public Property Get Balls  : Balls = Array()    : End Property
     Public Property Get Version : Version = "3.6"   : End Property
     Public Property Get IsPlugin : IsPlugin = False : End Property
@@ -979,9 +980,11 @@ End Class
 ' because Wine headless has no Media Player. Surface: URL, controls
 ' (play/stop), settings.volume, playState.
 Class WMPlayerControlsStub
+    Public currentPosition
     Public Sub Play() : End Sub
     Public Sub [Stop]() : End Sub
     Public Sub Pause() : End Sub
+    Private Sub Class_Initialize : currentPosition = 0 : End Sub
 End Class
 Class WMPlayerSettingsStub
     Public volume, balance, mute
@@ -1105,7 +1108,8 @@ End Class
 Class FlexDMDStub
     Public Width, Height, RenderMode, Show, DmdColoredPixels
     Public GameName, TableFile, Color, Clear, ProjectFolder
-    Public Run, Resources, Segments
+    Public Run, Resources, Segments, DmdPixels, RawDmdPixels
+    Public RawDmdColoredPixels
     Public Sub LockRenderThread() : End Sub
     Public Sub UnlockRenderThread() : End Sub
     Public Stage
@@ -1201,10 +1205,14 @@ Class VPinMAMEControllerStub
 
     Public Sub B2SSetData(id, val) : End Sub
     Public Sub B2SSetCredits(val) : End Sub
-    Public Sub B2SSetGameOver(pos, val) : End Sub
+    Public Sub B2SSetGameOver(val) : End Sub
     Public Sub B2SSetTilt(val) : End Sub
+    Public Sub B2SSetPlayerUp(val) : End Sub
+    Public Sub B2SSetBallInPlay(val) : End Sub
     Public Sub B2SSetScorePlayer(player, score) : End Sub
     Public Sub B2SSetScore(pos, score) : End Sub
+    Public Sub B2SSetScoreDigit(pos, digit) : End Sub
+    Public Sub B2SSetShootAgain(pos, val) : End Sub
     Public Sub B2SSetLED(pos, val) : End Sub
 
     Private Sub Class_Initialize
@@ -1245,10 +1253,14 @@ Class B2SServerStub
 
     Public Sub B2SSetData(id, val) : End Sub
     Public Sub B2SSetCredits(val) : End Sub
-    Public Sub B2SSetGameOver(pos, val) : End Sub
+    Public Sub B2SSetGameOver(val) : End Sub
     Public Sub B2SSetTilt(val) : End Sub
+    Public Sub B2SSetPlayerUp(val) : End Sub
+    Public Sub B2SSetBallInPlay(val) : End Sub
     Public Sub B2SSetScorePlayer(player, score) : End Sub
     Public Sub B2SSetScore(pos, score) : End Sub
+    Public Sub B2SSetScoreDigit(pos, digit) : End Sub
+    Public Sub B2SSetShootAgain(pos, val) : End Sub
     Public Sub B2SSetLED(pos, val) : End Sub
 
     Private Sub Class_Initialize
