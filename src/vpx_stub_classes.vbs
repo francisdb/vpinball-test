@@ -723,13 +723,13 @@ End Class
 ' which is a .NET COM class. Wine's mscoree is intentionally disabled
 ' in scripts/run-bench.sh (WINEDLLOVERRIDES="mshtml,mscoree="), so the
 ' real ArrayList isn't available. The framework regex-rewrites that
-' CreateObject call to `(New ArrayListStub)` (see SetUpTable in
+' CreateObject call to `(New ArrayListShim)` (see SetUpTable in
 ' vpx_test_framework.vbs); this class implements just enough of the
 ' ArrayList surface for tables that use it as a callout / event
 ' queue: Add, Insert, RemoveAt, Clear, Count, indexed default access.
 ' Backed by a plain VBScript array that grows by doubling.
 ' ---------------------------------------------------------------------------
-Class ArrayListStub
+Class ArrayListShim
     Private m_items
     Private m_count
     Private Sub Class_Initialize

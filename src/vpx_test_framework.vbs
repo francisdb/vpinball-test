@@ -225,10 +225,10 @@ Sub SetUpTable(verbose)
     tableCode = Replace(tableCode, "CreateObject(""WMPlayer.OCX"")",        "(New WMPlayerStub)",           1, -1, vbTextCompare)
     ' .NET ArrayList isn't available because run-bench.sh disables
     ' Wine's mscoree (WINEDLLOVERRIDES="mshtml,mscoree="). Fall back
-    ' to ArrayListStub which implements Add/Insert/RemoveAt/Clear/
+    ' to ArrayListShim which implements Add/Insert/RemoveAt/Clear/
     ' Count/Item, the surface tables typically use for queue-style
     ' bookkeeping.
-    tableCode = Replace(tableCode, "CreateObject(""System.Collections.ArrayList"")", "(New ArrayListStub)")
+    tableCode = Replace(tableCode, "CreateObject(""System.Collections.ArrayList"")", "(New ArrayListShim)")
     ' Same Run() -> Run(0) normalisation as in GetTextFile -- some tables
     ' (Die Hard, Harry Potter) inline their own LoadController logic so the
     ' patch needs to apply to the table script too.
