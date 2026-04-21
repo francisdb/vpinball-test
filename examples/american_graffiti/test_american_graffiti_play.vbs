@@ -34,15 +34,19 @@ tester.Init
 
 tester.InsertCoin
 tester.StartGame
-' resetReel_Timer runs 162 ms after newGame, notices scores=0, calls
-' releaseBall → bip=1.
+' AG's only playable ball is captive in the drain kicker at init, so
+' the framework's BallsInPlay (BallCount − baseline) stays 0 after
+' the Kick — there's no generic framework signal that a ball has
+' been served. Fall back to the table's own `bip` counter, which
+' releaseBall/drain_Hit maintain (this mirrors how Dark Chaos uses
+' `glf_BIP` and TNA uses `BallsOnPlayfield`).
 tester.ExpectTrue "bip >= 1", 5000
-tester.Echo "state=" & state & " player=" & player & " ballInPlay=" & ballInPlay & " bip=" & bip
+tester.Echo "state=" & state & " player=" & player & " ballInPlay=" & ballInPlay
 
 Dim ball
 For ball = 1 To 5
     tester.Echo "--- drain ball " & ball & " ---"
-    tester.ExpectTrue "bip >= 1", 10000      ' next ball released
+    tester.ExpectTrue "bip >= 1", 10000       ' next ball served
     tester.KeepBallMoving
     tester.FireHit "drain"
     If ball < 5 Then
@@ -53,7 +57,7 @@ For ball = 1 To 5
         tester.ExpectTrue "Not state", 20000
     End If
     tester.StopBall
-    tester.Echo "  state=" & state & " ballInPlay=" & ballInPlay & " bip=" & bip
+    tester.Echo "  state=" & state & " ballInPlay=" & ballInPlay
 Next
 
 tester.Assert Not state, "expected state=False after final drain, got state=" & state
