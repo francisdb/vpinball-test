@@ -967,6 +967,7 @@ Class UltraDMDStub
     Public Sub ModifyScene00Ex(bg, topText, bottomText) : End Sub
     Public Sub DisplayScoreboard(nPlayers, highlighted, s1, s2, s3, s4, title, footer) : End Sub
     Public Sub DisplayScoreboard00(nPlayers, highlighted, s1, s2, s3, s4, title, footer) : End Sub
+    Public Sub SetScoreboardBackgroundImage(img, highlightBrightness, brightness) : End Sub
     Public Sub ScrollingCredits(bg, credits, topText, topBrightness, topOutline, bottomText, bottomBrightness, bottomOutline, anim, msec, finalState) : End Sub
 End Class
 
