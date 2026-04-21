@@ -38,29 +38,33 @@ tester.ExpectTrue "GameMode = 2", 5000
 tester.ExpectTrue "BIP >= 1", 5000
 tester.Echo "GameMode=" & GameMode & " BallInPlay=" & BallInPlay & " BIP=" & BIP
 
-' `ballsave` is decremented only by BallsaverTimer_Timer while
-' `ballsaveactivated = 1` — but that flag is never set anywhere in
-' the script (table bug). It stays at its init value of 15, so
-' swTrough5_Hit's `If ballsave > -3` always saves the ball, and a
-' real drain is impossible. Force the saver expired per ball.
+' Per ball: ballsave is reset to 15 and ballsaveActivated to 0.
+' Until the player shoots the right ramp (RRampEnd_Hit), the saver
+' is pre-armed but not counting down — swTrough5_Hit's
+' `If ballsave > -3` would always save. Mirror real play by firing
+' RRampEnd_Hit, then advancing enough sim time for BallSaverTimer
+' (1 s tick) to count ballsave down past -3.
 '
-' The table relies on playfield physics to move drained balls
-' forward through swTrough5→4→3→2→1 so Drain_Timer can find one in
-' swTrough1 and kick a fresh launch. Our stub has no physics, so
-' after each drain we manually top up swTrough1 — one ball was
-' destroyed via Drain.kick/swTrough5.kick, we create a replacement
-' ready to be relaunched.
+' Drain flow: Drain_Hit (scoop) arms swTrough5_Timer which kicks
+' the ball + BallsDrained++; the ball then rolls over swTrough5
+' itself which runs swTrough5_Hit (BIP--, EndOfBallBonus arms).
+' EndOfBallBonus_Timer advances BallInPlay; once BallInPlay rolls
+' past MaxBalls the Highscorecheck → StartAttractMode path resets
+' GameMode to 0.
+'
+' Trough chain: real physics moves drained balls swTrough5→4→3→2→1
+' so Drain_Timer can find one in swTrough1 and kick a relaunch.
+' Stub has no physics — manually top up swTrough1 per ball.
 Dim ball
 For ball = 1 To 5
     tester.Echo "--- drain ball " & ball & " ---"
     tester.ExpectTrue "BIP >= 1", 15000            ' next ball served
-    ballsave = -3
+    tester.FireHit "RRampEnd"                      ' arm saver countdown
+    tester.AdvanceMs 19000                         ' ballsave 15 → -4
     tester.KeepBallMoving
     tester.FireHit "Drain"                         ' scoop grabs ball
     tester.AdvanceMs 500                           ' swTrough5_Timer kicks
     tester.FireHit "swTrough5"                     ' ball passes trough sw
-    ' After swTrough5_Hit: BIP--, drainTimer armed. Refill swTrough1
-    ' so the next Drain_Timer tick will kick a launch ball.
     swTrough1.CreateSizedBallWithMass Ballsize/2, Ballmass
     If ball < 5 Then
         tester.ExpectTrue "BallInPlay > " & ball, 15000
