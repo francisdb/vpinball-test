@@ -206,13 +206,17 @@ Sub SetUpTable(verbose)
     f_table.Close
 
 
-    ' Patch COM objects that aren't available outside VPX
-    tableCode = Replace(tableCode, "CreateObject(""VPinMAME.Controller"")", "(New VPinMAMEControllerStub)")
-    tableCode = Replace(tableCode, "CreateObject(""VPinMAME.WSHDlg"")", "(New VPinMAMEWSHDlgStub)")
-    tableCode = Replace(tableCode, "CreateObject(""PinUpPlayer.PinDisplay"")", "(New PinUpPlayerStub)")
-    tableCode = Replace(tableCode, "CreateObject(""B2S.Server"")", "(New B2SServerStub)")
-    tableCode = Replace(tableCode, "CreateObject(""FlexDMD.FlexDMD"")", "(New FlexDMDStub)")
-    tableCode = Replace(tableCode, "CreateObject(""UltraDMD.DMDObject"")", "(New UltraDMDStub)")
+    ' Patch COM objects that aren't available outside VPX. VBScript is
+    ' case-insensitive for identifier lookup, and tables use CreateObject /
+    ' createObject interchangeably — pass vbTextCompare so the rewrite
+    ' catches both spellings.
+    tableCode = Replace(tableCode, "CreateObject(""VPinMAME.Controller"")", "(New VPinMAMEControllerStub)", 1, -1, vbTextCompare)
+    tableCode = Replace(tableCode, "CreateObject(""VPinMAME.WSHDlg"")",     "(New VPinMAMEWSHDlgStub)",     1, -1, vbTextCompare)
+    tableCode = Replace(tableCode, "CreateObject(""PinUpPlayer.PinDisplay"")", "(New PinUpPlayerStub)",      1, -1, vbTextCompare)
+    tableCode = Replace(tableCode, "CreateObject(""B2S.Server"")",          "(New B2SServerStub)",          1, -1, vbTextCompare)
+    tableCode = Replace(tableCode, "CreateObject(""FlexDMD.FlexDMD"")",     "(New FlexDMDStub)",            1, -1, vbTextCompare)
+    tableCode = Replace(tableCode, "CreateObject(""UltraDMD.DMDObject"")",  "(New UltraDMDStub)",           1, -1, vbTextCompare)
+    tableCode = Replace(tableCode, "CreateObject(""WMPlayer.OCX"")",        "(New WMPlayerStub)",           1, -1, vbTextCompare)
     ' .NET ArrayList isn't available because run-bench.sh disables
     ' Wine's mscoree (WINEDLLOVERRIDES="mshtml,mscoree="). Fall back
     ' to ArrayListStub which implements Add/Insert/RemoveAt/Clear/
@@ -224,6 +228,12 @@ Sub SetUpTable(verbose)
     ' patch needs to apply to the table script too.
     tableCode = Replace(tableCode, "B2SController.Run()", "B2SController.Run(0)")
     tableCode = Replace(tableCode, "Controller.Run()",    "Controller.Run(0)")
+    ' Bare-statement `Controller.Run` / `B2SController.Run` (no parens, no
+    ' args) — stub's Run(hwnd) needs the arg. End-of-line-anchored regex.
+    Dim runRe_ : Set runRe_ = New RegExp
+    runRe_.Global = True : runRe_.Multiline = True
+    runRe_.Pattern = "(\b(?:B2S)?Controller\.Run)\s*(?=[\r\n'])"
+    tableCode = runRe_.Replace(tableCode, "$1(0)")
     ' Real VPX Table.Option has an optional 7th "choices" argument that
     ' tables use when wiring up an enum-style option. Our stub has fixed
     ' arity (6 args), so strip any trailing `, Array(...)` from Option

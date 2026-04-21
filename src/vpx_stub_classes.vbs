@@ -8,6 +8,9 @@ Class Table
     Public Width, Height, TableHeight
     Public BallImage, BallDecalMode, BallFrontDecal, DefaultBulbIntensityScale
     Public ColorGradeImage, Inclination, Layback
+    Public BackdropImage_DT, BackdropImage_FS, BackdropImage_FSS
+    Public ImageBackdropNightDay, GlobalAlphaAcc, GlobalDifficulty
+    Public AmbientOcclusionScale, SSRScale, EnableAmbientOcclusion, EnableSSR
     Public Property Get Balls  : Balls = Array()    : End Property
     Public Property Get Version : Version = "3.6"   : End Property
     Public Property Get IsPlugin : IsPlugin = False : End Property
@@ -971,6 +974,34 @@ Class UltraDMDStub
     Public Sub ScrollingCredits(bg, credits, topText, topBrightness, topOutline, bottomText, bottomBrightness, bottomOutline, anim, msec, finalState) : End Sub
 End Class
 
+' Windows Media Player OCX stub. Tables that use WMPlayer.OCX for
+' voice-overs / music playback (American Graffiti) crash otherwise
+' because Wine headless has no Media Player. Surface: URL, controls
+' (play/stop), settings.volume, playState.
+Class WMPlayerControlsStub
+    Public Sub Play() : End Sub
+    Public Sub [Stop]() : End Sub
+    Public Sub Pause() : End Sub
+End Class
+Class WMPlayerSettingsStub
+    Public volume, balance, mute
+    Private Sub Class_Initialize
+        volume = 100 : balance = 0 : mute = False
+    End Sub
+End Class
+Class WMPlayerStub
+    Public URL, playState
+    Private m_controls, m_settings
+    Public Property Get controls() : Set controls = m_controls : End Property
+    Public Property Get settings() : Set settings = m_settings : End Property
+    Public Sub close() : End Sub
+    Private Sub Class_Initialize
+        URL = "" : playState = 0
+        Set m_controls = New WMPlayerControlsStub
+        Set m_settings = New WMPlayerSettingsStub
+    End Sub
+End Class
+
 ' ---------------------------------------------------------------------------
 
 ' Base Actor class. Real VPX Actor exposes name + bounds + visibility +
@@ -1170,7 +1201,7 @@ Class VPinMAMEControllerStub
 
     Public Sub B2SSetData(id, val) : End Sub
     Public Sub B2SSetCredits(val) : End Sub
-    Public Sub B2SSetGameOver(val) : End Sub
+    Public Sub B2SSetGameOver(pos, val) : End Sub
     Public Sub B2SSetTilt(val) : End Sub
     Public Sub B2SSetScorePlayer(player, score) : End Sub
     Public Sub B2SSetScore(pos, score) : End Sub
@@ -1214,7 +1245,7 @@ Class B2SServerStub
 
     Public Sub B2SSetData(id, val) : End Sub
     Public Sub B2SSetCredits(val) : End Sub
-    Public Sub B2SSetGameOver(val) : End Sub
+    Public Sub B2SSetGameOver(pos, val) : End Sub
     Public Sub B2SSetTilt(val) : End Sub
     Public Sub B2SSetScorePlayer(player, score) : End Sub
     Public Sub B2SSetScore(pos, score) : End Sub
