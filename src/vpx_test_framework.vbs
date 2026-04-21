@@ -74,6 +74,12 @@ Dim VPBuildVersion  : VPBuildVersion = 10801
 ' PlatformOS. Real VPX exposes this global; default to "windows" so
 ' the Windows-preferred code path runs.
 Dim PlatformOS      : PlatformOS = "windows"
+' ShowDT / ShowFSS: VPX exposes these as globals via ScriptGlobalTable
+' (src/core/ScriptGlobalTable.cpp). ShowDT = True when view mode is
+' BG_DESKTOP or BG_FSS; ShowFSS = True only when BG_FSS. Default to
+' False so tables that gate desktop-only rendering on them skip it.
+Dim ShowDT          : ShowDT = False
+Dim ShowFSS         : ShowFSS = False
 ' UseVPMDMD, UseVPMModSol, UseVPMColoredDMD, UseVPMNVRAM, UsePdbLeds
 ' are NOT pre-defined here. Tables define them as Const/Dim before
 ' core.vbs runs, and core.vbs detects them via IsEmpty(Eval(...)).

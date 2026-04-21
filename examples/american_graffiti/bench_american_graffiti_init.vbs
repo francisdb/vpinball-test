@@ -15,11 +15,6 @@ ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\vpx_config.vbs", 1).ReadAll
 Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\American Graffiti (Original 2024)\American Graffiti (Original 2024)v1.3"
 Dim TABLE_FILE          : TABLE_FILE          = "American Graffiti (Original 2024)v1.3.vpx"
 
-' Table bug: `showDT` is read in Table1_Init but never Dim'd. Declare
-' it at test-script global scope (VPX persists this from a Table1.Option
-' — our stub doesn't).
-Dim showDT : showDT = False
-
 Sub PatchTableCode(ByRef code)
     ' Table calls `musicdirectory("AG")` as if it were a function, but no
     ' such function exists — on real VPX `MusicDirectory` seems to double
