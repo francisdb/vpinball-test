@@ -17,6 +17,11 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Attack from Mars 
 Dim TABLE_FILE          : TABLE_FILE          = "Attack from Mars (Bally 1995) g5k 1.3.11.vpx"
 
 Sub PatchTableCode(ByRef code)
+    ' Table bug: `.CreateEvents mMagnet` passes the cvpmMagnet object
+    ' instead of the string "mMagnet" (missing quotes — typo). See
+    ' the bench for the full explanation. Fix by supplying the
+    ' intended string name.
+    code = Replace(code, ".CreateEvents mMagnet", ".CreateEvents ""mMagnet""")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

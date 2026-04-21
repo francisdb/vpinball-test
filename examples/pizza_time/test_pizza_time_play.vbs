@@ -16,6 +16,10 @@ Dim TABLE_FILE          : TABLE_FILE          = "pizzatime-65.vpx"
 Sub PatchTableCode(ByRef code)
     ' Disable Orbital Scoreboard (needs network)
     code = Replace(code, "Const osbactive" & Chr(9) & Chr(9) & Chr(9) & "= 1", "Const osbactive" & Chr(9) & Chr(9) & Chr(9) & "= 0")
+    ' Table bug (same as AFM): `.CreateEvents mMagnet` passes the
+    ' cvpmMagnet object instead of the string "mMagnet" (missing
+    ' quotes — typo). Fix by supplying the intended string name.
+    code = Replace(code, ".CreateEvents mMagnet", ".CreateEvents ""mMagnet""")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

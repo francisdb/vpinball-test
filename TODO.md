@@ -85,6 +85,17 @@ stub's real Interval against whatever the test assumed.
   Also: `glf_flex_alphadmd.Segments` Nothing check (reported upstream:
   https://github.com/mpcarr/vpx-glf/issues/20).
 
+- **AFM + Pizza Time** — `.CreateEvents mMagnet` passes the
+  cvpmMagnet object instead of the string literal `"mMagnet"`
+  (missing quotes — typo). core.vbs splices the arg into
+  generated source (`Sub WobbleMagnet_Hit : <name>.AddBall … : End`)
+  so it must be the identifier string. vpmCheckEvent's
+  `On Error Resume Next` silently turns the mistake into "no
+  auto-event creation"; in real VPX this also fails, just
+  silently, and the Hit/UnHit handlers the call was meant to
+  create never exist. PatchTableCode in both tables rewrites
+  the call to supply the correct `"mMagnet"` string.
+
 
 ## Upstream Wine MRs pending
 
