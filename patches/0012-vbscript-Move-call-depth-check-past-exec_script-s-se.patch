@@ -1,0 +1,82 @@
+From 8e200db46ba245c2bb942eb46a13385fe797482c Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Mon, 27 Apr 2026 20:47:22 +0200
+Subject: [PATCH] vbscript: Move call_depth check past exec_script's setup
+ phase.
+
+The check was incremented at function entry but five early-return
+paths in the validation/allocation block skipped the matching
+decrement, leaking ctx->call_depth and eventually causing every
+later call to fail with VBSE_OUT_OF_STACK. Counting only after
+setup succeeds removes the leak by structure: a single decrement
+at the bottom always pairs with the single increment, and adding
+new early returns in the setup block can no longer desync it.
+---
+ dlls/vbscript/interp.c       | 14 +++++++++-----
+ dlls/vbscript/tests/lang.vbs | 18 ++++++++++++++++++
+ 2 files changed, 27 insertions(+), 5 deletions(-)
+
+diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
+index a71901a1d83..482b611dce0 100644
+--- a/dlls/vbscript/interp.c
++++ b/dlls/vbscript/interp.c
+@@ -2694,11 +2694,6 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
+     vbsop_t op;
+     HRESULT hres = S_OK;
+ 
+-    if(!extern_caller && ctx->call_depth++ >= max_call_depth) {
+-        ctx->call_depth--;
+-        return MAKE_VBSERROR(VBSE_OUT_OF_STACK);
+-    }
+-
+     exec.code = func->code_ctx;
+     exec.caller = ctx->caller_exec;
+     ctx->caller_exec = NULL;
+@@ -2759,6 +2754,15 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
+         return E_OUTOFMEMORY;
+     }
+ 
++    /* Recursion guard. Counted only once setup has succeeded so the
++     * single decrement at the bottom always pairs with this. Adding new
++     * early returns above this point can't desync the counter. */
++    if(!extern_caller && ctx->call_depth++ >= max_call_depth) {
++        ctx->call_depth--;
++        release_exec(&exec);
++        return MAKE_VBSERROR(VBSE_OUT_OF_STACK);
++    }
++
+     if(extern_caller)
+         IActiveScriptSite_OnEnterScript(ctx->site);
+ 
+diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
+index d139a2bf282..38b6db85542 100644
+--- a/dlls/vbscript/tests/lang.vbs
++++ b/dlls/vbscript/tests/lang.vbs
+@@ -3015,6 +3015,24 @@ RecurseForever
+ Call ok(Err.Number = 28, "infinite recursion: err.number = " & Err.Number)
+ On Error GoTo 0
+ 
++' Regression: early-return paths in exec_script must not leak
++' ctx->call_depth, otherwise a hot loop of arity-mismatch calls under
++' OERN saturates the limit and breaks every later call.
++Sub callDepthLeakProbe(a, b, c)
++End Sub
++Sub callDepthLeakSink()
++End Sub
++Dim callDepthLeakI
++On Error Resume Next
++For callDepthLeakI = 1 To 1100
++    Err.Clear
++    callDepthLeakProbe
++Next
++Err.Clear
++callDepthLeakSink
++Call ok(Err.Number = 0, "call_depth leak after arity-mismatch flood: err.number = " & Err.Number)
++On Error GoTo 0
++
+ function f2(x,y)
+ end function
+ 
+-- 
+2.53.0
+

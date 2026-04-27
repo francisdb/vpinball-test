@@ -189,6 +189,7 @@ have a branch that's intentionally not upstreamed.
 | 0009 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
 | 0010 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
 | 0011 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlayMusic, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
+| 0012 | `vbscript: Move call_depth check past exec_script's setup phase` | **[upstream]** | [`fix/vbscript-call-depth-leak`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10757) |
 
 Previously included patches now merged upstream:
 - `vbscript: Use indexed lookup for global functions/variables` — [MR !10546](https://gitlab.winehq.org/wine/wine/-/merge_requests/10546)
