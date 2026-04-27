@@ -1177,7 +1177,7 @@ Class VPinMAMEControllerStub
     Public Pause, TimeFence, IsPlugin
     Public SplashInfoLine, HandleKeyboard, ShowTitle, ShowDMDOnly
     Public ShowFrame, HandleMechanics, Hidden
-    Private mSwitch(128), mSolenoid(64), mLamp(256), mGI(8), mNVRAM(256), mSolMask(3)
+    Private mSwitch(128), mSolenoid(64), mLamp(256), mGI(8), mNVRAM(256), mSolMask(3), mMech(128)
 
     Public Property Let SolMask(num, val) : mSolMask(num) = val : End Property
     Public Property Get SolMask(num) : SolMask = mSolMask(num) : End Property
@@ -1185,6 +1185,7 @@ Class VPinMAMEControllerStub
     Public Property Get Switch(num) : Switch = mSwitch(num) : End Property
     Public Property Let Solenoid(num, val) : mSolenoid(num) = val : End Property
     Public Property Get Solenoid(num) : Solenoid = mSolenoid(num) : End Property
+    Public Property Let Mech(num, val) : mMech(num) = val : End Property
 
     Public Sub Run(hwnd) : End Sub
     Public Sub [Stop]() : End Sub
@@ -1232,7 +1233,7 @@ Class B2SServerStub
     Public Pause, TimeFence, IsPlugin
     Public SplashInfoLine, HandleKeyboard, ShowTitle, ShowDMDOnly
     Public ShowFrame, HandleMechanics, Hidden
-    Private mSwitch(128), mSolenoid(64), mLamp(256), mGI(8), mNVRAM(256), mSolMask(3)
+    Private mSwitch(128), mSolenoid(64), mLamp(256), mGI(8), mNVRAM(256), mSolMask(3), mMech(128)
 
     Public Property Let SolMask(num, val) : mSolMask(num) = val : End Property
     Public Property Get SolMask(num) : SolMask = mSolMask(num) : End Property
@@ -1240,6 +1241,7 @@ Class B2SServerStub
     Public Property Get Switch(num) : Switch = mSwitch(num) : End Property
     Public Property Let Solenoid(num, val) : mSolenoid(num) = val : End Property
     Public Property Get Solenoid(num) : Solenoid = mSolenoid(num) : End Property
+    Public Property Let Mech(num, val) : mMech(num) = val : End Property
 
     Public Sub Run(hwnd) : End Sub
     Public Sub [Stop]() : End Sub
