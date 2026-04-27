@@ -1,4 +1,4 @@
-From 71e3288d71c869bbc2bd35448dfc1d98d608423f Mon Sep 17 00:00:00 2001
+From 6c68f6e5670774c5f678f4669efdfcfddaa95297 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:40 +0200
 Subject: [PATCH 03/11] vbscript: Support assignment to chained array index
@@ -11,10 +11,10 @@ Subject: [PATCH 03/11] vbscript: Support assignment to chained array index
  4 files changed, 127 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/compile.c b/dlls/vbscript/compile.c
-index f75f039f0f7..745a690d9de 100644
+index 16e661c98ff..5c38a92ecb3 100644
 --- a/dlls/vbscript/compile.c
 +++ b/dlls/vbscript/compile.c
-@@ -1140,7 +1140,30 @@ static HRESULT compile_assignment(compile_ctx_t *ctx, expression_t *left, expres
+@@ -1164,7 +1164,30 @@ static HRESULT compile_assignment(compile_ctx_t *ctx, expression_t *left, expres
          break;
      case EXPR_CALL:
          call_expr = (call_expression_t*)left;
@@ -47,7 +47,7 @@ index f75f039f0f7..745a690d9de 100644
          break;
      default:
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 20a1b33eab3..281e6154231 100644
+index a71901a1d83..e4155d8e605 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
 @@ -791,7 +791,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
@@ -139,7 +139,7 @@ index 20a1b33eab3..281e6154231 100644
  {
      BSTR arg = ctx->instr->arg1.bstr;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 9550e5f4205..8c4e6ada9fe 100644
+index d17c6bc88ca..2c702a356a4 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
 @@ -2142,6 +2142,34 @@ x = Array(Array(3))

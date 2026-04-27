@@ -1,4 +1,4 @@
-From 8618bd51ac1dc6b20595f2931ca4e312239fb7f5 Mon Sep 17 00:00:00 2001
+From a1935e54c4595bc116d35f7b0672088ea82f4c0e Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:40 +0200
 Subject: [PATCH 01/11] vbscript: Implement GetLocale and SetLocale functions.
@@ -9,7 +9,7 @@ Subject: [PATCH 01/11] vbscript: Implement GetLocale and SetLocale functions.
  2 files changed, 98 insertions(+), 4 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 0a9258cf043..ea1460e278b 100644
+index b3eedd39c02..5b401885d2a 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
 @@ -2229,8 +2229,51 @@ static HRESULT Global_Second(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
@@ -66,7 +66,7 @@ index 0a9258cf043..ea1460e278b 100644
  }
  
  static HRESULT Global_DateValue(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
-@@ -3386,8 +3429,8 @@ static HRESULT Global_FormatPercent(BuiltinDisp *This, VARIANT *args, unsigned a
+@@ -3543,8 +3586,8 @@ static HRESULT Global_FormatPercent(BuiltinDisp *This, VARIANT *args, unsigned a
  
  static HRESULT Global_GetLocale(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
@@ -78,10 +78,10 @@ index 0a9258cf043..ea1460e278b 100644
  
  static HRESULT Global_FormatDateTime(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
 diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
-index 2a4f69f0f59..91b4bd10bb6 100644
+index d6424b3bf94..4e62e7655d3 100644
 --- a/dlls/vbscript/tests/api.vbs
 +++ b/dlls/vbscript/tests/api.vbs
-@@ -2794,4 +2794,55 @@ end sub
+@@ -2901,4 +2901,55 @@ end sub
  
  call testFilterError()
  

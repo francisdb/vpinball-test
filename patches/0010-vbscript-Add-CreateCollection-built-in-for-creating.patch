@@ -1,4 +1,4 @@
-From 3597fc777c4f66beae94c379bfcd61bd97159134 Mon Sep 17 00:00:00 2001
+From 829ec4d7e404b13e6ba0f38c3a5d39ad8474670e Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 10/11] vbscript: Add CreateCollection built-in for creating
@@ -11,10 +11,10 @@ Subject: [PATCH 10/11] vbscript: Add CreateCollection built-in for creating
  4 files changed, 395 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 7c9d77052c5..0b68463743a 100644
+index e73137ca854..bccfe5e65a9 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4003,6 +4003,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4212,6 +4212,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -40,7 +40,7 @@ index 7c9d77052c5..0b68463743a 100644
  static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      named_item_t *item;
-@@ -4112,6 +4131,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4321,6 +4340,7 @@ static const builtin_prop_t global_props[] = {
      {L"CInt",                      Global_CInt, 0, 1},
      {L"CLng",                      Global_CLng, 0, 1},
      {L"Cos",                       Global_Cos, 0, 1},
@@ -49,10 +49,10 @@ index 7c9d77052c5..0b68463743a 100644
      {L"CSng",                      Global_CSng, 0, 1},
      {L"CStr",                      Global_CStr, 0, 1},
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index 180b1619579..0db1e9462de 100644
+index e02da55b23a..babdd23746b 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -3649,4 +3649,64 @@ Call ok(Err.Number = 506, "New non-class variable: err.number = " & Err.Number)
+@@ -3789,4 +3789,64 @@ Call ok(Err.Number = 506, "New non-class variable: err.number = " & Err.Number)
  
  On Error GoTo 0
  

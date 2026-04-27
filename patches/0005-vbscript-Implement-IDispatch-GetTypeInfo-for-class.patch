@@ -1,4 +1,4 @@
-From 616765b49bbb42b1eaba49e18fbbe4a2d41d4883 Mon Sep 17 00:00:00 2001
+From 73b393b02248a7b2bc03b6f890c2146747d0460c Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 05/11] vbscript: Implement IDispatch::GetTypeInfo for class
@@ -10,7 +10,7 @@ Subject: [PATCH 05/11] vbscript: Implement IDispatch::GetTypeInfo for class
  3 files changed, 822 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
-index 91b4bd10bb6..58d35393a61 100644
+index 4e62e7655d3..7b063e76ce3 100644
 --- a/dlls/vbscript/tests/api.vbs
 +++ b/dlls/vbscript/tests/api.vbs
 @@ -1711,6 +1711,17 @@ Dim regex

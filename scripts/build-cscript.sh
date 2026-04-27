@@ -14,7 +14,7 @@ set -euo pipefail
 # Pinned upstream Wine revision. Our patches depend on commits that are
 # only in master, notably vbs_wcsicmp. Override with WINE_REV=<sha> if
 # needed.
-WINE_REV="${WINE_REV:-96d5f4d0eaf662cac8300511808cead0eedfdf66}"
+WINE_REV="${WINE_REV:-4ec09e2940b55f0fbfa5763f073187bdc1b61896}"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD_DIR="${BUILD_DIR:-$REPO_ROOT/build}"
 WINE_SRC="$BUILD_DIR/wine-src"

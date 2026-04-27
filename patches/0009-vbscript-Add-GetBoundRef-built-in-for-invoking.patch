@@ -1,4 +1,4 @@
-From b9958ce62a7154e251677a60cf2774e46ba01728 Mon Sep 17 00:00:00 2001
+From e3cd28c96416798a57eb6cb930fafd1b5288cb56 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 09/11] vbscript: Add GetBoundRef built-in for invoking
@@ -11,10 +11,10 @@ Subject: [PATCH 09/11] vbscript: Add GetBoundRef built-in for invoking
  4 files changed, 100 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index d6638d4b60d..7c9d77052c5 100644
+index 3554d142065..e73137ca854 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4003,7 +4003,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4212,7 +4212,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -88,7 +88,7 @@ index d6638d4b60d..7c9d77052c5 100644
  {
      TRACE("\n");
  
-@@ -4070,6 +4135,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4279,6 +4344,7 @@ static const builtin_prop_t global_props[] = {
      {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
      {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
      {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},
@@ -180,7 +180,7 @@ index f5f410cf3b3..c036d5223f0 100644
  
  HRESULT to_int(VARIANT*,int*);
 diff --git a/dlls/vbscript/vbscript_defs.h b/dlls/vbscript/vbscript_defs.h
-index 610c4f54b15..c342b36fd86 100644
+index d4ebc29d4b8..5e8917d8041 100644
 --- a/dlls/vbscript/vbscript_defs.h
 +++ b/dlls/vbscript/vbscript_defs.h
 @@ -210,6 +210,7 @@

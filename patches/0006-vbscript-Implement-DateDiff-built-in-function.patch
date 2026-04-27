@@ -1,4 +1,4 @@
-From e939ee220a75d60337faa4373d99475cf9f9eb6d Mon Sep 17 00:00:00 2001
+From 52cda126c16a3deff9f09b58b82cd82ec8923433 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 06/11] vbscript: Implement DateDiff built-in function.
@@ -9,7 +9,7 @@ Subject: [PATCH 06/11] vbscript: Implement DateDiff built-in function.
  2 files changed, 294 insertions(+), 3 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index ea1460e278b..d6638d4b60d 100644
+index 5b401885d2a..3554d142065 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
 @@ -2546,10 +2546,157 @@ static HRESULT Global_DateAdd(BuiltinDisp *This, VARIANT *args, unsigned args_cn
@@ -172,14 +172,14 @@ index ea1460e278b..d6638d4b60d 100644
 +    return return_int(res, result);
  }
  
- static HRESULT Global_DatePart(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
+ static HRESULT Global_DatePart(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
 diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
-index 58d35393a61..bfc8ea6966f 100644
+index 7b063e76ce3..60c373de791 100644
 --- a/dlls/vbscript/tests/api.vbs
 +++ b/dlls/vbscript/tests/api.vbs
-@@ -2406,6 +2406,150 @@ call testDateAdd(DateSerial(2000, 1, 1), "ww", -1, DateSerial(1999, 12, 25))
- call testDateAdd(DateSerial(2000, 1, 1), "Ww", -1, DateSerial(1999, 12, 25))
- call testDateAddError()
+@@ -2513,6 +2513,150 @@ end sub
+ 
+ call testDatePartError()
  
 +sub testDateDiff(interval, d1, d2, expected)
 +    dim x
