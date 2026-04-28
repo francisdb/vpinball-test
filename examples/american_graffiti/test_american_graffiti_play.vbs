@@ -25,6 +25,14 @@ Sub PatchTableCode(ByRef code)
     ' exist — rewrite the 2 sites to plain concat.
     code = Replace(code, "musicdirectory(""AG"")", "MusicDirectory & ""AG"" & ""\""")
     code = Replace(code, "musicdirectory(""AGSounds"")", "MusicDirectory & ""AGSounds"" & ""\""")
+    ' Table bug surfaced by wine commit 0df8488bb36 (vbscript: convert
+    ' string to number for comparison operators): clearSongList sets
+    ' songList(x) = "" but checkSongNumber compares songList(x) =
+    ' songNumber (a number). "" can't convert to a number, so every
+    ' tick after clearSongList raises type mismatch (80020005). Use 0
+    ' as the sentinel — songNumber = INT(25 * RND(1)) so 0 is a valid
+    ' value the table already handles.
+    code = Replace(code, "songList(x) = """"", "songList(x) = 0")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

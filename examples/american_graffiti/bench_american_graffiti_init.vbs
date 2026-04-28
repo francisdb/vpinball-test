@@ -21,6 +21,11 @@ Sub PatchTableCode(ByRef code)
     ' as a callable. Rewrite the 2 call sites into plain string concat.
     code = Replace(code, "musicdirectory(""AG"")", "MusicDirectory & ""AG"" & ""\""")
     code = Replace(code, "musicdirectory(""AGSounds"")", "MusicDirectory & ""AGSounds"" & ""\""")
+    ' Table bug surfaced by wine commit 0df8488bb36 (vbscript: convert
+    ' string to number for comparison): clearSongList sets songList(x)
+    ' = "" but checkSongNumber compares it against a number. Use 0 as
+    ' the sentinel — songNumber is INT(25 * RND(1)) so 0 is valid.
+    code = Replace(code, "songList(x) = """"", "songList(x) = 0")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
