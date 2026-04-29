@@ -188,9 +188,9 @@ have a branch that's intentionally not upstreamed.
 | 0008 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
 | 0009 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
 | 0010 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlayMusic, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
-| 0011 | `vbscript: Move call_depth check past exec_script's setup phase` | **[upstream]** | [`fix/vbscript-call-depth-leak`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10757) |
 
 Previously included patches now merged upstream:
+- `vbscript: Move call_depth check past exec_script's setup phase` — [MR !10757](https://gitlab.winehq.org/wine/wine/-/merge_requests/10757)
 - `vbscript: Fix Sub first argument parentheses handling` — [MR !10692](https://gitlab.winehq.org/wine/wine/-/merge_requests/10692) ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177))
 - `vbscript: Use indexed lookup for global functions/variables` — [MR !10546](https://gitlab.winehq.org/wine/wine/-/merge_requests/10546)
 - `wscript: Implement error messages, usage output, and //nologo banner` — [MR !10518](https://gitlab.winehq.org/wine/wine/-/merge_requests/10518)
