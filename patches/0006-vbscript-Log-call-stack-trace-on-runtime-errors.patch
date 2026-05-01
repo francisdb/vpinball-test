@@ -1,17 +1,17 @@
-From fb998a28ab6601a2655c01bce44a123fb6ea64f0 Mon Sep 17 00:00:00 2001
+From 3301bd345972a09857704bd9179eabb88430a62a Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
-Subject: [PATCH 08/11] vbscript: Log call stack trace on runtime errors.
+Subject: [PATCH 6/9] vbscript: Log call stack trace on runtime errors.
 
 ---
  dlls/vbscript/interp.c | 13 +++++++++++++
  1 file changed, 13 insertions(+)
 
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 672ecc237ab..7bf290f8a2c 100644
+index 72e87a7c684..7e7e9c8aecc 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
-@@ -2902,9 +2902,22 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
+@@ -2934,9 +2934,22 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
                  continue;
              }else {
                  if(!ctx->error_loc_code) {
@@ -35,5 +35,5 @@ index 672ecc237ab..7bf290f8a2c 100644
                  stack_popn(&exec, exec.top);
                  break;
 -- 
-2.53.0
+2.54.0
 

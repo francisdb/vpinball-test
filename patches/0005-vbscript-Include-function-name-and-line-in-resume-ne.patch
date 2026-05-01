@@ -1,17 +1,17 @@
-From d37fcdbb1e09b33a1301cb1d5fa53c69b4a13d9b Mon Sep 17 00:00:00 2001
+From 45560c8abee000b3f0e5fcedd2e34ca8e2039309 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
-Subject: [PATCH 07/11] vbscript: Include function name and line in resume-next
+Subject: [PATCH 5/9] vbscript: Include function name and line in resume-next
 
 ---
  dlls/vbscript/interp.c | 7 ++++++-
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index e4155d8e605..672ecc237ab 100644
+index 1bbcd7e0000..72e87a7c684 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
-@@ -2864,8 +2864,13 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
+@@ -2896,8 +2896,13 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
  
              if(exec.resume_next) {
                  unsigned stack_off;
@@ -27,5 +27,5 @@ index e4155d8e605..672ecc237ab 100644
                  /*
                   * Unwinding here is simple. We need to find the next OP_catch, which contains
 -- 
-2.53.0
+2.54.0
 

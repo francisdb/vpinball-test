@@ -1,17 +1,17 @@
-From b972e049abd235b022138b505c9d333b82548134 Mon Sep 17 00:00:00 2001
+From 02d7d7f3b652ee71920aaed529aecfff820aba86 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
-Subject: [PATCH 11/11] test: Add variadic builtins for stubbing VPX host APIs
+Subject: [PATCH 9/9] test: Add variadic builtins for stubbing VPX host APIs
 
 ---
  dlls/vbscript/global.c | 9 +++++++++
  1 file changed, 9 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index bccfe5e65a9..2705824c045 100644
+index fba7d9d218b..9a1289f4d47 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4212,6 +4212,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4346,6 +4346,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -23,7 +23,7 @@ index bccfe5e65a9..2705824c045 100644
  static HRESULT Global_CreateCollection(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      IDispatch *disp;
-@@ -4397,8 +4402,11 @@ static const builtin_prop_t global_props[] = {
+@@ -4531,8 +4536,11 @@ static const builtin_prop_t global_props[] = {
      {L"Month",                     Global_Month, 0, 1},
      {L"MonthName",                 Global_MonthName, 0, 1, 2},
      {L"MsgBox",                    Global_MsgBox, 0, 1, 5},
@@ -35,7 +35,7 @@ index bccfe5e65a9..2705824c045 100644
      {L"Randomize",                 Global_Randomize, 0, 0, 1},
      {L"Replace",                   Global_Replace, 0, 3, 6},
      {L"RGB",                       Global_RGB, 0, 3},
-@@ -4418,6 +4426,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4552,6 +4560,7 @@ static const builtin_prop_t global_props[] = {
      {L"Space",                     Global_Space, 0, 1},
      {L"Split",                     Global_Split, 0, 1, 4},
      {L"Sqr",                       Global_Sqr, 0, 1},
@@ -44,5 +44,5 @@ index bccfe5e65a9..2705824c045 100644
      {L"String",                    Global_String, 0, 0, 2},
      {L"StrReverse",                Global_StrReverse, 0, 1},
 -- 
-2.53.0
+2.54.0
 

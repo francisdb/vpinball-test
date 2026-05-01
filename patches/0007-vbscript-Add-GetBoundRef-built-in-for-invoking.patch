@@ -1,7 +1,7 @@
-From e3cd28c96416798a57eb6cb930fafd1b5288cb56 Mon Sep 17 00:00:00 2001
+From deef07c56d3bc952b08cdfc50588c0cc6d9c2012 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
-Subject: [PATCH 09/11] vbscript: Add GetBoundRef built-in for invoking
+Subject: [PATCH 7/9] vbscript: Add GetBoundRef built-in for invoking
 
 ---
  dlls/vbscript/global.c        | 68 ++++++++++++++++++++++++++++++++++-
@@ -11,10 +11,10 @@ Subject: [PATCH 09/11] vbscript: Add GetBoundRef built-in for invoking
  4 files changed, 100 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 3554d142065..e73137ca854 100644
+index 31b01db5af6..e33045227bd 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4212,7 +4212,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4346,7 +4346,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -88,7 +88,7 @@ index 3554d142065..e73137ca854 100644
  {
      TRACE("\n");
  
-@@ -4279,6 +4344,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4413,6 +4478,7 @@ static const builtin_prop_t global_props[] = {
      {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
      {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
      {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},
@@ -167,7 +167,7 @@ index 688f0bb5b35..91d36deac23 100644
      function_t *func;
      MEMBERID memid;
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index f5f410cf3b3..c036d5223f0 100644
+index 0241f737aba..047e93e90ca 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
 @@ -176,6 +176,8 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);
@@ -192,5 +192,5 @@ index d4ebc29d4b8..5e8917d8041 100644
  #define DISPID_ERR_DESCRIPTION  0
  #define DISPID_ERR_HELPCONTEXT  1
 -- 
-2.53.0
+2.54.0
 

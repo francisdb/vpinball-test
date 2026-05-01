@@ -1,7 +1,7 @@
-From 6c68f6e5670774c5f678f4669efdfcfddaa95297 Mon Sep 17 00:00:00 2001
+From 46be11197e521c4a5870dc6fbe9e6e5d6d6ca0ec Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:40 +0200
-Subject: [PATCH 03/11] vbscript: Support assignment to chained array index
+Subject: [PATCH 1/9] vbscript: Support assignment to chained array index
 
 ---
  dlls/vbscript/compile.c      | 25 +++++++++++-
@@ -47,7 +47,7 @@ index 16e661c98ff..5c38a92ecb3 100644
          break;
      default:
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index a71901a1d83..e4155d8e605 100644
+index 51099e67d0e..1bbcd7e0000 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
 @@ -791,7 +791,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
@@ -139,10 +139,10 @@ index a71901a1d83..e4155d8e605 100644
  {
      BSTR arg = ctx->instr->arg1.bstr;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index d17c6bc88ca..2c702a356a4 100644
+index d66e52e8e3a..a4f9ced72f6 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -2142,6 +2142,34 @@ x = Array(Array(3))
+@@ -2177,6 +2177,34 @@ x = Array(Array(3))
  seta0 (x(0))
  call ok(x(0)(0) = 3, "x(0)(0) = " & x(0)(0))
  
@@ -178,10 +178,10 @@ index d17c6bc88ca..2c702a356a4 100644
  ok y = 1, "y = " & y
  
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index e9eae6b5819..f5f410cf3b3 100644
+index e9b76b6cda8..0241f737aba 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
-@@ -251,6 +251,7 @@ typedef enum {
+@@ -253,6 +253,7 @@ typedef enum {
      X(and,            1, 0,           0)          \
      X(assign_ident,   1, ARG_BSTR,    ARG_UINT)   \
      X(assign_member,  1, ARG_BSTR,    ARG_UINT)   \
@@ -189,7 +189,7 @@ index e9eae6b5819..f5f410cf3b3 100644
      X(bool,           1, ARG_INT,     0)          \
      X(catch,          1, ARG_ADDR,    ARG_UINT)   \
      X(case,           0, ARG_ADDR,    0)          \
-@@ -305,6 +306,7 @@ typedef enum {
+@@ -307,6 +308,7 @@ typedef enum {
      X(retval,         1, 0,           0)          \
      X(set_ident,      1, ARG_BSTR,    ARG_UINT)   \
      X(set_member,     1, ARG_BSTR,    ARG_UINT)   \
@@ -198,5 +198,5 @@ index e9eae6b5819..f5f410cf3b3 100644
      X(step,           0, ARG_ADDR,    ARG_BSTR)   \
      X(stop,           1, 0,           0)          \
 -- 
-2.53.0
+2.54.0
 

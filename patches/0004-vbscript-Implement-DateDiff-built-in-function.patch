@@ -1,7 +1,7 @@
-From 52cda126c16a3deff9f09b58b82cd82ec8923433 Mon Sep 17 00:00:00 2001
+From 9439438bec9a8bd319ab231684baa0242c4ad72d Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
-Subject: [PATCH 06/11] vbscript: Implement DateDiff built-in function.
+Subject: [PATCH 4/9] vbscript: Implement DateDiff built-in function.
 
 ---
  dlls/vbscript/global.c      | 153 +++++++++++++++++++++++++++++++++++-
@@ -9,10 +9,10 @@ Subject: [PATCH 06/11] vbscript: Implement DateDiff built-in function.
  2 files changed, 294 insertions(+), 3 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 5b401885d2a..3554d142065 100644
+index cb2d554cccf..31b01db5af6 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -2546,10 +2546,157 @@ static HRESULT Global_DateAdd(BuiltinDisp *This, VARIANT *args, unsigned args_cn
+@@ -2538,10 +2538,157 @@ static HRESULT Global_DateAdd(BuiltinDisp *This, VARIANT *args, unsigned args_cn
      return hres;
  }
  
@@ -51,7 +51,7 @@ index 5b401885d2a..3554d142065 100644
 +    if(V_VT(args + 1) == VT_NULL || V_VT(args + 2) == VT_NULL)
 +        return return_null(res);
 +
-+    hres = to_string(args, &interval);
++    hres = to_string(This->ctx->lcid, args, &interval);
 +    if(FAILED(hres))
 +        return hres;
 +
@@ -329,5 +329,5 @@ index 7b063e76ce3..60c373de791 100644
      dim x, x2
      x = Weekday(d, firstday)
 -- 
-2.53.0
+2.54.0
 

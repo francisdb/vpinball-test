@@ -1,7 +1,7 @@
-From 829ec4d7e404b13e6ba0f38c3a5d39ad8474670e Mon Sep 17 00:00:00 2001
+From c7ee85dd5465bd4dcde635ec35b203dc489edd9c Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
-Subject: [PATCH 10/11] vbscript: Add CreateCollection built-in for creating
+Subject: [PATCH 8/9] vbscript: Add CreateCollection built-in for creating
 
 ---
  dlls/vbscript/global.c       |  20 +++
@@ -11,10 +11,10 @@ Subject: [PATCH 10/11] vbscript: Add CreateCollection built-in for creating
  4 files changed, 395 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index e73137ca854..bccfe5e65a9 100644
+index e33045227bd..fba7d9d218b 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4212,6 +4212,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4346,6 +4346,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -40,7 +40,7 @@ index e73137ca854..bccfe5e65a9 100644
  static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      named_item_t *item;
-@@ -4321,6 +4340,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4455,6 +4474,7 @@ static const builtin_prop_t global_props[] = {
      {L"CInt",                      Global_CInt, 0, 1},
      {L"CLng",                      Global_CLng, 0, 1},
      {L"Cos",                       Global_Cos, 0, 1},
@@ -49,12 +49,12 @@ index e73137ca854..bccfe5e65a9 100644
      {L"CSng",                      Global_CSng, 0, 1},
      {L"CStr",                      Global_CStr, 0, 1},
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index e02da55b23a..babdd23746b 100644
+index e48675e0e7c..7cfa7e0b0cd 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -3789,4 +3789,64 @@ Call ok(Err.Number = 506, "New non-class variable: err.number = " & Err.Number)
- 
- On Error GoTo 0
+@@ -3897,4 +3897,64 @@ Call ok(dateErr <> 0, "Day(""15.03.2026"") en-US should error: err=" & dateErr)
+ Call SetLocale(origLcid)
+ Call ok(GetLocale() = origLcid, "restore: GetLocale = " & GetLocale())
  
 +' CreateCollection tests
 +Dim coll
@@ -443,7 +443,7 @@ index 91d36deac23..dbfbac5525c 100644
      function_t *func;
      MEMBERID memid;
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index c036d5223f0..bde999415ad 100644
+index 047e93e90ca..ceed8dbb0d1 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
 @@ -177,6 +177,7 @@ void collect_objects(script_ctx_t*);
@@ -455,5 +455,5 @@ index c036d5223f0..bde999415ad 100644
  function_t *script_disp_find_func(ScriptDisp*,const WCHAR*);
  
 -- 
-2.53.0
+2.54.0
 

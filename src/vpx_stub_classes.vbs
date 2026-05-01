@@ -779,11 +779,9 @@ End Class
 ' Signatures from vpinball.idl
 ' ---------------------------------------------------------------------------
 
-' PlaySound and StopSound are registered as variadic builtins in
-' patch 0006, matching real VPX's host API (optional positional args).
+' PlaySound, StopSound, and PlayMusic are registered as variadic builtins
+' in patch 0009, matching real VPX's host API (optional positional args).
 ' No VBScript Sub stubs needed.
-' PlayMusic is registered as a variadic builtin in patch 0010,
-' same as PlaySound/StopSound. No VBScript Sub stub needed.
 Sub StopMusic() : End Sub
 Sub EndMusic() : End Sub
 Sub MusicVolume(vol) : End Sub

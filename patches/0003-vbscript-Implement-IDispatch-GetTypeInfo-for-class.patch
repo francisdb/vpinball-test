@@ -1,7 +1,7 @@
-From 73b393b02248a7b2bc03b6f890c2146747d0460c Mon Sep 17 00:00:00 2001
+From dc94728e2b414d29bab662086b481686277f1895 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
-Subject: [PATCH 05/11] vbscript: Implement IDispatch::GetTypeInfo for class
+Subject: [PATCH 3/9] vbscript: Implement IDispatch::GetTypeInfo for class
 
 ---
  dlls/vbscript/tests/api.vbs    |  11 +
@@ -878,5 +878,5 @@ index 818c1805592..688f0bb5b35 100644
  
  static HRESULT WINAPI DispatchEx_GetIDsOfNames(IDispatchEx *iface, REFIID riid,
 -- 
-2.53.0
+2.54.0
 
