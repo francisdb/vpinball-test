@@ -187,14 +187,6 @@ have a branch that's intentionally not upstreamed.
 | 0007 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
 | 0008 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlayMusic, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
 
-Previously included patches now merged upstream:
-- `vbscript: Support element access on public array properties of class instances` — [MR !10383](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383)
-- `vbscript: Implement GetLocale and SetLocale functions` — [MR !10504](https://gitlab.winehq.org/wine/wine/-/merge_requests/10504)
-- `vbscript: Move call_depth check past exec_script's setup phase` — [MR !10757](https://gitlab.winehq.org/wine/wine/-/merge_requests/10757)
-- `vbscript: Fix Sub first argument parentheses handling` — [MR !10692](https://gitlab.winehq.org/wine/wine/-/merge_requests/10692) ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177))
-- `vbscript: Use indexed lookup for global functions/variables` — [MR !10546](https://gitlab.winehq.org/wine/wine/-/merge_requests/10546)
-- `wscript: Implement error messages, usage output, and //nologo banner` — [MR !10518](https://gitlab.winehq.org/wine/wine/-/merge_requests/10518)
-
 What each one unlocks for the framework:
 
 - **GetBoundRef** — lets the framework bind `Me` when invoking
