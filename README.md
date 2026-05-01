@@ -83,7 +83,7 @@ scripts/
 
 `run-bench.sh` defaults to `WINEDEBUG=-all,warn+vbscript`, which silences
 Wine chatter except for `warn:vbscript:` messages. That channel is where
-patches 0005 / 0006 emit the runtime-error call trace — error code,
+patches 0004 / 0005 emit the runtime-error call trace — error code,
 function name, line, and caller chain — which is the fastest way to turn
 an opaque `Microsoft VBScript runtime error: ...` line into something
 actionable. Example:
@@ -179,16 +179,16 @@ have a branch that's intentionally not upstreamed.
 | # | Patch | Status | Branch / MR |
 |---|---|---|---|
 | 0001 | `vbscript: Support assignment to chained array index expressions` | **[upstream]** | [`fix/vbscript-chained-array-assign`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10363) ([wine bug 53877](https://bugs.winehq.org/show_bug.cgi?id=53877)) |
-| 0002 | `vbscript: Support element access on public array properties of class instances` | **[upstream]** | [`fix/vbscript-class-array-element-access`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383) |
-| 0003 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
-| 0004 | `vbscript: Implement DateDiff built-in function` | **[upstream]** | [`fix/vbscript-datediff`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10459) |
-| 0005 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
-| 0006 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft — same rationale as 0005, diagnostic-only) |
-| 0007 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
-| 0008 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
-| 0009 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlayMusic, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
+| 0002 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
+| 0003 | `vbscript: Implement DateDiff built-in function` | **[upstream]** | [`fix/vbscript-datediff`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10459) |
+| 0004 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
+| 0005 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft — same rationale as 0004, diagnostic-only) |
+| 0006 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
+| 0007 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
+| 0008 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlayMusic, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
 
 Previously included patches now merged upstream:
+- `vbscript: Support element access on public array properties of class instances` — [MR !10383](https://gitlab.winehq.org/wine/wine/-/merge_requests/10383)
 - `vbscript: Implement GetLocale and SetLocale functions` — [MR !10504](https://gitlab.winehq.org/wine/wine/-/merge_requests/10504)
 - `vbscript: Move call_depth check past exec_script's setup phase` — [MR !10757](https://gitlab.winehq.org/wine/wine/-/merge_requests/10757)
 - `vbscript: Fix Sub first argument parentheses handling` — [MR !10692](https://gitlab.winehq.org/wine/wine/-/merge_requests/10692) ([wine bug 54177](https://bugs.winehq.org/show_bug.cgi?id=54177))
@@ -253,7 +253,7 @@ What each one unlocks for the framework:
     called from L"Wrapper", line 2
     called from <global>, line 16
   ```
-  Combined with patch 0005, this turns anonymous `Failed …`
+  Combined with patch 0004, this turns anonymous `Failed …`
   warnings into diagnosable bug reports.
 - **Chained array-index assignment (bug 53877)** — master doesn't
   support `x(0)(1) = value` where the outer call is on the result

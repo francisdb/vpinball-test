@@ -780,7 +780,7 @@ End Class
 ' ---------------------------------------------------------------------------
 
 ' PlaySound, StopSound, and PlayMusic are registered as variadic builtins
-' in patch 0009, matching real VPX's host API (optional positional args).
+' in patch 0008, matching real VPX's host API (optional positional args).
 ' No VBScript Sub stubs needed.
 Sub StopMusic() : End Sub
 Sub EndMusic() : End Sub
