@@ -20,6 +20,7 @@
 #define COBJMACROS
 #define INITGUID
 
+#define _GNU_SOURCE
 #include "libwinevbs.h"
 #include <oleauto.h>
 #include <stdio.h>
@@ -34,11 +35,15 @@ DEFINE_GUID(CLSID_VBScript, 0xb54f3741, 0x5b07, 0x11cf, 0xa4, 0xb0, 0x0, 0xaa, 0
 #define ASP_InitNew         IActiveScriptParse64_InitNew
 #define ASP_ParseScriptText IActiveScriptParse64_ParseScriptText
 
-#define DISPID_WSCRIPT_ECHO 1
-#define DISPID_WSCRIPT_QUIT 2
+#define DISPID_WSCRIPT_ECHO            1
+#define DISPID_WSCRIPT_QUIT            2
+#define DISPID_WSCRIPT_SCRIPTFULLNAME  3
+#define DISPID_WSCRIPT_SCRIPTNAME      4
 
 static int g_exit_code = 0;
 static int g_quit_requested = 0;
+static WCHAR g_script_fullname[4096];
+static WCHAR g_script_name[1024];
 
 static void log_callback(libwinevbs_log_level_t level, const char* format, va_list args)
 {
@@ -81,6 +86,8 @@ static HRESULT WINAPI WScript_GetIDsOfNames(IDispatch* iface, REFIID riid, LPOLE
     for (UINT i = 0; i < count; i++) {
         if (wcscmp(names[i], L"Echo") == 0) ids[i] = DISPID_WSCRIPT_ECHO;
         else if (wcscmp(names[i], L"Quit") == 0) ids[i] = DISPID_WSCRIPT_QUIT;
+        else if (wcscmp(names[i], L"ScriptFullName") == 0) ids[i] = DISPID_WSCRIPT_SCRIPTFULLNAME;
+        else if (wcscmp(names[i], L"ScriptName") == 0) ids[i] = DISPID_WSCRIPT_SCRIPTNAME;
         else return DISP_E_UNKNOWNNAME;
     }
     return S_OK;
@@ -116,6 +123,16 @@ static HRESULT WINAPI WScript_Invoke(IDispatch* iface, DISPID id, REFIID riid, L
         g_quit_requested = 1;
         /* Cleanest way to stop a running script from a host call. */
         return SCRIPT_E_REPORTED;
+    }
+    if (id == DISPID_WSCRIPT_SCRIPTFULLNAME && result) {
+        V_VT(result) = VT_BSTR;
+        V_BSTR(result) = SysAllocString(g_script_fullname);
+        return S_OK;
+    }
+    if (id == DISPID_WSCRIPT_SCRIPTNAME && result) {
+        V_VT(result) = VT_BSTR;
+        V_BSTR(result) = SysAllocString(g_script_name);
+        return S_OK;
     }
     return DISP_E_MEMBERNOTFOUND;
 }
@@ -168,6 +185,12 @@ static HRESULT WINAPI Site_OnStateChange(IActiveScriptSite* iface, SCRIPTSTATE s
 static HRESULT WINAPI Site_OnScriptError(IActiveScriptSite* iface, IActiveScriptError* err)
 {
     (void)iface;
+    /* Quit raises SCRIPT_E_REPORTED to unwind the script; the engine
+     * surfaces that here as an "error". Swallow it -- the host already
+     * knows the script asked to quit. */
+    if (g_quit_requested)
+        return S_OK;
+
     EXCEPINFO ei = { 0 };
     DWORD ctx = 0;
     ULONG line = 0;
@@ -242,6 +265,21 @@ int main(int argc, char** argv)
     ASP_InitNew(parser);
     IActiveScript_AddNamedItem(engine, L"WScript", SCRIPTITEM_ISVISIBLE);
     IActiveScript_SetScriptState(engine, SCRIPTSTATE_STARTED);
+
+    /* Populate WScript.ScriptFullName / ScriptName from argv. We pass the
+     * path through unchanged -- callers see whatever form they handed in
+     * (relative or absolute), matching cscript behaviour closely enough
+     * for the framework's ScriptFullName-derived path math to work. */
+    {
+        char abspath[4096];
+        const char* full = realpath(argv[1], abspath) ? abspath : argv[1];
+        MultiByteToWideChar(CP_UTF8, 0, full, -1, g_script_fullname,
+                            sizeof(g_script_fullname) / sizeof(WCHAR));
+        const char* base = strrchr(full, '/');
+        base = base ? base + 1 : full;
+        MultiByteToWideChar(CP_UTF8, 0, base, -1, g_script_name,
+                            sizeof(g_script_name) / sizeof(WCHAR));
+    }
 
     WCHAR* code = slurp_utf16(argv[1]);
     if (!code) { libwinevbs_shutdown(); return 1; }
