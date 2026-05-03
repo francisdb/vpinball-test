@@ -1,0 +1,399 @@
+From 9ec0d48da6c424924e284eec86b242d853ba9c1f Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Fri, 17 Apr 2026 22:11:41 +0200
+Subject: [PATCH] vbscript: Add CreateCollection built-in for creating COM
+ collection objects
+
+Test-only builtin used by the vpinball-test framework to construct
+generic COM collections (For Each iterable, indexed by integer, has
+.Count) from a variadic arg list. Mirrors the wine patch carried in
+the same project's wine patch series; never going upstream because
+real VBScript has no such builtin.
+
+Adds Global_CreateCollection in global.c (registered with arity 0..MAXDWORD),
+the Collection IDispatch implementation in vbdisp.c, and the
+create_collection prototype in vbscript.h.
+---
+ wine/dlls/vbscript/global.c   |  20 +++
+ wine/dlls/vbscript/vbdisp.c   | 314 ++++++++++++++++++++++++++++++++++
+ wine/dlls/vbscript/vbscript.h |   1 +
+ 3 files changed, 335 insertions(+)
+
+diff --git a/wine/dlls/vbscript/global.c b/wine/dlls/vbscript/global.c
+index 8bf90ca..88f275b 100644
+--- a/wine/dlls/vbscript/global.c
++++ b/wine/dlls/vbscript/global.c
+@@ -4667,6 +4667,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+     return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
+ }
+ 
++static HRESULT Global_CreateCollection(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
++{
++    IDispatch *disp;
++    HRESULT hres;
++
++    TRACE("\n");
++
++    if(!res)
++        return S_OK;
++
++    hres = create_collection(args, args_cnt, &disp);
++    if(FAILED(hres))
++        return hres;
++
++    V_VT(res) = VT_DISPATCH;
++    V_DISPATCH(res) = disp;
++    return S_OK;
++}
++
+ static HRESULT Global_Err(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
+ {
+     TRACE("\n");
+@@ -4711,6 +4730,7 @@ static const builtin_prop_t global_props[] = {
+     {L"CInt",                      Global_CInt, 0, 1},
+     {L"CLng",                      Global_CLng, 0, 1},
+     {L"Cos",                       Global_Cos, 0, 1},
++    {L"CreateCollection",          Global_CreateCollection, 0, 0, MAXDWORD},
+     {L"CreateObject",              Global_CreateObject, 0, 1},
+     {L"CSng",                      Global_CSng, 0, 1},
+     {L"CStr",                      Global_CStr, 0, 1},
+diff --git a/wine/dlls/vbscript/vbdisp.c b/wine/dlls/vbscript/vbdisp.c
+index db719a3..0598e79 100644
+--- a/wine/dlls/vbscript/vbdisp.c
++++ b/wine/dlls/vbscript/vbdisp.c
+@@ -947,6 +947,320 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
+     return S_OK;
+ }
+ 
++/* Collection object - generic COM collection supporting For Each, indexed access, and Count */
++
++#define COLLECTION_DISPID_COUNT 1
++#define COLLECTION_DISPID_ITEM  2
++
++typedef struct {
++    IDispatch IDispatch_iface;
++    LONG ref;
++    VARIANT *items;
++    unsigned count;
++} Collection;
++
++typedef struct {
++    IEnumVARIANT IEnumVARIANT_iface;
++    LONG ref;
++    Collection *coll;
++    unsigned pos;
++} CollectionEnum;
++
++static inline Collection *Collection_from_IDispatch(IDispatch *iface)
++{
++    return CONTAINING_RECORD(iface, Collection, IDispatch_iface);
++}
++
++static inline CollectionEnum *CollectionEnum_from_IEnumVARIANT(IEnumVARIANT *iface)
++{
++    return CONTAINING_RECORD(iface, CollectionEnum, IEnumVARIANT_iface);
++}
++
++static HRESULT WINAPI CollectionEnum_QueryInterface(IEnumVARIANT *iface, REFIID riid, void **ppv)
++{
++    CollectionEnum *This = CollectionEnum_from_IEnumVARIANT(iface);
++
++    if(IsEqualGUID(&IID_IUnknown, riid) || IsEqualGUID(&IID_IEnumVARIANT, riid)) {
++        TRACE("(%p)->(%s %p)\n", This, debugstr_guid(riid), ppv);
++        *ppv = &This->IEnumVARIANT_iface;
++        IEnumVARIANT_AddRef(&This->IEnumVARIANT_iface);
++        return S_OK;
++    }
++
++    WARN("(%p)->(%s %p)\n", This, debugstr_guid(riid), ppv);
++    *ppv = NULL;
++    return E_NOINTERFACE;
++}
++
++static ULONG WINAPI CollectionEnum_AddRef(IEnumVARIANT *iface)
++{
++    CollectionEnum *This = CollectionEnum_from_IEnumVARIANT(iface);
++    LONG ref = InterlockedIncrement(&This->ref);
++    TRACE("(%p) ref=%ld\n", This, ref);
++    return ref;
++}
++
++static ULONG WINAPI CollectionEnum_Release(IEnumVARIANT *iface)
++{
++    CollectionEnum *This = CollectionEnum_from_IEnumVARIANT(iface);
++    LONG ref = InterlockedDecrement(&This->ref);
++    TRACE("(%p) ref=%ld\n", This, ref);
++    if(!ref) {
++        IDispatch_Release(&This->coll->IDispatch_iface);
++        free(This);
++    }
++    return ref;
++}
++
++static HRESULT WINAPI CollectionEnum_Next(IEnumVARIANT *iface, ULONG celt, VARIANT *rgVar, ULONG *pCeltFetched)
++{
++    CollectionEnum *This = CollectionEnum_from_IEnumVARIANT(iface);
++    ULONG i;
++
++    TRACE("(%p)->(%lu %p %p)\n", This, celt, rgVar, pCeltFetched);
++
++    for(i = 0; i < celt && This->pos < This->coll->count; i++, This->pos++) {
++        HRESULT hres = VariantCopy(&rgVar[i], &This->coll->items[This->pos]);
++        if(FAILED(hres)) {
++            if(pCeltFetched) *pCeltFetched = i;
++            return hres;
++        }
++    }
++
++    if(pCeltFetched) *pCeltFetched = i;
++    return i == celt ? S_OK : S_FALSE;
++}
++
++static HRESULT WINAPI CollectionEnum_Skip(IEnumVARIANT *iface, ULONG celt)
++{
++    CollectionEnum *This = CollectionEnum_from_IEnumVARIANT(iface);
++
++    TRACE("(%p)->(%lu)\n", This, celt);
++
++    if(This->pos + celt <= This->coll->count)
++        This->pos += celt;
++    else
++        This->pos = This->coll->count;
++    return S_OK;
++}
++
++static HRESULT WINAPI CollectionEnum_Reset(IEnumVARIANT *iface)
++{
++    CollectionEnum *This = CollectionEnum_from_IEnumVARIANT(iface);
++    TRACE("(%p)\n", This);
++    This->pos = 0;
++    return S_OK;
++}
++
++static HRESULT WINAPI CollectionEnum_Clone(IEnumVARIANT *iface, IEnumVARIANT **ppEnum)
++{
++    CollectionEnum *This = CollectionEnum_from_IEnumVARIANT(iface);
++    FIXME("(%p)->(%p)\n", This, ppEnum);
++    return E_NOTIMPL;
++}
++
++static const IEnumVARIANTVtbl CollectionEnumVtbl = {
++    CollectionEnum_QueryInterface,
++    CollectionEnum_AddRef,
++    CollectionEnum_Release,
++    CollectionEnum_Next,
++    CollectionEnum_Skip,
++    CollectionEnum_Reset,
++    CollectionEnum_Clone
++};
++
++static HRESULT create_collection_enum(Collection *coll, IUnknown **ret)
++{
++    CollectionEnum *iter;
++
++    iter = calloc(1, sizeof(*iter));
++    if(!iter) return E_OUTOFMEMORY;
++
++    iter->IEnumVARIANT_iface.lpVtbl = &CollectionEnumVtbl;
++    iter->ref = 1;
++    iter->coll = coll;
++    iter->pos = 0;
++    IDispatch_AddRef(&coll->IDispatch_iface);
++
++    *ret = (IUnknown*)&iter->IEnumVARIANT_iface;
++    return S_OK;
++}
++
++static HRESULT WINAPI Collection_QueryInterface(IDispatch *iface, REFIID riid, void **ppv)
++{
++    Collection *This = Collection_from_IDispatch(iface);
++
++    if(IsEqualGUID(&IID_IUnknown, riid) || IsEqualGUID(&IID_IDispatch, riid)) {
++        TRACE("(%p)->(%s %p)\n", This, debugstr_guid(riid), ppv);
++        *ppv = &This->IDispatch_iface;
++        IDispatch_AddRef(&This->IDispatch_iface);
++        return S_OK;
++    }
++
++    if(!IsEqualGUID(riid, &IID_IDispatchEx))
++        WARN("(%p)->(%s %p)\n", This, debugstr_guid(riid), ppv);
++    *ppv = NULL;
++    return E_NOINTERFACE;
++}
++
++static ULONG WINAPI Collection_AddRef(IDispatch *iface)
++{
++    Collection *This = Collection_from_IDispatch(iface);
++    LONG ref = InterlockedIncrement(&This->ref);
++    TRACE("(%p) ref=%ld\n", This, ref);
++    return ref;
++}
++
++static ULONG WINAPI Collection_Release(IDispatch *iface)
++{
++    Collection *This = Collection_from_IDispatch(iface);
++    LONG ref = InterlockedDecrement(&This->ref);
++    TRACE("(%p) ref=%ld\n", This, ref);
++    if(!ref) {
++        unsigned i;
++        for(i = 0; i < This->count; i++)
++            VariantClear(&This->items[i]);
++        free(This->items);
++        free(This);
++    }
++    return ref;
++}
++
++static HRESULT WINAPI Collection_GetTypeInfoCount(IDispatch *iface, UINT *pctinfo)
++{
++    Collection *This = Collection_from_IDispatch(iface);
++    TRACE("(%p)->(%p)\n", This, pctinfo);
++    *pctinfo = 0;
++    return S_OK;
++}
++
++static HRESULT WINAPI Collection_GetTypeInfo(IDispatch *iface, UINT iTInfo, LCID lcid, ITypeInfo **ppTInfo)
++{
++    Collection *This = Collection_from_IDispatch(iface);
++    TRACE("(%p)->(%u %lu %p)\n", This, iTInfo, lcid, ppTInfo);
++    return DISP_E_BADINDEX;
++}
++
++static HRESULT WINAPI Collection_GetIDsOfNames(IDispatch *iface, REFIID riid, LPOLESTR *rgszNames,
++        UINT cNames, LCID lcid, DISPID *rgDispId)
++{
++    Collection *This = Collection_from_IDispatch(iface);
++    unsigned i;
++
++    TRACE("(%p)->(%s %p %u %lu %p)\n", This, debugstr_guid(riid), rgszNames, cNames, lcid, rgDispId);
++
++    for(i = 0; i < cNames; i++) {
++        if(!wcsicmp(rgszNames[i], L"Count"))
++            rgDispId[i] = COLLECTION_DISPID_COUNT;
++        else if(!wcsicmp(rgszNames[i], L"Item"))
++            rgDispId[i] = COLLECTION_DISPID_ITEM;
++        else {
++            rgDispId[i] = DISPID_UNKNOWN;
++            return DISP_E_UNKNOWNNAME;
++        }
++    }
++    return S_OK;
++}
++
++static HRESULT Collection_get_item(Collection *This, DISPPARAMS *pdp, VARIANT *res)
++{
++    int idx;
++    VARIANT v;
++    HRESULT hres;
++
++    if(!pdp->cArgs)
++        return DISP_E_BADPARAMCOUNT;
++
++    VariantInit(&v);
++    hres = VariantChangeType(&v, &pdp->rgvarg[pdp->cArgs - 1], 0, VT_I4);
++    if(FAILED(hres)) return hres;
++
++    idx = V_I4(&v);
++    if(idx < 0 || idx >= (int)This->count)
++        return MAKE_VBSERROR(VBSE_OUT_OF_BOUNDS);
++
++    return VariantCopy(res, &This->items[idx]);
++}
++
++static HRESULT WINAPI Collection_Invoke(IDispatch *iface, DISPID dispIdMember, REFIID riid, LCID lcid,
++        WORD wFlags, DISPPARAMS *pdp, VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr)
++{
++    Collection *This = Collection_from_IDispatch(iface);
++
++    TRACE("(%p)->(%ld %s %ld %d %p %p %p %p)\n", This, dispIdMember, debugstr_guid(riid),
++          lcid, wFlags, pdp, pVarResult, pExcepInfo, puArgErr);
++
++    switch(dispIdMember) {
++    case DISPID_VALUE:
++    case COLLECTION_DISPID_ITEM:
++        if(wFlags & (DISPATCH_PROPERTYGET|DISPATCH_METHOD))
++            return Collection_get_item(This, pdp, pVarResult);
++        break;
++    case DISPID_NEWENUM:
++        if(wFlags & (DISPATCH_PROPERTYGET|DISPATCH_METHOD)) {
++            if(!pVarResult) return E_POINTER;
++            V_VT(pVarResult) = VT_UNKNOWN;
++            return create_collection_enum(This, &V_UNKNOWN(pVarResult));
++        }
++        break;
++    case COLLECTION_DISPID_COUNT:
++        if(wFlags & (DISPATCH_PROPERTYGET|DISPATCH_METHOD)) {
++            if(!pVarResult) return E_POINTER;
++            V_VT(pVarResult) = VT_I4;
++            V_I4(pVarResult) = This->count;
++            return S_OK;
++        }
++        break;
++    }
++
++    return DISP_E_MEMBERNOTFOUND;
++}
++
++static const IDispatchVtbl CollectionVtbl = {
++    Collection_QueryInterface,
++    Collection_AddRef,
++    Collection_Release,
++    Collection_GetTypeInfoCount,
++    Collection_GetTypeInfo,
++    Collection_GetIDsOfNames,
++    Collection_Invoke
++};
++
++HRESULT create_collection(VARIANT *args, unsigned args_cnt, IDispatch **ret)
++{
++    Collection *coll;
++    unsigned i;
++
++    coll = calloc(1, sizeof(*coll));
++    if(!coll) return E_OUTOFMEMORY;
++
++    coll->IDispatch_iface.lpVtbl = &CollectionVtbl;
++    coll->ref = 1;
++    coll->count = args_cnt;
++
++    if(args_cnt) {
++        coll->items = calloc(args_cnt, sizeof(VARIANT));
++        if(!coll->items) {
++            free(coll);
++            return E_OUTOFMEMORY;
++        }
++        for(i = 0; i < args_cnt; i++) {
++            HRESULT hres = VariantCopy(&coll->items[i], &args[i]);
++            if(FAILED(hres)) {
++                unsigned j;
++                for(j = 0; j < i; j++)
++                    VariantClear(&coll->items[j]);
++                free(coll->items);
++                free(coll);
++                return hres;
++            }
++        }
++    }
++
++    *ret = &coll->IDispatch_iface;
++    return S_OK;
++}
++
+ struct typeinfo_func {
+     function_t *func;
+     MEMBERID memid;
+diff --git a/wine/dlls/vbscript/vbscript.h b/wine/dlls/vbscript/vbscript.h
+index 67ff272..fa6ab71 100644
+--- a/wine/dlls/vbscript/vbscript.h
++++ b/wine/dlls/vbscript/vbscript.h
+@@ -182,6 +182,7 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);
+ void collect_objects(script_ctx_t*);
+ HRESULT create_script_disp(script_ctx_t*,ScriptDisp**);
+ HRESULT create_func_ref(script_ctx_t*,function_t*,IDispatch**);
++HRESULT create_collection(VARIANT*,unsigned,IDispatch**);
+ function_t *script_disp_find_func(ScriptDisp*,const WCHAR*);
+ 
+ HRESULT to_int(VARIANT*,int*);
+-- 
+2.54.0
+

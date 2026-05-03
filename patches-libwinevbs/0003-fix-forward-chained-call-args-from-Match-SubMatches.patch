@@ -1,0 +1,81 @@
+From e7a5507e00b9225deee266dbb13fec97a9d58c7c Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Sun, 3 May 2026 14:43:43 +0200
+Subject: [PATCH] fix: forward chained-call args from Match.SubMatches propget
+
+VBScript lets callers chain a default-member call onto a propget that
+returns IDispatch:
+
+  Set m = re.Execute(text)(0)         ' MatchCollection default member
+  WScript.Echo m.SubMatches(0)        ' SubMatches propget + (0) -> Item
+
+Wine handles this via ITypeInfo_Invoke, which knows from the IDL
+signature that SubMatches takes no args; when the engine calls it with
+1 arg, ITypeInfo_Invoke routes the call as "get the propget value, then
+invoke that result's default member with the args."
+
+The hand-written Match2_Invoke proxy in libwinevbs silently dropped the
+extra args and returned the SubMatches dispatch alone. The engine then
+invoked the dispatch's default member with cArgs=0, and SubMatches_Invoke
+crashed dereferencing rgvarg[--index] (NULL[-1]) in VariantChangeTypeEx.
+
+Fix:
+- Match2_Invoke DISPID_MATCH_SUBMATCHES: when called with cArgs > 0, get
+  the SubMatches dispatch and forward Invoke(DISPID_VALUE, ...) with the
+  original DISPPARAMS, mirroring ITypeInfo_Invoke's behaviour.
+- SubMatches_Invoke DISPID_VALUE PROPERTYGET: defensive cArgs check before
+  indexing rgvarg, to convert latent crashes into DISP_E_BADPARAMCOUNT.
+
+Repro (crashes before, prints "hello" after):
+  Dim re : Set re = New RegExp
+  re.Pattern = "(\w+)"
+  Dim matches : Set matches = re.Execute("hello world")
+  Dim x : x = matches(0).SubMatches(0)
+  WScript.Echo x
+---
+ wine/dlls/vbscript/regexp_proxy.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/wine/dlls/vbscript/regexp_proxy.c b/wine/dlls/vbscript/regexp_proxy.c
+index 47c7264..8941c4c 100644
+--- a/wine/dlls/vbscript/regexp_proxy.c
++++ b/wine/dlls/vbscript/regexp_proxy.c
+@@ -494,8 +494,23 @@ static HRESULT WINAPI Match2_Invoke(IMatch2 *iface, DISPID dispIdMember,
+ 		case DISPID_MATCH_SUBMATCHES: {
+ 			if (wFlags & DISPATCH_PROPERTYGET) {
+ 				// line 170: [id(DISPID_MATCH_SUBMATCHES), propget]HRESULT SubMatches([out, retval] IDispatch **ppSubMatches);
++				IDispatch *sub_matches = NULL;
++				hres = Match2_get_SubMatches(iface, &sub_matches);
++				if (FAILED(hres))
++					break;
++				if (pDispParams->cArgs > 0) {
++					// Chained-call form: obj.SubMatches(N). The propget
++					// itself takes no args, but VBScript lets callers pass
++					// args meant for the returned dispatch's default member.
++					// Wine's ITypeInfo_Invoke routes this automatically; the
++					// hand-written proxy has to forward it explicitly.
++					hres = IDispatch_Invoke(sub_matches, DISPID_VALUE, &IID_NULL, lcid,
++						wFlags, pDispParams, pVarResult, pExcepInfo, puArgErr);
++					IDispatch_Release(sub_matches);
++					return hres;
++				}
+ 				V_VT(&res) = VT_DISPATCH;
+-				hres = Match2_get_SubMatches(iface, (IDispatch**)&V_DISPATCH(&res));
++				V_DISPATCH(&res) = sub_matches;
+ 			}
+ 			break;
+ 		}
+@@ -738,6 +753,10 @@ static HRESULT WINAPI SubMatches_Invoke(ISubMatches *iface, DISPID dispIdMember,
+ 		case DISPID_VALUE: {
+ 			if (wFlags & DISPATCH_PROPERTYGET) {
+ 				// line 228: [id(DISPID_VALUE), propget]HRESULT Item([in] LONG index,[out, retval] VARIANT *pSubMatch);
++				if (pDispParams->cArgs < 1) {
++					hres = DISP_E_BADPARAMCOUNT;
++					break;
++				}
+ 				VARIANT var0;
+ 				V_VT(&var0) = VT_EMPTY;
+ 				VariantChangeType(&var0, &pDispParams->rgvarg[--index], 0, VT_I4);
+-- 
+2.54.0
+

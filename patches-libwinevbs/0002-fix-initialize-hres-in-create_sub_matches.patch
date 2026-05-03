@@ -1,0 +1,41 @@
+From 35d03089260eb9483bf120a318d553689f7e6766 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Sun, 3 May 2026 10:40:00 +0200
+Subject: [PATCH] fix: initialize hres in create_sub_matches to avoid
+ uninitialized return
+
+When built with __LIBWINEVBS__, the init_regexp_typeinfo() call that
+sets hres is compiled out, leaving the local variable uninitialized at
+the function's `return hres;` exit. Whatever stack value happened to be
+in that slot was returned to callers; in practice this often surfaced
+as VBSE_OUT_OF_MEMORY (E_OUTOFMEMORY) on every successful regex match,
+because each Match constructs a SubMatches sibling.
+
+Add an explicit `#else` branch that sets hres to S_OK on the libwinevbs
+path. Mirrors the existing #ifndef block so the libwinevbs-side intent
+stays local and visible next to the wine-side code.
+
+Repro (fails before, succeeds after):
+  Dim re : Set re = New RegExp
+  re.Pattern = "[a-z]+"
+  Set m = re.Execute("abc")     ' err 7 VBSE_OUT_OF_MEMORY before fix
+---
+ wine/dlls/vbscript/vbregexp.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/wine/dlls/vbscript/vbregexp.c b/wine/dlls/vbscript/vbregexp.c
+index 55a276a..26a502e 100644
+--- a/wine/dlls/vbscript/vbregexp.c
++++ b/wine/dlls/vbscript/vbregexp.c
+@@ -318,6 +318,8 @@ static HRESULT create_sub_matches(DWORD pos, match_state_t *result, SubMatches *
+     hres = init_regexp_typeinfo(SubMatches_tid);
+     if(FAILED(hres))
+         return hres;
++#else
++    hres = S_OK;
+ #endif
+ 
+     ret = calloc(1, sizeof(*ret));
+-- 
+2.54.0
+
