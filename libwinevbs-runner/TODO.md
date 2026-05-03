@@ -46,12 +46,25 @@ framework + stubs + 24KB-line table script and then hits:
 Script error line 382 col 4: VBSE_EXPECTED_LPAREN
 ```
 
-Reported position is in `script.vbs` line 382 (a `Const MaxPlayers = 4`
-declaration), but the same line works in isolation. Per the
-error-position parity issue below, libwinevbs is mislocating the actual
-failing construct. Need to bisect the 24KB-line script to find the real
-culprit; could be another libwinevbs gap exposed only by table code that
-wine handles.
+Position is misleading per the error-position parity issue. What we
+know so far:
+
+- The raw `script.vbs` parses fine standalone (only runtime
+  `RenderingMode` undefined at line 108).
+- All ten plain `Replace(...)` substitutions in
+  `SetUpTable` (CreateObject -> stub, .Run() -> .Run(0), Option ->
+  Option_) keep the script parseable.
+- The remaining framework patches (regex-based: `runRe_`, `b2sPosRe_`,
+  `optArrRe_`, `vpmInitRe_`, the PlaySound rewriter) haven't been
+  bisected yet -- one of them is producing text that libwinevbs's
+  parser rejects but wine accepts. The `optArrRe_` pattern uses
+  `[\s\S]*?` multi-line lookahead, which is the most likely suspect.
+
+Next step: apply each regex Replace in turn, dump, parse standalone,
+find the first one that breaks parse. Then either narrow the input or
+the regex pattern to figure out whether libwinevbs's RegExp.Replace
+behaves differently from wine's, or whether libwinevbs's vbscript
+parser rejects valid output that wine accepts.
 
 ## Path handling
 
