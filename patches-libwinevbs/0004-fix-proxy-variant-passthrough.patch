@@ -1,4 +1,4 @@
-From c474d66eefe3e75f495e9d271b48dcdae768cfa7 Mon Sep 17 00:00:00 2001
+From e642292bc269ccf69c1ddf3ec6ee3e25226b6b67 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Sun, 3 May 2026 18:36:55 +0200
 Subject: [PATCH] fix: pass VARIANT args through with VariantCopyInd, not
@@ -29,62 +29,47 @@ Repro for the regex case (returns empty before, "X" after):
   re.Pattern = "[a-z]+"
   WScript.Echo re.Replace("hello", "X")    ' "" before, "X" after
 ---
- wine/dlls/scrrun/filesystem_proxy.c | 15 ++++++++++++---
- wine/dlls/vbscript/regexp_proxy.c   |  6 +++++-
- 2 files changed, 17 insertions(+), 4 deletions(-)
+ wine/dlls/scrrun/filesystem_proxy.c | 6 +++---
+ wine/dlls/vbscript/regexp_proxy.c   | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/wine/dlls/scrrun/filesystem_proxy.c b/wine/dlls/scrrun/filesystem_proxy.c
-index 5954976..1069403 100644
+index 5954976..33b6f9c 100644
 --- a/wine/dlls/scrrun/filesystem_proxy.c
 +++ b/wine/dlls/scrrun/filesystem_proxy.c
-@@ -219,7 +219,10 @@ static HRESULT WINAPI drivecoll_Invoke(IDriveCollection *iface, DISPID dispIdMem
+@@ -219,7 +219,7 @@ static HRESULT WINAPI drivecoll_Invoke(IDriveCollection *iface, DISPID dispIdMem
  				// line 213: [id(DISPID_VALUE), propget]HRESULT Item([in] VARIANT Key, [out, retval] IDrive** ppdrive);
  				VARIANT var0;
  				V_VT(&var0) = VT_EMPTY;
 -				VariantChangeType(&var0, &pDispParams->rgvarg[--index], 0, VT_VARIANT);
-+				/* VariantChangeType(..., VT_VARIANT) is not a valid
-+				 * conversion target; it silently produces an empty
-+				 * VARIANT. Pass the original through with VariantCopyInd. */
 +				VariantCopyInd(&var0, &pDispParams->rgvarg[--index]);
  				V_VT(&res) = VT_DISPATCH;
  				hres = drivecoll_get_Item(iface, var0, (IDrive**)&V_DISPATCH(&res));
  				VariantClear(&var0);
-@@ -1219,7 +1222,10 @@ static HRESULT WINAPI filecoll_Invoke(IFileCollection *iface, DISPID dispIdMembe
+@@ -1219,7 +1219,7 @@ static HRESULT WINAPI filecoll_Invoke(IFileCollection *iface, DISPID dispIdMembe
  				// line 441: [id(DISPID_VALUE), propget]HRESULT Item([in] VARIANT Key, [out, retval] IFile** ppfile);
  				VARIANT var0;
  				V_VT(&var0) = VT_EMPTY;
 -				VariantChangeType(&var0, &pDispParams->rgvarg[--index], 0, VT_VARIANT);
-+				/* VariantChangeType(..., VT_VARIANT) is not a valid
-+				 * conversion target; it silently produces an empty
-+				 * VARIANT. Pass the original through with VariantCopyInd. */
 +				VariantCopyInd(&var0, &pDispParams->rgvarg[--index]);
  				V_VT(&res) = VT_DISPATCH;
  				hres = filecoll_get_Item(iface, var0, (IFile**)&V_DISPATCH(&res));
  				VariantClear(&var0);
-@@ -1322,7 +1328,10 @@ static HRESULT WINAPI foldercoll_Invoke(IFolderCollection *iface, DISPID dispIdM
+@@ -1322,7 +1322,7 @@ static HRESULT WINAPI foldercoll_Invoke(IFolderCollection *iface, DISPID dispIdM
  				// line 464: [id(DISPID_VALUE), propget]HRESULT Item([in] VARIANT Key, [out, retval] IFolder** ppfolder);
  				VARIANT var0;
  				V_VT(&var0) = VT_EMPTY;
 -				VariantChangeType(&var0, &pDispParams->rgvarg[--index], 0, VT_VARIANT);
-+				/* VariantChangeType(..., VT_VARIANT) is not a valid
-+				 * conversion target; it silently produces an empty
-+				 * VARIANT. Pass the original through with VariantCopyInd. */
 +				VariantCopyInd(&var0, &pDispParams->rgvarg[--index]);
  				V_VT(&res) = VT_DISPATCH;
  				hres = foldercoll_get_Item(iface, var0, (IFolder**)&V_DISPATCH(&res));
  				VariantClear(&var0);
 diff --git a/wine/dlls/vbscript/regexp_proxy.c b/wine/dlls/vbscript/regexp_proxy.c
-index 47c7264..ff3d1ad 100644
+index 47c7264..2abc030 100644
 --- a/wine/dlls/vbscript/regexp_proxy.c
 +++ b/wine/dlls/vbscript/regexp_proxy.c
-@@ -306,9 +306,13 @@ static HRESULT WINAPI RegExp2_Invoke(IRegExp2 *iface, DISPID dispIdMember,
- 				VARIANT var0;
- 				V_VT(&var0) = VT_EMPTY;
+@@ -308,7 +308,7 @@ static HRESULT WINAPI RegExp2_Invoke(IRegExp2 *iface, DISPID dispIdMember,
  				VariantChangeType(&var0, &pDispParams->rgvarg[--index], 0, VT_BSTR);
-+				/* The replacement is passed as VARIANT; let the impl
-+				 * coerce it. VariantChangeType(..., VT_VARIANT) is not
-+				 * a valid conversion target and silently produces an
-+				 * empty VARIANT, which made every Replace return "". */
  				VARIANT var1;
  				V_VT(&var1) = VT_EMPTY;
 -				VariantChangeType(&var1, &pDispParams->rgvarg[--index], 0, VT_VARIANT);
