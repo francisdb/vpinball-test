@@ -27,6 +27,7 @@ Applied on top of the pinned libwinevbs revision, mirroring the wine
 | 0004 | `fix: pass VARIANT args through with VariantCopyInd` | **[upstream]** -- libwinevbs [PR #12](https://github.com/vpinball/libwinevbs/pull/12), drop once merged |
 | 0005 | `test: Add variadic builtins` | **[test-only]** -- ported from wine `patches/0008-...`; never going upstream |
 | 0006 | `vbscript: Add GetBoundRef built-in` | **[test-only]** -- ported from wine `patches/0006-...`; never going upstream |
+| 0007 | `feat: resolve filesystem paths case-insensitively on non-Win32` | **[upstream]** -- libwinevbs [PR #13](https://github.com/vpinball/libwinevbs/pull/13), drop once merged |
 
 Once the upstream PRs merge and the pin advances past them, drop the
 corresponding patches from this series.

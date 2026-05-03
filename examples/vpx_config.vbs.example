@@ -10,7 +10,12 @@
 '   TABLES_DIR    - the parent directory containing one folder per
 '                   extracted VPX table (from `vpxtool extract`).
 '
+' Use native Linux paths (e.g. /home/you/vpinball). Wine accepts these
+' as-is via wineprefix; the libwinevbs runner needs them. The older
+' Z:\path\to\... form works under wine but breaks under libwinevbs --
+' avoid it.
+'
 Option Explicit
 
-Dim VPINBALL_DIR : VPINBALL_DIR = "Z:\path\to\vpinball"
-Dim TABLES_DIR   : TABLES_DIR   = "Z:\path\to\tables"
+Dim VPINBALL_DIR : VPINBALL_DIR = "/path/to/vpinball"
+Dim TABLES_DIR   : TABLES_DIR   = "/path/to/tables"

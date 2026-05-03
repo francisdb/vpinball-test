@@ -1,5 +1,9 @@
 build/
 examples/vpx_config.vbs
 # Runtime-generated state files from tables (GLF framework, etc.)
+# Tables drop these wherever the runner's CWD is, so cover both
+# examples/<table>/ and the repo root (when run from there).
 examples/**/*.ini
 examples/**/*_debug_log.txt
+/*.ini
+/*_debug_log.txt
