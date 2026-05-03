@@ -1,7 +1,8 @@
-From 723949806aa6dd37550755f96acdd3fcc3ed2f93 Mon Sep 17 00:00:00 2001
+From 1f8c511d8e9f443bb868674e289fe6a21253c733 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Sun, 3 May 2026 21:42:46 +0200
-Subject: [PATCH] Resolve filesystem paths case-insensitively on non-Win32
+Subject: [PATCH] feat: resolve filesystem paths case-insensitively on
+ non-Win32
 
 Native Linux/macOS filesystems are case-sensitive; Win32 callers and
 VBScript/COM code that mirrors Win32 path semantics expect
@@ -11,9 +12,9 @@ each component, and call it from GetFileAttributesW, CreateFileW (for
 OPEN_EXISTING / OPEN_ALWAYS only -- CREATE keeps the requested casing),
 and FindFirstFileW after the initial lookup misses.
 
-Modeled on the equivalent helper used by downstream embedders (vpinball
-master, plugins/vni/common.cpp) that needed the same fix when running
-script code lifted from Win32 hosts.
+The same approach has been used in other downstream embedders that
+needed case-insensitive lookup when running script code lifted from
+Win32 hosts.
 ---
  src/wine.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 70 insertions(+)
