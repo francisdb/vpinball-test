@@ -199,8 +199,10 @@ static HRESULT WINAPI Site_OnScriptError(IActiveScriptSite* iface, IActiveScript
     IActiveScriptError_GetExceptionInfo(err, &ei);
     IActiveScriptError_GetSourcePosition(err, &ctx, &line, &col);
     IActiveScriptError_GetSourceLineText(err, &linetext);
+    /* IActiveScriptError reports 0-indexed line/col; wine cscript and
+     * the rest of the world display 1-indexed. Match that convention. */
     fprintf(stderr, "Script error line %lu col %ld: %ls\n",
-            (unsigned long)line, (long)col,
+            (unsigned long)line + 1, (long)col + 1,
             ei.bstrDescription ? ei.bstrDescription : L"(unknown)");
     if (linetext) {
         fprintf(stderr, "    %ls\n", linetext);

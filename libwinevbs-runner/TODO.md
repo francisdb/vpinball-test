@@ -23,8 +23,8 @@ Applied on top of the pinned libwinevbs revision, mirroring the wine
 |---|---|---|
 | 0001 | `vbscript: Add CreateCollection built-in` | **[test-only]** -- ported from wine `patches/0007-...`; never going upstream |
 | 0002 | `fix: initialize hres in create_sub_matches` | **[upstream]** -- libwinevbs [PR #10](https://github.com/vpinball/libwinevbs/pull/10), drop once merged |
-| 0003 | `fix: forward chained-call args from Match.SubMatches` | **[upstream]** -- libwinevbs PR (see `fix/regexp-proxy-arg-validation` branch on fork), drop once merged |
-| 0004 | `fix: pass VARIANT args through with VariantCopyInd` | **[upstream]** -- libwinevbs PR (see `fix/proxy-variant-passthrough` branch on fork), drop once merged |
+| 0003 | `fix: forward chained-call args from Match.SubMatches` | **[upstream]** -- libwinevbs [PR #11](https://github.com/vpinball/libwinevbs/pull/11), drop once merged |
+| 0004 | `fix: pass VARIANT args through with VariantCopyInd` | **[upstream]** -- libwinevbs [PR #12](https://github.com/vpinball/libwinevbs/pull/12), drop once merged |
 
 Once the upstream PRs merge and the pin advances past them, drop the
 corresponding patches from this series.
@@ -78,21 +78,14 @@ config. Long-term options:
 
 ## Error position parity with cscript
 
-The runner should report the same line/col/source-line that wine's
-`cscript` does. Currently:
+Resolved: the apparent "wrong line" was a runner-side off-by-one. Both
+wine and libwinevbs return 0-indexed line/col through
+`IActiveScriptError::GetSourcePosition`; wine `cscript` adds 1 for
+display. The runner now does the same.
 
-- **Top-level parse error**: libwinevbs reports correctly. Position and
-  source line both come through `GetSourcePosition` / `GetSourceLineText`.
-- **Error inside `ExecuteGlobal`**: libwinevbs reports the *outer* line
-  (the bench's line containing the `ExecuteGlobal` call) and returns NULL
-  from `GetSourceLineText`. We see "line 20 col 0" pointing at the line
-  above the `ExecuteGlobal`, with no inner-line info.
-
-End goal: error reports should match wine `cscript` for both cases.
-Likely a libwinevbs gap in the parser/exec_script chain where the
-inner buffer's source pointer isn't propagated to the error object.
-Worth comparing wine cscript vs the runner on a known-bad construct
-inside `ExecuteGlobal` to confirm the divergence and file an issue.
+`GetSourceLineText` still returns NULL for `ExecuteGlobal`-loaded text
+(works only for the top-level parse buffer). Not fatal -- the
+line/col is now sufficient to locate failures.
 
 ## Cosmetic
 
