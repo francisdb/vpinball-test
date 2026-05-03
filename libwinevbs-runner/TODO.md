@@ -25,6 +25,8 @@ Applied on top of the pinned libwinevbs revision, mirroring the wine
 | 0002 | `fix: initialize hres in create_sub_matches` | **[upstream]** -- libwinevbs [PR #10](https://github.com/vpinball/libwinevbs/pull/10), drop once merged |
 | 0003 | `fix: forward chained-call args from Match.SubMatches` | **[upstream]** -- libwinevbs [PR #11](https://github.com/vpinball/libwinevbs/pull/11), drop once merged |
 | 0004 | `fix: pass VARIANT args through with VariantCopyInd` | **[upstream]** -- libwinevbs [PR #12](https://github.com/vpinball/libwinevbs/pull/12), drop once merged |
+| 0005 | `test: Add variadic builtins` | **[test-only]** -- ported from wine `patches/0008-...`; never going upstream |
+| 0006 | `vbscript: Add GetBoundRef built-in` | **[test-only]** -- ported from wine `patches/0006-...`; never going upstream |
 
 Once the upstream PRs merge and the pin advances past them, drop the
 corresponding patches from this series.
@@ -38,30 +40,31 @@ Likely additions soon:
 - Diagnostic `resume-next WARN with line` and `call-stack trace` (wine
   `patches/0004` and `0005`) -- only useful for debugging
 
-## Next blocker
+## Status: bench passes
 
-After all four `patches-libwinevbs/` applied, the bench loads the
-entire framework + stubs, patches and ExecuteGlobals the 24KB-line
-table `script.vbs` (now 850KB after framework patches), and reaches the
-table's `Init` Sub. New error during Init execution:
+With all six `patches-libwinevbs/` applied (3 upstream PRs + 3 test-only
+mirrors), `bench_darkest_dungeon_init.vbs` runs to completion under the
+runner: framework + stubs + patched table script load, `table1_Init`
+runs, item `_Init` events fire, timer enumeration prints, and the
+100-iteration timer benchmark produces a `Per tick: 0.156 ms` summary.
+Same shape as the wine-runner output.
 
-```
-Script error line 408 col 4: (unknown)
-```
-
-Position is misleading again -- table line 408 is `Dim Score(4)`, a
-plain array Dim that works in isolation. Real culprit is somewhere
-during `table1_Init` execution. Need bisect inside the Init Sub or
-proxy/dispatch instrumentation to find the actual failure site.
+Next: try other benches; surface remaining libwinevbs gaps the same
+way.
 
 ## Resolved blockers (this session)
 
 - `Const`/parser bisect first reported "line 382 col 4 VBSE_EXPECTED_LPAREN"
   -- root cause was libwinevbs's broken `RegExp.Replace`: the
   `optArrRe_.Replace(tableCode, "$1)")` call substituted with empty
-  string, deleting `Table1.Option(...)` entirely from the table code
-  and leaving `Difficulty = ` followed by garbled syntax. Fixed by
+  string, deleting `Table1.Option(...)` entirely. Fixed by
   patches-libwinevbs/0004 (PR `fix/proxy-variant-passthrough`).
+- "line 408 col 4 VBSE_OLE_NO_PROP_OR_METHOD" inside table init was the
+  framework's `Item init` loop calling `GetBoundRef`, which libwinevbs
+  doesn't have. Fixed by patches-libwinevbs/0006.
+- "line 17998 col 2 VBSE_VARIABLE_UNDEFINED: PlaySound" inside the
+  table script was the missing variadic `PlaySound` builtin. Fixed by
+  patches-libwinevbs/0005.
 
 ## Path handling
 
@@ -83,9 +86,13 @@ wine and libwinevbs return 0-indexed line/col through
 `IActiveScriptError::GetSourcePosition`; wine `cscript` adds 1 for
 display. The runner now does the same.
 
-`GetSourceLineText` still returns NULL for `ExecuteGlobal`-loaded text
-(works only for the top-level parse buffer). Not fatal -- the
-line/col is now sufficient to locate failures.
+`GetSourceLineText` returns NULL for runtime errors fired through
+`exec_script` (which includes anything inside `ExecuteGlobal`'d code)
+on **both wine and libwinevbs** -- the engines pass `store_source=FALSE`
+to `report_script_error` for that path, so the error object's `code`
+pointer is null and `GetSourceLineText` returns `E_FAIL`. Wine `cscript`
+never calls `GetSourceLineText`; it just displays `file(line, col)`.
+Not a libwinevbs gap. Line/col is enough.
 
 ## Cosmetic
 

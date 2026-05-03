@@ -1,0 +1,56 @@
+From abdbc6d9e4a0a5ff570e7010baf8721b89414e35 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Fri, 17 Apr 2026 22:11:41 +0200
+Subject: [PATCH 2/3] test: Add variadic builtins for stubbing VPX host APIs
+
+Adds a Global_BuiltinNoop variadic no-op and registers it as Noop,
+PlaySound, PlayMusic, and StopSound in the global builtin table. Each
+accepts 0..MAXDWORD args and returns S_OK without doing anything.
+
+Test-only mirror of the same wine patch carried in vpinball-test's
+wine patch series. Real VBScript has no such builtins; this exists
+only so the framework can stub variable-arity VPX host APIs that
+VBScript classes can't model. Never going upstream.
+---
+ wine/dlls/vbscript/global.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/wine/dlls/vbscript/global.c b/wine/dlls/vbscript/global.c
+index 88f275b..e858906 100644
+--- a/wine/dlls/vbscript/global.c
++++ b/wine/dlls/vbscript/global.c
+@@ -4686,6 +4686,11 @@ static HRESULT Global_CreateCollection(BuiltinDisp *This, VARIANT *args, unsigne
+     return S_OK;
+ }
+ 
++static HRESULT Global_BuiltinNoop(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
++{
++    return S_OK;
++}
++
+ static HRESULT Global_Err(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
+ {
+     TRACE("\n");
+@@ -4786,8 +4791,11 @@ static const builtin_prop_t global_props[] = {
+     {L"Month",                     Global_Month, 0, 1},
+     {L"MonthName",                 Global_MonthName, 0, 1, 2},
+     {L"MsgBox",                    Global_MsgBox, 0, 1, 5},
++    {L"Noop",                      Global_BuiltinNoop, 0, 0, MAXDWORD},
+     {L"Now",                       Global_Now, 0, 0},
+     {L"Oct",                       Global_Oct, 0, 1},
++    {L"PlayMusic",                 Global_BuiltinNoop, 0, 0, MAXDWORD},
++    {L"PlaySound",                 Global_BuiltinNoop, 0, 0, MAXDWORD},
+     {L"Randomize",                 Global_Randomize, 0, 0, 1},
+     {L"Replace",                   Global_Replace, 0, 3, 6},
+     {L"RGB",                       Global_RGB, 0, 3},
+@@ -4807,6 +4815,7 @@ static const builtin_prop_t global_props[] = {
+     {L"Space",                     Global_Space, 0, 1},
+     {L"Split",                     Global_Split, 0, 1, 4},
+     {L"Sqr",                       Global_Sqr, 0, 1},
++    {L"StopSound",                 Global_BuiltinNoop, 0, 0, MAXDWORD},
+     {L"StrComp",                   Global_StrComp, 0, 2, 3},
+     {L"String",                    Global_String, 0, 0, 2},
+     {L"StrReverse",                Global_StrReverse, 0, 1},
+-- 
+2.54.0
+
