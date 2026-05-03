@@ -132,7 +132,7 @@ Sub OnTimerEnabled(elem)
     g_TimersDirty = True
 End Sub
 
-' ITimer - in real VPX, Timer elements use TimerEnabled/TimerInterval
+' ITimer — in real VPX, Timer elements use TimerEnabled/TimerInterval
 ' like every other element. We also expose Enabled/Interval as aliases
 ' because gen_vpx_stubs.py generates `.Enabled = True` for Timer stubs.
 Class Timer

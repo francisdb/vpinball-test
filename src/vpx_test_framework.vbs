@@ -214,7 +214,7 @@ Sub SetUpTable(verbose)
 
     ' Patch COM objects that aren't available outside VPX. VBScript is
     ' case-insensitive for identifier lookup, and tables use CreateObject /
-    ' createObject interchangeably - pass vbTextCompare so the rewrite
+    ' createObject interchangeably — pass vbTextCompare so the rewrite
     ' catches both spellings.
     tableCode = Replace(tableCode, "CreateObject(""VPinMAME.Controller"")", "(New VPinMAMEControllerStub)", 1, -1, vbTextCompare)
     tableCode = Replace(tableCode, "CreateObject(""VPinMAME.WSHDlg"")",     "(New VPinMAMEWSHDlgStub)",     1, -1, vbTextCompare)
@@ -235,7 +235,7 @@ Sub SetUpTable(verbose)
     tableCode = Replace(tableCode, "B2SController.Run()", "B2SController.Run(0)")
     tableCode = Replace(tableCode, "Controller.Run()",    "Controller.Run(0)")
     ' Bare-statement `Controller.Run` / `B2SController.Run` (no parens, no
-    ' args) - stub's Run(hwnd) needs the arg. End-of-line-anchored regex.
+    ' args) — stub's Run(hwnd) needs the arg. End-of-line-anchored regex.
     Dim runRe_ : Set runRe_ = New RegExp
     runRe_.Global = True : runRe_.Multiline = True
     runRe_.Pattern = "(\b(?:B2S)?Controller\.Run)\s*(?=[\r\n'])"
@@ -243,7 +243,7 @@ Sub SetUpTable(verbose)
     ' Some B2S setters are called with a leading position arg in some
     ' tables (e.g. `controller.B2SSetGameOver 35, 1`, `B2SSetTilt 33, 1`)
     ' but with just the value in others (`B2SSetGameOver 0`). Our 1-arg
-    ' stubs expect just the value - drop the `N,` prefix when present.
+    ' stubs expect just the value — drop the `N,` prefix when present.
     Dim b2sPosRe_ : Set b2sPosRe_ = New RegExp
     b2sPosRe_.Global = True : b2sPosRe_.IgnoreCase = True
     b2sPosRe_.Pattern = "(\.B2SSet(?:GameOver|Tilt|PlayerUp|BallInPlay))\s+\d+\s*,\s*"
@@ -468,7 +468,7 @@ Sub SetUpTable(verbose)
     ' Element-level timers register lazily: when any element's
     ' TimerEnabled is set to True, the Property Let calls
     ' OnTimerEnabled which adds it to g_AllTimers. No bulk
-    ' registration needed - only active timers are scheduled.
+    ' registration needed — only active timers are scheduled.
 
     g_TableLoaded = True
 End Sub
@@ -771,7 +771,7 @@ Class VpxTester
 
             ' Find the earliest nextFire across currently-enabled timers.
             ' A timer handler fired earlier in this outer iteration may
-            ' have disabled another timer - its entry is gone from
+            ' have disabled another timer — its entry is gone from
             ' m_nextFire but m_activeNames still holds its name until
             ' the next rebuild; skip those stale entries here.
             haveMin = False : minNext = 0
