@@ -24,9 +24,10 @@ Applied on top of the pinned libwinevbs revision, mirroring the wine
 | 0001 | `vbscript: Add CreateCollection built-in` | **[test-only]** -- ported from wine `patches/0007-...`; never going upstream |
 | 0002 | `fix: initialize hres in create_sub_matches` | **[upstream]** -- libwinevbs [PR #10](https://github.com/vpinball/libwinevbs/pull/10), drop once merged |
 | 0003 | `fix: forward chained-call args from Match.SubMatches` | **[upstream]** -- libwinevbs PR (see `fix/regexp-proxy-arg-validation` branch on fork), drop once merged |
+| 0004 | `fix: pass VARIANT args through with VariantCopyInd` | **[upstream]** -- libwinevbs PR (see `fix/proxy-variant-passthrough` branch on fork), drop once merged |
 
-Once #10 and the second PR merge upstream and the pin advances past
-them, drop 0002 and 0003 from this series.
+Once the upstream PRs merge and the pin advances past them, drop the
+corresponding patches from this series.
 
 Likely additions soon:
 
@@ -39,32 +40,28 @@ Likely additions soon:
 
 ## Next blocker
 
-After all `patches-libwinevbs/` applied, the bench loads the entire
-framework + stubs + 24KB-line table script and then hits:
+After all four `patches-libwinevbs/` applied, the bench loads the
+entire framework + stubs, patches and ExecuteGlobals the 24KB-line
+table `script.vbs` (now 850KB after framework patches), and reaches the
+table's `Init` Sub. New error during Init execution:
 
 ```
-Script error line 382 col 4: VBSE_EXPECTED_LPAREN
+Script error line 408 col 4: (unknown)
 ```
 
-Position is misleading per the error-position parity issue. What we
-know so far:
+Position is misleading again -- table line 408 is `Dim Score(4)`, a
+plain array Dim that works in isolation. Real culprit is somewhere
+during `table1_Init` execution. Need bisect inside the Init Sub or
+proxy/dispatch instrumentation to find the actual failure site.
 
-- The raw `script.vbs` parses fine standalone (only runtime
-  `RenderingMode` undefined at line 108).
-- All ten plain `Replace(...)` substitutions in
-  `SetUpTable` (CreateObject -> stub, .Run() -> .Run(0), Option ->
-  Option_) keep the script parseable.
-- The remaining framework patches (regex-based: `runRe_`, `b2sPosRe_`,
-  `optArrRe_`, `vpmInitRe_`, the PlaySound rewriter) haven't been
-  bisected yet -- one of them is producing text that libwinevbs's
-  parser rejects but wine accepts. The `optArrRe_` pattern uses
-  `[\s\S]*?` multi-line lookahead, which is the most likely suspect.
+## Resolved blockers (this session)
 
-Next step: apply each regex Replace in turn, dump, parse standalone,
-find the first one that breaks parse. Then either narrow the input or
-the regex pattern to figure out whether libwinevbs's RegExp.Replace
-behaves differently from wine's, or whether libwinevbs's vbscript
-parser rejects valid output that wine accepts.
+- `Const`/parser bisect first reported "line 382 col 4 VBSE_EXPECTED_LPAREN"
+  -- root cause was libwinevbs's broken `RegExp.Replace`: the
+  `optArrRe_.Replace(tableCode, "$1)")` call substituted with empty
+  string, deleting `Table1.Option(...)` entirely from the table code
+  and leaving `Difficulty = ` followed by garbled syntax. Fixed by
+  patches-libwinevbs/0004 (PR `fix/proxy-variant-passthrough`).
 
 ## Path handling
 
