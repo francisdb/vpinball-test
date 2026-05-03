@@ -1,0 +1,198 @@
+From bf3c94196751ba9f81c53c2a64983849ed4919e7 Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Fri, 17 Apr 2026 22:11:41 +0200
+Subject: [PATCH 3/3] vbscript: Add GetBoundRef built-in for invoking functions
+ with a bound Me
+
+(see commit 64fb851 on feature/getboundref-builtin for full message)
+---
+ wine/dlls/vbscript/global.c        | 68 +++++++++++++++++++++++++++++-
+ wine/dlls/vbscript/vbdisp.c        | 31 +++++++++++++-
+ wine/dlls/vbscript/vbscript.h      |  2 +
+ wine/dlls/vbscript/vbscript_defs.h |  1 +
+ 4 files changed, 100 insertions(+), 2 deletions(-)
+
+diff --git a/wine/dlls/vbscript/global.c b/wine/dlls/vbscript/global.c
+index e858906..ebc9233 100644
+--- a/wine/dlls/vbscript/global.c
++++ b/wine/dlls/vbscript/global.c
+@@ -4691,7 +4691,72 @@ static HRESULT Global_BuiltinNoop(BuiltinDisp *This, VARIANT *args, unsigned arg
+     return S_OK;
+ }
+ 
+-static HRESULT Global_Err(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt, VARIANT *res)
++static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
++{
++    named_item_t *item;
++    function_t **funcs;
++    IDispatch *disp;
++    const WCHAR *name;
++    vbdisp_t *vbthis;
++    size_t i, cnt;
++    HRESULT hres;
++
++    TRACE("%s %s\n", debugstr_variant(args), debugstr_variant(args+1));
++
++    assert(args_cnt == 2);
++
++    if(V_VT(args) != VT_BSTR)
++        return MAKE_VBSERROR(VBSE_TYPE_MISMATCH);
++    if(V_VT(args+1) != VT_DISPATCH)
++        return MAKE_VBSERROR(VBSE_TYPE_MISMATCH);
++
++    name = V_BSTR(args);
++    if(!name || !name[0])
++        return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
++
++    vbthis = get_vbdisp_from_dispatch(V_DISPATCH(args+1));
++    if(!vbthis) {
++        WARN("second argument is not a VBScript object\n");
++        return MAKE_VBSERROR(VBSE_TYPE_MISMATCH);
++    }
++
++    /* Search the current named item's script object first */
++    item = This->ctx->current_named_item;
++    if(item && item->script_obj) {
++        funcs = item->script_obj->global_funcs;
++        cnt = item->script_obj->global_funcs_cnt;
++        for(i = 0; i < cnt; i++) {
++            if(!vbs_wcsicmp(funcs[i]->name, name)) {
++                hres = create_bound_func_ref(This->ctx, funcs[i], vbthis, &disp);
++                if(FAILED(hres))
++                    return hres;
++                V_VT(res) = VT_DISPATCH;
++                V_DISPATCH(res) = disp;
++                return S_OK;
++            }
++        }
++    }
++
++    /* Search global script object */
++    funcs = This->ctx->script_obj->global_funcs;
++    cnt = This->ctx->script_obj->global_funcs_cnt;
++    for(i = 0; i < cnt; i++) {
++        if(!vbs_wcsicmp(funcs[i]->name, name)) {
++            hres = create_bound_func_ref(This->ctx, funcs[i], vbthis, &disp);
++            if(FAILED(hres))
++                return hres;
++            V_VT(res) = VT_DISPATCH;
++            V_DISPATCH(res) = disp;
++            return S_OK;
++        }
++    }
++
++    V_VT(res) = VT_DISPATCH;
++    V_DISPATCH(res) = NULL;
++    return S_OK;
++}
++
++static HRESULT Global_Err(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
+ {
+     TRACE("\n");
+ 
+@@ -4759,6 +4824,7 @@ static const builtin_prop_t global_props[] = {
+     {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
+     {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
+     {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},
++    {L"GetBoundRef",               Global_GetBoundRef, 0, 2, 2},
+     {L"GetLocale",                 Global_GetLocale, 0, 0},
+     {L"GetObject",                 Global_GetObject, 0, 0, 2},
+     {L"GetRef",                    Global_GetRef, 0, 1},
+diff --git a/wine/dlls/vbscript/vbdisp.c b/wine/dlls/vbscript/vbdisp.c
+index 0598e79..5870df6 100644
+--- a/wine/dlls/vbscript/vbdisp.c
++++ b/wine/dlls/vbscript/vbdisp.c
+@@ -772,6 +772,11 @@ static inline vbdisp_t *unsafe_impl_from_IDispatch(IDispatch *iface)
+         : NULL;
+ }
+ 
++vbdisp_t *get_vbdisp_from_dispatch(IDispatch *iface)
++{
++    return unsafe_impl_from_IDispatch(iface);
++}
++
+ HRESULT create_vbdisp(const class_desc_t *desc, vbdisp_t **ret)
+ {
+     vbdisp_t *vbdisp;
+@@ -836,6 +841,7 @@ typedef struct {
+     LONG ref;
+     function_t *func;
+     script_ctx_t *ctx;
++    vbdisp_t *vbthis;
+ } FuncRef;
+ 
+ static inline FuncRef *FuncRef_from_IDispatch(IDispatch *iface)
+@@ -876,6 +882,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
+ 
+     TRACE("(%p) ref=%ld\n", This, ref);
+     if(!ref) {
++        if(This->vbthis)
++            IDispatchEx_Release(&This->vbthis->IDispatchEx_iface);
+         release_vbscode(This->func->code_ctx);
+         free(This);
+     }
+@@ -916,7 +924,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
+     if(dispIdMember != DISPID_VALUE)
+         return DISP_E_MEMBERNOTFOUND;
+ 
+-    return exec_script(This->ctx, TRUE, This->func, NULL, pDispParams, pVarResult);
++    return exec_script(This->ctx, TRUE, This->func, This->vbthis, pDispParams, pVarResult);
+ }
+ 
+ static const IDispatchVtbl FuncRefVtbl = {
+@@ -1261,6 +1269,27 @@ HRESULT create_collection(VARIANT *args, unsigned args_cnt, IDispatch **ret)
+     return S_OK;
+ }
+ 
++HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbthis, IDispatch **ret)
++{
++    FuncRef *ref;
++
++    ref = calloc(1, sizeof(*ref));
++    if(!ref)
++        return E_OUTOFMEMORY;
++
++    ref->IDispatch_iface.lpVtbl = &FuncRefVtbl;
++    ref->ref = 1;
++    ref->func = func;
++    ref->ctx = ctx;
++    ref->vbthis = vbthis;
++    if(vbthis)
++        IDispatchEx_AddRef(&vbthis->IDispatchEx_iface);
++    grab_vbscode(func->code_ctx);
++
++    *ret = &ref->IDispatch_iface;
++    return S_OK;
++}
++
+ struct typeinfo_func {
+     function_t *func;
+     MEMBERID memid;
+diff --git a/wine/dlls/vbscript/vbscript.h b/wine/dlls/vbscript/vbscript.h
+index fa6ab71..53bb1b3 100644
+--- a/wine/dlls/vbscript/vbscript.h
++++ b/wine/dlls/vbscript/vbscript.h
+@@ -182,6 +182,8 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);
+ void collect_objects(script_ctx_t*);
+ HRESULT create_script_disp(script_ctx_t*,ScriptDisp**);
+ HRESULT create_func_ref(script_ctx_t*,function_t*,IDispatch**);
++HRESULT create_bound_func_ref(script_ctx_t*,function_t*,vbdisp_t*,IDispatch**);
++vbdisp_t *get_vbdisp_from_dispatch(IDispatch*);
+ HRESULT create_collection(VARIANT*,unsigned,IDispatch**);
+ function_t *script_disp_find_func(ScriptDisp*,const WCHAR*);
+ 
+diff --git a/wine/dlls/vbscript/vbscript_defs.h b/wine/dlls/vbscript/vbscript_defs.h
+index d4ebc29..5e8917d 100644
+--- a/wine/dlls/vbscript/vbscript_defs.h
++++ b/wine/dlls/vbscript/vbscript_defs.h
+@@ -210,6 +210,7 @@
+ #define DISPID_GLOBAL_EXECUTE                   204
+ #define DISPID_GLOBAL_EXECUTEGLOBAL             205
+ #define DISPID_GLOBAL_GETREF                    206
++#define DISPID_GLOBAL_GETBOUNDREF               211
+ 
+ #define DISPID_ERR_DESCRIPTION  0
+ #define DISPID_ERR_HELPCONTEXT  1
+-- 
+2.54.0
+
