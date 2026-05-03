@@ -195,11 +195,17 @@ static HRESULT WINAPI Site_OnScriptError(IActiveScriptSite* iface, IActiveScript
     DWORD ctx = 0;
     ULONG line = 0;
     LONG col = 0;
+    BSTR linetext = NULL;
     IActiveScriptError_GetExceptionInfo(err, &ei);
     IActiveScriptError_GetSourcePosition(err, &ctx, &line, &col);
+    IActiveScriptError_GetSourceLineText(err, &linetext);
     fprintf(stderr, "Script error line %lu col %ld: %ls\n",
             (unsigned long)line, (long)col,
             ei.bstrDescription ? ei.bstrDescription : L"(unknown)");
+    if (linetext) {
+        fprintf(stderr, "    %ls\n", linetext);
+        SysFreeString(linetext);
+    }
     SysFreeString(ei.bstrDescription);
     SysFreeString(ei.bstrSource);
     return S_OK;

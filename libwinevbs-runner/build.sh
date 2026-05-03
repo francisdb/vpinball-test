@@ -13,7 +13,7 @@
 #   libwinevbs-runner/build.sh path/to/script.vbs    # build + run a different script
 set -euo pipefail
 
-LIBWINEVBS_REV="${LIBWINEVBS_REV:-bc4922999e8bd2c5954d9361f4242c3b7c115511}"
+LIBWINEVBS_REV="${LIBWINEVBS_REV:-cf7f438d18ed1cc88b0558403f845be20c99f6c9}"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 RUNNER_DIR="$REPO_ROOT/libwinevbs-runner"
 BUILD_DIR="$REPO_ROOT/build/libwinevbs-runner"
