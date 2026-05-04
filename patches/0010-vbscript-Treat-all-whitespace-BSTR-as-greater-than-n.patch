@@ -1,0 +1,81 @@
+From de0d8c8cf12dfa190406948dbe2c414885d73c0f Mon Sep 17 00:00:00 2001
+From: Francis De Brabandere <francisdb@gmail.com>
+Date: Mon, 4 May 2026 23:43:43 +0200
+Subject: [PATCH 10/10] vbscript: Treat all-whitespace BSTR as greater than
+ numeric in non-literal compare.
+
+Native VBScript sorts a non-empty all-whitespace BSTR (Space, tab, LF,
+CR, ...) higher than any numeric or boolean operand, regardless of the
+binary lex order their CStr forms would produce. Add an early-out in
+var_cmp before the CStr-coerce path; empty BSTR keeps falling through
+to the regular lex compare.
+---
+ dlls/vbscript/interp.c       | 10 ++++++++++
+ dlls/vbscript/tests/lang.vbs | 20 ++++++++++----------
+ 2 files changed, 20 insertions(+), 10 deletions(-)
+
+diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
+index d8a84360703..06a42acbb13 100644
+--- a/dlls/vbscript/interp.c
++++ b/dlls/vbscript/interp.c
+@@ -2240,9 +2240,19 @@ static HRESULT var_cmp(exec_ctx_t *ctx, VARIANT *l, VARIANT *r, unsigned flags)
+        (rvt == VT_BSTR && (is_numeric_vt(lvt) || lvt == VT_BOOL))) {
+         VARIANT *num = lvt == VT_BSTR ? r : l;
+         VARIANT *str = lvt == VT_BSTR ? l : r;
++        BSTR str_bstr = V_BSTR(str);
+         VARIANT num_str;
+         HRESULT hres;
+ 
++        /* Native treats a non-empty all-whitespace BSTR as greater than
++         * any numeric or boolean, regardless of binary lex order. */
++        if(str_bstr && *str_bstr) {
++            const WCHAR *p;
++            for(p = str_bstr; *p && iswspace(*p); p++);
++            if(!*p)
++                return lvt == VT_BSTR ? VARCMP_GT : VARCMP_LT;
++        }
++
+         VariantInit(&num_str);
+         if((V_VT(num) & VT_TYPEMASK) == VT_BOOL) {
+             V_VT(&num_str) = VT_BSTR;
+diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
+index 59819026f70..4d147719c3f 100644
+--- a/dlls/vbscript/tests/lang.vbs
++++ b/dlls/vbscript/tests/lang.vbs
+@@ -322,15 +322,15 @@ Dim ws_tab   : ws_tab   = Chr(9)
+ Dim ws_lf    : ws_lf    = Chr(10)
+ Dim ws_cr    : ws_cr    = Chr(13)
+ Dim ws_nbsp  : ws_nbsp  = Chr(160)
+-Call todo_wine_ok(not (Len("ab") > ws_space), "Len(""ab"") > Space(3) should be false")
+-Call todo_wine_ok((Len("ab") < ws_space),     "Len(""ab"") < Space(3) should be true")
+-Call ok(not (Len("ab") = ws_space),           "Len(""ab"") = Space(3) should be false")
+-Call todo_wine_ok(not (Len("ab") > ws_tab),   "Len(""ab"") > Chr(9) should be false")
+-Call todo_wine_ok((Len("ab") < ws_tab),       "Len(""ab"") < Chr(9) should be true")
+-Call todo_wine_ok(not (Len("ab") > ws_lf),    "Len(""ab"") > Chr(10) should be false")
+-Call todo_wine_ok((Len("ab") < ws_lf),        "Len(""ab"") < Chr(10) should be true")
+-Call todo_wine_ok(not (Len("ab") > ws_cr),    "Len(""ab"") > Chr(13) should be false")
+-Call todo_wine_ok((Len("ab") < ws_cr),        "Len(""ab"") < Chr(13) should be true")
++Call ok(not (Len("ab") > ws_space), "Len(""ab"") > Space(3) should be false")
++Call ok((Len("ab") < ws_space),     "Len(""ab"") < Space(3) should be true")
++Call ok(not (Len("ab") = ws_space), "Len(""ab"") = Space(3) should be false")
++Call ok(not (Len("ab") > ws_tab),   "Len(""ab"") > Chr(9) should be false")
++Call ok((Len("ab") < ws_tab),       "Len(""ab"") < Chr(9) should be true")
++Call ok(not (Len("ab") > ws_lf),    "Len(""ab"") > Chr(10) should be false")
++Call ok((Len("ab") < ws_lf),        "Len(""ab"") < Chr(10) should be true")
++Call ok(not (Len("ab") > ws_cr),    "Len(""ab"") > Chr(13) should be false")
++Call ok((Len("ab") < ws_cr),        "Len(""ab"") < Chr(13) should be true")
+ Call ok(not (Len("ab") > ws_nbsp),  "Len(""ab"") > Chr(160) should be false")
+ Call ok((Len("ab") < ws_nbsp),      "Len(""ab"") < Chr(160) should be true")
+ 
+@@ -346,7 +346,7 @@ End If
+ guard_err = Err.number
+ Err.Clear
+ On Error Goto 0
+-Call todo_wine_ok(guard_err = 0, "Len(""ab"") > Space(3) guard should not raise (got " & guard_err & ")")
++Call ok(guard_err = 0, "Len(""ab"") > Space(3) guard should not raise (got " & guard_err & ")")
+ 
+ ' --- VT_DATE from CDate is non-literal: string compare, no error. ---
+ Dim cdt : cdt = CDate("2024-01-15")
+-- 
+2.54.0
+
