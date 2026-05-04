@@ -1,7 +1,7 @@
-From 46be11197e521c4a5870dc6fbe9e6e5d6d6ca0ec Mon Sep 17 00:00:00 2001
+From 86a11ac3f2715ad526a3d84c1579062c4ed4da59 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:40 +0200
-Subject: [PATCH 1/9] vbscript: Support assignment to chained array index
+Subject: [PATCH 1/8] vbscript: Support assignment to chained array index
 
 ---
  dlls/vbscript/compile.c      | 25 +++++++++++-
@@ -11,10 +11,10 @@ Subject: [PATCH 1/9] vbscript: Support assignment to chained array index
  4 files changed, 127 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/compile.c b/dlls/vbscript/compile.c
-index 16e661c98ff..5c38a92ecb3 100644
+index 7ed43057d6d..dd07d7b0782 100644
 --- a/dlls/vbscript/compile.c
 +++ b/dlls/vbscript/compile.c
-@@ -1164,7 +1164,30 @@ static HRESULT compile_assignment(compile_ctx_t *ctx, expression_t *left, expres
+@@ -1211,7 +1211,30 @@ static HRESULT compile_assignment(compile_ctx_t *ctx, expression_t *left, expres
          break;
      case EXPR_CALL:
          call_expr = (call_expression_t*)left;
@@ -47,7 +47,7 @@ index 16e661c98ff..5c38a92ecb3 100644
          break;
      default:
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 51099e67d0e..1bbcd7e0000 100644
+index 7ff3baecce8..703350c405c 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
 @@ -791,7 +791,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
@@ -139,10 +139,10 @@ index 51099e67d0e..1bbcd7e0000 100644
  {
      BSTR arg = ctx->instr->arg1.bstr;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index d66e52e8e3a..a4f9ced72f6 100644
+index cc33d6951af..e7ee0656d17 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -2177,6 +2177,34 @@ x = Array(Array(3))
+@@ -2387,6 +2387,34 @@ x = Array(Array(3))
  seta0 (x(0))
  call ok(x(0)(0) = 3, "x(0)(0) = " & x(0)(0))
  
@@ -178,18 +178,18 @@ index d66e52e8e3a..a4f9ced72f6 100644
  ok y = 1, "y = " & y
  
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index e9b76b6cda8..0241f737aba 100644
+index 3857186620b..866c070af92 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
-@@ -253,6 +253,7 @@ typedef enum {
+@@ -259,6 +259,7 @@ typedef enum {
      X(and,            1, 0,           0)          \
      X(assign_ident,   1, ARG_BSTR,    ARG_UINT)   \
      X(assign_member,  1, ARG_BSTR,    ARG_UINT)   \
 +    X(assign_call,    1, ARG_UINT,    0)          \
      X(bool,           1, ARG_INT,     0)          \
      X(catch,          1, ARG_ADDR,    ARG_UINT)   \
-     X(case,           0, ARG_ADDR,    0)          \
-@@ -307,6 +308,7 @@ typedef enum {
+     X(case,           0, ARG_ADDR,    ARG_UINT)   \
+@@ -313,6 +314,7 @@ typedef enum {
      X(retval,         1, 0,           0)          \
      X(set_ident,      1, ARG_BSTR,    ARG_UINT)   \
      X(set_member,     1, ARG_BSTR,    ARG_UINT)   \

@@ -1,7 +1,7 @@
-From dc94728e2b414d29bab662086b481686277f1895 Mon Sep 17 00:00:00 2001
+From 5ba249867e3a9e3b74cc2ce8e37ba9594d121928 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
-Subject: [PATCH 3/9] vbscript: Implement IDispatch::GetTypeInfo for class
+Subject: [PATCH 2/8] vbscript: Implement IDispatch::GetTypeInfo for class
 
 ---
  dlls/vbscript/tests/api.vbs    |  11 +
@@ -10,7 +10,7 @@ Subject: [PATCH 3/9] vbscript: Implement IDispatch::GetTypeInfo for class
  3 files changed, 822 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
-index 4e62e7655d3..7b063e76ce3 100644
+index 9917997a9aa..a01162b88cb 100644
 --- a/dlls/vbscript/tests/api.vbs
 +++ b/dlls/vbscript/tests/api.vbs
 @@ -1711,6 +1711,17 @@ Dim regex
@@ -339,10 +339,10 @@ index 7500ec30a8d..efd0f5ff82f 100644
          test_RegExp_Replace();
      }else {
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 818c1805592..688f0bb5b35 100644
+index 5cf7b5ae596..02d0ffd08f9 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -435,12 +435,532 @@ static HRESULT WINAPI DispatchEx_GetTypeInfoCount(IDispatchEx *iface, UINT *pcti
+@@ -418,12 +418,532 @@ static HRESULT WINAPI DispatchEx_GetTypeInfoCount(IDispatchEx *iface, UINT *pcti
      return S_OK;
  }
  
