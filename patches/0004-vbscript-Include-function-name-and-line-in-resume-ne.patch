@@ -1,4 +1,4 @@
-From 27e8acff381a1551cdff9290e5d2cb955f73c323 Mon Sep 17 00:00:00 2001
+From 0b47eb3220614c378d3110d2facbf98aa1c870df Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 4/8] vbscript: Include function name and line in resume-next
@@ -8,10 +8,10 @@ Subject: [PATCH 4/8] vbscript: Include function name and line in resume-next
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 703350c405c..ce9e46aea0e 100644
+index 5eb82fcf254..490b8508410 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
-@@ -2955,8 +2955,13 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
+@@ -2988,8 +2988,13 @@ HRESULT exec_script(script_ctx_t *ctx, BOOL extern_caller, function_t *func, vbd
  
              if(exec.resume_next) {
                  unsigned stack_off;

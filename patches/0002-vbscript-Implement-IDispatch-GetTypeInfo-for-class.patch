@@ -1,4 +1,4 @@
-From 5ba249867e3a9e3b74cc2ce8e37ba9594d121928 Mon Sep 17 00:00:00 2001
+From fc6e5d4b553a2d312319c702a8dfae36d8a7c93f Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 2/8] vbscript: Implement IDispatch::GetTypeInfo for class
@@ -10,12 +10,12 @@ Subject: [PATCH 2/8] vbscript: Implement IDispatch::GetTypeInfo for class
  3 files changed, 822 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/tests/api.vbs b/dlls/vbscript/tests/api.vbs
-index 9917997a9aa..a01162b88cb 100644
+index 5e92d2fdd46..dde015f5103 100644
 --- a/dlls/vbscript/tests/api.vbs
 +++ b/dlls/vbscript/tests/api.vbs
-@@ -1711,6 +1711,17 @@ Dim regex
- set regex = new RegExp
- Call ok(TypeName(regex) = "IRegExp2", "TypeName(regex) = " & TypeName(regex))
+@@ -1730,6 +1730,17 @@ Dim ec
+ set ec = new EmptyClass
+ Call ok(TypeName(ec) = "EmptyClass", "TypeName(EmptyClass) = " & TypeName(ec))
  
 +' TypeName for VBScript class instances
 +Dim emptyClsObj
@@ -339,7 +339,7 @@ index 7500ec30a8d..efd0f5ff82f 100644
          test_RegExp_Replace();
      }else {
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 5cf7b5ae596..02d0ffd08f9 100644
+index 90f3d18156b..abb87d2ddde 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
 @@ -418,12 +418,532 @@ static HRESULT WINAPI DispatchEx_GetTypeInfoCount(IDispatchEx *iface, UINT *pcti

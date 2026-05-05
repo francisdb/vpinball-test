@@ -1,4 +1,4 @@
-From 86a11ac3f2715ad526a3d84c1579062c4ed4da59 Mon Sep 17 00:00:00 2001
+From 8eee599160ecb37a3380fb43cde8ccb2cee42bfc Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:40 +0200
 Subject: [PATCH 1/8] vbscript: Support assignment to chained array index
@@ -47,7 +47,7 @@ index 7ed43057d6d..dd07d7b0782 100644
          break;
      default:
 diff --git a/dlls/vbscript/interp.c b/dlls/vbscript/interp.c
-index 7ff3baecce8..703350c405c 100644
+index 2a8a82c5f99..5eb82fcf254 100644
 --- a/dlls/vbscript/interp.c
 +++ b/dlls/vbscript/interp.c
 @@ -791,7 +791,13 @@ static HRESULT interp_vcall(exec_ctx_t *ctx)
@@ -139,10 +139,10 @@ index 7ff3baecce8..703350c405c 100644
  {
      BSTR arg = ctx->instr->arg1.bstr;
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index cc33d6951af..e7ee0656d17 100644
+index e05b9185d92..db4e3b17b5a 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -2387,6 +2387,34 @@ x = Array(Array(3))
+@@ -2459,6 +2459,34 @@ x = Array(Array(3))
  seta0 (x(0))
  call ok(x(0)(0) = 3, "x(0)(0) = " & x(0)(0))
  
@@ -178,10 +178,10 @@ index cc33d6951af..e7ee0656d17 100644
  ok y = 1, "y = " & y
  
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index 3857186620b..866c070af92 100644
+index 1420e2da0d1..7b8315748c9 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
-@@ -259,6 +259,7 @@ typedef enum {
+@@ -260,6 +260,7 @@ typedef enum {
      X(and,            1, 0,           0)          \
      X(assign_ident,   1, ARG_BSTR,    ARG_UINT)   \
      X(assign_member,  1, ARG_BSTR,    ARG_UINT)   \
@@ -189,7 +189,7 @@ index 3857186620b..866c070af92 100644
      X(bool,           1, ARG_INT,     0)          \
      X(catch,          1, ARG_ADDR,    ARG_UINT)   \
      X(case,           0, ARG_ADDR,    ARG_UINT)   \
-@@ -313,6 +314,7 @@ typedef enum {
+@@ -314,6 +315,7 @@ typedef enum {
      X(retval,         1, 0,           0)          \
      X(set_ident,      1, ARG_BSTR,    ARG_UINT)   \
      X(set_member,     1, ARG_BSTR,    ARG_UINT)   \

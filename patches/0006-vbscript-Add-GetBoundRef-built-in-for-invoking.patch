@@ -1,4 +1,4 @@
-From fe930c62a500bfe1cdd55a297c30fc12bc7b88c9 Mon Sep 17 00:00:00 2001
+From 5b90d17fd909af4bfae1b2d7bc7fdbca4e7c35aa Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 6/8] vbscript: Add GetBoundRef built-in for invoking
@@ -11,10 +11,10 @@ Subject: [PATCH 6/8] vbscript: Add GetBoundRef built-in for invoking
  4 files changed, 100 insertions(+), 2 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index aced95aae2b..f4b69821a8e 100644
+index 1feb5ba76b9..db6ce174884 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4669,7 +4669,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4702,7 +4702,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -88,7 +88,7 @@ index aced95aae2b..f4b69821a8e 100644
  {
      TRACE("\n");
  
-@@ -4736,6 +4801,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4769,6 +4834,7 @@ static const builtin_prop_t global_props[] = {
      {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
      {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
      {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},
@@ -97,11 +97,11 @@ index aced95aae2b..f4b69821a8e 100644
      {L"GetObject",                 Global_GetObject, 0, 0, 2},
      {L"GetRef",                    Global_GetRef, 0, 1},
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 02d0ffd08f9..ca221293a73 100644
+index abb87d2ddde..70ad8b3113d 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -1084,6 +1084,11 @@ static inline vbdisp_t *unsafe_impl_from_IDispatch(IDispatch *iface)
-         : NULL;
+@@ -1090,6 +1090,11 @@ const WCHAR *vbdisp_class_name(IDispatch *disp)
+     return vbdisp && vbdisp->desc ? vbdisp->desc->name : NULL;
  }
  
 +vbdisp_t *get_vbdisp_from_dispatch(IDispatch *iface)
@@ -112,7 +112,7 @@ index 02d0ffd08f9..ca221293a73 100644
  HRESULT create_vbdisp(const class_desc_t *desc, vbdisp_t **ret)
  {
      vbdisp_t *vbdisp;
-@@ -1148,6 +1153,7 @@ typedef struct {
+@@ -1154,6 +1159,7 @@ typedef struct {
      LONG ref;
      function_t *func;
      script_ctx_t *ctx;
@@ -120,7 +120,7 @@ index 02d0ffd08f9..ca221293a73 100644
  } FuncRef;
  
  static inline FuncRef *FuncRef_from_IDispatch(IDispatch *iface)
-@@ -1188,6 +1194,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
+@@ -1194,6 +1200,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
  
      TRACE("(%p) ref=%ld\n", This, ref);
      if(!ref) {
@@ -129,7 +129,7 @@ index 02d0ffd08f9..ca221293a73 100644
          release_vbscode(This->func->code_ctx);
          free(This);
      }
-@@ -1228,7 +1236,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
+@@ -1234,7 +1242,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
      if(dispIdMember != DISPID_VALUE)
          return DISP_E_MEMBERNOTFOUND;
  
@@ -138,7 +138,7 @@ index 02d0ffd08f9..ca221293a73 100644
  }
  
  static const IDispatchVtbl FuncRefVtbl = {
-@@ -1259,6 +1267,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
+@@ -1265,6 +1273,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
      return S_OK;
  }
  
@@ -167,10 +167,10 @@ index 02d0ffd08f9..ca221293a73 100644
      function_t *func;
      MEMBERID memid;
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index 866c070af92..662cf98ff30 100644
+index 7b8315748c9..26f1619e8bc 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
-@@ -176,6 +176,8 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);
+@@ -177,6 +177,8 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);
  void collect_objects(script_ctx_t*);
  HRESULT create_script_disp(script_ctx_t*,ScriptDisp**);
  HRESULT create_func_ref(script_ctx_t*,function_t*,IDispatch**);
