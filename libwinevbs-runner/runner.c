@@ -54,7 +54,7 @@ static void log_callback(libwinevbs_log_level_t level, const char* format, va_li
     fprintf(stderr, "\n");
 }
 
-static HRESULT create_object_callback(const WCHAR* progid, IClassFactory* cf, IUnknown* obj)
+static HRESULT create_object_callback(const WCHAR* progid, IClassFactory* cf, IUnknown** obj)
 {
     (void)cf; (void)obj;
     fprintf(stderr, "[spike] CreateObject(%ls) - not wired in stage 0\n", progid);
