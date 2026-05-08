@@ -9,6 +9,9 @@
 '                   via GetTextFile() pointing at <VPINBALL_DIR>\scripts\).
 '   TABLES_DIR    - the parent directory containing one folder per
 '                   extracted VPX table (from `vpxtool extract`).
+'                   Recommended: keep them in the repo's gitignored
+'                   `tables/` directory so the test setup is
+'                   self-contained.
 '
 ' Use native Linux paths (e.g. /home/you/vpinball). Wine accepts these
 ' as-is via wineprefix; the libwinevbs runner needs them. The older
@@ -18,4 +21,4 @@
 Option Explicit
 
 Dim VPINBALL_DIR : VPINBALL_DIR = "/path/to/vpinball"
-Dim TABLES_DIR   : TABLES_DIR   = "/path/to/tables"
+Dim TABLES_DIR   : TABLES_DIR   = "/path/to/vpinball-test/tables"

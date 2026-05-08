@@ -1,4 +1,5 @@
 build/
+tables/
 examples/vpx_config.vbs
 # Runtime-generated state files from tables (GLF framework, etc.)
 # Tables drop these wherever the runner's CWD is, so cover both

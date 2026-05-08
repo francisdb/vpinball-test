@@ -31,6 +31,8 @@ patches/
 scripts/
   build-cscript.sh          fetches wine, applies patches, builds cscript
   run-bench.sh              runs a single bench / play test through the built wine
+tables/                     gitignored; extract VPX tables here, one
+                            <title>/<version>/ folder per table
 ```
 
 ## Prerequisites
@@ -42,9 +44,12 @@ scripts/
   (the framework reads `core.vbs`, `controller.vbs`, `WPC.vbs`, etc.
   out of `<VPINBALL_DIR>/scripts/`).
 - One or more VPX tables, extracted with
-  [vpxtool](https://github.com/francisdb/vpxtool):
+  [vpxtool](https://github.com/francisdb/vpxtool) into the repo's
+  gitignored `tables/` directory:
   ```sh
-  vpxtool extract "Darkest Dungeon (Original 2023) 2.3c.vpx"
+  mkdir -p tables/"Darkest Dungeon (Original 2023)"
+  vpxtool extract -o tables/"Darkest Dungeon (Original 2023)" \
+      "Darkest Dungeon (Original 2023) 2.3c.vpx"
   ```
 
 ## Setup
@@ -69,8 +74,12 @@ scripts/
    $EDITOR examples/vpx_config.vbs   # set VPINBALL_DIR and TABLES_DIR
    ```
 
-   Wine exposes host paths at `Z:\`, so a Linux path like
-   `/home/you/vpinball` becomes `Z:\home\you\vpinball`.
+   `TABLES_DIR` should point at the repo's gitignored `tables/`
+   directory (or wherever else you keep your extracted tables); each
+   bench/test resolves the full path via
+   `TABLES_DIR & "\<title>\<extracted-folder>"`. Native Linux paths
+   work directly under wine and the libwinevbs runner; the older
+   `Z:\path\to\...` form breaks under libwinevbs - avoid it.
    `vpx_config.vbs` is `.gitignore`d.
 
 3. **Run an example:**
