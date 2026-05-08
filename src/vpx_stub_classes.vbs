@@ -1209,10 +1209,22 @@ Class VPinMAMEControllerStub
     Public Sub B2SSetPlayerUp(val) : End Sub
     Public Sub B2SSetBallInPlay(val) : End Sub
     Public Sub B2SSetScorePlayer(player, score) : End Sub
+    Public Sub B2SSetScorePlayer1(score) : End Sub
+    Public Sub B2SSetScorePlayer2(score) : End Sub
+    Public Sub B2SSetScorePlayer3(score) : End Sub
+    Public Sub B2SSetScorePlayer4(score) : End Sub
+    Public Sub B2SSetScorePlayer5(score) : End Sub
+    Public Sub B2SSetScorePlayer6(score) : End Sub
+    Public Sub B2SSetScoreRolloverPlayer1(val) : End Sub
+    Public Sub B2SSetScoreRolloverPlayer2(val) : End Sub
+    Public Sub B2SSetScoreRolloverPlayer3(val) : End Sub
+    Public Sub B2SSetScoreRolloverPlayer4(val) : End Sub
     Public Sub B2SSetScore(pos, score) : End Sub
     Public Sub B2SSetScoreDigit(pos, digit) : End Sub
     Public Sub B2SSetShootAgain(pos, val) : End Sub
     Public Sub B2SSetLED(pos, val) : End Sub
+    Public Sub B2SSetMatch(val) : End Sub
+    Public Sub B2SSetCanPlay(val) : End Sub
 
     Private Sub Class_Initialize
         Version = "03060000" : mSolMask(0) = &HFFFFFFFF : mSolMask(1) = &HFFFFFFFF
@@ -1258,10 +1270,22 @@ Class B2SServerStub
     Public Sub B2SSetPlayerUp(val) : End Sub
     Public Sub B2SSetBallInPlay(val) : End Sub
     Public Sub B2SSetScorePlayer(player, score) : End Sub
+    Public Sub B2SSetScorePlayer1(score) : End Sub
+    Public Sub B2SSetScorePlayer2(score) : End Sub
+    Public Sub B2SSetScorePlayer3(score) : End Sub
+    Public Sub B2SSetScorePlayer4(score) : End Sub
+    Public Sub B2SSetScorePlayer5(score) : End Sub
+    Public Sub B2SSetScorePlayer6(score) : End Sub
+    Public Sub B2SSetScoreRolloverPlayer1(val) : End Sub
+    Public Sub B2SSetScoreRolloverPlayer2(val) : End Sub
+    Public Sub B2SSetScoreRolloverPlayer3(val) : End Sub
+    Public Sub B2SSetScoreRolloverPlayer4(val) : End Sub
     Public Sub B2SSetScore(pos, score) : End Sub
     Public Sub B2SSetScoreDigit(pos, digit) : End Sub
     Public Sub B2SSetShootAgain(pos, val) : End Sub
     Public Sub B2SSetLED(pos, val) : End Sub
+    Public Sub B2SSetMatch(val) : End Sub
+    Public Sub B2SSetCanPlay(val) : End Sub
 
     Private Sub Class_Initialize
         Version = "03060000" : mSolMask(0) = &HFFFFFFFF : mSolMask(1) = &HFFFFFFFF

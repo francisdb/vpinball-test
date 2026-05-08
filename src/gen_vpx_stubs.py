@@ -105,9 +105,19 @@ def main():
     # Group gameitems by type
     typed = {}  # type -> [names]
     invalid_names = []  # (name, type) pairs for invalid identifiers
+    # Names that shadow VBScript builtins. The framework uses Timer() for
+    # benchmark timing, so a table element named "Timer" would break
+    # `t0 = Timer` in SetUpTable (returns the Timer object instead of
+    # seconds-since-midnight, then fails with err 80020003 on the implicit
+    # default-property fetch). The element isn't normally referenced by
+    # bare name in scripts, so dropping it here is safe.
+    RESERVED_NAMES = {"Timer", "Now", "Date", "Time", "Eval"}
     for name, typ in sorted(type_map.items()):
         # Skip names that aren't valid VBS identifiers (e.g. start with digit)
         if not re.match(r"^[A-Za-z][A-Za-z0-9_]*$", name):
+            invalid_names.append((name, typ))
+            continue
+        if name in RESERVED_NAMES:
             invalid_names.append((name, typ))
             continue
         typed.setdefault(typ, []).append(name)
