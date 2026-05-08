@@ -13,7 +13,8 @@
 #   libwinevbs-runner/build.sh path/to/script.vbs    # build + run a different script
 set -euo pipefail
 
-LIBWINEVBS_REV="${LIBWINEVBS_REV:-a226c4ed9fd7bf73f4621a6ce969beb220e1996b}"
+LIBWINEVBS_REPO="${LIBWINEVBS_REPO:-https://github.com/jsm174/libwinevbs.git}"
+LIBWINEVBS_REV="${LIBWINEVBS_REV:-6c499f6cf057474c0988aed16f9d1284bbd1ce22}"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 RUNNER_DIR="$REPO_ROOT/libwinevbs-runner"
 BUILD_DIR="$REPO_ROOT/build/libwinevbs-runner"
@@ -25,11 +26,15 @@ mkdir -p "$BUILD_DIR"
 
 # 1. Fetch libwinevbs at the pinned revision.
 if [[ ! -d "$LWVBS_SRC/.git" ]]; then
-    echo "==> Cloning libwinevbs and checking out $LIBWINEVBS_REV"
-    git clone https://github.com/vpinball/libwinevbs.git "$LWVBS_SRC"
+    echo "==> Cloning $LIBWINEVBS_REPO and checking out $LIBWINEVBS_REV"
+    git clone "$LIBWINEVBS_REPO" "$LWVBS_SRC"
     git -C "$LWVBS_SRC" checkout "$LIBWINEVBS_REV"
 else
     echo "==> Refreshing $LWVBS_SRC to $LIBWINEVBS_REV"
+    # Refresh the configured remote URL in case the script's pin moved
+    # to a different fork; otherwise an old clone keeps fetching from
+    # the original repo and reset --hard to a sha it doesn't have.
+    git -C "$LWVBS_SRC" remote set-url origin "$LIBWINEVBS_REPO"
     git -C "$LWVBS_SRC" fetch origin
     git -C "$LWVBS_SRC" reset --hard "$LIBWINEVBS_REV"
     git -C "$LWVBS_SRC" clean -fdx
@@ -43,7 +48,10 @@ if (( ${#patches[@]} )); then
     echo "==> Applying ${#patches[@]} libwinevbs patch(es)"
     for p in "${patches[@]}"; do
         echo "    $(basename "$p")"
-        git -C "$LWVBS_SRC" apply "$p"
+        # patch(1) with --fuzz tolerates context line-drift across
+        # libwinevbs base bumps; git apply is strict and would force
+        # us to regenerate our patches on every wine pin advance.
+        ( cd "$LWVBS_SRC" && patch -p1 --no-backup-if-mismatch --fuzz=10 < "$p" )
     done
 else
     echo "==> No libwinevbs patches to apply"

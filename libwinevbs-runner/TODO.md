@@ -4,61 +4,45 @@
 
 Stage 0 (engine + WScript Echo/Quit) and stage 1 (FSO/Dictionary/RegExp
 via libwinevbs's built-in scrrun, framework + stub classes load) are
-working. Pinned to libwinevbs `a226c4e` (master tip post-wine-11.8 sync
-plus the create_object out-param refactor) plus the patches in
-`patches-libwinevbs/`. 30/32 init benches and 31/31 play tests pass under
-the runner; the two failing inits (`hang_glider`, `iron_maiden`) are
-documented under "Known limitations" below.
+working. Pinned to **jsm174/libwinevbs at `wine-11.9`** (`6c499f6`)
+plus the patches in `patches-libwinevbs/`. We're tracking the jsm174
+fork rather than vpinball/libwinevbs's master because that master is
+still on wine 11.8 and missing upstream wine commit `450d45bb691`
+("vbscript: Support assignment to chained array index expressions"),
+which two of our test tables (`hang_glider`, `iron_maiden`) need.
+
+Result: 32/32 init benches + 29/32 play tests pass under libwinevbs,
+identical to wine. The 3 play-test failures are the same on both
+runners (real bugs in mf_doom / saving_wallden / the_matrix that the
+framework's error gating now surfaces).
+
+A weekly remote-agent routine watches for newer jsm174 wine-* branches
+(wine-11.10, wine-12.0, ...) and for vpinball/libwinevbs master
+bumping past 11.8 so we can switch back; manage at
+https://claude.ai/code/routines.
 
 ## Local patch series (`patches-libwinevbs/`)
 
 Applied on top of the pinned libwinevbs revision, mirroring the wine
-`patches/` workflow.
+`patches/` workflow. `build.sh` uses `patch -p1 --fuzz=10` so context
+line-drift across pin bumps doesn't force us to regenerate.
 
 | # | Patch | Status |
 |---|---|---|
-| 0001 | `vbscript: Add CreateCollection built-in` | **[test-only]** -- ported from wine `patches/0007-...`; never going upstream |
-| 0002 | `fix: forward chained-call args from Match.SubMatches` | **[upstream]** -- libwinevbs [PR #11](https://github.com/vpinball/libwinevbs/pull/11), drop once merged |
-| 0003 | `fix: pass VARIANT args through with VariantCopyInd` | **[upstream]** -- libwinevbs [PR #12](https://github.com/vpinball/libwinevbs/pull/12), drop once merged |
-| 0004 | `test: Add variadic builtins` | **[test-only]** -- ported from wine `patches/0008-...`; never going upstream |
-| 0005 | `vbscript: Add GetBoundRef built-in` | **[test-only]** -- ported from wine `patches/0006-...`; never going upstream |
-| 0006 | `fix: pick path codepage by platform (CP_UTF8 on POSIX, CP_ACP on Win32)` | **[upstream]** -- libwinevbs [PR #14](https://github.com/vpinball/libwinevbs/pull/14), drop once merged |
+| 0001 | `vbscript: Add CreateCollection built-in` | **[test-only]** -- ported from wine `patches/0005-...`; never going upstream |
+| 0002 | `test: Add variadic builtins` | **[test-only]** -- ported from wine `patches/0006-...`; never going upstream |
+| 0003 | `vbscript: Add GetBoundRef built-in` | **[test-only]** -- ported from wine `patches/0004-...`; never going upstream |
+| 0004 | `fix: pick path codepage by platform (CP_UTF8 on POSIX, CP_ACP on Win32)` | **[upstream]** -- libwinevbs [PR #14](https://github.com/vpinball/libwinevbs/pull/14), drop once merged |
 
-Once the upstream PRs merge and the pin advances past them, drop the
-corresponding patches from this series.
+PRs #11 (Match.SubMatches forward chained args) and #12 (proxy
+VariantCopyInd passthrough) used to live here as 0002/0003 but the
+wine-11.9 branch already includes them, so they were dropped on the
+pin bump.
 
 Likely additions soon:
 
 - Diagnostic `resume-next WARN with line` and `call-stack trace` (wine
-  `patches/0004` and `0005`) -- only useful for debugging
-
-## Known limitations
-
-### Chained-subscript LHS assignment on array-of-arrays
-
-`hang_glider` and `iron_maiden` init benches fail under libwinevbs but
-pass under wine. Both tables share a VPW drop-target animation library
-that uses this pattern in `DoDTAnim`:
-
-```vbs
-Dim DTArray
-DTArray = Array(DT006, DT007, ...)   ' DT006 = Array(prim, sec, ..., 0)
-
-For i = 0 To Ubound(DTArray)
-    DTArray(i)(4) = DTAnimate(DTArray(i)(0), DTArray(i)(1), ...)
-Next
-```
-
-The LHS `DTArray(i)(4) = ...` chains two subscripts on the assignment
-target. wine accepts this (the inner array is mutated in place);
-libwinevbs raises `VBSE_OBJECT_REQUIRED` per iteration. Once a fire-Hit
-on the drop targets sets `DTArray(i)(4)` to a non-zero "animate"
-state, every subsequent `DTAnim_Timer` (or `RealTime_Timer` for Iron
-Maiden) tries the chained assignment and fails.
-
-To fix in libwinevbs, the assignment target would need to walk the
-chain on the LHS and hold a reference to the inner array (or treat
-the LHS as a write-through expression rather than an r-value chain).
+  `patches/0002` and `0003`) -- only useful for debugging
 
 ## Cosmetic
 
