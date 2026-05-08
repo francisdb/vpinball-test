@@ -17,6 +17,27 @@
 '
 ' Optional: define Sub PatchTableCode(ByRef code) before loading this file
 '           to apply table-specific patches to the script.
+'
+' ---------------------------------------------------------------------------
+' Error policy
+' ---------------------------------------------------------------------------
+' Runtime errors that bubble up to *our* test boundary (CallTimerRef in
+' the bench loop, AdvanceMs in VpxTester) are real failures and MUST be
+' reported. Do NOT silently swallow them.
+'
+' Errors that the table or core.vbs catches with its own `On Error
+' Resume Next` stay inside that scope and never reach us — those don't
+' fail the test (they're table-internal and may be intentional).
+'
+' If you find yourself adding `On Error Resume Next` in this file:
+'   - Make sure it covers the smallest possible region.
+'   - Pair it with `On Error Goto 0` immediately after.
+'   - Either let any captured error propagate, or count it into a
+'     visible counter that the test asserts is zero before claiming
+'     success (see m_timerErrors / [Exit] at the end of VpxTester).
+'   - Never just `Err.Clear` after a test-side call without recording
+'     the error somewhere visible — see negative regression test in
+'     examples/_meta/test_error_gating.vbs.
 
 ' ---------------------------------------------------------------------------
 ' VPX host API: GetTextFile
@@ -646,6 +667,10 @@ Class VpxTester
     ' Per-timer cumulative wall time (seconds) and fire count.
     Private m_timerWallTime  ' Dictionary: timerName -> cumulative seconds
     Private m_timerFireCount ' Dictionary: timerName -> fire count
+    ' Per-timer count of runtime errors raised during firing, plus the
+    ' first error's headline. Tests fail at Exit if any are non-zero.
+    Private m_timerErrors    ' Dictionary: timerName -> error count
+    Private m_firstErrorMsg  ' "<timerName>: <errNum> <errDesc>" of first
 
     ' Load the table (if not already loaded) and set up tester state.
     ' Play benchmarks call `tester.Init` -- SetUpTable runs quietly (no
@@ -663,6 +688,8 @@ Class VpxTester
         Set m_warnedTimers = CreateObject("Scripting.Dictionary")
         Set m_timerWallTime  = CreateObject("Scripting.Dictionary")
         Set m_timerFireCount = CreateObject("Scripting.Dictionary")
+        Set m_timerErrors    = CreateObject("Scripting.Dictionary")
+        m_firstErrorMsg = ""
         ReDim m_activeNames(31)
         m_activeCount = 0
         g_TimersDirty = True    ' force RebuildActive on first AdvanceMs
@@ -821,7 +848,21 @@ Class VpxTester
                             m_timerWallTime.Add tn, (tFire1 - tFire0)
                             m_timerFireCount.Add tn, 1
                         End If
-                        Err.Clear
+                        ' Errors that propagate up to *our* CallTimerRef
+                        ' boundary are real failures (the table didn't
+                        ' silence them). Errors from OERN-wrapped table
+                        ' code stay inside the table and don't reach us.
+                        If Err.Number <> 0 Then
+                            If m_timerErrors.Exists(tn) Then
+                                m_timerErrors(tn) = m_timerErrors(tn) + 1
+                            Else
+                                m_timerErrors.Add tn, 1
+                            End If
+                            If m_firstErrorMsg = "" Then
+                                m_firstErrorMsg = tn & "_Timer: " & Err.Number & " " & Err.Description
+                            End If
+                            Err.Clear
+                        End If
                         If Not m_firedNames.Exists(tn) Then m_firedNames.Add tn, True
                         m_nextFire(tn) = GameTime + TimerIntervalMs(tn)
                     Else
@@ -1233,6 +1274,24 @@ Class VpxTester
         Echo "Sim time run:    " & m_simMs & " ms"
         Echo "Timers fired:    " & m_firedNames.Count
         PrintTimerStats
+        ' Real runtime errors (those that propagated past the table's
+        ' own OERN guards into our AdvanceMs CallTimerRef boundary) are
+        ' test failures. Print a per-timer breakdown so the offending
+        ' code is identifiable, then Fail (which exits 1).
+        If m_timerErrors.Count > 0 Then
+            Dim total : total = 0
+            Dim k, breakdown
+            breakdown = ""
+            For Each k In m_timerErrors.Keys
+                total = total + m_timerErrors(k)
+                breakdown = breakdown & vbCrLf & "  " & m_timerErrors(k) & "x  " & k & "_Timer"
+            Next
+            Echo "=== Runtime errors during AdvanceMs ==="
+            Echo "Total:           " & total
+            Echo "First error:     " & m_firstErrorMsg
+            Echo "Per timer:" & breakdown
+            Fail "scenario raised " & total & " runtime error(s); first: " & m_firstErrorMsg
+        End If
         Echo "=== Exit complete ==="
     End Sub
 
@@ -1289,5 +1348,19 @@ Class VpxTester
     ' Count of distinct timers that have fired at least once since Init.
     Public Property Get FiredTimerCount()
         FiredTimerCount = m_firedNames.Count
+    End Property
+
+    ' Total runtime errors captured by AdvanceMs during the scenario
+    ' (sum across all timers). Exposed for the error-gating self-test
+    ' in examples/_meta/. Zero in normal passing tests.
+    Public Property Get RuntimeErrorCount()
+        Dim k, total
+        total = 0
+        If Not m_timerErrors Is Nothing Then
+            For Each k In m_timerErrors.Keys
+                total = total + m_timerErrors(k)
+            Next
+        End If
+        RuntimeErrorCount = total
     End Property
 End Class
