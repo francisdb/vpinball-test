@@ -653,6 +653,15 @@ Class TextBox
     Public Text, X, Y, Width, Height, Alignment
     Public IsTransparent, BackColor, FontColor, Font, Visible
     Public IntensityScale
+    ' Older Original tables (e.g. Junkyard Cats 2012) treat TextBox as
+    ' an alphanumeric segment display via these methods. Stub as no-ops
+    ' so the table's `On Error Resume Next` blocks don't silently
+    ' accumulate err 438 -- those errors persist past End Sub on both
+    ' wine and MS VBScript and corrupt downstream Err.Number checks.
+    Public SlowBlinkSpeed
+    Public Sub SetCharShape(idx, shape) : End Sub
+    Public Sub FlushQueue() : End Sub
+    Public Sub QueueText(t, mask, dur) : End Sub
     Private Sub Class_Initialize
         Name = "" : Visible = True : Text = ""
         TimerEnabled = False : TimerInterval = 100
