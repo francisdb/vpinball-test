@@ -1075,6 +1075,8 @@ Class FlexDMDFrameStub
     Public Sub SetPosition(ax, ay) : X = ax : Y = ay : End Sub
     Public Sub SetAlignedPosition(ax, ay, align) : X = ax : Y = ay : End Sub
     Public Sub Remove() : End Sub
+    Public Sub AddAction(a) : End Sub
+    Public Property Get ActionFactory() : Set ActionFactory = New FlexDMDActionFactoryStub : End Property
     Private Sub Class_Initialize
         m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
         Visible = True : Thickness = 2 : Fill = False
@@ -1093,6 +1095,8 @@ Class FlexDMDImageStub
     Public Sub SetPosition(ax, ay) : X = ax : Y = ay : End Sub
     Public Sub SetAlignedPosition(ax, ay, align) : X = ax : Y = ay : End Sub
     Public Sub Remove() : End Sub
+    Public Sub AddAction(a) : End Sub
+    Public Property Get ActionFactory() : Set ActionFactory = New FlexDMDActionFactoryStub : End Property
     Private Sub Class_Initialize
         m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
         Visible = True
@@ -1235,6 +1239,10 @@ Class VPinMAMEControllerStub
     Public Sub B2SSetLED(pos, val) : End Sub
     Public Sub B2SSetMatch(val) : End Sub
     Public Sub B2SSetCanPlay(val) : End Sub
+    Public Sub B2SShowScoreDisplays() : End Sub
+    Public Sub B2SHideScoreDisplays() : End Sub
+    Public Sub B2SStartAnimation(name) : End Sub
+    Public Sub B2SStopAnimation(name) : End Sub
 
     Private Sub Class_Initialize
         Version = "03060000" : mSolMask(0) = &HFFFFFFFF : mSolMask(1) = &HFFFFFFFF
@@ -1296,6 +1304,10 @@ Class B2SServerStub
     Public Sub B2SSetLED(pos, val) : End Sub
     Public Sub B2SSetMatch(val) : End Sub
     Public Sub B2SSetCanPlay(val) : End Sub
+    Public Sub B2SShowScoreDisplays() : End Sub
+    Public Sub B2SHideScoreDisplays() : End Sub
+    Public Sub B2SStartAnimation(name) : End Sub
+    Public Sub B2SStopAnimation(name) : End Sub
 
     Private Sub Class_Initialize
         Version = "03060000" : mSolMask(0) = &HFFFFFFFF : mSolMask(1) = &HFFFFFFFF
@@ -1355,6 +1367,9 @@ Class FlexDMDGroupStub
     Public Sub SetBounds(ax, ay, aw, ah) : X = ax : Y = ay : Width = aw : Height = ah : End Sub
     Public Sub SetSize(aw, ah) : Width = aw : Height = ah : End Sub
     Public Sub SetPosition(ax, ay) : X = ax : Y = ay : End Sub
+    Public Sub SetAlignedPosition(ax, ay, align) : X = ax : Y = ay : End Sub
+    Public Sub AddAction(a) : End Sub
+    Public Property Get ActionFactory() : Set ActionFactory = New FlexDMDActionFactoryStub : End Property
 
     Public Function GetLabel(n)
         If Not m_labels.Exists(n) Then
