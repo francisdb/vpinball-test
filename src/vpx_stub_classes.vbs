@@ -1032,6 +1032,9 @@ Class FlexDMDActorStub
     Public Sub AddAction(a) : End Sub
     Public Sub ClearActions() : End Sub
     Public Property Get ActionFactory() : Set ActionFactory = New FlexDMDActionFactoryStub : End Property
+    ' Sequence/Parallel/etc actions returned by ActionFactory expose an
+    ' Add(action) method to chain. Stub as no-op.
+    Public Sub Add(action) : End Sub
     Private Sub Class_Initialize
         m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
         Visible = True : FillParent = False
@@ -1057,6 +1060,9 @@ Class FlexDMDLabelStub
     Public Sub AddAction(a) : End Sub
     Public Sub ClearActions() : End Sub
     Public Property Get ActionFactory() : Set ActionFactory = New FlexDMDActionFactoryStub : End Property
+    ' Sequence/Parallel/etc actions returned by ActionFactory expose an
+    ' Add(action) method to chain. Stub as no-op.
+    Public Sub Add(action) : End Sub
     Private Sub Class_Initialize
         m_name = "" : X = 0 : Y = 0 : Width = 0 : Height = 0
         Visible = True : Text = "" : AutoPack = True
@@ -1235,7 +1241,7 @@ Class VPinMAMEControllerStub
     Public Sub B2SSetScoreRolloverPlayer4(val) : End Sub
     Public Sub B2SSetScore(pos, score) : End Sub
     Public Sub B2SSetScoreDigit(pos, digit) : End Sub
-    Public Sub B2SSetShootAgain(pos, val) : End Sub
+    Public Sub B2SSetShootAgain(val) : End Sub
     Public Sub B2SSetLED(pos, val) : End Sub
     Public Sub B2SSetMatch(val) : End Sub
     Public Sub B2SSetCanPlay(val) : End Sub
@@ -1300,7 +1306,7 @@ Class B2SServerStub
     Public Sub B2SSetScoreRolloverPlayer4(val) : End Sub
     Public Sub B2SSetScore(pos, score) : End Sub
     Public Sub B2SSetScoreDigit(pos, digit) : End Sub
-    Public Sub B2SSetShootAgain(pos, val) : End Sub
+    Public Sub B2SSetShootAgain(val) : End Sub
     Public Sub B2SSetLED(pos, val) : End Sub
     Public Sub B2SSetMatch(val) : End Sub
     Public Sub B2SSetCanPlay(val) : End Sub

@@ -1,7 +1,7 @@
 ' Auto-generated VPX host object stubs
 ' Source: tables/Capt. Fantastic and The Brown Dirt Cowboy (Bally 1976)/Capt. Fantastic and The Brown Dirt Cowboy (Bally 1976) 2.0.2/gameitems.json
-' Total stubs: 1161  Invalid names: 45
-' Types: Bumper(3), Flasher(249), Flipper(10), Gate(3), HitTarget(2), Kicker(3), Light(109), Plunger(1), Primitive(516), Ramp(68), Reel(12), Rubber(42), TextBox(1), Timer(32), Trigger(25), Wall(85)
+' Total stubs: 1206  Invalid names: 0
+' Types: Bumper(3), Flasher(249), Flipper(10), Gate(3), HitTarget(2), Kicker(3), Light(154), Plunger(1), Primitive(516), Ramp(68), Reel(12), Rubber(42), TextBox(1), Timer(32), Trigger(25), Wall(85)
 
 ' --- Bumper (3) ---
 Dim Bumper1, Bumper2, Bumper3
@@ -307,10 +307,13 @@ Set Drain = New Kicker : Drain.Name = "Drain" : Drain.Enabled = True : g_AllItem
 Set Kicker1 = New Kicker : Kicker1.Name = "Kicker1" : Kicker1.Enabled = True : g_AllItems.Add "Kicker1", Kicker1
 Set Kicker2 = New Kicker : Kicker2.Name = "Kicker2" : Kicker2.Enabled = True : g_AllItems.Add "Kicker2", Kicker2
 
-' --- Light (109) ---
+' --- Light (154) ---
 Dim B1BG, b1Bumper, B2BG, b2Bumper, B3BG, b3Bumper, B4BG, B5BG, BAL, BAL1, BAL10, BAL11, BAL12, BAL13, BAL14
 Dim BAL15, BAL16, BAL17, BAL18, BAL2, BAL3, BAL4, BAL5, BAL6, BAL7, BAL8, BAL9, BLGI, Clight, DT1L
-Dim DT2L, DT3L, DT4L, DT5L, DTGI, GameOverBG, GI_whiteupper1, GI_whiteupper10, GI_whiteupper11, GI_whiteupper12, GI_whiteupper13, GI_whiteupper14, GI_whiteupper15, GI_whiteupper16, GI_whiteupper17
+Dim DT2L, DT3L, DT4L, DT5L, DTGI, e1BumperL, e1BumperL001, e1BumperL002, e1BumperL003, e1BumperL004, e1BumperL005, e1BumperL006, e1BumperL007, e1BumperL008, e1BumperL009
+Dim e1BumperL010, e1BumperL011, e1BumperL012, e1BumperL013, e1BumperL014, e1BumperL015, e1BumperL016, e1BumperL017, e1BumperL018, e1BumperL019, e1BumperL020, e1BumperL021, e1BumperL022, e1BumperL023, e1BumperL024
+Dim e1BumperL025, e1BumperL026, e1BumperL027, e1BumperL028, e1BumperL029, e1BumperL030, e1BumperL1, e1BumperL10, e1BumperL11, e1BumperL12, e1BumperL2, e1BumperL3, e1BumperL4, e1BumperL5, e1BumperL6
+Dim e1BumperL7, e1BumperL8, e1BumperL9, e2BumperL, e3BumperL, GameOverBG, GI_whiteupper1, GI_whiteupper10, GI_whiteupper11, GI_whiteupper12, GI_whiteupper13, GI_whiteupper14, GI_whiteupper15, GI_whiteupper16, GI_whiteupper17
 Dim GI_whiteupper19, GI_whiteupper2, GI_whiteupper20, GI_whiteupper21, GI_whiteupper22, GI_whiteupper23, GI_whiteupper24, GI_whiteupper25, GI_whiteupper3, GI_whiteupper4, GI_whiteupper5, GI_whiteupper6, GI_whiteupper7, GI_whiteupper8, GI_whiteupper9
 Dim LDT1, LDT15, LDT16, LDT2, LDT3, LDT4, LDT5, LDT6, Light1, Light1_X1, Light1_X10, Light1_X11, Light1_X12, Light1_X13, Light1_X14
 Dim Light1_X15, Light1_X16, Light1_X17, Light1_X18, Light1_X19, Light1_X2, Light1_X20, Light1_X21, Light1_X22, Light1_X23, Light1_X3, Light1_X4, Light1_X5, Light1_X6, Light1_X7
@@ -351,6 +354,51 @@ Set DT3L = New Light : DT3L.Name = "DT3L" : DT3L.BlinkPattern = "10" : DT3L.Blin
 Set DT4L = New Light : DT4L.Name = "DT4L" : DT4L.BlinkPattern = "10" : DT4L.BlinkInterval = 125 : DT4L.TimerInterval = 100 : DT4L.Intensity = 5.0 : DT4L.Color = 16757860 : DT4L.FadeSpeedUp = 0.2 : DT4L.FadeSpeedDown = 0.2 : DT4L.x = 97.228035 : DT4L.y = 869.0978 : g_AllItems.Add "DT4L", DT4L
 Set DT5L = New Light : DT5L.Name = "DT5L" : DT5L.BlinkPattern = "10" : DT5L.BlinkInterval = 125 : DT5L.TimerInterval = 100 : DT5L.Intensity = 5.0 : DT5L.Color = 16757860 : DT5L.FadeSpeedUp = 0.2 : DT5L.FadeSpeedDown = 0.2 : DT5L.x = 110.56149 : DT5L.y = 811.6155 : g_AllItems.Add "DT5L", DT5L
 Set DTGI = New Light : DTGI.Name = "DTGI" : DTGI.BlinkPattern = "10" : DTGI.BlinkInterval = 2000 : DTGI.TimerInterval = 100 : DTGI.Intensity = 5.0 : DTGI.Color = 16771797 : DTGI.FadeSpeedUp = 0.2 : DTGI.FadeSpeedDown = 0.2 : DTGI.x = 112.450775 : DTGI.y = 932.9168 : g_AllItems.Add "DTGI", DTGI
+Set e1BumperL = New Light : e1BumperL.Name = "1BumperL" : e1BumperL.BlinkPattern = "10" : e1BumperL.BlinkInterval = 2000 : e1BumperL.TimerInterval = 100 : e1BumperL.Intensity = 22.0 : e1BumperL.Color = 16757860 : e1BumperL.FadeSpeedUp = 0.2 : e1BumperL.FadeSpeedDown = 0.2 : e1BumperL.x = 320.72885 : e1BumperL.y = 598.08887 : g_AllItems.Add "1BumperL", e1BumperL
+Set e1BumperL001 = New Light : e1BumperL001.Name = "1BumperL001" : e1BumperL001.BlinkPattern = "10" : e1BumperL001.BlinkInterval = 2000 : e1BumperL001.TimerInterval = 100 : e1BumperL001.Intensity = 8.0 : e1BumperL001.Color = 16757860 : e1BumperL001.FadeSpeedUp = 0.2 : e1BumperL001.FadeSpeedDown = 0.2 : e1BumperL001.x = 862.053 : e1BumperL001.y = 783.29694 : g_AllItems.Add "1BumperL001", e1BumperL001
+Set e1BumperL002 = New Light : e1BumperL002.Name = "1BumperL002" : e1BumperL002.BlinkPattern = "10" : e1BumperL002.BlinkInterval = 2000 : e1BumperL002.TimerInterval = 100 : e1BumperL002.Intensity = 4.0 : e1BumperL002.Color = 16757860 : e1BumperL002.FadeSpeedUp = 0.2 : e1BumperL002.FadeSpeedDown = 0.2 : e1BumperL002.x = 851.8586 : e1BumperL002.y = 931.5884 : g_AllItems.Add "1BumperL002", e1BumperL002
+Set e1BumperL003 = New Light : e1BumperL003.Name = "1BumperL003" : e1BumperL003.BlinkPattern = "10" : e1BumperL003.BlinkInterval = 2000 : e1BumperL003.TimerInterval = 100 : e1BumperL003.Intensity = 10.0 : e1BumperL003.Color = 16757860 : e1BumperL003.FadeSpeedUp = 0.2 : e1BumperL003.FadeSpeedDown = 0.2 : e1BumperL003.x = 851.4435 : e1BumperL003.y = 930.1319 : g_AllItems.Add "1BumperL003", e1BumperL003
+Set e1BumperL004 = New Light : e1BumperL004.Name = "1BumperL004" : e1BumperL004.BlinkPattern = "10" : e1BumperL004.BlinkInterval = 2000 : e1BumperL004.TimerInterval = 100 : e1BumperL004.Intensity = 8.0 : e1BumperL004.Color = 16757860 : e1BumperL004.FadeSpeedUp = 0.2 : e1BumperL004.FadeSpeedDown = 0.2 : e1BumperL004.x = 849.22797 : e1BumperL004.y = 464.64874 : g_AllItems.Add "1BumperL004", e1BumperL004
+Set e1BumperL005 = New Light : e1BumperL005.Name = "1BumperL005" : e1BumperL005.BlinkPattern = "10" : e1BumperL005.BlinkInterval = 2000 : e1BumperL005.TimerInterval = 100 : e1BumperL005.Intensity = 10.0 : e1BumperL005.Color = 16757860 : e1BumperL005.FadeSpeedUp = 0.2 : e1BumperL005.FadeSpeedDown = 0.2 : e1BumperL005.x = 849.5542 : e1BumperL005.y = 466.36996 : g_AllItems.Add "1BumperL005", e1BumperL005
+Set e1BumperL006 = New Light : e1BumperL006.Name = "1BumperL006" : e1BumperL006.BlinkPattern = "10" : e1BumperL006.BlinkInterval = 2000 : e1BumperL006.TimerInterval = 100 : e1BumperL006.Intensity = 10.0 : e1BumperL006.Color = 16757860 : e1BumperL006.FadeSpeedUp = 0.2 : e1BumperL006.FadeSpeedDown = 0.2 : e1BumperL006.x = 861.44946 : e1BumperL006.y = 692.1832 : g_AllItems.Add "1BumperL006", e1BumperL006
+Set e1BumperL007 = New Light : e1BumperL007.Name = "1BumperL007" : e1BumperL007.BlinkPattern = "10" : e1BumperL007.BlinkInterval = 2000 : e1BumperL007.TimerInterval = 100 : e1BumperL007.Intensity = 4.0 : e1BumperL007.Color = 16757860 : e1BumperL007.FadeSpeedUp = 0.2 : e1BumperL007.FadeSpeedDown = 0.2 : e1BumperL007.x = 698.929 : e1BumperL007.y = 248.40576 : g_AllItems.Add "1BumperL007", e1BumperL007
+Set e1BumperL008 = New Light : e1BumperL008.Name = "1BumperL008" : e1BumperL008.BlinkPattern = "10" : e1BumperL008.BlinkInterval = 2000 : e1BumperL008.TimerInterval = 100 : e1BumperL008.Intensity = 6.0 : e1BumperL008.Color = 16757860 : e1BumperL008.FadeSpeedUp = 0.2 : e1BumperL008.FadeSpeedDown = 0.2 : e1BumperL008.x = 700.5273 : e1BumperL008.y = 251.60689 : g_AllItems.Add "1BumperL008", e1BumperL008
+Set e1BumperL009 = New Light : e1BumperL009.Name = "1BumperL009" : e1BumperL009.BlinkPattern = "10" : e1BumperL009.BlinkInterval = 2000 : e1BumperL009.TimerInterval = 100 : e1BumperL009.Intensity = 10.0 : e1BumperL009.Color = 16757860 : e1BumperL009.FadeSpeedUp = 0.2 : e1BumperL009.FadeSpeedDown = 0.2 : e1BumperL009.x = 698.4399 : e1BumperL009.y = 249.30933 : g_AllItems.Add "1BumperL009", e1BumperL009
+Set e1BumperL010 = New Light : e1BumperL010.Name = "1BumperL010" : e1BumperL010.BlinkPattern = "10" : e1BumperL010.BlinkInterval = 2000 : e1BumperL010.TimerInterval = 100 : e1BumperL010.Intensity = 8.0 : e1BumperL010.Color = 16757860 : e1BumperL010.FadeSpeedUp = 0.2 : e1BumperL010.FadeSpeedDown = 0.2 : e1BumperL010.x = 670.1177 : e1BumperL010.y = 1430.5735 : g_AllItems.Add "1BumperL010", e1BumperL010
+Set e1BumperL011 = New Light : e1BumperL011.Name = "1BumperL011" : e1BumperL011.BlinkPattern = "10" : e1BumperL011.BlinkInterval = 2000 : e1BumperL011.TimerInterval = 100 : e1BumperL011.Intensity = 15.0 : e1BumperL011.Color = 16757860 : e1BumperL011.FadeSpeedUp = 0.2 : e1BumperL011.FadeSpeedDown = 0.2 : e1BumperL011.x = 671.094 : e1BumperL011.y = 1433.8497 : g_AllItems.Add "1BumperL011", e1BumperL011
+Set e1BumperL012 = New Light : e1BumperL012.Name = "1BumperL012" : e1BumperL012.BlinkPattern = "10" : e1BumperL012.BlinkInterval = 2000 : e1BumperL012.TimerInterval = 100 : e1BumperL012.Intensity = 8.0 : e1BumperL012.Color = 16757860 : e1BumperL012.FadeSpeedUp = 0.2 : e1BumperL012.FadeSpeedDown = 0.2 : e1BumperL012.x = 697.6735 : e1BumperL012.y = 1332.7944 : g_AllItems.Add "1BumperL012", e1BumperL012
+Set e1BumperL013 = New Light : e1BumperL013.Name = "1BumperL013" : e1BumperL013.BlinkPattern = "10" : e1BumperL013.BlinkInterval = 2000 : e1BumperL013.TimerInterval = 100 : e1BumperL013.Intensity = 15.0 : e1BumperL013.Color = 16757860 : e1BumperL013.FadeSpeedUp = 0.2 : e1BumperL013.FadeSpeedDown = 0.2 : e1BumperL013.x = 697.7223 : e1BumperL013.y = 1335.9954 : g_AllItems.Add "1BumperL013", e1BumperL013
+Set e1BumperL014 = New Light : e1BumperL014.Name = "1BumperL014" : e1BumperL014.BlinkPattern = "10" : e1BumperL014.BlinkInterval = 2000 : e1BumperL014.TimerInterval = 100 : e1BumperL014.Intensity = 4.0 : e1BumperL014.Color = 16757860 : e1BumperL014.FadeSpeedUp = 0.2 : e1BumperL014.FadeSpeedDown = 0.2 : e1BumperL014.x = 173.88477 : e1BumperL014.y = 88.664024 : g_AllItems.Add "1BumperL014", e1BumperL014
+Set e1BumperL015 = New Light : e1BumperL015.Name = "1BumperL015" : e1BumperL015.BlinkPattern = "10" : e1BumperL015.BlinkInterval = 2000 : e1BumperL015.TimerInterval = 100 : e1BumperL015.Intensity = 6.0 : e1BumperL015.Color = 16757860 : e1BumperL015.FadeSpeedUp = 0.2 : e1BumperL015.FadeSpeedDown = 0.2 : e1BumperL015.x = 178.07898 : e1BumperL015.y = 88.01655 : g_AllItems.Add "1BumperL015", e1BumperL015
+Set e1BumperL016 = New Light : e1BumperL016.Name = "1BumperL016" : e1BumperL016.BlinkPattern = "10" : e1BumperL016.BlinkInterval = 2000 : e1BumperL016.TimerInterval = 100 : e1BumperL016.Intensity = 10.0 : e1BumperL016.Color = 16757860 : e1BumperL016.FadeSpeedUp = 0.2 : e1BumperL016.FadeSpeedDown = 0.2 : e1BumperL016.x = 179.61786 : e1BumperL016.y = 83.42115 : g_AllItems.Add "1BumperL016", e1BumperL016
+Set e1BumperL017 = New Light : e1BumperL017.Name = "1BumperL017" : e1BumperL017.BlinkPattern = "10" : e1BumperL017.BlinkInterval = 2000 : e1BumperL017.TimerInterval = 100 : e1BumperL017.Intensity = 8.0 : e1BumperL017.Color = 16757860 : e1BumperL017.FadeSpeedUp = 0.2 : e1BumperL017.FadeSpeedDown = 0.2 : e1BumperL017.x = 830.448 : e1BumperL017.y = 146.45728 : g_AllItems.Add "1BumperL017", e1BumperL017
+Set e1BumperL018 = New Light : e1BumperL018.Name = "1BumperL018" : e1BumperL018.BlinkPattern = "10" : e1BumperL018.BlinkInterval = 2000 : e1BumperL018.TimerInterval = 100 : e1BumperL018.Intensity = 10.0 : e1BumperL018.Color = 16757860 : e1BumperL018.FadeSpeedUp = 0.2 : e1BumperL018.FadeSpeedDown = 0.2 : e1BumperL018.x = 832.2711 : e1BumperL018.y = 146.69876 : g_AllItems.Add "1BumperL018", e1BumperL018
+Set e1BumperL019 = New Light : e1BumperL019.Name = "1BumperL019" : e1BumperL019.BlinkPattern = "10" : e1BumperL019.BlinkInterval = 2000 : e1BumperL019.TimerInterval = 100 : e1BumperL019.Intensity = 8.0 : e1BumperL019.Color = 16757860 : e1BumperL019.FadeSpeedUp = 0.2 : e1BumperL019.FadeSpeedDown = 0.2 : e1BumperL019.x = 130.07649 : e1BumperL019.y = 1386.8462 : g_AllItems.Add "1BumperL019", e1BumperL019
+Set e1BumperL020 = New Light : e1BumperL020.Name = "1BumperL020" : e1BumperL020.BlinkPattern = "10" : e1BumperL020.BlinkInterval = 2000 : e1BumperL020.TimerInterval = 100 : e1BumperL020.Intensity = 15.0 : e1BumperL020.Color = 16757860 : e1BumperL020.FadeSpeedUp = 0.2 : e1BumperL020.FadeSpeedDown = 0.2 : e1BumperL020.x = 130.9776 : e1BumperL020.y = 1388.4922 : g_AllItems.Add "1BumperL020", e1BumperL020
+Set e1BumperL021 = New Light : e1BumperL021.Name = "1BumperL021" : e1BumperL021.BlinkPattern = "10" : e1BumperL021.BlinkInterval = 2000 : e1BumperL021.TimerInterval = 100 : e1BumperL021.Intensity = 8.0 : e1BumperL021.Color = 16757860 : e1BumperL021.FadeSpeedUp = 0.2 : e1BumperL021.FadeSpeedDown = 0.2 : e1BumperL021.x = 88.46067 : e1BumperL021.y = 645.56586 : g_AllItems.Add "1BumperL021", e1BumperL021
+Set e1BumperL022 = New Light : e1BumperL022.Name = "1BumperL022" : e1BumperL022.BlinkPattern = "10" : e1BumperL022.BlinkInterval = 2000 : e1BumperL022.TimerInterval = 100 : e1BumperL022.Intensity = 15.0 : e1BumperL022.Color = 16757860 : e1BumperL022.FadeSpeedUp = 0.2 : e1BumperL022.FadeSpeedDown = 0.2 : e1BumperL022.x = 86.7041 : e1BumperL022.y = 645.21185 : g_AllItems.Add "1BumperL022", e1BumperL022
+Set e1BumperL023 = New Light : e1BumperL023.Name = "1BumperL023" : e1BumperL023.BlinkPattern = "10" : e1BumperL023.BlinkInterval = 2000 : e1BumperL023.TimerInterval = 100 : e1BumperL023.Intensity = 15.0 : e1BumperL023.Color = 16757860 : e1BumperL023.FadeSpeedUp = 0.2 : e1BumperL023.FadeSpeedDown = 0.2 : e1BumperL023.x = 750.7041 : e1BumperL023.y = 289.21185 : g_AllItems.Add "1BumperL023", e1BumperL023
+Set e1BumperL024 = New Light : e1BumperL024.Name = "1BumperL024" : e1BumperL024.BlinkPattern = "10" : e1BumperL024.BlinkInterval = 2000 : e1BumperL024.TimerInterval = 100 : e1BumperL024.Intensity = 8.0 : e1BumperL024.Color = 16757860 : e1BumperL024.FadeSpeedUp = 0.2 : e1BumperL024.FadeSpeedDown = 0.2 : e1BumperL024.x = 748.4607 : e1BumperL024.y = 293.56586 : g_AllItems.Add "1BumperL024", e1BumperL024
+Set e1BumperL025 = New Light : e1BumperL025.Name = "1BumperL025" : e1BumperL025.BlinkPattern = "10" : e1BumperL025.BlinkInterval = 2000 : e1BumperL025.TimerInterval = 100 : e1BumperL025.Intensity = 4.0 : e1BumperL025.Color = 16757860 : e1BumperL025.FadeSpeedUp = 0.2 : e1BumperL025.FadeSpeedDown = 0.2 : e1BumperL025.x = 634.4607 : e1BumperL025.y = 401.56586 : g_AllItems.Add "1BumperL025", e1BumperL025
+Set e1BumperL026 = New Light : e1BumperL026.Name = "1BumperL026" : e1BumperL026.BlinkPattern = "10" : e1BumperL026.BlinkInterval = 2000 : e1BumperL026.TimerInterval = 100 : e1BumperL026.Intensity = 10.0 : e1BumperL026.Color = 16757860 : e1BumperL026.FadeSpeedUp = 0.2 : e1BumperL026.FadeSpeedDown = 0.2 : e1BumperL026.x = 634.7041 : e1BumperL026.y = 401.21185 : g_AllItems.Add "1BumperL026", e1BumperL026
+Set e1BumperL027 = New Light : e1BumperL027.Name = "1BumperL027" : e1BumperL027.BlinkPattern = "10" : e1BumperL027.BlinkInterval = 2000 : e1BumperL027.TimerInterval = 100 : e1BumperL027.Intensity = 10.0 : e1BumperL027.Color = 16757860 : e1BumperL027.FadeSpeedUp = 0.2 : e1BumperL027.FadeSpeedDown = 0.2 : e1BumperL027.x = 82.596275 : e1BumperL027.y = 958.3091 : g_AllItems.Add "1BumperL027", e1BumperL027
+Set e1BumperL028 = New Light : e1BumperL028.Name = "1BumperL028" : e1BumperL028.BlinkPattern = "10" : e1BumperL028.BlinkInterval = 2000 : e1BumperL028.TimerInterval = 100 : e1BumperL028.Intensity = 8.0 : e1BumperL028.Color = 16757860 : e1BumperL028.FadeSpeedUp = 0.2 : e1BumperL028.FadeSpeedDown = 0.2 : e1BumperL028.x = 84.41937 : e1BumperL028.y = 958.55066 : g_AllItems.Add "1BumperL028", e1BumperL028
+Set e1BumperL029 = New Light : e1BumperL029.Name = "1BumperL029" : e1BumperL029.BlinkPattern = "10" : e1BumperL029.BlinkInterval = 2000 : e1BumperL029.TimerInterval = 100 : e1BumperL029.Intensity = 10.0 : e1BumperL029.Color = 16757860 : e1BumperL029.FadeSpeedUp = 0.2 : e1BumperL029.FadeSpeedDown = 0.2 : e1BumperL029.x = 114.596275 : e1BumperL029.y = 850.45734 : g_AllItems.Add "1BumperL029", e1BumperL029
+Set e1BumperL030 = New Light : e1BumperL030.Name = "1BumperL030" : e1BumperL030.BlinkPattern = "10" : e1BumperL030.BlinkInterval = 2000 : e1BumperL030.TimerInterval = 100 : e1BumperL030.Intensity = 8.0 : e1BumperL030.Color = 16757860 : e1BumperL030.FadeSpeedUp = 0.2 : e1BumperL030.FadeSpeedDown = 0.2 : e1BumperL030.x = 116.41937 : e1BumperL030.y = 850.6989 : g_AllItems.Add "1BumperL030", e1BumperL030
+Set e1BumperL1 = New Light : e1BumperL1.Name = "1BumperL1" : e1BumperL1.BlinkPattern = "10" : e1BumperL1.BlinkInterval = 2000 : e1BumperL1.TimerInterval = 100 : e1BumperL1.Intensity = 3.0 : e1BumperL1.Color = 16757860 : e1BumperL1.FadeSpeedUp = 0.2 : e1BumperL1.FadeSpeedDown = 0.2 : e1BumperL1.x = 275.69183 : e1BumperL1.y = 380.0148 : g_AllItems.Add "1BumperL1", e1BumperL1
+Set e1BumperL10 = New Light : e1BumperL10.Name = "1BumperL10" : e1BumperL10.BlinkPattern = "10" : e1BumperL10.BlinkInterval = 2000 : e1BumperL10.TimerInterval = 100 : e1BumperL10.Intensity = 10.0 : e1BumperL10.Color = 16757860 : e1BumperL10.FadeSpeedUp = 0.2 : e1BumperL10.FadeSpeedDown = 0.2 : e1BumperL10.x = 862.16895 : e1BumperL10.y = 782.70593 : g_AllItems.Add "1BumperL10", e1BumperL10
+Set e1BumperL11 = New Light : e1BumperL11.Name = "1BumperL11" : e1BumperL11.BlinkPattern = "10" : e1BumperL11.BlinkInterval = 2000 : e1BumperL11.TimerInterval = 100 : e1BumperL11.Intensity = 8.0 : e1BumperL11.Color = 16757860 : e1BumperL11.FadeSpeedUp = 0.2 : e1BumperL11.FadeSpeedDown = 0.2 : e1BumperL11.x = 863.0797 : e1BumperL11.y = 691.5015 : g_AllItems.Add "1BumperL11", e1BumperL11
+Set e1BumperL12 = New Light : e1BumperL12.Name = "1BumperL12" : e1BumperL12.BlinkPattern = "10" : e1BumperL12.BlinkInterval = 2000 : e1BumperL12.TimerInterval = 100 : e1BumperL12.Intensity = 6.0 : e1BumperL12.Color = 16757860 : e1BumperL12.FadeSpeedUp = 0.2 : e1BumperL12.FadeSpeedDown = 0.2 : e1BumperL12.x = 852.56104 : e1BumperL12.y = 930.1837 : g_AllItems.Add "1BumperL12", e1BumperL12
+Set e1BumperL2 = New Light : e1BumperL2.Name = "1BumperL2" : e1BumperL2.BlinkPattern = "10" : e1BumperL2.BlinkInterval = 2000 : e1BumperL2.TimerInterval = 100 : e1BumperL2.Intensity = 3.0 : e1BumperL2.Color = 16757860 : e1BumperL2.FadeSpeedUp = 0.2 : e1BumperL2.FadeSpeedDown = 0.2 : e1BumperL2.x = 381.56848 : e1BumperL2.y = 377.6444 : g_AllItems.Add "1BumperL2", e1BumperL2
+Set e1BumperL3 = New Light : e1BumperL3.Name = "1BumperL3" : e1BumperL3.BlinkPattern = "10" : e1BumperL3.BlinkInterval = 2000 : e1BumperL3.TimerInterval = 100 : e1BumperL3.Intensity = 3.0 : e1BumperL3.Color = 16757860 : e1BumperL3.FadeSpeedUp = 0.2 : e1BumperL3.FadeSpeedDown = 0.2 : e1BumperL3.x = 487.44507 : e1BumperL3.y = 377.6444 : g_AllItems.Add "1BumperL3", e1BumperL3
+Set e1BumperL4 = New Light : e1BumperL4.Name = "1BumperL4" : e1BumperL4.BlinkPattern = "10" : e1BumperL4.BlinkInterval = 2000 : e1BumperL4.TimerInterval = 100 : e1BumperL4.Intensity = 3.0 : e1BumperL4.Color = 16757860 : e1BumperL4.FadeSpeedUp = 0.2 : e1BumperL4.FadeSpeedDown = 0.2 : e1BumperL4.x = 595.6918 : e1BumperL4.y = 376.8543 : g_AllItems.Add "1BumperL4", e1BumperL4
+Set e1BumperL5 = New Light : e1BumperL5.Name = "1BumperL5" : e1BumperL5.BlinkPattern = "10" : e1BumperL5.BlinkInterval = 2000 : e1BumperL5.TimerInterval = 100 : e1BumperL5.Intensity = 16.0 : e1BumperL5.Color = 16757860 : e1BumperL5.FadeSpeedUp = 0.2 : e1BumperL5.FadeSpeedDown = 0.2 : e1BumperL5.x = 275.69183 : e1BumperL5.y = 379.4222 : g_AllItems.Add "1BumperL5", e1BumperL5
+Set e1BumperL6 = New Light : e1BumperL6.Name = "1BumperL6" : e1BumperL6.BlinkPattern = "10" : e1BumperL6.BlinkInterval = 2000 : e1BumperL6.TimerInterval = 100 : e1BumperL6.Intensity = 16.0 : e1BumperL6.Color = 16757860 : e1BumperL6.FadeSpeedUp = 0.2 : e1BumperL6.FadeSpeedDown = 0.2 : e1BumperL6.x = 382.35858 : e1BumperL6.y = 378.43454 : g_AllItems.Add "1BumperL6", e1BumperL6
+Set e1BumperL7 = New Light : e1BumperL7.Name = "1BumperL7" : e1BumperL7.BlinkPattern = "10" : e1BumperL7.BlinkInterval = 2000 : e1BumperL7.TimerInterval = 100 : e1BumperL7.Intensity = 16.0 : e1BumperL7.Color = 16757860 : e1BumperL7.FadeSpeedUp = 0.2 : e1BumperL7.FadeSpeedDown = 0.2 : e1BumperL7.x = 488.2352 : e1BumperL7.y = 377.6444 : g_AllItems.Add "1BumperL7", e1BumperL7
+Set e1BumperL8 = New Light : e1BumperL8.Name = "1BumperL8" : e1BumperL8.BlinkPattern = "10" : e1BumperL8.BlinkInterval = 2000 : e1BumperL8.TimerInterval = 100 : e1BumperL8.Intensity = 16.0 : e1BumperL8.Color = 16757860 : e1BumperL8.FadeSpeedUp = 0.2 : e1BumperL8.FadeSpeedDown = 0.2 : e1BumperL8.x = 596.48193 : e1BumperL8.y = 375.27402 : g_AllItems.Add "1BumperL8", e1BumperL8
+Set e1BumperL9 = New Light : e1BumperL9.Name = "1BumperL9" : e1BumperL9.BlinkPattern = "10" : e1BumperL9.BlinkInterval = 2000 : e1BumperL9.TimerInterval = 100 : e1BumperL9.Intensity = 8.0 : e1BumperL9.Color = 16757860 : e1BumperL9.FadeSpeedUp = 0.2 : e1BumperL9.FadeSpeedDown = 0.2 : e1BumperL9.x = 174.3804 : e1BumperL9.y = 137.0078 : g_AllItems.Add "1BumperL9", e1BumperL9
+Set e2BumperL = New Light : e2BumperL.Name = "2BumperL" : e2BumperL.BlinkPattern = "10" : e2BumperL.BlinkInterval = 2000 : e2BumperL.TimerInterval = 100 : e2BumperL.Intensity = 22.0 : e2BumperL.Color = 16757860 : e2BumperL.FadeSpeedUp = 0.2 : e2BumperL.FadeSpeedDown = 0.2 : e2BumperL.x = 551.99976 : e2BumperL.y = 595.31506 : g_AllItems.Add "2BumperL", e2BumperL
+Set e3BumperL = New Light : e3BumperL.Name = "3BumperL" : e3BumperL.BlinkPattern = "10" : e3BumperL.BlinkInterval = 2000 : e3BumperL.TimerInterval = 100 : e3BumperL.Intensity = 22.0 : e3BumperL.Color = 16757860 : e3BumperL.FadeSpeedUp = 0.2 : e3BumperL.FadeSpeedDown = 0.2 : e3BumperL.x = 447.70343 : e3BumperL.y = 788.60614 : g_AllItems.Add "3BumperL", e3BumperL
 Set GameOverBG = New Light : GameOverBG.Name = "GameOverBG" : GameOverBG.BlinkPattern = "10" : GameOverBG.BlinkInterval = 125 : GameOverBG.TimerInterval = 100 : GameOverBG.Intensity = 45.0 : GameOverBG.Color = 16757860 : GameOverBG.FadeSpeedUp = 0.2 : GameOverBG.FadeSpeedDown = 0.2 : GameOverBG.x = 85.211845 : GameOverBG.y = 383.58914 : g_AllItems.Add "GameOverBG", GameOverBG
 Set GI_whiteupper1 = New Light : GI_whiteupper1.Name = "GI_whiteupper1" : GI_whiteupper1.BlinkPattern = "10" : GI_whiteupper1.BlinkInterval = 2000 : GI_whiteupper1.TimerInterval = 100 : GI_whiteupper1.Intensity = 3.0 : GI_whiteupper1.Color = 16757860 : GI_whiteupper1.FadeSpeedUp = 0.2 : GI_whiteupper1.FadeSpeedDown = 0.2 : GI_whiteupper1.x = 68.68354 : GI_whiteupper1.y = 902.4998 : g_AllItems.Add "GI_whiteupper1", GI_whiteupper1
 Set GI_whiteupper10 = New Light : GI_whiteupper10.Name = "GI_whiteupper10" : GI_whiteupper10.BlinkPattern = "10" : GI_whiteupper10.BlinkInterval = 2000 : GI_whiteupper10.TimerInterval = 100 : GI_whiteupper10.Intensity = 3.0 : GI_whiteupper10.Color = 16757860 : GI_whiteupper10.FadeSpeedUp = 0.2 : GI_whiteupper10.FadeSpeedDown = 0.2 : GI_whiteupper10.x = 844.8891 : GI_whiteupper10.y = 911.6115 : g_AllItems.Add "GI_whiteupper10", GI_whiteupper10
@@ -1283,53 +1331,6 @@ Set Wall9 = New Wall : Wall9.Name = "Wall9" : Wall9.CanDrop = False : Wall9.Coll
 Set Wall95 = New Wall : Wall95.Name = "Wall95" : Wall95.CanDrop = False : Wall95.Collidable = True : g_AllItems.Add "Wall95", Wall95
 Set Wall96 = New Wall : Wall96.Name = "Wall96" : Wall96.CanDrop = False : Wall96.Collidable = True : g_AllItems.Add "Wall96", Wall96
 
-' --- Skipped: invalid VBScript identifiers ---
-' Light: 1BumperL
-' Light: 1BumperL001
-' Light: 1BumperL002
-' Light: 1BumperL003
-' Light: 1BumperL004
-' Light: 1BumperL005
-' Light: 1BumperL006
-' Light: 1BumperL007
-' Light: 1BumperL008
-' Light: 1BumperL009
-' Light: 1BumperL010
-' Light: 1BumperL011
-' Light: 1BumperL012
-' Light: 1BumperL013
-' Light: 1BumperL014
-' Light: 1BumperL015
-' Light: 1BumperL016
-' Light: 1BumperL017
-' Light: 1BumperL018
-' Light: 1BumperL019
-' Light: 1BumperL020
-' Light: 1BumperL021
-' Light: 1BumperL022
-' Light: 1BumperL023
-' Light: 1BumperL024
-' Light: 1BumperL025
-' Light: 1BumperL026
-' Light: 1BumperL027
-' Light: 1BumperL028
-' Light: 1BumperL029
-' Light: 1BumperL030
-' Light: 1BumperL1
-' Light: 1BumperL10
-' Light: 1BumperL11
-' Light: 1BumperL12
-' Light: 1BumperL2
-' Light: 1BumperL3
-' Light: 1BumperL4
-' Light: 1BumperL5
-' Light: 1BumperL6
-' Light: 1BumperL7
-' Light: 1BumperL8
-' Light: 1BumperL9
-' Light: 2BumperL
-' Light: 3BumperL
-
 ' --- Collections ---
 Dim BumperWallsOn : Set BumperWallsOn = CreateCollection() : g_CollectionNames.Add "BumperWallsOn", True
 Dim Bumpers_X : Set Bumpers_X = CreateCollection() : g_CollectionNames.Add "Bumpers_X", True
@@ -1339,12 +1340,12 @@ Dim L2 : Set L2 = CreateCollection(LightShootAgain) : g_CollectionNames.Add "L2"
 Dim Rubbersold : Set Rubbersold = CreateCollection(Lsling1cc, RSling2, RSling1, Lsling1, Lsling2, Rubber14, Rubber13, Rubber12, Rubber11, Rubber10, TSling, Rubber8, Rubber7, Rubber6, Rubber5, Rubber4, Rubber3, Rubber2, Rubber1, Rubber25, Lsling, RSling, R14, TopSlingShot, R1, Wall10) : g_CollectionNames.Add "Rubbersold", True
 Dim ROs : Set ROs = CreateCollection() : g_CollectionNames.Add "ROs", True
 Dim PLU : Set PLU = CreateCollection(PR1, PR2, PR3, PR4, PR5, PR6, PR7, PR8, PR9, PR10, PR11) : g_CollectionNames.Add "PLU", True
-Dim Bumpers : Set Bumpers = CreateCollection(b1Bumper, b2Bumper, b3Bumper) : g_CollectionNames.Add "Bumpers", True
+Dim Bumpers : Set Bumpers = CreateCollection(b1Bumper, e1BumperL, b2Bumper, e2BumperL, b3Bumper, e3BumperL) : g_CollectionNames.Add "Bumpers", True
 Dim BRolls : Set BRolls = CreateCollection(LDT4, LDT5, LDT6, LDT1, LDT2, LDT3) : g_CollectionNames.Add "BRolls", True
 Dim BTriggs : Set BTriggs = CreateCollection(Trigger9, Trigger8, Trigger7, Trigger12, Trigger11, Trigger10) : g_CollectionNames.Add "BTriggs", True
 Dim Woods : Set Woods = CreateCollection(Wall15, Wall783, Wall786, Wall008) : g_CollectionNames.Add "Woods", True
 Dim Metals : Set Metals = CreateCollection(Flipper1, Wall96, Wall95, Wall571, ArchRing1, Wall349, Wall570, Wall9) : g_CollectionNames.Add "Metals", True
-Dim GI_Lights : Set GI_Lights = CreateCollection(GI_whiteupper25, GI_whiteupper24, GI_whiteupper23, GI_whiteupper22, GI_whiteupper21, GI_whiteupper20, GI_whiteupper19, GI_whiteupper17, GI_whiteupper16, GI_whiteupper15, GI_whiteupper13, GI_whiteupper12, GI_whiteupper11, GI_whiteupper10, GI_whiteupper8, GI_whiteupper7, GI_whiteupper6, GI_whiteupper5, GI_whiteupper4, GI_whiteupper3, GI_whiteupper2, GI_whiteupper1, GI_whiteupper9, GI_whiteupper14, GI_whiteupper14) : g_CollectionNames.Add "GI_Lights", True
+Dim GI_Lights : Set GI_Lights = CreateCollection(e1BumperL12, e1BumperL10, e1BumperL11, e1BumperL9, GI_whiteupper25, GI_whiteupper24, GI_whiteupper23, GI_whiteupper22, GI_whiteupper21, e1BumperL8, e1BumperL7, e1BumperL6, e1BumperL5, e1BumperL4, e1BumperL3, e1BumperL2, e1BumperL1, GI_whiteupper20, GI_whiteupper19, GI_whiteupper17, GI_whiteupper16, GI_whiteupper15, GI_whiteupper13, GI_whiteupper12, GI_whiteupper11, GI_whiteupper10, GI_whiteupper8, GI_whiteupper7, GI_whiteupper6, GI_whiteupper5, GI_whiteupper4, GI_whiteupper3, GI_whiteupper2, GI_whiteupper1, GI_whiteupper9, e1BumperL018, e1BumperL017, e1BumperL016, e1BumperL015, e1BumperL014, e1BumperL001, e1BumperL013, e1BumperL003, e1BumperL006, e1BumperL012, e1BumperL010, e1BumperL011, e1BumperL005, e1BumperL004, e1BumperL009, e1BumperL008, e1BumperL007, GI_whiteupper14, GI_whiteupper14, e1BumperL026, e1BumperL024, e1BumperL023, e1BumperL025, e1BumperL027, e1BumperL028, e1BumperL029, e1BumperL030, e1BumperL002, e1BumperL019, e1BumperL020, e1BumperL021, e1BumperL022) : g_CollectionNames.Add "GI_Lights", True
 Dim DT_Stuff : Set DT_Stuff = CreateCollection(ScoreReel2, OTT2, OTT1, BAL2, BAL1, BAL, TextBox2, MatchBG, B5BG, B4BG, B3BG, B2BG, B1BG, P2BG, P1BG, TILTBG, GameOverBG, ScoreReel1, OTT4, OTT3, MP4BG, MP3BG, MP2BG, MP1BG, ScoreReel5, P4BG, P3BG, ScoreReel4, ScoreReel3, ScoreReel12) : g_CollectionNames.Add "DT_Stuff", True
 Dim Cab_Stuff : Set Cab_Stuff = CreateCollection() : g_CollectionNames.Add "Cab_Stuff", True
 Dim Bonus_Lights : Set Bonus_Lights = CreateCollection(Light1_X11, Light1_X10, Light1_X9, Light1_X8, Light1_X7, Light1_X6, Light1_X5, Light1_X4, Light1_X3, Light1_X2, Light1_X1, Light1_X15, Light1_X14, Light1_X18, LDT4, LDT5, LDT6, LDT1, LDT2, LDT3, LDT16, LDT15, Light1_X13, Light1_X12, Light1_X20, Light1_X19, Light1_X23, Light1_X22, Light1_X21) : g_CollectionNames.Add "Bonus_Lights", True
@@ -1372,6 +1373,6 @@ Dim PlayerScores : Set PlayerScores = CreateCollection(ScoreReel1, ScoreReel2, S
 Dim DT_Lights : Set DT_Lights = CreateCollection(MP4BG, MP3BG, MP2BG, MP1BG, OTT4, P4BG, P3BG, OTT3, OTT1, P1BG, P2BG, OTT2, BAL2, BAL1, BAL, MatchBG, B5BG, B4BG, B3BG, B2BG, B1BG, TILTBG, GameOverBG, BAL10, BAL12, BAL7, BAL11, BAL17, BAL8, BAL9) : g_CollectionNames.Add "DT_Lights", True
 Dim DT_LightsBlink : Set DT_LightsBlink = CreateCollection(BAL16, BAL14, BAL13, BAL18, BAL6, BAL5, BAL3, BAL4) : g_CollectionNames.Add "DT_LightsBlink", True
 Dim Dposts : Set Dposts = CreateCollection(zCol_Rubber_Post020, zCol_Rubber_Post022, zCol_Rubber_Post021, zCol_Rubber_Post023, zCol_Rubber_Post024, zCol_Rubber_Post019, zCol_Rubber_Post018, zCol_Rubber_Post017, zCol_Rubber_Post016, zCol_Rubber_Post015, zCol_Rubber_Post014, zCol_Rubber_Post030, zCol_Rubber_Post013, zCol_Rubber_Post026, zCol_Rubber_Post027, zCol_Rubber_Post028, zCol_Rubber_Post029, zCol_Rubber_Post009, zCol_Rubber_Post008, zCol_Rubber_Post005, zCol_Rubber_Post006, zCol_Rubber_Post004, zCol_Rubber_Post007, zCol_Rubber_Post003, zCol_Rubber_Post025, zCol_Rubber_Post011, zCol_Rubber_Post002, zCol_Rubber_Post001, zCol_Rubber_Post010, zCol_Rubber_Post012) : g_CollectionNames.Add "Dposts", True
-Dim DynamicSources : Set DynamicSources = CreateCollection(GI_whiteupper7, GI_whiteupper6, GI_whiteupper19, GI_whiteupper9, GI_whiteupper1, GI_whiteupper17) : g_CollectionNames.Add "DynamicSources", True
+Dim DynamicSources : Set DynamicSources = CreateCollection(e1BumperL010, e1BumperL012, e1BumperL002, e1BumperL001, e1BumperL004, e1BumperL007, GI_whiteupper7, e1BumperL017, GI_whiteupper6, e1BumperL025, GI_whiteupper19, e1BumperL014, e1BumperL021, GI_whiteupper9, GI_whiteupper1, GI_whiteupper17, e1BumperL019) : g_CollectionNames.Add "DynamicSources", True
 Dim targets : Set targets = CreateCollection(T21, T11) : g_CollectionNames.Add "targets", True
 

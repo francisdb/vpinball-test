@@ -103,8 +103,8 @@ def main():
                     props_map[parts[1]] = elem_data[parts[0]]
 
     # Group gameitems by type
-    typed = {}  # type -> [names]
-    invalid_names = []  # (name, type) pairs for invalid identifiers
+    typed = {}  # type -> [(ident, original_name)]
+    invalid_names = []  # (name, type) pairs for fully unrepresentable names
     # Names that shadow VBScript builtins. The framework uses Timer() for
     # benchmark timing, so a table element named "Timer" would break
     # `t0 = Timer` in SetUpTable (returns the Timer object instead of
@@ -112,15 +112,41 @@ def main():
     # default-property fetch). The element isn't normally referenced by
     # bare name in scripts, so dropping it here is safe.
     RESERVED_NAMES = {"Timer", "Now", "Date", "Time", "Eval"}
+
+    def to_vbs_ident(name):
+        """Map an arbitrary VPX element name to a valid VBScript identifier.
+        Real VPX exposes elements via the host's IDispatch, so digit-prefixed
+        names like `1BumperL` are reachable from script. Our framework injects
+        them as bare globals via `Dim`/`Set`, which can't start with a digit
+        or contain non-identifier characters. Prefix `_` for digit-leading
+        and replace any non-[A-Za-z0-9_] character with `_`. Tables that
+        reference those names by bare identifier won't resolve, but tables
+        that reference them only via Collections (which is the common case
+        for digit-prefixed light banks) keep working."""
+        if re.match(r"^[A-Za-z][A-Za-z0-9_]*$", name):
+            return name
+        # Replace non-id chars first
+        ident = re.sub(r"[^A-Za-z0-9_]", "_", name)
+        # Prefix `e` if it now starts with a digit (VBScript doesn't allow
+        # identifiers starting with `_` or a digit)
+        if re.match(r"^[0-9]", ident):
+            ident = "e" + ident
+        if not re.match(r"^[A-Za-z][A-Za-z0-9_]*$", ident):
+            return None  # truly unrepresentable
+        return ident
+
+    # Map: original_name -> vbs_ident (for use in collection emit below)
+    name_to_ident = {}
     for name, typ in sorted(type_map.items()):
-        # Skip names that aren't valid VBS identifiers (e.g. start with digit)
-        if not re.match(r"^[A-Za-z][A-Za-z0-9_]*$", name):
-            invalid_names.append((name, typ))
-            continue
         if name in RESERVED_NAMES:
             invalid_names.append((name, typ))
             continue
-        typed.setdefault(typ, []).append(name)
+        ident = to_vbs_ident(name)
+        if ident is None:
+            invalid_names.append((name, typ))
+            continue
+        typed.setdefault(typ, []).append((ident, name))
+        name_to_ident[name] = ident
 
     total = sum(len(ns) for ns in typed.values())
 
@@ -138,13 +164,13 @@ def main():
         sys.exit(1)
 
     for t in sorted(typed.keys()):
-        ns = sorted(typed[t], key=str.lower)
+        items = sorted(typed[t], key=lambda p: p[0].lower())
         stub_class = t
-        print(f"' --- {t} ({len(ns)}) ---")
-        for i in range(0, len(ns), 15):
-            print("Dim " + ", ".join(ns[i : i + 15]))
-        for name in ns:
-            line = f'Set {name} = New {stub_class} : {name}.Name = "{name}"'
+        print(f"' --- {t} ({len(items)}) ---")
+        for i in range(0, len(items), 15):
+            print("Dim " + ", ".join(ident for ident, _ in items[i : i + 15]))
+        for ident, name in items:
+            line = f'Set {ident} = New {stub_class} : {ident}.Name = "{name}"'
             # Set properties from extracted table data
             props = props_map.get(name, {})
             for json_key, vbs_prop, fmt in PROP_MAP.get(t, []):
@@ -157,10 +183,10 @@ def main():
                         val = None
                         break
                 if val is not None:
-                    line += f" : {name}.{vbs_prop} = {fmt(val)}"
-            line += f' : g_AllItems.Add "{name}", {name}'
+                    line += f" : {ident}.{vbs_prop} = {fmt(val)}"
+            line += f' : g_AllItems.Add "{name}", {ident}'
             if t == "Timer":
-                line += f" : {name}.Register"
+                line += f" : {ident}.Register"
             print(line)
         print()
 
@@ -180,7 +206,11 @@ def main():
             cname = coll["name"]
             if not re.match(r"^[A-Za-z_]\w*$", cname):
                 continue
-            items = [it for it in coll["items"] if re.match(r"^[A-Za-z_]\w*$", it)]
+            # Map each member through name_to_ident so digit-prefixed members
+            # (e.g. `1BumperL`) reach their renamed identifier (`_1BumperL`).
+            # Drop members that aren't in name_to_ident at all (didn't come
+            # from a known-type element).
+            items = [name_to_ident[it] for it in coll["items"] if it in name_to_ident]
             if items:
                 print(f"Dim {cname} : Set {cname} = CreateCollection({', '.join(items)}) : g_CollectionNames.Add \"{cname}\", True")
             else:
