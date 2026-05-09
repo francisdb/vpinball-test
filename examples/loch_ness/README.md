@@ -13,12 +13,30 @@ boundary, not errors caught inside core.vbs).
 
 ## Root cause
 
-Loch Ness Monster is a **GamePlan 1985 EM** table with its own
-controller scheme — it doesn't actually use PinMAME. But the
-`gameitems/` extraction has a Timer element literally named
-`PinmameTimer` (note the casing -- `Pinmame`, not `PinMAME`), with
-`Enabled = True` at startup. Almost certainly a leftover from a
-PinMAME template the table author started from.
+**This table should not have a PinmameTimer element at all.** Loch
+Ness Monster is a GamePlan 1985 EM (electromechanical) — no ROM,
+no PinMAME. The script never sets up a real PinMAME ROM
+(`cGameName = "lochness"` is just a string label, no `Controller =
+CreateObject("VPinMAME.Controller")` follows it), never calls
+`vpmInit Me`, and never reads `Controller.ChangedSolenoids /
+ChangedLamps / ChangedGIStrings` — none of the standard PinMAME
+wiring. The Timer in the .vpx is almost certainly a leftover from
+a PinMAME template the table author started from and never removed.
+
+The cleanest fix is the one we can't apply here: open the table in
+the VPX editor and delete the `PinmameTimer` element. Since this
+test framework deliberately does not modify the .vpx, we work
+around it.
+
+The `gameitems/` extraction shows it as `Timer.PinmameTimer.json`
+(note the casing -- `Pinmame`, not `PinMAME`) with `Enabled = True`
+at startup. Our `gen_vpx_stubs.py` faithfully emits
+
+```vbs
+Set PinmameTimer = New Timer : ... : PinmameTimer.Enabled = True
+```
+
+so the timer is in our suite too.
 
 VBScript identifier lookup is case-insensitive, so the framework's
 auto-firing of `<element>_Timer` for `PinmameTimer` resolves to
