@@ -15,6 +15,21 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Loch Ness Monster
 Dim TABLE_FILE          : TABLE_FILE          = "LNM(GamePlan 1985).vpx"
 
 Sub PatchTableCode(ByRef code)
+    ' Loch Ness doesn't declare the PinMAME feature-gate constants
+    ' (`UseSolenoids`, `UseLamps`, `UseGI`) -- it's a GamePlan EM with
+    ' its own controller scheme. core.vbs's PinMAMETimer_Timer
+    ' evaluates `If UseLamps Then ...` / `If UseSolenoids Then ...`
+    ' against undefined-Var (err 500), wrapped in OERN. Loud warn:
+    ' channel noise (~22k errors per scenario) but harmless. Define
+    ' them as False at the top of the script so the OERN branches
+    ' don't even trigger. core.vbs already handles UseModSol /
+    ' UseNVRAM / UsePdbLeds via IsEmpty() probes.
+    Dim consts
+    consts = "Const UseSolenoids = False" & vbCrLf & _
+             "Const UseLamps = False" & vbCrLf & _
+             "Const UseGI = False" & vbCrLf
+    ' Inject after Option Explicit (which must be the first statement).
+    code = Replace(code, "Option Explicit", "Option Explicit" & vbCrLf & consts, 1, 1, vbTextCompare)
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll

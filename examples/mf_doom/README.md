@@ -67,3 +67,36 @@ defined as a `Sub X` or `Function X` in the script, instead of
 needing per-table edits in `vpx_stubs.vbs`. The existing
 `RESERVED_NAMES` filter already handles VBScript builtins (`Timer`,
 `Now`, `Date`); a Sub-vs-element scan is the next step.
+
+## Silenced-OERN noise (by design)
+
+`WINEDEBUG=warn+vbscript` also shows two `Failed ... in resume next
+mode` warnings on `HasArrayElements` line 18158. The function
+intentionally probes for uninitialized arrays via `On Error Resume
+Next` + `UBound(arr)`:
+
+```vbs
+Function HasArrayElements(arr)
+    HasArrayElements = False
+    If IsArray(arr) Then
+        On Error Resume Next
+        Dim ub : ub = UBound(arr)
+        If (Err.Number = 0) And (ub >= 0) Then HasArrayElements = True
+    End If
+    On Error Goto 0
+End Function
+```
+
+The err 9 ("Subscript out of range") on `UBound` is the signal the
+function uses to detect "this array hasn't been ReDim'd yet" -- the
+function then returns `False`. Self-contained validation pattern.
+By design.
+
+(One subtle quirk: this Sub does NOT call `Err.Clear` before
+returning, so the silenced err 9 leaks out to the caller via the
+shared `Err` object. That bit us once before the framework added
+its play-test error gating -- silencing inside the table did not
+prevent the caller's `Err.Number` from showing the err 9, which
+the bench loop was previously counting as a real timer error. The
+new gating only counts errors that propagate to the framework's
+own boundary, so this is no longer an issue.)
