@@ -323,7 +323,8 @@ Class Kicker
     Public Sub KickXYZ(a, s, i, bx, by, bz)
         If m_ballCnt > 0 Then m_ballCnt = m_ballCnt - 1
     End Sub
-    Public Sub KickZ(a, s, hz)
+    ' Real VPX KickZ takes 4 args: angle, speed, inclination, z.
+    Public Sub KickZ(a, s, i, z)
         If m_ballCnt > 0 Then m_ballCnt = m_ballCnt - 1
     End Sub
     Public Function BallCntOver() : BallCntOver = m_ballCnt : End Function
