@@ -16,6 +16,14 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\The Matrix (Origi
 Dim TABLE_FILE          : TABLE_FILE          = "The Matrix (Original) 0.99.0.vpx"
 
 Sub PatchTableCode(ByRef code)
+    ' Framework's `.Kick a, b, c` -> `.Kick3 a, b, c` regex only matches
+    ' literal numeric args. This queued AddTimer string passes the 1st
+    ' arg as an expression (`120 + INT(RND*8)`), which the regex skips,
+    ' so Execute'ing it later raises err 450 ("Wrong number of args")
+    ' against the 2-arg Kicker stub. Patch the literal in place.
+    code = Replace(code, _
+        "ModeScoop.Kick 120 + INT(RND*8), 55, 1.4", _
+        "ModeScoop.Kick3 120 + INT(RND*8), 55, 1.4")
 End Sub
 
 ExecuteGlobal fso.OpenTextFile(scriptDir & "\..\..\src\vpx_test_framework.vbs", 1).ReadAll
