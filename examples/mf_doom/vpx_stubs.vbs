@@ -1566,7 +1566,13 @@ Dim alights2 : Set alights2 = CreateCollection(LEyes001, LSupreme009) : g_Collec
 Dim alights3 : Set alights3 = CreateCollection(LEyes002, LSupreme026) : g_CollectionNames.Add "alights3", True
 Dim attractlights3 : Set attractlights3 = CreateCollection(LEyes002, LSupreme026) : g_CollectionNames.Add "attractlights3", True
 Dim attractlights2 : Set attractlights2 = CreateCollection(LEyes001, LSupreme009) : g_CollectionNames.Add "attractlights2", True
-Dim ClearSmoke : Set ClearSmoke = CreateCollection(LeftInlane, LeftInlane2, RightInlane, RightInlane2, LeftSlingShot, RightSlingShot, Drain, TriggerOrbit01, TriggerOrbit03, Wall001, Wall022, Wall027, Wall041) : g_CollectionNames.Add "ClearSmoke", True
+' ClearSmoke collection omitted: the table also defines `Sub ClearSmoke`
+' which the queue's `ExecuteGlobal "ClearSmoke"` needs to invoke. With
+' both a global variable (Collection) and a Sub of the same name, the
+' variable wins, and ExecuteGlobal raises err 450 "Wrong number of
+' arguments". The collection isn't referenced by the table's script
+' code, only listed here as a side effect of the named-collection
+' generation; safe to drop. (Same pattern as iron_maiden's DMD.)
 Dim TextLetters : Set TextLetters = CreateCollection(LText43, LText42, LText41, LText40, LText39, LText38, LText37, LText36, LText35, LText34, LText33, LText32, LText31, LText30, LText29, LText28, LText27, LText26, LText25, LText24, LText23, LText22, LText21, LText20, LText19, LText18, LText17, LText16, LText15, LText14, LText13, LText12, LText11, LText10, LText09, LText08, LText07, LText06, LText05, LText04, LText03, LText02, LText01, LPlungerlane09, LPlungerlane08, LPlungerlane07, LPlungerlane06, LPlungerlane05, LPlungerlane04, LPlungerlane03, LPlungerlane02, Light048v2, Light049, Light049v2, Light048, Light045, LPlungerlane01, Light036, Light037, Light038, Light039, Light040, Light041, Light011, Light012, Light057, Light058) : g_CollectionNames.Add "TextLetters", True
 Dim VRCabinet : Set VRCabinet = CreateCollection(PinCab_Backglass, PinCab_Backbox, PinCab_Cabinet, PinCab_Metals, PinCab_Bottom, PinCab_Housing, PinCab_Shooter, dank12, dank13, Pincab_Button_Left, Pincab_Button_Right, Pincab_Button_rings) : g_CollectionNames.Add "VRCabinet", True
 Dim VRMinimalRoom : Set VRMinimalRoom = CreateCollection(VR_Cord, VR_CordPlug, VR_Floor, VR_Outlet, VR_Roof, VR_Wall_Left, VR_Wall_Right, Logo, Logo2) : g_CollectionNames.Add "VRMinimalRoom", True
