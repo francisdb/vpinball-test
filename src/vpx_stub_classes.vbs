@@ -1249,6 +1249,7 @@ Class VPinMAMEControllerStub
     Public Sub B2SHideScoreDisplays() : End Sub
     Public Sub B2SStartAnimation(name) : End Sub
     Public Sub B2SStopAnimation(name) : End Sub
+    Public Sub B2SStopAllAnimations() : End Sub
 
     Private Sub Class_Initialize
         Version = "03060000" : mSolMask(0) = &HFFFFFFFF : mSolMask(1) = &HFFFFFFFF
@@ -1314,6 +1315,7 @@ Class B2SServerStub
     Public Sub B2SHideScoreDisplays() : End Sub
     Public Sub B2SStartAnimation(name) : End Sub
     Public Sub B2SStopAnimation(name) : End Sub
+    Public Sub B2SStopAllAnimations() : End Sub
 
     Private Sub Class_Initialize
         Version = "03060000" : mSolMask(0) = &HFFFFFFFF : mSolMask(1) = &HFFFFFFFF
