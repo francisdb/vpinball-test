@@ -14,7 +14,7 @@ Dim BallShadow001, BallShadow002, BallShadow003, BallShadow004, BallShadow005, B
 Dim BallShadow016, BallShadow017, BallShadow018, BallShadow019, BallShadow020, digit001, digit002, digit003, digit004, digit005, digit006, digit007, digit008, digit009, digit010
 Dim digit011, digit012, digit013, digit014, digit015, digit016, digit017, digit018, digit019, digit020, digit021, digit022, digit023, digit024, digit025
 Dim digit026, digit027, digit028, digit029, digit030, digit031, digit032, digit033, digit034, digit035, digit036, digit037, digit038, digit039, digit040
-Dim digit041, digitgrid,      dtsh1, dtsh2, dtsh3, Flasher004, Flasher005, Flasher005_5, Flasher006, Flasher007, Flasher008, Flasher013, Flasher014, FlasherFace
+Dim digit041, digitgrid, DMD_conflicting, dtsh1, dtsh2, dtsh3, Flasher004, Flasher005, Flasher005_5, Flasher006, Flasher007, Flasher008, Flasher013, Flasher014, FlasherFace
 Dim Flasherflash1, Flasherflash2, Flasherflash3, Flasherflash4, Flasherflash5, FlasherPF, floorshadow, l83, l84, RiftShadow, RiftShadow1, RiftShadow2, RiftShadow3, RiftShadow5, VR_Clockface
 Dim VRBasketballShadow, VRChairShadow, VRChairShadow1, VRCouchShadow, VRPhoneShadow1, VRPhoneShadow2
 Set BallShadow001 = New Flasher : BallShadow001.Name = "BallShadow001" : g_AllItems.Add "BallShadow001", BallShadow001
@@ -79,10 +79,16 @@ Set digit039 = New Flasher : digit039.Name = "digit039" : g_AllItems.Add "digit0
 Set digit040 = New Flasher : digit040.Name = "digit040" : g_AllItems.Add "digit040", digit040
 Set digit041 = New Flasher : digit041.Name = "digit041" : g_AllItems.Add "digit041", digit041
 Set digitgrid = New Flasher : digitgrid.Name = "digitgrid" : g_AllItems.Add "digitgrid", digitgrid
-' DMD Flasher omitted: the table also defines `Sub DMD(...)` and the
-' bare-name conflict makes the Sub call fail with err 80020003. The
-' element isn't read by the script (only listed in the VR_Pincab
-' collection below as metadata, harmless to leave undefined).
+' DMD Flasher renamed to DMD_conflicting because the table also
+' defines `Sub DMD(...)`. Probe (build/probes/sub_vs_dim_probe.vbs)
+' shows VBScript's global variable always shadows a same-name Sub
+' regardless of registration order, so we'd otherwise lose the Sub.
+' Real VPX exposes elements via host IDispatch lookup (which loses
+' to user Subs); we inject Dim'd globals here, which always wins,
+' hence the rename. The Flasher is still reachable via the renamed
+' identifier and via the VR_Pincab collection below. (Same fix as
+' mf_doom's ClearSmoke.)
+Set DMD_conflicting = New Flasher : DMD_conflicting.Name = "DMD" : g_AllItems.Add "DMD", DMD_conflicting
 Set dtsh1 = New Flasher : dtsh1.Name = "dtsh1" : g_AllItems.Add "dtsh1", dtsh1
 Set dtsh2 = New Flasher : dtsh2.Name = "dtsh2" : g_AllItems.Add "dtsh2", dtsh2
 Set dtsh3 = New Flasher : dtsh3.Name = "dtsh3" : g_AllItems.Add "dtsh3", dtsh3
@@ -1111,6 +1117,6 @@ Dim GI_Bot_White_Col : Set GI_Bot_White_Col = CreateCollection(gi_bot_white008, 
 Dim GI_Top_Red_Col : Set GI_Top_Red_Col = CreateCollection(gi_top_red004, gi_top_red003, gi_top_red005, gi_top_red002, gi_top_red001) : g_CollectionNames.Add "GI_Top_Red_Col", True
 Dim GI_Top_White_Col : Set GI_Top_White_Col = CreateCollection(gi_bot_top001, gi_bot_top002, gi_bot_top003, gi_bot_top004, gi_bot_top005, gi_bot_top008, gi_bot_top007, gi_bot_top006) : g_CollectionNames.Add "GI_Top_White_Col", True
 Dim VR_Min : Set VR_Min = CreateCollection(VR_Wall_Right, VR_Wall_Left, VR_Roof, VR_Floor) : g_CollectionNames.Add "VR_Min", True
-Dim VR_Pincab : Set VR_Pincab = CreateCollection(VRLegBoltsFront, VRLegsFront, VRLegBoltsBack, VRLegsBack, PinCab_Braces, PinCab_back_Metals, PinCab_Backbox, PinCab_Backglass, PinCab_Bottom, PinCab_Cabinet, PinCab_DMD, PinCab_Housing, PinCab_Metal_Fittings, PinCab_CoinDoor, PinCab_Shooter, PinCab_Button1o, PinCab_Button1i, PinCab_Rails, TAFFlipperButtonRings, FlipperButtonLeft, FlipperButtonRight, ExtraBallButton, ExtraballHousing) : g_CollectionNames.Add "VR_Pincab", True
+Dim VR_Pincab : Set VR_Pincab = CreateCollection(VRLegBoltsFront, VRLegsFront, VRLegBoltsBack, VRLegsBack, PinCab_Braces, PinCab_back_Metals, PinCab_Backbox, PinCab_Backglass, PinCab_Bottom, PinCab_Cabinet, PinCab_DMD, PinCab_Housing, PinCab_Metal_Fittings, PinCab_CoinDoor, PinCab_Shooter, PinCab_Button1o, PinCab_Button1i, PinCab_Rails, DMD_conflicting, TAFFlipperButtonRings, FlipperButtonLeft, FlipperButtonRight, ExtraBallButton, ExtraballHousing) : g_CollectionNames.Add "VR_Pincab", True
 Dim VR_BaSti : Set VR_BaSti = CreateCollection(vrroom_lamp_left, Basketball1, Primitive10, Primitive12, Primitive11, Primitive004, vrroom_couch, vrroom_lamp_right, vrroom_wall, vrroom_floor, vrroom_border, vrroom_boxes, VR_Clockbody, PSeconds, Phours, PMinutes, VRRoomInfoFoot, VRRoomInfoBoard, VRRoomInfoPole, BeerBubble7, BeerBubble2, BeerBubble3, BeerBubble8, BeerBubble4, BeerBubble5, BeerBubble1, BeerBubble6, Foam, VRHeadset, VR_CordPlug, VR_Outlet, VR_Cord, Chair3, VRFloorEdgeBlocker2, VRFloorEdgeBlocker1, VRPhone, VRFlyerPrim, Liquid, Mug, VRChairShadow1, VRBasketballShadow, VR_Clockface, RiftShadow5, RiftShadow2, RiftShadow1, RiftShadow, RiftShadow3, VRPhoneShadow2, VRPhoneShadow1, floorshadow, VRCouchShadow, VRChairShadow) : g_CollectionNames.Add "VR_BaSti", True
 

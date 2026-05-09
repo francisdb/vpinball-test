@@ -28,23 +28,42 @@ number of arguments". Without the framework's error gating, every
 `QueueTimer_Timer` tick silently swallowed this; with gating, the
 test fails the whole scenario.
 
+## Why doesn't real VPX hit this?
+
+In real VPX, table elements are exposed via the host application's
+**IDispatch** interface, not by injecting `Dim`'d globals into the
+VBScript namespace. VBScript's identifier resolution looks up
+user-defined `Dim`/`Sub`/`Function`/`Class` names first and only
+falls through to host IDispatch members when nothing is found in
+the script. So the user's `Sub ClearSmoke` is found before the
+host's element of the same name, and the call works.
+
+Our framework simulates host elements by `Dim`-ing them as global
+variables in the same scope as the user script (via `ExecuteGlobal`
+of `vpx_stubs.vbs`). That puts them on the same shelf as user
+identifiers — and a global variable always wins over a Sub of the
+same name in VBScript, regardless of registration order (verified
+by `build/probes/sub_vs_dim_probe.vbs` on both wine and libwinevbs).
+So any name collision between an element/Collection and a Sub
+breaks the table.
+
 ## Workaround
 
-The `Set ClearSmoke = CreateCollection(...)` line in
-`vpx_stubs.vbs` has been **commented out**. The table script never
-references the Collection by bare name — only through inner
-elements like `LeftInlane`, `LeftSlingShot` etc., which have their
-own stubs — so dropping the Collection wrapper is safe.
+The `Set ClearSmoke = ...` line in `vpx_stubs.vbs` has been
+**renamed to `ClearSmoke_conflicting`** (the Collection is still
+fully constructed, just under the renamed identifier). The table
+script's `Sub ClearSmoke` then resolves cleanly. Anything that
+needs the Collection can reach it via `ClearSmoke_conflicting` or
+through `g_CollectionNames`.
 
-This is the same fix as `iron_maiden`'s `DMD` Flasher (see that
-example's README).
+Same pattern as `iron_maiden`'s `DMD` Flasher — see that example's
+README.
 
 ## Long-term fix
 
-`src/gen_vpx_stubs.py` could parse the table's `script.vbs` and skip
-emitting a `Dim X : Set X = ...` entry when the script defines
-`Sub X` or `Function X` with the same identifier. Until then, this
-class of clash is patched out by hand in the offending table's
-`vpx_stubs.vbs`. The `RESERVED_NAMES` filter already in
-`gen_vpx_stubs.py` covers the easier subset (VBScript builtins like
-`Timer`, `Now`, `Date`); a Sub-vs-Collection scan is the next step.
+`src/gen_vpx_stubs.py` could parse the table's `script.vbs` and
+auto-suffix any `Dim X : Set X = ...` entry whose identifier is also
+defined as a `Sub X` or `Function X` in the script, instead of
+needing per-table edits in `vpx_stubs.vbs`. The existing
+`RESERVED_NAMES` filter already handles VBScript builtins (`Timer`,
+`Now`, `Date`); a Sub-vs-element scan is the next step.
