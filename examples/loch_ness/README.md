@@ -34,6 +34,25 @@ core.vbs's surrounding OERN, and emit a warn line on the
 because core.vbs already auto-defaults them via `IsEmpty(Eval(...))`
 probes at load time. The other three weren't covered.
 
+## Why not just disable the timer?
+
+Tempting -- `PinMAMETimer_Timer` does only PinMAME work
+(ChangedSolenoids / ChangedLamps / ChangedGIStrings / ChangedPDLeds /
+ChangedNVRAM processing -- all gated on those undefined feature
+flags), and there's nothing here for it to do. But appending
+`PinmameTimer.Enabled = False` at the end of `tableCode` doesn't
+stick: core.vbs also defines
+
+```vbs
+Sub PinMAMETimer_Init : Me.Interval = PinMAMEInterval : Me.Enabled = True : End Sub
+```
+
+and the framework auto-fires every `<element>_Init` handler AFTER
+`tableCode` finishes loading, so the timer gets re-enabled. We'd
+need to redefine `PinMAMETimer_Init` itself, which is in core.vbs
+and would touch every other table that uses it. Defining the
+constants is more local.
+
 ## Fix
 
 `PatchTableCode` injects after the table's `Option Explicit`:
@@ -47,6 +66,8 @@ Const UseGI        = False
 `False` is the right value because Loch Ness genuinely doesn't use
 PinMAME's solenoid / lamp / GI streams — the `If UseSolenoids Then
 ChgSol = Controller.ChangedSolenoids` branch in core.vbs becomes a
-clean no-op once the constant exists and is False.
+clean no-op once the constant exists and is False, the subsequent
+`If Not IsEmpty(ChgSol) Then ...` block is skipped, and the timer
+ticks invisibly with nothing to do.
 
 After the fix the same scenario emits **0 silenced errors**.

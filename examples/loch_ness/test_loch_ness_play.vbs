@@ -15,15 +15,23 @@ Dim EXTRACTED_TABLE_DIR : EXTRACTED_TABLE_DIR = TABLES_DIR & "\Loch Ness Monster
 Dim TABLE_FILE          : TABLE_FILE          = "LNM(GamePlan 1985).vpx"
 
 Sub PatchTableCode(ByRef code)
-    ' Loch Ness doesn't declare the PinMAME feature-gate constants
-    ' (`UseSolenoids`, `UseLamps`, `UseGI`) -- it's a GamePlan EM with
-    ' its own controller scheme. core.vbs's PinMAMETimer_Timer
-    ' evaluates `If UseLamps Then ...` / `If UseSolenoids Then ...`
-    ' against undefined-Var (err 500), wrapped in OERN. Loud warn:
-    ' channel noise (~22k errors per scenario) but harmless. Define
-    ' them as False at the top of the script so the OERN branches
-    ' don't even trigger. core.vbs already handles UseModSol /
-    ' UseNVRAM / UsePdbLeds via IsEmpty() probes.
+    ' Loch Ness has a Timer element named `PinmameTimer` (left over
+    ' from a PinMAME template the author started from) but no actual
+    ' PinMAME wiring -- no `vpmInit Me`, no Controller.ChangedSolenoids,
+    ' no UseSolenoids/UseLamps/UseGI feature-gate constants. Every
+    ' tick of that timer fires core.vbs's `PinMAMETimer_Timer`, which
+    ' probes those undefined globals and emits ~22k OERN-silenced
+    ' err 500 warn lines per play scenario.
+    '
+    ' Disabling the timer outright doesn't work: core.vbs defines
+    ' `Sub PinMAMETimer_Init : Me.Interval = PinMAMEInterval :
+    ' Me.Enabled = True : End Sub`, and the framework auto-fires
+    ' that _Init handler after tableCode loads, re-enabling the
+    ' timer. Defining the missing feature-gate constants as False
+    ' instead lets PinMAMETimer_Timer's branches no-op cleanly.
+    ' core.vbs already auto-defaults UseModSol / UseNVRAM /
+    ' UsePdbLeds via IsEmpty(Eval(...)) probes; these three weren't
+    ' covered.
     Dim consts
     consts = "Const UseSolenoids = False" & vbCrLf & _
              "Const UseLamps = False" & vbCrLf & _
