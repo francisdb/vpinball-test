@@ -8,3 +8,4 @@ examples/**/*.ini
 examples/**/*_debug_log.txt
 /*.ini
 /*_debug_log.txt
+.claude/

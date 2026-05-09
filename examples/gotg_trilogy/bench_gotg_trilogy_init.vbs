@@ -3,7 +3,7 @@
 ' Stubs generated with:
 '   python3 gen_vpx_stubs.py <EXTRACTED_TABLE_DIR>/gameitems.json <EXTRACTED_TABLE_DIR>/collections.json > vpx_stubs.vbs
 '
-' Usage: cscript //nologo bench_gog_trilogy_init.vbs
+' Usage: cscript //nologo bench_gotg_trilogy_init.vbs
 '
 Option Explicit
 
