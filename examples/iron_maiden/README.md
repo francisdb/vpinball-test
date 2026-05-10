@@ -60,6 +60,20 @@ The table script's `Sub DMD(...)` then resolves cleanly, and
 Same pattern as `mf_doom`'s `ClearSmoke` Collection — see that
 example's README.
 
+## Reapply after regenerating stubs
+
+The `_conflicting` rename is a manual post-processing step. If
+`vpx_stubs.vbs` is regenerated (e.g. via `gen_vpx_stubs.py` after a
+table or framework change), the rename is wiped and the bench fails
+again at the `DMD dLine(0), ...` call site. To restore:
+
+```sh
+sed -i 's/\bDMD\b/DMD_conflicting/g' examples/iron_maiden/vpx_stubs.vbs
+```
+
+The `\b` word boundaries leave compound identifiers like
+`PinCab_DMD` alone.
+
 ## Long-term fix
 
 `src/gen_vpx_stubs.py` could parse the table's `script.vbs` and

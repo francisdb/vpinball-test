@@ -59,6 +59,17 @@ through `g_CollectionNames`.
 Same pattern as `iron_maiden`'s `DMD` Flasher — see that example's
 README.
 
+## Reapply after regenerating stubs
+
+The `_conflicting` rename is a manual post-processing step. If
+`vpx_stubs.vbs` is regenerated (e.g. via `gen_vpx_stubs.py` after a
+table or framework change), the rename is wiped and the play test
+fails at the `ExecuteGlobal "ClearSmoke"` call. To restore:
+
+```sh
+sed -i 's/\bClearSmoke\b/ClearSmoke_conflicting/g' examples/mf_doom/vpx_stubs.vbs
+```
+
 ## Long-term fix
 
 `src/gen_vpx_stubs.py` could parse the table's `script.vbs` and
