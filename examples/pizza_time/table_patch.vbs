@@ -12,14 +12,4 @@ Sub PatchPizzaTimeTableCode(ByRef code)
     ' Next silently skips the broken auto-event creation. Fix by
     ' supplying the intended string name.
     code = Replace(code, ".CreateEvents mMagnet", ".CreateEvents ""mMagnet""")
-    ' WshShell is Dim'd + Set'd from CreateObject("WScript.Shell") at
-    ' table top level. WScript.Shell isn't registered on libwinevbs (or
-    ' on vpinball Linux without a plugin), so the Set raises
-    ' VBSE_CANT_CREATE_OBJECT and aborts the framework's ExecuteGlobal
-    ' chain. The downstream `WshShell.AppActivate "..."` calls are
-    ' inside conditional blocks that don't fire during init. Wine
-    ' tolerates the original via wineprefix's WScript namespace.
-    code = Replace(code, _
-        vbTab & "Dim WshShell" & vbCrLf & vbTab & "Set WshShell = CreateObject(""WScript.Shell"")", _
-        vbTab & "'Dim WshShell" & vbCrLf & vbTab & "'Set WshShell = CreateObject(""WScript.Shell"")")
 End Sub
