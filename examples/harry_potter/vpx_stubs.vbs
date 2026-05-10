@@ -1,14 +1,14 @@
 ' Auto-generated VPX host object stubs
-' Source: /home/francisdb/vpinball/tables/Harry Potter and the Goblet of Fire (Original 2020)/hpgf-052-DOF/gameitems.json
+' Source: tables/Harry Potter and the Goblet of Fire (Original 2020)/hpgf-052-DOF/gameitems.json
 ' Total stubs: 636  Invalid names: 0
 ' Types: Bumper(4), Decal(2), Flasher(18), Flipper(6), Gate(5), HitTarget(19), Kicker(16), Light(133), LightSequencer(10), Plunger(1), Primitive(144), Ramp(66), Rubber(40), Spinner(4), Timer(59), Trigger(31), Wall(78)
 
 ' --- Bumper (4) ---
 Dim Bumper1, Bumper2, Bumper3, Bumper4
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
-Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : g_AllItems.Add "Bumper3", Bumper3
-Set Bumper4 = New Bumper : Bumper4.Name = "Bumper4" : g_AllItems.Add "Bumper4", Bumper4
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 200 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 200 : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : Bumper3.TimerInterval = 200 : g_AllItems.Add "Bumper3", Bumper3
+Set Bumper4 = New Bumper : Bumper4.Name = "Bumper4" : Bumper4.TimerInterval = 200 : g_AllItems.Add "Bumper4", Bumper4
 
 ' --- Decal (2) ---
 Dim unnamed, unnamed__1
@@ -18,24 +18,24 @@ Set unnamed__1 = New Decal : unnamed__1.Name = "unnamed__1" : g_AllItems.Add "un
 ' --- Flasher (18) ---
 Dim flames1, flames2, flames3, flames4, flames5, Flasher001, Flasher1, Flasherflash1, Flasherflash2, Flasherflash3, Flasherflash4, Flasherflash5, Flasherflash6, Flasherflash7, magiccircle
 Dim spindiscimg, spotleft, spotright
-Set flames1 = New Flasher : flames1.Name = "flames1" : g_AllItems.Add "flames1", flames1
-Set flames2 = New Flasher : flames2.Name = "flames2" : g_AllItems.Add "flames2", flames2
-Set flames3 = New Flasher : flames3.Name = "flames3" : g_AllItems.Add "flames3", flames3
-Set flames4 = New Flasher : flames4.Name = "flames4" : g_AllItems.Add "flames4", flames4
-Set flames5 = New Flasher : flames5.Name = "flames5" : g_AllItems.Add "flames5", flames5
-Set Flasher001 = New Flasher : Flasher001.Name = "Flasher001" : g_AllItems.Add "Flasher001", Flasher001
-Set Flasher1 = New Flasher : Flasher1.Name = "Flasher1" : g_AllItems.Add "Flasher1", Flasher1
-Set Flasherflash1 = New Flasher : Flasherflash1.Name = "Flasherflash1" : g_AllItems.Add "Flasherflash1", Flasherflash1
-Set Flasherflash2 = New Flasher : Flasherflash2.Name = "Flasherflash2" : g_AllItems.Add "Flasherflash2", Flasherflash2
-Set Flasherflash3 = New Flasher : Flasherflash3.Name = "Flasherflash3" : g_AllItems.Add "Flasherflash3", Flasherflash3
-Set Flasherflash4 = New Flasher : Flasherflash4.Name = "Flasherflash4" : g_AllItems.Add "Flasherflash4", Flasherflash4
-Set Flasherflash5 = New Flasher : Flasherflash5.Name = "Flasherflash5" : g_AllItems.Add "Flasherflash5", Flasherflash5
-Set Flasherflash6 = New Flasher : Flasherflash6.Name = "Flasherflash6" : g_AllItems.Add "Flasherflash6", Flasherflash6
-Set Flasherflash7 = New Flasher : Flasherflash7.Name = "Flasherflash7" : g_AllItems.Add "Flasherflash7", Flasherflash7
-Set magiccircle = New Flasher : magiccircle.Name = "magiccircle" : g_AllItems.Add "magiccircle", magiccircle
-Set spindiscimg = New Flasher : spindiscimg.Name = "spindiscimg" : g_AllItems.Add "spindiscimg", spindiscimg
-Set spotleft = New Flasher : spotleft.Name = "spotleft" : g_AllItems.Add "spotleft", spotleft
-Set spotright = New Flasher : spotright.Name = "spotright" : g_AllItems.Add "spotright", spotright
+Set flames1 = New Flasher : flames1.Name = "flames1" : flames1.TimerInterval = 100 : g_AllItems.Add "flames1", flames1
+Set flames2 = New Flasher : flames2.Name = "flames2" : flames2.TimerInterval = 100 : g_AllItems.Add "flames2", flames2
+Set flames3 = New Flasher : flames3.Name = "flames3" : flames3.TimerInterval = 100 : g_AllItems.Add "flames3", flames3
+Set flames4 = New Flasher : flames4.Name = "flames4" : flames4.TimerInterval = 100 : g_AllItems.Add "flames4", flames4
+Set flames5 = New Flasher : flames5.Name = "flames5" : flames5.TimerInterval = 100 : g_AllItems.Add "flames5", flames5
+Set Flasher001 = New Flasher : Flasher001.Name = "Flasher001" : Flasher001.TimerInterval = 100 : g_AllItems.Add "Flasher001", Flasher001
+Set Flasher1 = New Flasher : Flasher1.Name = "Flasher1" : Flasher1.TimerInterval = 100 : g_AllItems.Add "Flasher1", Flasher1
+Set Flasherflash1 = New Flasher : Flasherflash1.Name = "Flasherflash1" : Flasherflash1.TimerInterval = 30 : g_AllItems.Add "Flasherflash1", Flasherflash1
+Set Flasherflash2 = New Flasher : Flasherflash2.Name = "Flasherflash2" : Flasherflash2.TimerInterval = 30 : g_AllItems.Add "Flasherflash2", Flasherflash2
+Set Flasherflash3 = New Flasher : Flasherflash3.Name = "Flasherflash3" : Flasherflash3.TimerInterval = 30 : g_AllItems.Add "Flasherflash3", Flasherflash3
+Set Flasherflash4 = New Flasher : Flasherflash4.Name = "Flasherflash4" : Flasherflash4.TimerInterval = 30 : g_AllItems.Add "Flasherflash4", Flasherflash4
+Set Flasherflash5 = New Flasher : Flasherflash5.Name = "Flasherflash5" : Flasherflash5.TimerInterval = 30 : g_AllItems.Add "Flasherflash5", Flasherflash5
+Set Flasherflash6 = New Flasher : Flasherflash6.Name = "Flasherflash6" : Flasherflash6.TimerInterval = 30 : g_AllItems.Add "Flasherflash6", Flasherflash6
+Set Flasherflash7 = New Flasher : Flasherflash7.Name = "Flasherflash7" : Flasherflash7.TimerInterval = 30 : g_AllItems.Add "Flasherflash7", Flasherflash7
+Set magiccircle = New Flasher : magiccircle.Name = "magiccircle" : magiccircle.TimerInterval = 10 : g_AllItems.Add "magiccircle", magiccircle
+Set spindiscimg = New Flasher : spindiscimg.Name = "spindiscimg" : spindiscimg.TimerInterval = 100 : g_AllItems.Add "spindiscimg", spindiscimg
+Set spotleft = New Flasher : spotleft.Name = "spotleft" : spotleft.TimerInterval = 100 : g_AllItems.Add "spotleft", spotleft
+Set spotright = New Flasher : spotright.Name = "spotright" : spotright.TimerInterval = 100 : g_AllItems.Add "spotright", spotright
 
 ' --- Flipper (6) ---
 Dim leftdivert1, LeftFlipper, LeftFlipper1, rightdivert, rightdivert1, RightFlipper
@@ -256,7 +256,7 @@ Set lrseq = New LightSequencer : lrseq.Name = "lrseq" : lrseq.Collection = "alig
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (144) ---
 Dim backwall3d, backwall3d001, BallShadow1, BallShadow10, BallShadow2, BallShadow3, BallShadow4, BallShadow5, BallShadow6, BallShadow7, BallShadow8, BallShadow9, cauldron4, dragonbody, egg
@@ -420,124 +420,124 @@ Dim Ramp21, Ramp22, Ramp23, Ramp24, Ramp25, Ramp26, Ramp27, Ramp28, Ramp29, Ramp
 Dim Ramp35, Ramp36, Ramp37, Ramp38, Ramp39, Ramp4, Ramp40, Ramp41, Ramp42, Ramp5, Ramp50, Ramp51, Ramp52, Ramp53, Ramp54
 Dim Ramp55, Ramp56, Ramp57, Ramp58, Ramp59, Ramp6, Ramp60, Ramp61, Ramp62, Ramp63, Ramp64, Ramp7, Ramp8, Ramp80, Ramp82
 Dim Ramp83, Ramp84, Ramp89, Ramp9, Ramp90, stopmer
-Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : g_AllItems.Add "Ramp001", Ramp001
-Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : g_AllItems.Add "Ramp002", Ramp002
-Set Ramp1 = New Ramp : Ramp1.Name = "Ramp1" : g_AllItems.Add "Ramp1", Ramp1
-Set Ramp10 = New Ramp : Ramp10.Name = "Ramp10" : g_AllItems.Add "Ramp10", Ramp10
-Set Ramp11 = New Ramp : Ramp11.Name = "Ramp11" : g_AllItems.Add "Ramp11", Ramp11
-Set Ramp12 = New Ramp : Ramp12.Name = "Ramp12" : g_AllItems.Add "Ramp12", Ramp12
-Set Ramp13 = New Ramp : Ramp13.Name = "Ramp13" : g_AllItems.Add "Ramp13", Ramp13
-Set Ramp14 = New Ramp : Ramp14.Name = "Ramp14" : g_AllItems.Add "Ramp14", Ramp14
-Set Ramp15 = New Ramp : Ramp15.Name = "Ramp15" : g_AllItems.Add "Ramp15", Ramp15
-Set Ramp16 = New Ramp : Ramp16.Name = "Ramp16" : g_AllItems.Add "Ramp16", Ramp16
-Set Ramp17 = New Ramp : Ramp17.Name = "Ramp17" : g_AllItems.Add "Ramp17", Ramp17
-Set Ramp18 = New Ramp : Ramp18.Name = "Ramp18" : g_AllItems.Add "Ramp18", Ramp18
-Set Ramp19 = New Ramp : Ramp19.Name = "Ramp19" : g_AllItems.Add "Ramp19", Ramp19
-Set Ramp2 = New Ramp : Ramp2.Name = "Ramp2" : g_AllItems.Add "Ramp2", Ramp2
-Set Ramp20 = New Ramp : Ramp20.Name = "Ramp20" : g_AllItems.Add "Ramp20", Ramp20
-Set Ramp21 = New Ramp : Ramp21.Name = "Ramp21" : g_AllItems.Add "Ramp21", Ramp21
-Set Ramp22 = New Ramp : Ramp22.Name = "Ramp22" : g_AllItems.Add "Ramp22", Ramp22
-Set Ramp23 = New Ramp : Ramp23.Name = "Ramp23" : g_AllItems.Add "Ramp23", Ramp23
-Set Ramp24 = New Ramp : Ramp24.Name = "Ramp24" : g_AllItems.Add "Ramp24", Ramp24
-Set Ramp25 = New Ramp : Ramp25.Name = "Ramp25" : g_AllItems.Add "Ramp25", Ramp25
-Set Ramp26 = New Ramp : Ramp26.Name = "Ramp26" : g_AllItems.Add "Ramp26", Ramp26
-Set Ramp27 = New Ramp : Ramp27.Name = "Ramp27" : g_AllItems.Add "Ramp27", Ramp27
-Set Ramp28 = New Ramp : Ramp28.Name = "Ramp28" : g_AllItems.Add "Ramp28", Ramp28
-Set Ramp29 = New Ramp : Ramp29.Name = "Ramp29" : g_AllItems.Add "Ramp29", Ramp29
-Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : g_AllItems.Add "Ramp3", Ramp3
-Set Ramp30 = New Ramp : Ramp30.Name = "Ramp30" : g_AllItems.Add "Ramp30", Ramp30
-Set Ramp31 = New Ramp : Ramp31.Name = "Ramp31" : g_AllItems.Add "Ramp31", Ramp31
-Set Ramp32 = New Ramp : Ramp32.Name = "Ramp32" : g_AllItems.Add "Ramp32", Ramp32
-Set Ramp33 = New Ramp : Ramp33.Name = "Ramp33" : g_AllItems.Add "Ramp33", Ramp33
-Set Ramp34 = New Ramp : Ramp34.Name = "Ramp34" : g_AllItems.Add "Ramp34", Ramp34
-Set Ramp35 = New Ramp : Ramp35.Name = "Ramp35" : g_AllItems.Add "Ramp35", Ramp35
-Set Ramp36 = New Ramp : Ramp36.Name = "Ramp36" : g_AllItems.Add "Ramp36", Ramp36
-Set Ramp37 = New Ramp : Ramp37.Name = "Ramp37" : g_AllItems.Add "Ramp37", Ramp37
-Set Ramp38 = New Ramp : Ramp38.Name = "Ramp38" : g_AllItems.Add "Ramp38", Ramp38
-Set Ramp39 = New Ramp : Ramp39.Name = "Ramp39" : g_AllItems.Add "Ramp39", Ramp39
-Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : g_AllItems.Add "Ramp4", Ramp4
-Set Ramp40 = New Ramp : Ramp40.Name = "Ramp40" : g_AllItems.Add "Ramp40", Ramp40
-Set Ramp41 = New Ramp : Ramp41.Name = "Ramp41" : g_AllItems.Add "Ramp41", Ramp41
-Set Ramp42 = New Ramp : Ramp42.Name = "Ramp42" : g_AllItems.Add "Ramp42", Ramp42
-Set Ramp5 = New Ramp : Ramp5.Name = "Ramp5" : g_AllItems.Add "Ramp5", Ramp5
-Set Ramp50 = New Ramp : Ramp50.Name = "Ramp50" : g_AllItems.Add "Ramp50", Ramp50
-Set Ramp51 = New Ramp : Ramp51.Name = "Ramp51" : g_AllItems.Add "Ramp51", Ramp51
-Set Ramp52 = New Ramp : Ramp52.Name = "Ramp52" : g_AllItems.Add "Ramp52", Ramp52
-Set Ramp53 = New Ramp : Ramp53.Name = "Ramp53" : g_AllItems.Add "Ramp53", Ramp53
-Set Ramp54 = New Ramp : Ramp54.Name = "Ramp54" : g_AllItems.Add "Ramp54", Ramp54
-Set Ramp55 = New Ramp : Ramp55.Name = "Ramp55" : g_AllItems.Add "Ramp55", Ramp55
-Set Ramp56 = New Ramp : Ramp56.Name = "Ramp56" : g_AllItems.Add "Ramp56", Ramp56
-Set Ramp57 = New Ramp : Ramp57.Name = "Ramp57" : g_AllItems.Add "Ramp57", Ramp57
-Set Ramp58 = New Ramp : Ramp58.Name = "Ramp58" : g_AllItems.Add "Ramp58", Ramp58
-Set Ramp59 = New Ramp : Ramp59.Name = "Ramp59" : g_AllItems.Add "Ramp59", Ramp59
-Set Ramp6 = New Ramp : Ramp6.Name = "Ramp6" : g_AllItems.Add "Ramp6", Ramp6
-Set Ramp60 = New Ramp : Ramp60.Name = "Ramp60" : g_AllItems.Add "Ramp60", Ramp60
-Set Ramp61 = New Ramp : Ramp61.Name = "Ramp61" : g_AllItems.Add "Ramp61", Ramp61
-Set Ramp62 = New Ramp : Ramp62.Name = "Ramp62" : g_AllItems.Add "Ramp62", Ramp62
-Set Ramp63 = New Ramp : Ramp63.Name = "Ramp63" : g_AllItems.Add "Ramp63", Ramp63
-Set Ramp64 = New Ramp : Ramp64.Name = "Ramp64" : g_AllItems.Add "Ramp64", Ramp64
-Set Ramp7 = New Ramp : Ramp7.Name = "Ramp7" : g_AllItems.Add "Ramp7", Ramp7
-Set Ramp8 = New Ramp : Ramp8.Name = "Ramp8" : g_AllItems.Add "Ramp8", Ramp8
-Set Ramp80 = New Ramp : Ramp80.Name = "Ramp80" : g_AllItems.Add "Ramp80", Ramp80
-Set Ramp82 = New Ramp : Ramp82.Name = "Ramp82" : g_AllItems.Add "Ramp82", Ramp82
-Set Ramp83 = New Ramp : Ramp83.Name = "Ramp83" : g_AllItems.Add "Ramp83", Ramp83
-Set Ramp84 = New Ramp : Ramp84.Name = "Ramp84" : g_AllItems.Add "Ramp84", Ramp84
-Set Ramp89 = New Ramp : Ramp89.Name = "Ramp89" : g_AllItems.Add "Ramp89", Ramp89
-Set Ramp9 = New Ramp : Ramp9.Name = "Ramp9" : g_AllItems.Add "Ramp9", Ramp9
-Set Ramp90 = New Ramp : Ramp90.Name = "Ramp90" : g_AllItems.Add "Ramp90", Ramp90
-Set stopmer = New Ramp : stopmer.Name = "stopmer" : g_AllItems.Add "stopmer", stopmer
+Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : Ramp001.TimerInterval = 100 : g_AllItems.Add "Ramp001", Ramp001
+Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : Ramp002.TimerInterval = 100 : g_AllItems.Add "Ramp002", Ramp002
+Set Ramp1 = New Ramp : Ramp1.Name = "Ramp1" : Ramp1.TimerInterval = 100 : g_AllItems.Add "Ramp1", Ramp1
+Set Ramp10 = New Ramp : Ramp10.Name = "Ramp10" : Ramp10.TimerInterval = 100 : g_AllItems.Add "Ramp10", Ramp10
+Set Ramp11 = New Ramp : Ramp11.Name = "Ramp11" : Ramp11.TimerInterval = 100 : g_AllItems.Add "Ramp11", Ramp11
+Set Ramp12 = New Ramp : Ramp12.Name = "Ramp12" : Ramp12.TimerInterval = 100 : g_AllItems.Add "Ramp12", Ramp12
+Set Ramp13 = New Ramp : Ramp13.Name = "Ramp13" : Ramp13.TimerInterval = 100 : g_AllItems.Add "Ramp13", Ramp13
+Set Ramp14 = New Ramp : Ramp14.Name = "Ramp14" : Ramp14.TimerInterval = 100 : g_AllItems.Add "Ramp14", Ramp14
+Set Ramp15 = New Ramp : Ramp15.Name = "Ramp15" : Ramp15.TimerInterval = 100 : g_AllItems.Add "Ramp15", Ramp15
+Set Ramp16 = New Ramp : Ramp16.Name = "Ramp16" : Ramp16.TimerInterval = 100 : g_AllItems.Add "Ramp16", Ramp16
+Set Ramp17 = New Ramp : Ramp17.Name = "Ramp17" : Ramp17.TimerInterval = 100 : g_AllItems.Add "Ramp17", Ramp17
+Set Ramp18 = New Ramp : Ramp18.Name = "Ramp18" : Ramp18.TimerInterval = 100 : g_AllItems.Add "Ramp18", Ramp18
+Set Ramp19 = New Ramp : Ramp19.Name = "Ramp19" : Ramp19.TimerInterval = 100 : g_AllItems.Add "Ramp19", Ramp19
+Set Ramp2 = New Ramp : Ramp2.Name = "Ramp2" : Ramp2.TimerInterval = 100 : g_AllItems.Add "Ramp2", Ramp2
+Set Ramp20 = New Ramp : Ramp20.Name = "Ramp20" : Ramp20.TimerInterval = 100 : g_AllItems.Add "Ramp20", Ramp20
+Set Ramp21 = New Ramp : Ramp21.Name = "Ramp21" : Ramp21.TimerInterval = 100 : g_AllItems.Add "Ramp21", Ramp21
+Set Ramp22 = New Ramp : Ramp22.Name = "Ramp22" : Ramp22.TimerInterval = 100 : g_AllItems.Add "Ramp22", Ramp22
+Set Ramp23 = New Ramp : Ramp23.Name = "Ramp23" : Ramp23.TimerInterval = 100 : g_AllItems.Add "Ramp23", Ramp23
+Set Ramp24 = New Ramp : Ramp24.Name = "Ramp24" : Ramp24.TimerInterval = 100 : g_AllItems.Add "Ramp24", Ramp24
+Set Ramp25 = New Ramp : Ramp25.Name = "Ramp25" : Ramp25.TimerInterval = 100 : g_AllItems.Add "Ramp25", Ramp25
+Set Ramp26 = New Ramp : Ramp26.Name = "Ramp26" : Ramp26.TimerInterval = 100 : g_AllItems.Add "Ramp26", Ramp26
+Set Ramp27 = New Ramp : Ramp27.Name = "Ramp27" : Ramp27.TimerInterval = 100 : g_AllItems.Add "Ramp27", Ramp27
+Set Ramp28 = New Ramp : Ramp28.Name = "Ramp28" : Ramp28.TimerInterval = 100 : g_AllItems.Add "Ramp28", Ramp28
+Set Ramp29 = New Ramp : Ramp29.Name = "Ramp29" : Ramp29.TimerInterval = 100 : g_AllItems.Add "Ramp29", Ramp29
+Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : Ramp3.TimerInterval = 100 : g_AllItems.Add "Ramp3", Ramp3
+Set Ramp30 = New Ramp : Ramp30.Name = "Ramp30" : Ramp30.TimerInterval = 100 : g_AllItems.Add "Ramp30", Ramp30
+Set Ramp31 = New Ramp : Ramp31.Name = "Ramp31" : Ramp31.TimerInterval = 100 : g_AllItems.Add "Ramp31", Ramp31
+Set Ramp32 = New Ramp : Ramp32.Name = "Ramp32" : Ramp32.TimerInterval = 100 : g_AllItems.Add "Ramp32", Ramp32
+Set Ramp33 = New Ramp : Ramp33.Name = "Ramp33" : Ramp33.TimerInterval = 100 : g_AllItems.Add "Ramp33", Ramp33
+Set Ramp34 = New Ramp : Ramp34.Name = "Ramp34" : Ramp34.TimerInterval = 100 : g_AllItems.Add "Ramp34", Ramp34
+Set Ramp35 = New Ramp : Ramp35.Name = "Ramp35" : Ramp35.TimerInterval = 100 : g_AllItems.Add "Ramp35", Ramp35
+Set Ramp36 = New Ramp : Ramp36.Name = "Ramp36" : Ramp36.TimerInterval = 100 : g_AllItems.Add "Ramp36", Ramp36
+Set Ramp37 = New Ramp : Ramp37.Name = "Ramp37" : Ramp37.TimerInterval = 100 : g_AllItems.Add "Ramp37", Ramp37
+Set Ramp38 = New Ramp : Ramp38.Name = "Ramp38" : Ramp38.TimerInterval = 100 : g_AllItems.Add "Ramp38", Ramp38
+Set Ramp39 = New Ramp : Ramp39.Name = "Ramp39" : Ramp39.TimerInterval = 100 : g_AllItems.Add "Ramp39", Ramp39
+Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : Ramp4.TimerInterval = 100 : g_AllItems.Add "Ramp4", Ramp4
+Set Ramp40 = New Ramp : Ramp40.Name = "Ramp40" : Ramp40.TimerInterval = 100 : g_AllItems.Add "Ramp40", Ramp40
+Set Ramp41 = New Ramp : Ramp41.Name = "Ramp41" : Ramp41.TimerInterval = 100 : g_AllItems.Add "Ramp41", Ramp41
+Set Ramp42 = New Ramp : Ramp42.Name = "Ramp42" : Ramp42.TimerInterval = 100 : g_AllItems.Add "Ramp42", Ramp42
+Set Ramp5 = New Ramp : Ramp5.Name = "Ramp5" : Ramp5.TimerInterval = 100 : g_AllItems.Add "Ramp5", Ramp5
+Set Ramp50 = New Ramp : Ramp50.Name = "Ramp50" : Ramp50.TimerInterval = 100 : g_AllItems.Add "Ramp50", Ramp50
+Set Ramp51 = New Ramp : Ramp51.Name = "Ramp51" : Ramp51.TimerInterval = 100 : g_AllItems.Add "Ramp51", Ramp51
+Set Ramp52 = New Ramp : Ramp52.Name = "Ramp52" : Ramp52.TimerInterval = 100 : g_AllItems.Add "Ramp52", Ramp52
+Set Ramp53 = New Ramp : Ramp53.Name = "Ramp53" : Ramp53.TimerInterval = 100 : g_AllItems.Add "Ramp53", Ramp53
+Set Ramp54 = New Ramp : Ramp54.Name = "Ramp54" : Ramp54.TimerInterval = 100 : g_AllItems.Add "Ramp54", Ramp54
+Set Ramp55 = New Ramp : Ramp55.Name = "Ramp55" : Ramp55.TimerInterval = 100 : g_AllItems.Add "Ramp55", Ramp55
+Set Ramp56 = New Ramp : Ramp56.Name = "Ramp56" : Ramp56.TimerInterval = 100 : g_AllItems.Add "Ramp56", Ramp56
+Set Ramp57 = New Ramp : Ramp57.Name = "Ramp57" : Ramp57.TimerInterval = 100 : g_AllItems.Add "Ramp57", Ramp57
+Set Ramp58 = New Ramp : Ramp58.Name = "Ramp58" : Ramp58.TimerInterval = 100 : g_AllItems.Add "Ramp58", Ramp58
+Set Ramp59 = New Ramp : Ramp59.Name = "Ramp59" : Ramp59.TimerInterval = 100 : g_AllItems.Add "Ramp59", Ramp59
+Set Ramp6 = New Ramp : Ramp6.Name = "Ramp6" : Ramp6.TimerInterval = 100 : g_AllItems.Add "Ramp6", Ramp6
+Set Ramp60 = New Ramp : Ramp60.Name = "Ramp60" : Ramp60.TimerInterval = 100 : g_AllItems.Add "Ramp60", Ramp60
+Set Ramp61 = New Ramp : Ramp61.Name = "Ramp61" : Ramp61.TimerInterval = 100 : g_AllItems.Add "Ramp61", Ramp61
+Set Ramp62 = New Ramp : Ramp62.Name = "Ramp62" : Ramp62.TimerInterval = 100 : g_AllItems.Add "Ramp62", Ramp62
+Set Ramp63 = New Ramp : Ramp63.Name = "Ramp63" : Ramp63.TimerInterval = 100 : g_AllItems.Add "Ramp63", Ramp63
+Set Ramp64 = New Ramp : Ramp64.Name = "Ramp64" : Ramp64.TimerInterval = 100 : g_AllItems.Add "Ramp64", Ramp64
+Set Ramp7 = New Ramp : Ramp7.Name = "Ramp7" : Ramp7.TimerInterval = 100 : g_AllItems.Add "Ramp7", Ramp7
+Set Ramp8 = New Ramp : Ramp8.Name = "Ramp8" : Ramp8.TimerInterval = 100 : g_AllItems.Add "Ramp8", Ramp8
+Set Ramp80 = New Ramp : Ramp80.Name = "Ramp80" : Ramp80.TimerInterval = 100 : g_AllItems.Add "Ramp80", Ramp80
+Set Ramp82 = New Ramp : Ramp82.Name = "Ramp82" : Ramp82.TimerInterval = 100 : g_AllItems.Add "Ramp82", Ramp82
+Set Ramp83 = New Ramp : Ramp83.Name = "Ramp83" : Ramp83.TimerInterval = 100 : g_AllItems.Add "Ramp83", Ramp83
+Set Ramp84 = New Ramp : Ramp84.Name = "Ramp84" : Ramp84.TimerInterval = 100 : g_AllItems.Add "Ramp84", Ramp84
+Set Ramp89 = New Ramp : Ramp89.Name = "Ramp89" : Ramp89.TimerInterval = 100 : g_AllItems.Add "Ramp89", Ramp89
+Set Ramp9 = New Ramp : Ramp9.Name = "Ramp9" : Ramp9.TimerInterval = 100 : g_AllItems.Add "Ramp9", Ramp9
+Set Ramp90 = New Ramp : Ramp90.Name = "Ramp90" : Ramp90.TimerInterval = 100 : g_AllItems.Add "Ramp90", Ramp90
+Set stopmer = New Ramp : stopmer.Name = "stopmer" : stopmer.TimerInterval = 100 : g_AllItems.Add "stopmer", stopmer
 
 ' --- Rubber (40) ---
 Dim LSling, LSling1, LSling2, Pin1, Pin10, Pin2, Pin3, Pin4, Pin5, Pin6, Pin7, RSling, RSling1, RSling2, RSling3
 Dim Rubber1, Rubber11, Rubber12, Rubber13, Rubber14, Rubber15, Rubber16, Rubber17, Rubber19, Rubber2, Rubber20, Rubber21, Rubber22, Rubber23, Rubber24
 Dim Rubber25, Rubber26, Rubber27, Rubber28, Rubber3, Rubber4, Rubber5, Rubber6, Rubber7, Rubber9
-Set LSling = New Rubber : LSling.Name = "LSling" : g_AllItems.Add "LSling", LSling
-Set LSling1 = New Rubber : LSling1.Name = "LSling1" : g_AllItems.Add "LSling1", LSling1
-Set LSling2 = New Rubber : LSling2.Name = "LSling2" : g_AllItems.Add "LSling2", LSling2
-Set Pin1 = New Rubber : Pin1.Name = "Pin1" : g_AllItems.Add "Pin1", Pin1
-Set Pin10 = New Rubber : Pin10.Name = "Pin10" : g_AllItems.Add "Pin10", Pin10
-Set Pin2 = New Rubber : Pin2.Name = "Pin2" : g_AllItems.Add "Pin2", Pin2
-Set Pin3 = New Rubber : Pin3.Name = "Pin3" : g_AllItems.Add "Pin3", Pin3
-Set Pin4 = New Rubber : Pin4.Name = "Pin4" : g_AllItems.Add "Pin4", Pin4
-Set Pin5 = New Rubber : Pin5.Name = "Pin5" : g_AllItems.Add "Pin5", Pin5
-Set Pin6 = New Rubber : Pin6.Name = "Pin6" : g_AllItems.Add "Pin6", Pin6
-Set Pin7 = New Rubber : Pin7.Name = "Pin7" : g_AllItems.Add "Pin7", Pin7
-Set RSling = New Rubber : RSling.Name = "RSling" : g_AllItems.Add "RSling", RSling
-Set RSling1 = New Rubber : RSling1.Name = "RSling1" : g_AllItems.Add "RSling1", RSling1
-Set RSling2 = New Rubber : RSling2.Name = "RSling2" : g_AllItems.Add "RSling2", RSling2
-Set RSling3 = New Rubber : RSling3.Name = "RSling3" : g_AllItems.Add "RSling3", RSling3
-Set Rubber1 = New Rubber : Rubber1.Name = "Rubber1" : g_AllItems.Add "Rubber1", Rubber1
-Set Rubber11 = New Rubber : Rubber11.Name = "Rubber11" : g_AllItems.Add "Rubber11", Rubber11
-Set Rubber12 = New Rubber : Rubber12.Name = "Rubber12" : g_AllItems.Add "Rubber12", Rubber12
-Set Rubber13 = New Rubber : Rubber13.Name = "Rubber13" : g_AllItems.Add "Rubber13", Rubber13
-Set Rubber14 = New Rubber : Rubber14.Name = "Rubber14" : g_AllItems.Add "Rubber14", Rubber14
-Set Rubber15 = New Rubber : Rubber15.Name = "Rubber15" : g_AllItems.Add "Rubber15", Rubber15
-Set Rubber16 = New Rubber : Rubber16.Name = "Rubber16" : g_AllItems.Add "Rubber16", Rubber16
-Set Rubber17 = New Rubber : Rubber17.Name = "Rubber17" : g_AllItems.Add "Rubber17", Rubber17
-Set Rubber19 = New Rubber : Rubber19.Name = "Rubber19" : g_AllItems.Add "Rubber19", Rubber19
-Set Rubber2 = New Rubber : Rubber2.Name = "Rubber2" : g_AllItems.Add "Rubber2", Rubber2
-Set Rubber20 = New Rubber : Rubber20.Name = "Rubber20" : g_AllItems.Add "Rubber20", Rubber20
-Set Rubber21 = New Rubber : Rubber21.Name = "Rubber21" : g_AllItems.Add "Rubber21", Rubber21
-Set Rubber22 = New Rubber : Rubber22.Name = "Rubber22" : g_AllItems.Add "Rubber22", Rubber22
-Set Rubber23 = New Rubber : Rubber23.Name = "Rubber23" : g_AllItems.Add "Rubber23", Rubber23
-Set Rubber24 = New Rubber : Rubber24.Name = "Rubber24" : g_AllItems.Add "Rubber24", Rubber24
-Set Rubber25 = New Rubber : Rubber25.Name = "Rubber25" : g_AllItems.Add "Rubber25", Rubber25
-Set Rubber26 = New Rubber : Rubber26.Name = "Rubber26" : g_AllItems.Add "Rubber26", Rubber26
-Set Rubber27 = New Rubber : Rubber27.Name = "Rubber27" : g_AllItems.Add "Rubber27", Rubber27
-Set Rubber28 = New Rubber : Rubber28.Name = "Rubber28" : g_AllItems.Add "Rubber28", Rubber28
-Set Rubber3 = New Rubber : Rubber3.Name = "Rubber3" : g_AllItems.Add "Rubber3", Rubber3
-Set Rubber4 = New Rubber : Rubber4.Name = "Rubber4" : g_AllItems.Add "Rubber4", Rubber4
-Set Rubber5 = New Rubber : Rubber5.Name = "Rubber5" : g_AllItems.Add "Rubber5", Rubber5
-Set Rubber6 = New Rubber : Rubber6.Name = "Rubber6" : g_AllItems.Add "Rubber6", Rubber6
-Set Rubber7 = New Rubber : Rubber7.Name = "Rubber7" : g_AllItems.Add "Rubber7", Rubber7
-Set Rubber9 = New Rubber : Rubber9.Name = "Rubber9" : g_AllItems.Add "Rubber9", Rubber9
+Set LSling = New Rubber : LSling.Name = "LSling" : LSling.TimerInterval = 100 : g_AllItems.Add "LSling", LSling
+Set LSling1 = New Rubber : LSling1.Name = "LSling1" : LSling1.TimerInterval = 100 : g_AllItems.Add "LSling1", LSling1
+Set LSling2 = New Rubber : LSling2.Name = "LSling2" : LSling2.TimerInterval = 100 : g_AllItems.Add "LSling2", LSling2
+Set Pin1 = New Rubber : Pin1.Name = "Pin1" : Pin1.TimerInterval = 100 : g_AllItems.Add "Pin1", Pin1
+Set Pin10 = New Rubber : Pin10.Name = "Pin10" : Pin10.TimerInterval = 100 : g_AllItems.Add "Pin10", Pin10
+Set Pin2 = New Rubber : Pin2.Name = "Pin2" : Pin2.TimerInterval = 100 : g_AllItems.Add "Pin2", Pin2
+Set Pin3 = New Rubber : Pin3.Name = "Pin3" : Pin3.TimerInterval = 100 : g_AllItems.Add "Pin3", Pin3
+Set Pin4 = New Rubber : Pin4.Name = "Pin4" : Pin4.TimerInterval = 100 : g_AllItems.Add "Pin4", Pin4
+Set Pin5 = New Rubber : Pin5.Name = "Pin5" : Pin5.TimerInterval = 100 : g_AllItems.Add "Pin5", Pin5
+Set Pin6 = New Rubber : Pin6.Name = "Pin6" : Pin6.TimerInterval = 100 : g_AllItems.Add "Pin6", Pin6
+Set Pin7 = New Rubber : Pin7.Name = "Pin7" : Pin7.TimerInterval = 100 : g_AllItems.Add "Pin7", Pin7
+Set RSling = New Rubber : RSling.Name = "RSling" : RSling.TimerInterval = 100 : g_AllItems.Add "RSling", RSling
+Set RSling1 = New Rubber : RSling1.Name = "RSling1" : RSling1.TimerInterval = 100 : g_AllItems.Add "RSling1", RSling1
+Set RSling2 = New Rubber : RSling2.Name = "RSling2" : RSling2.TimerInterval = 100 : g_AllItems.Add "RSling2", RSling2
+Set RSling3 = New Rubber : RSling3.Name = "RSling3" : RSling3.TimerInterval = 100 : g_AllItems.Add "RSling3", RSling3
+Set Rubber1 = New Rubber : Rubber1.Name = "Rubber1" : Rubber1.TimerInterval = 100 : g_AllItems.Add "Rubber1", Rubber1
+Set Rubber11 = New Rubber : Rubber11.Name = "Rubber11" : Rubber11.TimerInterval = 100 : g_AllItems.Add "Rubber11", Rubber11
+Set Rubber12 = New Rubber : Rubber12.Name = "Rubber12" : Rubber12.TimerInterval = 100 : g_AllItems.Add "Rubber12", Rubber12
+Set Rubber13 = New Rubber : Rubber13.Name = "Rubber13" : Rubber13.TimerInterval = 100 : g_AllItems.Add "Rubber13", Rubber13
+Set Rubber14 = New Rubber : Rubber14.Name = "Rubber14" : Rubber14.TimerInterval = 100 : g_AllItems.Add "Rubber14", Rubber14
+Set Rubber15 = New Rubber : Rubber15.Name = "Rubber15" : Rubber15.TimerInterval = 100 : g_AllItems.Add "Rubber15", Rubber15
+Set Rubber16 = New Rubber : Rubber16.Name = "Rubber16" : Rubber16.TimerInterval = 100 : g_AllItems.Add "Rubber16", Rubber16
+Set Rubber17 = New Rubber : Rubber17.Name = "Rubber17" : Rubber17.TimerInterval = 100 : g_AllItems.Add "Rubber17", Rubber17
+Set Rubber19 = New Rubber : Rubber19.Name = "Rubber19" : Rubber19.TimerInterval = 100 : g_AllItems.Add "Rubber19", Rubber19
+Set Rubber2 = New Rubber : Rubber2.Name = "Rubber2" : Rubber2.TimerInterval = 100 : g_AllItems.Add "Rubber2", Rubber2
+Set Rubber20 = New Rubber : Rubber20.Name = "Rubber20" : Rubber20.TimerInterval = 100 : g_AllItems.Add "Rubber20", Rubber20
+Set Rubber21 = New Rubber : Rubber21.Name = "Rubber21" : Rubber21.TimerInterval = 100 : g_AllItems.Add "Rubber21", Rubber21
+Set Rubber22 = New Rubber : Rubber22.Name = "Rubber22" : Rubber22.TimerInterval = 100 : g_AllItems.Add "Rubber22", Rubber22
+Set Rubber23 = New Rubber : Rubber23.Name = "Rubber23" : Rubber23.TimerInterval = 100 : g_AllItems.Add "Rubber23", Rubber23
+Set Rubber24 = New Rubber : Rubber24.Name = "Rubber24" : Rubber24.TimerInterval = 100 : g_AllItems.Add "Rubber24", Rubber24
+Set Rubber25 = New Rubber : Rubber25.Name = "Rubber25" : Rubber25.TimerInterval = 100 : g_AllItems.Add "Rubber25", Rubber25
+Set Rubber26 = New Rubber : Rubber26.Name = "Rubber26" : Rubber26.TimerInterval = 100 : g_AllItems.Add "Rubber26", Rubber26
+Set Rubber27 = New Rubber : Rubber27.Name = "Rubber27" : Rubber27.TimerInterval = 100 : g_AllItems.Add "Rubber27", Rubber27
+Set Rubber28 = New Rubber : Rubber28.Name = "Rubber28" : Rubber28.TimerInterval = 100 : g_AllItems.Add "Rubber28", Rubber28
+Set Rubber3 = New Rubber : Rubber3.Name = "Rubber3" : Rubber3.TimerInterval = 100 : g_AllItems.Add "Rubber3", Rubber3
+Set Rubber4 = New Rubber : Rubber4.Name = "Rubber4" : Rubber4.TimerInterval = 100 : g_AllItems.Add "Rubber4", Rubber4
+Set Rubber5 = New Rubber : Rubber5.Name = "Rubber5" : Rubber5.TimerInterval = 100 : g_AllItems.Add "Rubber5", Rubber5
+Set Rubber6 = New Rubber : Rubber6.Name = "Rubber6" : Rubber6.TimerInterval = 100 : g_AllItems.Add "Rubber6", Rubber6
+Set Rubber7 = New Rubber : Rubber7.Name = "Rubber7" : Rubber7.TimerInterval = 100 : g_AllItems.Add "Rubber7", Rubber7
+Set Rubber9 = New Rubber : Rubber9.Name = "Rubber9" : Rubber9.TimerInterval = 100 : g_AllItems.Add "Rubber9", Rubber9
 
 ' --- Spinner (4) ---
 Dim Spinner1, Spinner2, Spinner3, Spinner4
-Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : g_AllItems.Add "Spinner1", Spinner1
-Set Spinner2 = New Spinner : Spinner2.Name = "Spinner2" : g_AllItems.Add "Spinner2", Spinner2
-Set Spinner3 = New Spinner : Spinner3.Name = "Spinner3" : g_AllItems.Add "Spinner3", Spinner3
-Set Spinner4 = New Spinner : Spinner4.Name = "Spinner4" : g_AllItems.Add "Spinner4", Spinner4
+Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : Spinner1.TimerInterval = 100 : g_AllItems.Add "Spinner1", Spinner1
+Set Spinner2 = New Spinner : Spinner2.Name = "Spinner2" : Spinner2.TimerInterval = 100 : g_AllItems.Add "Spinner2", Spinner2
+Set Spinner3 = New Spinner : Spinner3.Name = "Spinner3" : Spinner3.TimerInterval = 100 : g_AllItems.Add "Spinner3", Spinner3
+Set Spinner4 = New Spinner : Spinner4.Name = "Spinner4" : Spinner4.TimerInterval = 100 : g_AllItems.Add "Spinner4", Spinner4
 
 ' --- Timer (59) ---
 Dim amortim, b2sflash, BallControl, BallControlTimer, BallControlTimer1, ballfinder, ballonem, BallSaverSpeedUpTimer, BallSaverTimerExpired, BallShadowUpdate, cauldup, combotimer, conftim, CreateMultiballTimer, dmdattract

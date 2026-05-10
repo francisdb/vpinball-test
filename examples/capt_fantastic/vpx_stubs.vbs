@@ -5,9 +5,9 @@
 
 ' --- Bumper (3) ---
 Dim Bumper1, Bumper2, Bumper3
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
-Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : g_AllItems.Add "Bumper3", Bumper3
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 100 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 100 : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : Bumper3.TimerInterval = 100 : g_AllItems.Add "Bumper3", Bumper3
 
 ' --- Flasher (249) ---
 Dim ApronImage002, BallShadowA0, BallShadowA1, BallShadowA2, BallShadowA3, BallShadowA4, BGBulb001, BGBulb002, BGBulb003, BGBulb004, BGBulb005, BGBulb006, BGBulb007, BGBulb008, BGBulb009
@@ -27,255 +27,255 @@ Dim FlPlUP1, FlPlUP1_1, FlPlUP2, FlPlUP2_1, FlPlUP3, FlPlUP3_1, FlPlUP4, FlPlUP4
 Dim LDT4M, LDT5M, LDT6M, Light1_X10M, Light1_X11M, Light1_X12M, Light1_X13M, Light1_X14M, Light1_X15M, Light1_X16M, Light1_X17M, Light1_X18M, Light1_X1M, Light1_X21M, Light1_X22M
 Dim Light1_X23M, Light1_X2M, Light1_X3M, Light1_X4M, Light1_X5M, Light1_X6M, Light1_X7M, Light1_X8M, Light1_X9M, RiftShadow, RiftShadow1, RiftShadow2, RiftShadow3, RiftShadow5, VR_Clockface
 Dim VR_MPlastics, VR_MPlayfield, VR_MRailLeft, VR_MRailLeft001, VRChairShadow, VRChairShadow1, VRCouchShadow, VRPhoneShadow1, VRPhoneShadow2
-Set ApronImage002 = New Flasher : ApronImage002.Name = "ApronImage002" : g_AllItems.Add "ApronImage002", ApronImage002
-Set BallShadowA0 = New Flasher : BallShadowA0.Name = "BallShadowA0" : g_AllItems.Add "BallShadowA0", BallShadowA0
-Set BallShadowA1 = New Flasher : BallShadowA1.Name = "BallShadowA1" : g_AllItems.Add "BallShadowA1", BallShadowA1
-Set BallShadowA2 = New Flasher : BallShadowA2.Name = "BallShadowA2" : g_AllItems.Add "BallShadowA2", BallShadowA2
-Set BallShadowA3 = New Flasher : BallShadowA3.Name = "BallShadowA3" : g_AllItems.Add "BallShadowA3", BallShadowA3
-Set BallShadowA4 = New Flasher : BallShadowA4.Name = "BallShadowA4" : g_AllItems.Add "BallShadowA4", BallShadowA4
-Set BGBulb001 = New Flasher : BGBulb001.Name = "BGBulb001" : g_AllItems.Add "BGBulb001", BGBulb001
-Set BGBulb002 = New Flasher : BGBulb002.Name = "BGBulb002" : g_AllItems.Add "BGBulb002", BGBulb002
-Set BGBulb003 = New Flasher : BGBulb003.Name = "BGBulb003" : g_AllItems.Add "BGBulb003", BGBulb003
-Set BGBulb004 = New Flasher : BGBulb004.Name = "BGBulb004" : g_AllItems.Add "BGBulb004", BGBulb004
-Set BGBulb005 = New Flasher : BGBulb005.Name = "BGBulb005" : g_AllItems.Add "BGBulb005", BGBulb005
-Set BGBulb006 = New Flasher : BGBulb006.Name = "BGBulb006" : g_AllItems.Add "BGBulb006", BGBulb006
-Set BGBulb007 = New Flasher : BGBulb007.Name = "BGBulb007" : g_AllItems.Add "BGBulb007", BGBulb007
-Set BGBulb008 = New Flasher : BGBulb008.Name = "BGBulb008" : g_AllItems.Add "BGBulb008", BGBulb008
-Set BGBulb009 = New Flasher : BGBulb009.Name = "BGBulb009" : g_AllItems.Add "BGBulb009", BGBulb009
-Set BGBulb010 = New Flasher : BGBulb010.Name = "BGBulb010" : g_AllItems.Add "BGBulb010", BGBulb010
-Set BGBulb011 = New Flasher : BGBulb011.Name = "BGBulb011" : g_AllItems.Add "BGBulb011", BGBulb011
-Set BGBulb012 = New Flasher : BGBulb012.Name = "BGBulb012" : g_AllItems.Add "BGBulb012", BGBulb012
-Set BGBulb013 = New Flasher : BGBulb013.Name = "BGBulb013" : g_AllItems.Add "BGBulb013", BGBulb013
-Set BGBulb014 = New Flasher : BGBulb014.Name = "BGBulb014" : g_AllItems.Add "BGBulb014", BGBulb014
-Set BGBulb015 = New Flasher : BGBulb015.Name = "BGBulb015" : g_AllItems.Add "BGBulb015", BGBulb015
-Set BGBulb016 = New Flasher : BGBulb016.Name = "BGBulb016" : g_AllItems.Add "BGBulb016", BGBulb016
-Set BGBulb017 = New Flasher : BGBulb017.Name = "BGBulb017" : g_AllItems.Add "BGBulb017", BGBulb017
-Set BGBulb018 = New Flasher : BGBulb018.Name = "BGBulb018" : g_AllItems.Add "BGBulb018", BGBulb018
-Set BGBulb019 = New Flasher : BGBulb019.Name = "BGBulb019" : g_AllItems.Add "BGBulb019", BGBulb019
-Set BGBulb020 = New Flasher : BGBulb020.Name = "BGBulb020" : g_AllItems.Add "BGBulb020", BGBulb020
-Set BGBulb021 = New Flasher : BGBulb021.Name = "BGBulb021" : g_AllItems.Add "BGBulb021", BGBulb021
-Set BGBulb022 = New Flasher : BGBulb022.Name = "BGBulb022" : g_AllItems.Add "BGBulb022", BGBulb022
-Set BGBulb023 = New Flasher : BGBulb023.Name = "BGBulb023" : g_AllItems.Add "BGBulb023", BGBulb023
-Set BGBulb024 = New Flasher : BGBulb024.Name = "BGBulb024" : g_AllItems.Add "BGBulb024", BGBulb024
-Set BGBulb025 = New Flasher : BGBulb025.Name = "BGBulb025" : g_AllItems.Add "BGBulb025", BGBulb025
-Set BGBulb026 = New Flasher : BGBulb026.Name = "BGBulb026" : g_AllItems.Add "BGBulb026", BGBulb026
-Set BGBulb027 = New Flasher : BGBulb027.Name = "BGBulb027" : g_AllItems.Add "BGBulb027", BGBulb027
-Set BGBulb028 = New Flasher : BGBulb028.Name = "BGBulb028" : g_AllItems.Add "BGBulb028", BGBulb028
-Set BGBulb029 = New Flasher : BGBulb029.Name = "BGBulb029" : g_AllItems.Add "BGBulb029", BGBulb029
-Set BGBulb030 = New Flasher : BGBulb030.Name = "BGBulb030" : g_AllItems.Add "BGBulb030", BGBulb030
-Set BGBulb031 = New Flasher : BGBulb031.Name = "BGBulb031" : g_AllItems.Add "BGBulb031", BGBulb031
-Set BGBulb032 = New Flasher : BGBulb032.Name = "BGBulb032" : g_AllItems.Add "BGBulb032", BGBulb032
-Set BGBulb033 = New Flasher : BGBulb033.Name = "BGBulb033" : g_AllItems.Add "BGBulb033", BGBulb033
-Set BGBulb034 = New Flasher : BGBulb034.Name = "BGBulb034" : g_AllItems.Add "BGBulb034", BGBulb034
-Set BGBulb035 = New Flasher : BGBulb035.Name = "BGBulb035" : g_AllItems.Add "BGBulb035", BGBulb035
-Set BGBulb036 = New Flasher : BGBulb036.Name = "BGBulb036" : g_AllItems.Add "BGBulb036", BGBulb036
-Set BGBulb037 = New Flasher : BGBulb037.Name = "BGBulb037" : g_AllItems.Add "BGBulb037", BGBulb037
-Set BGBulb038 = New Flasher : BGBulb038.Name = "BGBulb038" : g_AllItems.Add "BGBulb038", BGBulb038
-Set BGBulb039 = New Flasher : BGBulb039.Name = "BGBulb039" : g_AllItems.Add "BGBulb039", BGBulb039
-Set BGBulb040 = New Flasher : BGBulb040.Name = "BGBulb040" : g_AllItems.Add "BGBulb040", BGBulb040
-Set BGBulb041 = New Flasher : BGBulb041.Name = "BGBulb041" : g_AllItems.Add "BGBulb041", BGBulb041
-Set BGBulb042 = New Flasher : BGBulb042.Name = "BGBulb042" : g_AllItems.Add "BGBulb042", BGBulb042
-Set BGBulb043 = New Flasher : BGBulb043.Name = "BGBulb043" : g_AllItems.Add "BGBulb043", BGBulb043
-Set BGBulb044 = New Flasher : BGBulb044.Name = "BGBulb044" : g_AllItems.Add "BGBulb044", BGBulb044
-Set BGBulb045 = New Flasher : BGBulb045.Name = "BGBulb045" : g_AllItems.Add "BGBulb045", BGBulb045
-Set BGBulb046 = New Flasher : BGBulb046.Name = "BGBulb046" : g_AllItems.Add "BGBulb046", BGBulb046
-Set BGBulb047 = New Flasher : BGBulb047.Name = "BGBulb047" : g_AllItems.Add "BGBulb047", BGBulb047
-Set BGBulb048 = New Flasher : BGBulb048.Name = "BGBulb048" : g_AllItems.Add "BGBulb048", BGBulb048
-Set BGBulb049 = New Flasher : BGBulb049.Name = "BGBulb049" : g_AllItems.Add "BGBulb049", BGBulb049
-Set BGBulb050 = New Flasher : BGBulb050.Name = "BGBulb050" : g_AllItems.Add "BGBulb050", BGBulb050
-Set BGBulb051 = New Flasher : BGBulb051.Name = "BGBulb051" : g_AllItems.Add "BGBulb051", BGBulb051
-Set BGBulb052 = New Flasher : BGBulb052.Name = "BGBulb052" : g_AllItems.Add "BGBulb052", BGBulb052
-Set BGBulb053 = New Flasher : BGBulb053.Name = "BGBulb053" : g_AllItems.Add "BGBulb053", BGBulb053
-Set BGBulb054 = New Flasher : BGBulb054.Name = "BGBulb054" : g_AllItems.Add "BGBulb054", BGBulb054
-Set BGBulb055 = New Flasher : BGBulb055.Name = "BGBulb055" : g_AllItems.Add "BGBulb055", BGBulb055
-Set BGBulb2 = New Flasher : BGBulb2.Name = "BGBulb2" : g_AllItems.Add "BGBulb2", BGBulb2
-Set BGCrowd = New Flasher : BGCrowd.Name = "BGCrowd" : g_AllItems.Add "BGCrowd", BGCrowd
-Set BGDark = New Flasher : BGDark.Name = "BGDark" : g_AllItems.Add "BGDark", BGDark
-Set BGLogoElton = New Flasher : BGLogoElton.Name = "BGLogoElton" : g_AllItems.Add "BGLogoElton", BGLogoElton
-Set BGPinball = New Flasher : BGPinball.Name = "BGPinball" : g_AllItems.Add "BGPinball", BGPinball
-Set Bumper1BM = New Flasher : Bumper1BM.Name = "Bumper1BM" : g_AllItems.Add "Bumper1BM", Bumper1BM
-Set Bumper1M = New Flasher : Bumper1M.Name = "Bumper1M" : g_AllItems.Add "Bumper1M", Bumper1M
-Set Bumper2BM = New Flasher : Bumper2BM.Name = "Bumper2BM" : g_AllItems.Add "Bumper2BM", Bumper2BM
-Set Bumper2M = New Flasher : Bumper2M.Name = "Bumper2M" : g_AllItems.Add "Bumper2M", Bumper2M
-Set Bumper3BM = New Flasher : Bumper3BM.Name = "Bumper3BM" : g_AllItems.Add "Bumper3BM", Bumper3BM
-Set Bumper3M = New Flasher : Bumper3M.Name = "Bumper3M" : g_AllItems.Add "Bumper3M", Bumper3M
-Set Fl100kP1 = New Flasher : Fl100kP1.Name = "Fl100kP1" : g_AllItems.Add "Fl100kP1", Fl100kP1
-Set Fl100KP1_001 = New Flasher : Fl100KP1_001.Name = "Fl100KP1_001" : g_AllItems.Add "Fl100KP1_001", Fl100KP1_001
-Set Fl100KP1_002 = New Flasher : Fl100KP1_002.Name = "Fl100KP1_002" : g_AllItems.Add "Fl100KP1_002", Fl100KP1_002
-Set Fl100KP1_003 = New Flasher : Fl100KP1_003.Name = "Fl100KP1_003" : g_AllItems.Add "Fl100KP1_003", Fl100KP1_003
-Set Fl100KP1_004 = New Flasher : Fl100KP1_004.Name = "Fl100KP1_004" : g_AllItems.Add "Fl100KP1_004", Fl100KP1_004
-Set Fl100KP1_1 = New Flasher : Fl100KP1_1.Name = "Fl100KP1_1" : g_AllItems.Add "Fl100KP1_1", Fl100KP1_1
-Set Fl100KP1_2 = New Flasher : Fl100KP1_2.Name = "Fl100KP1_2" : g_AllItems.Add "Fl100KP1_2", Fl100KP1_2
-Set Fl100KP1_7 = New Flasher : Fl100KP1_7.Name = "Fl100KP1_7" : g_AllItems.Add "Fl100KP1_7", Fl100KP1_7
-Set Fl100KP2 = New Flasher : Fl100KP2.Name = "Fl100KP2" : g_AllItems.Add "Fl100KP2", Fl100KP2
-Set Fl100KP2_1 = New Flasher : Fl100KP2_1.Name = "Fl100KP2_1" : g_AllItems.Add "Fl100KP2_1", Fl100KP2_1
-Set Fl100KP2_2 = New Flasher : Fl100KP2_2.Name = "Fl100KP2_2" : g_AllItems.Add "Fl100KP2_2", Fl100KP2_2
-Set Fl100KP2_3 = New Flasher : Fl100KP2_3.Name = "Fl100KP2_3" : g_AllItems.Add "Fl100KP2_3", Fl100KP2_3
-Set Fl100KP2_4 = New Flasher : Fl100KP2_4.Name = "Fl100KP2_4" : g_AllItems.Add "Fl100KP2_4", Fl100KP2_4
-Set Fl100KP2_5 = New Flasher : Fl100KP2_5.Name = "Fl100KP2_5" : g_AllItems.Add "Fl100KP2_5", Fl100KP2_5
-Set Fl100KP2_6 = New Flasher : Fl100KP2_6.Name = "Fl100KP2_6" : g_AllItems.Add "Fl100KP2_6", Fl100KP2_6
-Set Fl100KP2_7 = New Flasher : Fl100KP2_7.Name = "Fl100KP2_7" : g_AllItems.Add "Fl100KP2_7", Fl100KP2_7
-Set Fl100KP3 = New Flasher : Fl100KP3.Name = "Fl100KP3" : g_AllItems.Add "Fl100KP3", Fl100KP3
-Set Fl100KP3_1 = New Flasher : Fl100KP3_1.Name = "Fl100KP3_1" : g_AllItems.Add "Fl100KP3_1", Fl100KP3_1
-Set Fl100KP3_2 = New Flasher : Fl100KP3_2.Name = "Fl100KP3_2" : g_AllItems.Add "Fl100KP3_2", Fl100KP3_2
-Set Fl100KP3_3 = New Flasher : Fl100KP3_3.Name = "Fl100KP3_3" : g_AllItems.Add "Fl100KP3_3", Fl100KP3_3
-Set Fl100KP3_4 = New Flasher : Fl100KP3_4.Name = "Fl100KP3_4" : g_AllItems.Add "Fl100KP3_4", Fl100KP3_4
-Set Fl100KP3_5 = New Flasher : Fl100KP3_5.Name = "Fl100KP3_5" : g_AllItems.Add "Fl100KP3_5", Fl100KP3_5
-Set Fl100KP3_6 = New Flasher : Fl100KP3_6.Name = "Fl100KP3_6" : g_AllItems.Add "Fl100KP3_6", Fl100KP3_6
-Set Fl100KP3_7 = New Flasher : Fl100KP3_7.Name = "Fl100KP3_7" : g_AllItems.Add "Fl100KP3_7", Fl100KP3_7
-Set Fl100KP4 = New Flasher : Fl100KP4.Name = "Fl100KP4" : g_AllItems.Add "Fl100KP4", Fl100KP4
-Set Fl100KP4_1 = New Flasher : Fl100KP4_1.Name = "Fl100KP4_1" : g_AllItems.Add "Fl100KP4_1", Fl100KP4_1
-Set Fl100KP4_2 = New Flasher : Fl100KP4_2.Name = "Fl100KP4_2" : g_AllItems.Add "Fl100KP4_2", Fl100KP4_2
-Set Fl100KP4_3 = New Flasher : Fl100KP4_3.Name = "Fl100KP4_3" : g_AllItems.Add "Fl100KP4_3", Fl100KP4_3
-Set Fl100KP4_4 = New Flasher : Fl100KP4_4.Name = "Fl100KP4_4" : g_AllItems.Add "Fl100KP4_4", Fl100KP4_4
-Set Fl100KP4_5 = New Flasher : Fl100KP4_5.Name = "Fl100KP4_5" : g_AllItems.Add "Fl100KP4_5", Fl100KP4_5
-Set Fl100KP4_6 = New Flasher : Fl100KP4_6.Name = "Fl100KP4_6" : g_AllItems.Add "Fl100KP4_6", Fl100KP4_6
-Set Fl100KP4_7 = New Flasher : Fl100KP4_7.Name = "Fl100KP4_7" : g_AllItems.Add "Fl100KP4_7", Fl100KP4_7
-Set Flasher003 = New Flasher : Flasher003.Name = "Flasher003" : g_AllItems.Add "Flasher003", Flasher003
-Set Flasher004 = New Flasher : Flasher004.Name = "Flasher004" : g_AllItems.Add "Flasher004", Flasher004
-Set Flasher005 = New Flasher : Flasher005.Name = "Flasher005" : g_AllItems.Add "Flasher005", Flasher005
-Set Flasher006 = New Flasher : Flasher006.Name = "Flasher006" : g_AllItems.Add "Flasher006", Flasher006
-Set Flasher007 = New Flasher : Flasher007.Name = "Flasher007" : g_AllItems.Add "Flasher007", Flasher007
-Set Flasher008 = New Flasher : Flasher008.Name = "Flasher008" : g_AllItems.Add "Flasher008", Flasher008
-Set Flasher009 = New Flasher : Flasher009.Name = "Flasher009" : g_AllItems.Add "Flasher009", Flasher009
-Set Flasher010 = New Flasher : Flasher010.Name = "Flasher010" : g_AllItems.Add "Flasher010", Flasher010
-Set Flasher011 = New Flasher : Flasher011.Name = "Flasher011" : g_AllItems.Add "Flasher011", Flasher011
-Set Flasher012 = New Flasher : Flasher012.Name = "Flasher012" : g_AllItems.Add "Flasher012", Flasher012
-Set Flasher013 = New Flasher : Flasher013.Name = "Flasher013" : g_AllItems.Add "Flasher013", Flasher013
-Set Flasher015 = New Flasher : Flasher015.Name = "Flasher015" : g_AllItems.Add "Flasher015", Flasher015
-Set Flasher016 = New Flasher : Flasher016.Name = "Flasher016" : g_AllItems.Add "Flasher016", Flasher016
-Set Flasher017 = New Flasher : Flasher017.Name = "Flasher017" : g_AllItems.Add "Flasher017", Flasher017
-Set Flasher018 = New Flasher : Flasher018.Name = "Flasher018" : g_AllItems.Add "Flasher018", Flasher018
-Set FlBIP1 = New Flasher : FlBIP1.Name = "FlBIP1" : g_AllItems.Add "FlBIP1", FlBIP1
-Set FlBIP1A = New Flasher : FlBIP1A.Name = "FlBIP1A" : g_AllItems.Add "FlBIP1A", FlBIP1A
-Set FlBIP2 = New Flasher : FlBIP2.Name = "FlBIP2" : g_AllItems.Add "FlBIP2", FlBIP2
-Set FlBIP2A = New Flasher : FlBIP2A.Name = "FlBIP2A" : g_AllItems.Add "FlBIP2A", FlBIP2A
-Set FlBIP3 = New Flasher : FlBIP3.Name = "FlBIP3" : g_AllItems.Add "FlBIP3", FlBIP3
-Set FlBIP3A = New Flasher : FlBIP3A.Name = "FlBIP3A" : g_AllItems.Add "FlBIP3A", FlBIP3A
-Set FlBIP4 = New Flasher : FlBIP4.Name = "FlBIP4" : g_AllItems.Add "FlBIP4", FlBIP4
-Set FlBIP4A = New Flasher : FlBIP4A.Name = "FlBIP4A" : g_AllItems.Add "FlBIP4A", FlBIP4A
-Set FlBIP5 = New Flasher : FlBIP5.Name = "FlBIP5" : g_AllItems.Add "FlBIP5", FlBIP5
-Set FlBIP5A = New Flasher : FlBIP5A.Name = "FlBIP5A" : g_AllItems.Add "FlBIP5A", FlBIP5A
-Set FlCredit1A = New Flasher : FlCredit1A.Name = "FlCredit1A" : g_AllItems.Add "FlCredit1A", FlCredit1A
-Set FlGameOver = New Flasher : FlGameOver.Name = "FlGameOver" : g_AllItems.Add "FlGameOver", FlGameOver
-Set FlM00 = New Flasher : FlM00.Name = "FlM00" : g_AllItems.Add "FlM00", FlM00
-Set FlM00A = New Flasher : FlM00A.Name = "FlM00A" : g_AllItems.Add "FlM00A", FlM00A
-Set FlM00B = New Flasher : FlM00B.Name = "FlM00B" : g_AllItems.Add "FlM00B", FlM00B
-Set FlM10 = New Flasher : FlM10.Name = "FlM10" : g_AllItems.Add "FlM10", FlM10
-Set FlM10A = New Flasher : FlM10A.Name = "FlM10A" : g_AllItems.Add "FlM10A", FlM10A
-Set FlM10B = New Flasher : FlM10B.Name = "FlM10B" : g_AllItems.Add "FlM10B", FlM10B
-Set FlM20 = New Flasher : FlM20.Name = "FlM20" : g_AllItems.Add "FlM20", FlM20
-Set FlM20A = New Flasher : FlM20A.Name = "FlM20A" : g_AllItems.Add "FlM20A", FlM20A
-Set FlM20B = New Flasher : FlM20B.Name = "FlM20B" : g_AllItems.Add "FlM20B", FlM20B
-Set FlM30 = New Flasher : FlM30.Name = "FlM30" : g_AllItems.Add "FlM30", FlM30
-Set FlM30A = New Flasher : FlM30A.Name = "FlM30A" : g_AllItems.Add "FlM30A", FlM30A
-Set FlM30B = New Flasher : FlM30B.Name = "FlM30B" : g_AllItems.Add "FlM30B", FlM30B
-Set FlM40 = New Flasher : FlM40.Name = "FlM40" : g_AllItems.Add "FlM40", FlM40
-Set FlM40A = New Flasher : FlM40A.Name = "FlM40A" : g_AllItems.Add "FlM40A", FlM40A
-Set FlM40B = New Flasher : FlM40B.Name = "FlM40B" : g_AllItems.Add "FlM40B", FlM40B
-Set FlM50 = New Flasher : FlM50.Name = "FlM50" : g_AllItems.Add "FlM50", FlM50
-Set FlM50A = New Flasher : FlM50A.Name = "FlM50A" : g_AllItems.Add "FlM50A", FlM50A
-Set FlM50B = New Flasher : FlM50B.Name = "FlM50B" : g_AllItems.Add "FlM50B", FlM50B
-Set FlM60 = New Flasher : FlM60.Name = "FlM60" : g_AllItems.Add "FlM60", FlM60
-Set FlM60A = New Flasher : FlM60A.Name = "FlM60A" : g_AllItems.Add "FlM60A", FlM60A
-Set FlM60B = New Flasher : FlM60B.Name = "FlM60B" : g_AllItems.Add "FlM60B", FlM60B
-Set FlM70 = New Flasher : FlM70.Name = "FlM70" : g_AllItems.Add "FlM70", FlM70
-Set FlM70A = New Flasher : FlM70A.Name = "FlM70A" : g_AllItems.Add "FlM70A", FlM70A
-Set FlM70B = New Flasher : FlM70B.Name = "FlM70B" : g_AllItems.Add "FlM70B", FlM70B
-Set FlM80 = New Flasher : FlM80.Name = "FlM80" : g_AllItems.Add "FlM80", FlM80
-Set FlM80A = New Flasher : FlM80A.Name = "FlM80A" : g_AllItems.Add "FlM80A", FlM80A
-Set FlM80B = New Flasher : FlM80B.Name = "FlM80B" : g_AllItems.Add "FlM80B", FlM80B
-Set FlM90 = New Flasher : FlM90.Name = "FlM90" : g_AllItems.Add "FlM90", FlM90
-Set FlM90A = New Flasher : FlM90A.Name = "FlM90A" : g_AllItems.Add "FlM90A", FlM90A
-Set FlM90B = New Flasher : FlM90B.Name = "FlM90B" : g_AllItems.Add "FlM90B", FlM90B
-Set floorshadow = New Flasher : floorshadow.Name = "floorshadow" : g_AllItems.Add "floorshadow", floorshadow
-Set FlPl1 = New Flasher : FlPl1.Name = "FlPl1" : g_AllItems.Add "FlPl1", FlPl1
-Set FlPl1_2 = New Flasher : FlPl1_2.Name = "FlPl1_2" : g_AllItems.Add "FlPl1_2", FlPl1_2
-Set FlPL1Drum1 = New Flasher : FlPL1Drum1.Name = "FlPL1Drum1" : g_AllItems.Add "FlPL1Drum1", FlPL1Drum1
-Set FlPL1Drum2 = New Flasher : FlPL1Drum2.Name = "FlPL1Drum2" : g_AllItems.Add "FlPL1Drum2", FlPL1Drum2
-Set FlPL1Drum3 = New Flasher : FlPL1Drum3.Name = "FlPL1Drum3" : g_AllItems.Add "FlPL1Drum3", FlPL1Drum3
-Set FlPL1Drum4 = New Flasher : FlPL1Drum4.Name = "FlPL1Drum4" : g_AllItems.Add "FlPL1Drum4", FlPL1Drum4
-Set FlPL1Drum5 = New Flasher : FlPL1Drum5.Name = "FlPL1Drum5" : g_AllItems.Add "FlPL1Drum5", FlPL1Drum5
-Set FlPL1Reel = New Flasher : FlPL1Reel.Name = "FlPL1Reel" : g_AllItems.Add "FlPL1Reel", FlPL1Reel
-Set FlPl2 = New Flasher : FlPl2.Name = "FlPl2" : g_AllItems.Add "FlPl2", FlPl2
-Set FlPl2_2 = New Flasher : FlPl2_2.Name = "FlPl2_2" : g_AllItems.Add "FlPl2_2", FlPl2_2
-Set FlPL2Drum1 = New Flasher : FlPL2Drum1.Name = "FlPL2Drum1" : g_AllItems.Add "FlPL2Drum1", FlPL2Drum1
-Set FlPL2Drum2 = New Flasher : FlPL2Drum2.Name = "FlPL2Drum2" : g_AllItems.Add "FlPL2Drum2", FlPL2Drum2
-Set FlPL2Drum3 = New Flasher : FlPL2Drum3.Name = "FlPL2Drum3" : g_AllItems.Add "FlPL2Drum3", FlPL2Drum3
-Set FlPL2Drum4 = New Flasher : FlPL2Drum4.Name = "FlPL2Drum4" : g_AllItems.Add "FlPL2Drum4", FlPL2Drum4
-Set FlPL2Drum5 = New Flasher : FlPL2Drum5.Name = "FlPL2Drum5" : g_AllItems.Add "FlPL2Drum5", FlPL2Drum5
-Set FlPL2Reel = New Flasher : FlPL2Reel.Name = "FlPL2Reel" : g_AllItems.Add "FlPL2Reel", FlPL2Reel
-Set FlPl3 = New Flasher : FlPl3.Name = "FlPl3" : g_AllItems.Add "FlPl3", FlPl3
-Set FlPl3_2 = New Flasher : FlPl3_2.Name = "FlPl3_2" : g_AllItems.Add "FlPl3_2", FlPl3_2
-Set FlPL3Drum1 = New Flasher : FlPL3Drum1.Name = "FlPL3Drum1" : g_AllItems.Add "FlPL3Drum1", FlPL3Drum1
-Set FlPL3Drum2 = New Flasher : FlPL3Drum2.Name = "FlPL3Drum2" : g_AllItems.Add "FlPL3Drum2", FlPL3Drum2
-Set FlPL3Drum3 = New Flasher : FlPL3Drum3.Name = "FlPL3Drum3" : g_AllItems.Add "FlPL3Drum3", FlPL3Drum3
-Set FlPL3Drum4 = New Flasher : FlPL3Drum4.Name = "FlPL3Drum4" : g_AllItems.Add "FlPL3Drum4", FlPL3Drum4
-Set FlPL3Drum5 = New Flasher : FlPL3Drum5.Name = "FlPL3Drum5" : g_AllItems.Add "FlPL3Drum5", FlPL3Drum5
-Set FlPL3Reel = New Flasher : FlPL3Reel.Name = "FlPL3Reel" : g_AllItems.Add "FlPL3Reel", FlPL3Reel
-Set FlPl4 = New Flasher : FlPl4.Name = "FlPl4" : g_AllItems.Add "FlPl4", FlPl4
-Set FlPl4_2 = New Flasher : FlPl4_2.Name = "FlPl4_2" : g_AllItems.Add "FlPl4_2", FlPl4_2
-Set FlPL4Drum1 = New Flasher : FlPL4Drum1.Name = "FlPL4Drum1" : g_AllItems.Add "FlPL4Drum1", FlPL4Drum1
-Set FlPL4Drum2 = New Flasher : FlPL4Drum2.Name = "FlPL4Drum2" : g_AllItems.Add "FlPL4Drum2", FlPL4Drum2
-Set FlPL4Drum3 = New Flasher : FlPL4Drum3.Name = "FlPL4Drum3" : g_AllItems.Add "FlPL4Drum3", FlPL4Drum3
-Set FlPL4Drum4 = New Flasher : FlPL4Drum4.Name = "FlPL4Drum4" : g_AllItems.Add "FlPL4Drum4", FlPL4Drum4
-Set FlPL4Drum5 = New Flasher : FlPL4Drum5.Name = "FlPL4Drum5" : g_AllItems.Add "FlPL4Drum5", FlPL4Drum5
-Set FlPL4Reel = New Flasher : FlPL4Reel.Name = "FlPL4Reel" : g_AllItems.Add "FlPL4Reel", FlPL4Reel
-Set FlPlUP001 = New Flasher : FlPlUP001.Name = "FlPlUP001" : g_AllItems.Add "FlPlUP001", FlPlUP001
-Set FlPlUP1 = New Flasher : FlPlUP1.Name = "FlPlUP1" : g_AllItems.Add "FlPlUP1", FlPlUP1
-Set FlPlUP1_1 = New Flasher : FlPlUP1_1.Name = "FlPlUP1_1" : g_AllItems.Add "FlPlUP1_1", FlPlUP1_1
-Set FlPlUP2 = New Flasher : FlPlUP2.Name = "FlPlUP2" : g_AllItems.Add "FlPlUP2", FlPlUP2
-Set FlPlUP2_1 = New Flasher : FlPlUP2_1.Name = "FlPlUP2_1" : g_AllItems.Add "FlPlUP2_1", FlPlUP2_1
-Set FlPlUP3 = New Flasher : FlPlUP3.Name = "FlPlUP3" : g_AllItems.Add "FlPlUP3", FlPlUP3
-Set FlPlUP3_1 = New Flasher : FlPlUP3_1.Name = "FlPlUP3_1" : g_AllItems.Add "FlPlUP3_1", FlPlUP3_1
-Set FlPlUP4 = New Flasher : FlPlUP4.Name = "FlPlUP4" : g_AllItems.Add "FlPlUP4", FlPlUP4
-Set FlPlUP4_1 = New Flasher : FlPlUP4_1.Name = "FlPlUP4_1" : g_AllItems.Add "FlPlUP4_1", FlPlUP4_1
-Set FlSPSA = New Flasher : FlSPSA.Name = "FlSPSA" : g_AllItems.Add "FlSPSA", FlSPSA
-Set FlTilt = New Flasher : FlTilt.Name = "FlTilt" : g_AllItems.Add "FlTilt", FlTilt
-Set LDT15M = New Flasher : LDT15M.Name = "LDT15M" : g_AllItems.Add "LDT15M", LDT15M
-Set LDT16M = New Flasher : LDT16M.Name = "LDT16M" : g_AllItems.Add "LDT16M", LDT16M
-Set LDT1M = New Flasher : LDT1M.Name = "LDT1M" : g_AllItems.Add "LDT1M", LDT1M
-Set LDT2M = New Flasher : LDT2M.Name = "LDT2M" : g_AllItems.Add "LDT2M", LDT2M
-Set LDT3M = New Flasher : LDT3M.Name = "LDT3M" : g_AllItems.Add "LDT3M", LDT3M
-Set LDT4M = New Flasher : LDT4M.Name = "LDT4M" : g_AllItems.Add "LDT4M", LDT4M
-Set LDT5M = New Flasher : LDT5M.Name = "LDT5M" : g_AllItems.Add "LDT5M", LDT5M
-Set LDT6M = New Flasher : LDT6M.Name = "LDT6M" : g_AllItems.Add "LDT6M", LDT6M
-Set Light1_X10M = New Flasher : Light1_X10M.Name = "Light1_X10M" : g_AllItems.Add "Light1_X10M", Light1_X10M
-Set Light1_X11M = New Flasher : Light1_X11M.Name = "Light1_X11M" : g_AllItems.Add "Light1_X11M", Light1_X11M
-Set Light1_X12M = New Flasher : Light1_X12M.Name = "Light1_X12M" : g_AllItems.Add "Light1_X12M", Light1_X12M
-Set Light1_X13M = New Flasher : Light1_X13M.Name = "Light1_X13M" : g_AllItems.Add "Light1_X13M", Light1_X13M
-Set Light1_X14M = New Flasher : Light1_X14M.Name = "Light1_X14M" : g_AllItems.Add "Light1_X14M", Light1_X14M
-Set Light1_X15M = New Flasher : Light1_X15M.Name = "Light1_X15M" : g_AllItems.Add "Light1_X15M", Light1_X15M
-Set Light1_X16M = New Flasher : Light1_X16M.Name = "Light1_X16M" : g_AllItems.Add "Light1_X16M", Light1_X16M
-Set Light1_X17M = New Flasher : Light1_X17M.Name = "Light1_X17M" : g_AllItems.Add "Light1_X17M", Light1_X17M
-Set Light1_X18M = New Flasher : Light1_X18M.Name = "Light1_X18M" : g_AllItems.Add "Light1_X18M", Light1_X18M
-Set Light1_X1M = New Flasher : Light1_X1M.Name = "Light1_X1M" : g_AllItems.Add "Light1_X1M", Light1_X1M
-Set Light1_X21M = New Flasher : Light1_X21M.Name = "Light1_X21M" : g_AllItems.Add "Light1_X21M", Light1_X21M
-Set Light1_X22M = New Flasher : Light1_X22M.Name = "Light1_X22M" : g_AllItems.Add "Light1_X22M", Light1_X22M
-Set Light1_X23M = New Flasher : Light1_X23M.Name = "Light1_X23M" : g_AllItems.Add "Light1_X23M", Light1_X23M
-Set Light1_X2M = New Flasher : Light1_X2M.Name = "Light1_X2M" : g_AllItems.Add "Light1_X2M", Light1_X2M
-Set Light1_X3M = New Flasher : Light1_X3M.Name = "Light1_X3M" : g_AllItems.Add "Light1_X3M", Light1_X3M
-Set Light1_X4M = New Flasher : Light1_X4M.Name = "Light1_X4M" : g_AllItems.Add "Light1_X4M", Light1_X4M
-Set Light1_X5M = New Flasher : Light1_X5M.Name = "Light1_X5M" : g_AllItems.Add "Light1_X5M", Light1_X5M
-Set Light1_X6M = New Flasher : Light1_X6M.Name = "Light1_X6M" : g_AllItems.Add "Light1_X6M", Light1_X6M
-Set Light1_X7M = New Flasher : Light1_X7M.Name = "Light1_X7M" : g_AllItems.Add "Light1_X7M", Light1_X7M
-Set Light1_X8M = New Flasher : Light1_X8M.Name = "Light1_X8M" : g_AllItems.Add "Light1_X8M", Light1_X8M
-Set Light1_X9M = New Flasher : Light1_X9M.Name = "Light1_X9M" : g_AllItems.Add "Light1_X9M", Light1_X9M
-Set RiftShadow = New Flasher : RiftShadow.Name = "RiftShadow" : g_AllItems.Add "RiftShadow", RiftShadow
-Set RiftShadow1 = New Flasher : RiftShadow1.Name = "RiftShadow1" : g_AllItems.Add "RiftShadow1", RiftShadow1
-Set RiftShadow2 = New Flasher : RiftShadow2.Name = "RiftShadow2" : g_AllItems.Add "RiftShadow2", RiftShadow2
-Set RiftShadow3 = New Flasher : RiftShadow3.Name = "RiftShadow3" : g_AllItems.Add "RiftShadow3", RiftShadow3
-Set RiftShadow5 = New Flasher : RiftShadow5.Name = "RiftShadow5" : g_AllItems.Add "RiftShadow5", RiftShadow5
-Set VR_Clockface = New Flasher : VR_Clockface.Name = "VR_Clockface" : g_AllItems.Add "VR_Clockface", VR_Clockface
-Set VR_MPlastics = New Flasher : VR_MPlastics.Name = "VR_MPlastics" : g_AllItems.Add "VR_MPlastics", VR_MPlastics
-Set VR_MPlayfield = New Flasher : VR_MPlayfield.Name = "VR_MPlayfield" : g_AllItems.Add "VR_MPlayfield", VR_MPlayfield
-Set VR_MRailLeft = New Flasher : VR_MRailLeft.Name = "VR_MRailLeft" : g_AllItems.Add "VR_MRailLeft", VR_MRailLeft
-Set VR_MRailLeft001 = New Flasher : VR_MRailLeft001.Name = "VR_MRailLeft001" : g_AllItems.Add "VR_MRailLeft001", VR_MRailLeft001
-Set VRChairShadow = New Flasher : VRChairShadow.Name = "VRChairShadow" : g_AllItems.Add "VRChairShadow", VRChairShadow
-Set VRChairShadow1 = New Flasher : VRChairShadow1.Name = "VRChairShadow1" : g_AllItems.Add "VRChairShadow1", VRChairShadow1
-Set VRCouchShadow = New Flasher : VRCouchShadow.Name = "VRCouchShadow" : g_AllItems.Add "VRCouchShadow", VRCouchShadow
-Set VRPhoneShadow1 = New Flasher : VRPhoneShadow1.Name = "VRPhoneShadow1" : g_AllItems.Add "VRPhoneShadow1", VRPhoneShadow1
-Set VRPhoneShadow2 = New Flasher : VRPhoneShadow2.Name = "VRPhoneShadow2" : g_AllItems.Add "VRPhoneShadow2", VRPhoneShadow2
+Set ApronImage002 = New Flasher : ApronImage002.Name = "ApronImage002" : ApronImage002.TimerInterval = 100 : g_AllItems.Add "ApronImage002", ApronImage002
+Set BallShadowA0 = New Flasher : BallShadowA0.Name = "BallShadowA0" : BallShadowA0.TimerInterval = 100 : g_AllItems.Add "BallShadowA0", BallShadowA0
+Set BallShadowA1 = New Flasher : BallShadowA1.Name = "BallShadowA1" : BallShadowA1.TimerInterval = 100 : g_AllItems.Add "BallShadowA1", BallShadowA1
+Set BallShadowA2 = New Flasher : BallShadowA2.Name = "BallShadowA2" : BallShadowA2.TimerInterval = 100 : g_AllItems.Add "BallShadowA2", BallShadowA2
+Set BallShadowA3 = New Flasher : BallShadowA3.Name = "BallShadowA3" : BallShadowA3.TimerInterval = 100 : g_AllItems.Add "BallShadowA3", BallShadowA3
+Set BallShadowA4 = New Flasher : BallShadowA4.Name = "BallShadowA4" : BallShadowA4.TimerInterval = 100 : g_AllItems.Add "BallShadowA4", BallShadowA4
+Set BGBulb001 = New Flasher : BGBulb001.Name = "BGBulb001" : BGBulb001.TimerInterval = 100 : g_AllItems.Add "BGBulb001", BGBulb001
+Set BGBulb002 = New Flasher : BGBulb002.Name = "BGBulb002" : BGBulb002.TimerInterval = 100 : g_AllItems.Add "BGBulb002", BGBulb002
+Set BGBulb003 = New Flasher : BGBulb003.Name = "BGBulb003" : BGBulb003.TimerInterval = 100 : g_AllItems.Add "BGBulb003", BGBulb003
+Set BGBulb004 = New Flasher : BGBulb004.Name = "BGBulb004" : BGBulb004.TimerInterval = 100 : g_AllItems.Add "BGBulb004", BGBulb004
+Set BGBulb005 = New Flasher : BGBulb005.Name = "BGBulb005" : BGBulb005.TimerInterval = 100 : g_AllItems.Add "BGBulb005", BGBulb005
+Set BGBulb006 = New Flasher : BGBulb006.Name = "BGBulb006" : BGBulb006.TimerInterval = 100 : g_AllItems.Add "BGBulb006", BGBulb006
+Set BGBulb007 = New Flasher : BGBulb007.Name = "BGBulb007" : BGBulb007.TimerInterval = 100 : g_AllItems.Add "BGBulb007", BGBulb007
+Set BGBulb008 = New Flasher : BGBulb008.Name = "BGBulb008" : BGBulb008.TimerInterval = 100 : g_AllItems.Add "BGBulb008", BGBulb008
+Set BGBulb009 = New Flasher : BGBulb009.Name = "BGBulb009" : BGBulb009.TimerInterval = 100 : g_AllItems.Add "BGBulb009", BGBulb009
+Set BGBulb010 = New Flasher : BGBulb010.Name = "BGBulb010" : BGBulb010.TimerInterval = 100 : g_AllItems.Add "BGBulb010", BGBulb010
+Set BGBulb011 = New Flasher : BGBulb011.Name = "BGBulb011" : BGBulb011.TimerInterval = 100 : g_AllItems.Add "BGBulb011", BGBulb011
+Set BGBulb012 = New Flasher : BGBulb012.Name = "BGBulb012" : BGBulb012.TimerInterval = 100 : g_AllItems.Add "BGBulb012", BGBulb012
+Set BGBulb013 = New Flasher : BGBulb013.Name = "BGBulb013" : BGBulb013.TimerInterval = 100 : g_AllItems.Add "BGBulb013", BGBulb013
+Set BGBulb014 = New Flasher : BGBulb014.Name = "BGBulb014" : BGBulb014.TimerInterval = 100 : g_AllItems.Add "BGBulb014", BGBulb014
+Set BGBulb015 = New Flasher : BGBulb015.Name = "BGBulb015" : BGBulb015.TimerInterval = 100 : g_AllItems.Add "BGBulb015", BGBulb015
+Set BGBulb016 = New Flasher : BGBulb016.Name = "BGBulb016" : BGBulb016.TimerInterval = 100 : g_AllItems.Add "BGBulb016", BGBulb016
+Set BGBulb017 = New Flasher : BGBulb017.Name = "BGBulb017" : BGBulb017.TimerInterval = 100 : g_AllItems.Add "BGBulb017", BGBulb017
+Set BGBulb018 = New Flasher : BGBulb018.Name = "BGBulb018" : BGBulb018.TimerInterval = 100 : g_AllItems.Add "BGBulb018", BGBulb018
+Set BGBulb019 = New Flasher : BGBulb019.Name = "BGBulb019" : BGBulb019.TimerInterval = 100 : g_AllItems.Add "BGBulb019", BGBulb019
+Set BGBulb020 = New Flasher : BGBulb020.Name = "BGBulb020" : BGBulb020.TimerInterval = 100 : g_AllItems.Add "BGBulb020", BGBulb020
+Set BGBulb021 = New Flasher : BGBulb021.Name = "BGBulb021" : BGBulb021.TimerInterval = 100 : g_AllItems.Add "BGBulb021", BGBulb021
+Set BGBulb022 = New Flasher : BGBulb022.Name = "BGBulb022" : BGBulb022.TimerInterval = 100 : g_AllItems.Add "BGBulb022", BGBulb022
+Set BGBulb023 = New Flasher : BGBulb023.Name = "BGBulb023" : BGBulb023.TimerInterval = 100 : g_AllItems.Add "BGBulb023", BGBulb023
+Set BGBulb024 = New Flasher : BGBulb024.Name = "BGBulb024" : BGBulb024.TimerInterval = 100 : g_AllItems.Add "BGBulb024", BGBulb024
+Set BGBulb025 = New Flasher : BGBulb025.Name = "BGBulb025" : BGBulb025.TimerInterval = 100 : g_AllItems.Add "BGBulb025", BGBulb025
+Set BGBulb026 = New Flasher : BGBulb026.Name = "BGBulb026" : BGBulb026.TimerInterval = 100 : g_AllItems.Add "BGBulb026", BGBulb026
+Set BGBulb027 = New Flasher : BGBulb027.Name = "BGBulb027" : BGBulb027.TimerInterval = 100 : g_AllItems.Add "BGBulb027", BGBulb027
+Set BGBulb028 = New Flasher : BGBulb028.Name = "BGBulb028" : BGBulb028.TimerInterval = 100 : g_AllItems.Add "BGBulb028", BGBulb028
+Set BGBulb029 = New Flasher : BGBulb029.Name = "BGBulb029" : BGBulb029.TimerInterval = 100 : g_AllItems.Add "BGBulb029", BGBulb029
+Set BGBulb030 = New Flasher : BGBulb030.Name = "BGBulb030" : BGBulb030.TimerInterval = 100 : g_AllItems.Add "BGBulb030", BGBulb030
+Set BGBulb031 = New Flasher : BGBulb031.Name = "BGBulb031" : BGBulb031.TimerInterval = 100 : g_AllItems.Add "BGBulb031", BGBulb031
+Set BGBulb032 = New Flasher : BGBulb032.Name = "BGBulb032" : BGBulb032.TimerInterval = 100 : g_AllItems.Add "BGBulb032", BGBulb032
+Set BGBulb033 = New Flasher : BGBulb033.Name = "BGBulb033" : BGBulb033.TimerInterval = 100 : g_AllItems.Add "BGBulb033", BGBulb033
+Set BGBulb034 = New Flasher : BGBulb034.Name = "BGBulb034" : BGBulb034.TimerInterval = 100 : g_AllItems.Add "BGBulb034", BGBulb034
+Set BGBulb035 = New Flasher : BGBulb035.Name = "BGBulb035" : BGBulb035.TimerInterval = 100 : g_AllItems.Add "BGBulb035", BGBulb035
+Set BGBulb036 = New Flasher : BGBulb036.Name = "BGBulb036" : BGBulb036.TimerInterval = 100 : g_AllItems.Add "BGBulb036", BGBulb036
+Set BGBulb037 = New Flasher : BGBulb037.Name = "BGBulb037" : BGBulb037.TimerInterval = 100 : g_AllItems.Add "BGBulb037", BGBulb037
+Set BGBulb038 = New Flasher : BGBulb038.Name = "BGBulb038" : BGBulb038.TimerInterval = 100 : g_AllItems.Add "BGBulb038", BGBulb038
+Set BGBulb039 = New Flasher : BGBulb039.Name = "BGBulb039" : BGBulb039.TimerInterval = 100 : g_AllItems.Add "BGBulb039", BGBulb039
+Set BGBulb040 = New Flasher : BGBulb040.Name = "BGBulb040" : BGBulb040.TimerInterval = 100 : g_AllItems.Add "BGBulb040", BGBulb040
+Set BGBulb041 = New Flasher : BGBulb041.Name = "BGBulb041" : BGBulb041.TimerInterval = 100 : g_AllItems.Add "BGBulb041", BGBulb041
+Set BGBulb042 = New Flasher : BGBulb042.Name = "BGBulb042" : BGBulb042.TimerInterval = 100 : g_AllItems.Add "BGBulb042", BGBulb042
+Set BGBulb043 = New Flasher : BGBulb043.Name = "BGBulb043" : BGBulb043.TimerInterval = 100 : g_AllItems.Add "BGBulb043", BGBulb043
+Set BGBulb044 = New Flasher : BGBulb044.Name = "BGBulb044" : BGBulb044.TimerInterval = 100 : g_AllItems.Add "BGBulb044", BGBulb044
+Set BGBulb045 = New Flasher : BGBulb045.Name = "BGBulb045" : BGBulb045.TimerInterval = 100 : g_AllItems.Add "BGBulb045", BGBulb045
+Set BGBulb046 = New Flasher : BGBulb046.Name = "BGBulb046" : BGBulb046.TimerInterval = 100 : g_AllItems.Add "BGBulb046", BGBulb046
+Set BGBulb047 = New Flasher : BGBulb047.Name = "BGBulb047" : BGBulb047.TimerInterval = 100 : g_AllItems.Add "BGBulb047", BGBulb047
+Set BGBulb048 = New Flasher : BGBulb048.Name = "BGBulb048" : BGBulb048.TimerInterval = 100 : g_AllItems.Add "BGBulb048", BGBulb048
+Set BGBulb049 = New Flasher : BGBulb049.Name = "BGBulb049" : BGBulb049.TimerInterval = 100 : g_AllItems.Add "BGBulb049", BGBulb049
+Set BGBulb050 = New Flasher : BGBulb050.Name = "BGBulb050" : BGBulb050.TimerInterval = 100 : g_AllItems.Add "BGBulb050", BGBulb050
+Set BGBulb051 = New Flasher : BGBulb051.Name = "BGBulb051" : BGBulb051.TimerInterval = 100 : g_AllItems.Add "BGBulb051", BGBulb051
+Set BGBulb052 = New Flasher : BGBulb052.Name = "BGBulb052" : BGBulb052.TimerInterval = 100 : g_AllItems.Add "BGBulb052", BGBulb052
+Set BGBulb053 = New Flasher : BGBulb053.Name = "BGBulb053" : BGBulb053.TimerInterval = 100 : g_AllItems.Add "BGBulb053", BGBulb053
+Set BGBulb054 = New Flasher : BGBulb054.Name = "BGBulb054" : BGBulb054.TimerInterval = 100 : g_AllItems.Add "BGBulb054", BGBulb054
+Set BGBulb055 = New Flasher : BGBulb055.Name = "BGBulb055" : BGBulb055.TimerInterval = 100 : g_AllItems.Add "BGBulb055", BGBulb055
+Set BGBulb2 = New Flasher : BGBulb2.Name = "BGBulb2" : BGBulb2.TimerInterval = 100 : g_AllItems.Add "BGBulb2", BGBulb2
+Set BGCrowd = New Flasher : BGCrowd.Name = "BGCrowd" : BGCrowd.TimerInterval = 100 : g_AllItems.Add "BGCrowd", BGCrowd
+Set BGDark = New Flasher : BGDark.Name = "BGDark" : BGDark.TimerInterval = 100 : g_AllItems.Add "BGDark", BGDark
+Set BGLogoElton = New Flasher : BGLogoElton.Name = "BGLogoElton" : BGLogoElton.TimerInterval = 100 : g_AllItems.Add "BGLogoElton", BGLogoElton
+Set BGPinball = New Flasher : BGPinball.Name = "BGPinball" : BGPinball.TimerInterval = 100 : g_AllItems.Add "BGPinball", BGPinball
+Set Bumper1BM = New Flasher : Bumper1BM.Name = "Bumper1BM" : Bumper1BM.TimerInterval = 100 : g_AllItems.Add "Bumper1BM", Bumper1BM
+Set Bumper1M = New Flasher : Bumper1M.Name = "Bumper1M" : Bumper1M.TimerInterval = 100 : g_AllItems.Add "Bumper1M", Bumper1M
+Set Bumper2BM = New Flasher : Bumper2BM.Name = "Bumper2BM" : Bumper2BM.TimerInterval = 100 : g_AllItems.Add "Bumper2BM", Bumper2BM
+Set Bumper2M = New Flasher : Bumper2M.Name = "Bumper2M" : Bumper2M.TimerInterval = 100 : g_AllItems.Add "Bumper2M", Bumper2M
+Set Bumper3BM = New Flasher : Bumper3BM.Name = "Bumper3BM" : Bumper3BM.TimerInterval = 100 : g_AllItems.Add "Bumper3BM", Bumper3BM
+Set Bumper3M = New Flasher : Bumper3M.Name = "Bumper3M" : Bumper3M.TimerInterval = 100 : g_AllItems.Add "Bumper3M", Bumper3M
+Set Fl100kP1 = New Flasher : Fl100kP1.Name = "Fl100kP1" : Fl100kP1.TimerInterval = 100 : g_AllItems.Add "Fl100kP1", Fl100kP1
+Set Fl100KP1_001 = New Flasher : Fl100KP1_001.Name = "Fl100KP1_001" : Fl100KP1_001.TimerInterval = 100 : g_AllItems.Add "Fl100KP1_001", Fl100KP1_001
+Set Fl100KP1_002 = New Flasher : Fl100KP1_002.Name = "Fl100KP1_002" : Fl100KP1_002.TimerInterval = 100 : g_AllItems.Add "Fl100KP1_002", Fl100KP1_002
+Set Fl100KP1_003 = New Flasher : Fl100KP1_003.Name = "Fl100KP1_003" : Fl100KP1_003.TimerInterval = 100 : g_AllItems.Add "Fl100KP1_003", Fl100KP1_003
+Set Fl100KP1_004 = New Flasher : Fl100KP1_004.Name = "Fl100KP1_004" : Fl100KP1_004.TimerInterval = 100 : g_AllItems.Add "Fl100KP1_004", Fl100KP1_004
+Set Fl100KP1_1 = New Flasher : Fl100KP1_1.Name = "Fl100KP1_1" : Fl100KP1_1.TimerInterval = 100 : g_AllItems.Add "Fl100KP1_1", Fl100KP1_1
+Set Fl100KP1_2 = New Flasher : Fl100KP1_2.Name = "Fl100KP1_2" : Fl100KP1_2.TimerInterval = 100 : g_AllItems.Add "Fl100KP1_2", Fl100KP1_2
+Set Fl100KP1_7 = New Flasher : Fl100KP1_7.Name = "Fl100KP1_7" : Fl100KP1_7.TimerInterval = 100 : g_AllItems.Add "Fl100KP1_7", Fl100KP1_7
+Set Fl100KP2 = New Flasher : Fl100KP2.Name = "Fl100KP2" : Fl100KP2.TimerInterval = 100 : g_AllItems.Add "Fl100KP2", Fl100KP2
+Set Fl100KP2_1 = New Flasher : Fl100KP2_1.Name = "Fl100KP2_1" : Fl100KP2_1.TimerInterval = 100 : g_AllItems.Add "Fl100KP2_1", Fl100KP2_1
+Set Fl100KP2_2 = New Flasher : Fl100KP2_2.Name = "Fl100KP2_2" : Fl100KP2_2.TimerInterval = 100 : g_AllItems.Add "Fl100KP2_2", Fl100KP2_2
+Set Fl100KP2_3 = New Flasher : Fl100KP2_3.Name = "Fl100KP2_3" : Fl100KP2_3.TimerInterval = 100 : g_AllItems.Add "Fl100KP2_3", Fl100KP2_3
+Set Fl100KP2_4 = New Flasher : Fl100KP2_4.Name = "Fl100KP2_4" : Fl100KP2_4.TimerInterval = 100 : g_AllItems.Add "Fl100KP2_4", Fl100KP2_4
+Set Fl100KP2_5 = New Flasher : Fl100KP2_5.Name = "Fl100KP2_5" : Fl100KP2_5.TimerInterval = 100 : g_AllItems.Add "Fl100KP2_5", Fl100KP2_5
+Set Fl100KP2_6 = New Flasher : Fl100KP2_6.Name = "Fl100KP2_6" : Fl100KP2_6.TimerInterval = 100 : g_AllItems.Add "Fl100KP2_6", Fl100KP2_6
+Set Fl100KP2_7 = New Flasher : Fl100KP2_7.Name = "Fl100KP2_7" : Fl100KP2_7.TimerInterval = 100 : g_AllItems.Add "Fl100KP2_7", Fl100KP2_7
+Set Fl100KP3 = New Flasher : Fl100KP3.Name = "Fl100KP3" : Fl100KP3.TimerInterval = 100 : g_AllItems.Add "Fl100KP3", Fl100KP3
+Set Fl100KP3_1 = New Flasher : Fl100KP3_1.Name = "Fl100KP3_1" : Fl100KP3_1.TimerInterval = 100 : g_AllItems.Add "Fl100KP3_1", Fl100KP3_1
+Set Fl100KP3_2 = New Flasher : Fl100KP3_2.Name = "Fl100KP3_2" : Fl100KP3_2.TimerInterval = 100 : g_AllItems.Add "Fl100KP3_2", Fl100KP3_2
+Set Fl100KP3_3 = New Flasher : Fl100KP3_3.Name = "Fl100KP3_3" : Fl100KP3_3.TimerInterval = 100 : g_AllItems.Add "Fl100KP3_3", Fl100KP3_3
+Set Fl100KP3_4 = New Flasher : Fl100KP3_4.Name = "Fl100KP3_4" : Fl100KP3_4.TimerInterval = 100 : g_AllItems.Add "Fl100KP3_4", Fl100KP3_4
+Set Fl100KP3_5 = New Flasher : Fl100KP3_5.Name = "Fl100KP3_5" : Fl100KP3_5.TimerInterval = 100 : g_AllItems.Add "Fl100KP3_5", Fl100KP3_5
+Set Fl100KP3_6 = New Flasher : Fl100KP3_6.Name = "Fl100KP3_6" : Fl100KP3_6.TimerInterval = 100 : g_AllItems.Add "Fl100KP3_6", Fl100KP3_6
+Set Fl100KP3_7 = New Flasher : Fl100KP3_7.Name = "Fl100KP3_7" : Fl100KP3_7.TimerInterval = 100 : g_AllItems.Add "Fl100KP3_7", Fl100KP3_7
+Set Fl100KP4 = New Flasher : Fl100KP4.Name = "Fl100KP4" : Fl100KP4.TimerInterval = 100 : g_AllItems.Add "Fl100KP4", Fl100KP4
+Set Fl100KP4_1 = New Flasher : Fl100KP4_1.Name = "Fl100KP4_1" : Fl100KP4_1.TimerInterval = 100 : g_AllItems.Add "Fl100KP4_1", Fl100KP4_1
+Set Fl100KP4_2 = New Flasher : Fl100KP4_2.Name = "Fl100KP4_2" : Fl100KP4_2.TimerInterval = 100 : g_AllItems.Add "Fl100KP4_2", Fl100KP4_2
+Set Fl100KP4_3 = New Flasher : Fl100KP4_3.Name = "Fl100KP4_3" : Fl100KP4_3.TimerInterval = 100 : g_AllItems.Add "Fl100KP4_3", Fl100KP4_3
+Set Fl100KP4_4 = New Flasher : Fl100KP4_4.Name = "Fl100KP4_4" : Fl100KP4_4.TimerInterval = 100 : g_AllItems.Add "Fl100KP4_4", Fl100KP4_4
+Set Fl100KP4_5 = New Flasher : Fl100KP4_5.Name = "Fl100KP4_5" : Fl100KP4_5.TimerInterval = 100 : g_AllItems.Add "Fl100KP4_5", Fl100KP4_5
+Set Fl100KP4_6 = New Flasher : Fl100KP4_6.Name = "Fl100KP4_6" : Fl100KP4_6.TimerInterval = 100 : g_AllItems.Add "Fl100KP4_6", Fl100KP4_6
+Set Fl100KP4_7 = New Flasher : Fl100KP4_7.Name = "Fl100KP4_7" : Fl100KP4_7.TimerInterval = 100 : g_AllItems.Add "Fl100KP4_7", Fl100KP4_7
+Set Flasher003 = New Flasher : Flasher003.Name = "Flasher003" : Flasher003.TimerInterval = 100 : g_AllItems.Add "Flasher003", Flasher003
+Set Flasher004 = New Flasher : Flasher004.Name = "Flasher004" : Flasher004.TimerInterval = 100 : g_AllItems.Add "Flasher004", Flasher004
+Set Flasher005 = New Flasher : Flasher005.Name = "Flasher005" : Flasher005.TimerInterval = 100 : g_AllItems.Add "Flasher005", Flasher005
+Set Flasher006 = New Flasher : Flasher006.Name = "Flasher006" : Flasher006.TimerInterval = 100 : g_AllItems.Add "Flasher006", Flasher006
+Set Flasher007 = New Flasher : Flasher007.Name = "Flasher007" : Flasher007.TimerInterval = 100 : g_AllItems.Add "Flasher007", Flasher007
+Set Flasher008 = New Flasher : Flasher008.Name = "Flasher008" : Flasher008.TimerInterval = 100 : g_AllItems.Add "Flasher008", Flasher008
+Set Flasher009 = New Flasher : Flasher009.Name = "Flasher009" : Flasher009.TimerInterval = 100 : g_AllItems.Add "Flasher009", Flasher009
+Set Flasher010 = New Flasher : Flasher010.Name = "Flasher010" : Flasher010.TimerInterval = 100 : g_AllItems.Add "Flasher010", Flasher010
+Set Flasher011 = New Flasher : Flasher011.Name = "Flasher011" : Flasher011.TimerInterval = 100 : g_AllItems.Add "Flasher011", Flasher011
+Set Flasher012 = New Flasher : Flasher012.Name = "Flasher012" : Flasher012.TimerInterval = 100 : g_AllItems.Add "Flasher012", Flasher012
+Set Flasher013 = New Flasher : Flasher013.Name = "Flasher013" : Flasher013.TimerInterval = 100 : g_AllItems.Add "Flasher013", Flasher013
+Set Flasher015 = New Flasher : Flasher015.Name = "Flasher015" : Flasher015.TimerInterval = 100 : g_AllItems.Add "Flasher015", Flasher015
+Set Flasher016 = New Flasher : Flasher016.Name = "Flasher016" : Flasher016.TimerInterval = 100 : g_AllItems.Add "Flasher016", Flasher016
+Set Flasher017 = New Flasher : Flasher017.Name = "Flasher017" : Flasher017.TimerInterval = 100 : g_AllItems.Add "Flasher017", Flasher017
+Set Flasher018 = New Flasher : Flasher018.Name = "Flasher018" : Flasher018.TimerInterval = 100 : g_AllItems.Add "Flasher018", Flasher018
+Set FlBIP1 = New Flasher : FlBIP1.Name = "FlBIP1" : FlBIP1.TimerInterval = 100 : g_AllItems.Add "FlBIP1", FlBIP1
+Set FlBIP1A = New Flasher : FlBIP1A.Name = "FlBIP1A" : FlBIP1A.TimerInterval = 100 : g_AllItems.Add "FlBIP1A", FlBIP1A
+Set FlBIP2 = New Flasher : FlBIP2.Name = "FlBIP2" : FlBIP2.TimerInterval = 100 : g_AllItems.Add "FlBIP2", FlBIP2
+Set FlBIP2A = New Flasher : FlBIP2A.Name = "FlBIP2A" : FlBIP2A.TimerInterval = 100 : g_AllItems.Add "FlBIP2A", FlBIP2A
+Set FlBIP3 = New Flasher : FlBIP3.Name = "FlBIP3" : FlBIP3.TimerInterval = 100 : g_AllItems.Add "FlBIP3", FlBIP3
+Set FlBIP3A = New Flasher : FlBIP3A.Name = "FlBIP3A" : FlBIP3A.TimerInterval = 100 : g_AllItems.Add "FlBIP3A", FlBIP3A
+Set FlBIP4 = New Flasher : FlBIP4.Name = "FlBIP4" : FlBIP4.TimerInterval = 100 : g_AllItems.Add "FlBIP4", FlBIP4
+Set FlBIP4A = New Flasher : FlBIP4A.Name = "FlBIP4A" : FlBIP4A.TimerInterval = 100 : g_AllItems.Add "FlBIP4A", FlBIP4A
+Set FlBIP5 = New Flasher : FlBIP5.Name = "FlBIP5" : FlBIP5.TimerInterval = 100 : g_AllItems.Add "FlBIP5", FlBIP5
+Set FlBIP5A = New Flasher : FlBIP5A.Name = "FlBIP5A" : FlBIP5A.TimerInterval = 100 : g_AllItems.Add "FlBIP5A", FlBIP5A
+Set FlCredit1A = New Flasher : FlCredit1A.Name = "FlCredit1A" : FlCredit1A.TimerInterval = 100 : g_AllItems.Add "FlCredit1A", FlCredit1A
+Set FlGameOver = New Flasher : FlGameOver.Name = "FlGameOver" : FlGameOver.TimerInterval = 100 : g_AllItems.Add "FlGameOver", FlGameOver
+Set FlM00 = New Flasher : FlM00.Name = "FlM00" : FlM00.TimerInterval = 100 : g_AllItems.Add "FlM00", FlM00
+Set FlM00A = New Flasher : FlM00A.Name = "FlM00A" : FlM00A.TimerInterval = 100 : g_AllItems.Add "FlM00A", FlM00A
+Set FlM00B = New Flasher : FlM00B.Name = "FlM00B" : FlM00B.TimerInterval = 100 : g_AllItems.Add "FlM00B", FlM00B
+Set FlM10 = New Flasher : FlM10.Name = "FlM10" : FlM10.TimerInterval = 100 : g_AllItems.Add "FlM10", FlM10
+Set FlM10A = New Flasher : FlM10A.Name = "FlM10A" : FlM10A.TimerInterval = 100 : g_AllItems.Add "FlM10A", FlM10A
+Set FlM10B = New Flasher : FlM10B.Name = "FlM10B" : FlM10B.TimerInterval = 100 : g_AllItems.Add "FlM10B", FlM10B
+Set FlM20 = New Flasher : FlM20.Name = "FlM20" : FlM20.TimerInterval = 100 : g_AllItems.Add "FlM20", FlM20
+Set FlM20A = New Flasher : FlM20A.Name = "FlM20A" : FlM20A.TimerInterval = 100 : g_AllItems.Add "FlM20A", FlM20A
+Set FlM20B = New Flasher : FlM20B.Name = "FlM20B" : FlM20B.TimerInterval = 100 : g_AllItems.Add "FlM20B", FlM20B
+Set FlM30 = New Flasher : FlM30.Name = "FlM30" : FlM30.TimerInterval = 100 : g_AllItems.Add "FlM30", FlM30
+Set FlM30A = New Flasher : FlM30A.Name = "FlM30A" : FlM30A.TimerInterval = 100 : g_AllItems.Add "FlM30A", FlM30A
+Set FlM30B = New Flasher : FlM30B.Name = "FlM30B" : FlM30B.TimerInterval = 100 : g_AllItems.Add "FlM30B", FlM30B
+Set FlM40 = New Flasher : FlM40.Name = "FlM40" : FlM40.TimerInterval = 100 : g_AllItems.Add "FlM40", FlM40
+Set FlM40A = New Flasher : FlM40A.Name = "FlM40A" : FlM40A.TimerInterval = 100 : g_AllItems.Add "FlM40A", FlM40A
+Set FlM40B = New Flasher : FlM40B.Name = "FlM40B" : FlM40B.TimerInterval = 100 : g_AllItems.Add "FlM40B", FlM40B
+Set FlM50 = New Flasher : FlM50.Name = "FlM50" : FlM50.TimerInterval = 100 : g_AllItems.Add "FlM50", FlM50
+Set FlM50A = New Flasher : FlM50A.Name = "FlM50A" : FlM50A.TimerInterval = 100 : g_AllItems.Add "FlM50A", FlM50A
+Set FlM50B = New Flasher : FlM50B.Name = "FlM50B" : FlM50B.TimerInterval = 100 : g_AllItems.Add "FlM50B", FlM50B
+Set FlM60 = New Flasher : FlM60.Name = "FlM60" : FlM60.TimerInterval = 100 : g_AllItems.Add "FlM60", FlM60
+Set FlM60A = New Flasher : FlM60A.Name = "FlM60A" : FlM60A.TimerInterval = 100 : g_AllItems.Add "FlM60A", FlM60A
+Set FlM60B = New Flasher : FlM60B.Name = "FlM60B" : FlM60B.TimerInterval = 100 : g_AllItems.Add "FlM60B", FlM60B
+Set FlM70 = New Flasher : FlM70.Name = "FlM70" : FlM70.TimerInterval = 100 : g_AllItems.Add "FlM70", FlM70
+Set FlM70A = New Flasher : FlM70A.Name = "FlM70A" : FlM70A.TimerInterval = 100 : g_AllItems.Add "FlM70A", FlM70A
+Set FlM70B = New Flasher : FlM70B.Name = "FlM70B" : FlM70B.TimerInterval = 100 : g_AllItems.Add "FlM70B", FlM70B
+Set FlM80 = New Flasher : FlM80.Name = "FlM80" : FlM80.TimerInterval = 100 : g_AllItems.Add "FlM80", FlM80
+Set FlM80A = New Flasher : FlM80A.Name = "FlM80A" : FlM80A.TimerInterval = 100 : g_AllItems.Add "FlM80A", FlM80A
+Set FlM80B = New Flasher : FlM80B.Name = "FlM80B" : FlM80B.TimerInterval = 100 : g_AllItems.Add "FlM80B", FlM80B
+Set FlM90 = New Flasher : FlM90.Name = "FlM90" : FlM90.TimerInterval = 100 : g_AllItems.Add "FlM90", FlM90
+Set FlM90A = New Flasher : FlM90A.Name = "FlM90A" : FlM90A.TimerInterval = 100 : g_AllItems.Add "FlM90A", FlM90A
+Set FlM90B = New Flasher : FlM90B.Name = "FlM90B" : FlM90B.TimerInterval = 100 : g_AllItems.Add "FlM90B", FlM90B
+Set floorshadow = New Flasher : floorshadow.Name = "floorshadow" : floorshadow.TimerInterval = 100 : g_AllItems.Add "floorshadow", floorshadow
+Set FlPl1 = New Flasher : FlPl1.Name = "FlPl1" : FlPl1.TimerInterval = 100 : g_AllItems.Add "FlPl1", FlPl1
+Set FlPl1_2 = New Flasher : FlPl1_2.Name = "FlPl1_2" : FlPl1_2.TimerInterval = 100 : g_AllItems.Add "FlPl1_2", FlPl1_2
+Set FlPL1Drum1 = New Flasher : FlPL1Drum1.Name = "FlPL1Drum1" : FlPL1Drum1.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum1", FlPL1Drum1
+Set FlPL1Drum2 = New Flasher : FlPL1Drum2.Name = "FlPL1Drum2" : FlPL1Drum2.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum2", FlPL1Drum2
+Set FlPL1Drum3 = New Flasher : FlPL1Drum3.Name = "FlPL1Drum3" : FlPL1Drum3.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum3", FlPL1Drum3
+Set FlPL1Drum4 = New Flasher : FlPL1Drum4.Name = "FlPL1Drum4" : FlPL1Drum4.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum4", FlPL1Drum4
+Set FlPL1Drum5 = New Flasher : FlPL1Drum5.Name = "FlPL1Drum5" : FlPL1Drum5.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum5", FlPL1Drum5
+Set FlPL1Reel = New Flasher : FlPL1Reel.Name = "FlPL1Reel" : FlPL1Reel.TimerInterval = 100 : g_AllItems.Add "FlPL1Reel", FlPL1Reel
+Set FlPl2 = New Flasher : FlPl2.Name = "FlPl2" : FlPl2.TimerInterval = 100 : g_AllItems.Add "FlPl2", FlPl2
+Set FlPl2_2 = New Flasher : FlPl2_2.Name = "FlPl2_2" : FlPl2_2.TimerInterval = 100 : g_AllItems.Add "FlPl2_2", FlPl2_2
+Set FlPL2Drum1 = New Flasher : FlPL2Drum1.Name = "FlPL2Drum1" : FlPL2Drum1.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum1", FlPL2Drum1
+Set FlPL2Drum2 = New Flasher : FlPL2Drum2.Name = "FlPL2Drum2" : FlPL2Drum2.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum2", FlPL2Drum2
+Set FlPL2Drum3 = New Flasher : FlPL2Drum3.Name = "FlPL2Drum3" : FlPL2Drum3.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum3", FlPL2Drum3
+Set FlPL2Drum4 = New Flasher : FlPL2Drum4.Name = "FlPL2Drum4" : FlPL2Drum4.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum4", FlPL2Drum4
+Set FlPL2Drum5 = New Flasher : FlPL2Drum5.Name = "FlPL2Drum5" : FlPL2Drum5.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum5", FlPL2Drum5
+Set FlPL2Reel = New Flasher : FlPL2Reel.Name = "FlPL2Reel" : FlPL2Reel.TimerInterval = 100 : g_AllItems.Add "FlPL2Reel", FlPL2Reel
+Set FlPl3 = New Flasher : FlPl3.Name = "FlPl3" : FlPl3.TimerInterval = 100 : g_AllItems.Add "FlPl3", FlPl3
+Set FlPl3_2 = New Flasher : FlPl3_2.Name = "FlPl3_2" : FlPl3_2.TimerInterval = 100 : g_AllItems.Add "FlPl3_2", FlPl3_2
+Set FlPL3Drum1 = New Flasher : FlPL3Drum1.Name = "FlPL3Drum1" : FlPL3Drum1.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum1", FlPL3Drum1
+Set FlPL3Drum2 = New Flasher : FlPL3Drum2.Name = "FlPL3Drum2" : FlPL3Drum2.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum2", FlPL3Drum2
+Set FlPL3Drum3 = New Flasher : FlPL3Drum3.Name = "FlPL3Drum3" : FlPL3Drum3.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum3", FlPL3Drum3
+Set FlPL3Drum4 = New Flasher : FlPL3Drum4.Name = "FlPL3Drum4" : FlPL3Drum4.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum4", FlPL3Drum4
+Set FlPL3Drum5 = New Flasher : FlPL3Drum5.Name = "FlPL3Drum5" : FlPL3Drum5.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum5", FlPL3Drum5
+Set FlPL3Reel = New Flasher : FlPL3Reel.Name = "FlPL3Reel" : FlPL3Reel.TimerInterval = 100 : g_AllItems.Add "FlPL3Reel", FlPL3Reel
+Set FlPl4 = New Flasher : FlPl4.Name = "FlPl4" : FlPl4.TimerInterval = 100 : g_AllItems.Add "FlPl4", FlPl4
+Set FlPl4_2 = New Flasher : FlPl4_2.Name = "FlPl4_2" : FlPl4_2.TimerInterval = 100 : g_AllItems.Add "FlPl4_2", FlPl4_2
+Set FlPL4Drum1 = New Flasher : FlPL4Drum1.Name = "FlPL4Drum1" : FlPL4Drum1.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum1", FlPL4Drum1
+Set FlPL4Drum2 = New Flasher : FlPL4Drum2.Name = "FlPL4Drum2" : FlPL4Drum2.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum2", FlPL4Drum2
+Set FlPL4Drum3 = New Flasher : FlPL4Drum3.Name = "FlPL4Drum3" : FlPL4Drum3.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum3", FlPL4Drum3
+Set FlPL4Drum4 = New Flasher : FlPL4Drum4.Name = "FlPL4Drum4" : FlPL4Drum4.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum4", FlPL4Drum4
+Set FlPL4Drum5 = New Flasher : FlPL4Drum5.Name = "FlPL4Drum5" : FlPL4Drum5.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum5", FlPL4Drum5
+Set FlPL4Reel = New Flasher : FlPL4Reel.Name = "FlPL4Reel" : FlPL4Reel.TimerInterval = 100 : g_AllItems.Add "FlPL4Reel", FlPL4Reel
+Set FlPlUP001 = New Flasher : FlPlUP001.Name = "FlPlUP001" : FlPlUP001.TimerInterval = 100 : g_AllItems.Add "FlPlUP001", FlPlUP001
+Set FlPlUP1 = New Flasher : FlPlUP1.Name = "FlPlUP1" : FlPlUP1.TimerInterval = 100 : g_AllItems.Add "FlPlUP1", FlPlUP1
+Set FlPlUP1_1 = New Flasher : FlPlUP1_1.Name = "FlPlUP1_1" : FlPlUP1_1.TimerInterval = 100 : g_AllItems.Add "FlPlUP1_1", FlPlUP1_1
+Set FlPlUP2 = New Flasher : FlPlUP2.Name = "FlPlUP2" : FlPlUP2.TimerInterval = 100 : g_AllItems.Add "FlPlUP2", FlPlUP2
+Set FlPlUP2_1 = New Flasher : FlPlUP2_1.Name = "FlPlUP2_1" : FlPlUP2_1.TimerInterval = 100 : g_AllItems.Add "FlPlUP2_1", FlPlUP2_1
+Set FlPlUP3 = New Flasher : FlPlUP3.Name = "FlPlUP3" : FlPlUP3.TimerInterval = 100 : g_AllItems.Add "FlPlUP3", FlPlUP3
+Set FlPlUP3_1 = New Flasher : FlPlUP3_1.Name = "FlPlUP3_1" : FlPlUP3_1.TimerInterval = 100 : g_AllItems.Add "FlPlUP3_1", FlPlUP3_1
+Set FlPlUP4 = New Flasher : FlPlUP4.Name = "FlPlUP4" : FlPlUP4.TimerInterval = 100 : g_AllItems.Add "FlPlUP4", FlPlUP4
+Set FlPlUP4_1 = New Flasher : FlPlUP4_1.Name = "FlPlUP4_1" : FlPlUP4_1.TimerInterval = 100 : g_AllItems.Add "FlPlUP4_1", FlPlUP4_1
+Set FlSPSA = New Flasher : FlSPSA.Name = "FlSPSA" : FlSPSA.TimerInterval = 100 : g_AllItems.Add "FlSPSA", FlSPSA
+Set FlTilt = New Flasher : FlTilt.Name = "FlTilt" : FlTilt.TimerInterval = 100 : g_AllItems.Add "FlTilt", FlTilt
+Set LDT15M = New Flasher : LDT15M.Name = "LDT15M" : LDT15M.TimerInterval = 100 : g_AllItems.Add "LDT15M", LDT15M
+Set LDT16M = New Flasher : LDT16M.Name = "LDT16M" : LDT16M.TimerInterval = 100 : g_AllItems.Add "LDT16M", LDT16M
+Set LDT1M = New Flasher : LDT1M.Name = "LDT1M" : LDT1M.TimerInterval = 100 : g_AllItems.Add "LDT1M", LDT1M
+Set LDT2M = New Flasher : LDT2M.Name = "LDT2M" : LDT2M.TimerInterval = 100 : g_AllItems.Add "LDT2M", LDT2M
+Set LDT3M = New Flasher : LDT3M.Name = "LDT3M" : LDT3M.TimerInterval = 100 : g_AllItems.Add "LDT3M", LDT3M
+Set LDT4M = New Flasher : LDT4M.Name = "LDT4M" : LDT4M.TimerInterval = 100 : g_AllItems.Add "LDT4M", LDT4M
+Set LDT5M = New Flasher : LDT5M.Name = "LDT5M" : LDT5M.TimerInterval = 100 : g_AllItems.Add "LDT5M", LDT5M
+Set LDT6M = New Flasher : LDT6M.Name = "LDT6M" : LDT6M.TimerInterval = 100 : g_AllItems.Add "LDT6M", LDT6M
+Set Light1_X10M = New Flasher : Light1_X10M.Name = "Light1_X10M" : Light1_X10M.TimerInterval = 100 : g_AllItems.Add "Light1_X10M", Light1_X10M
+Set Light1_X11M = New Flasher : Light1_X11M.Name = "Light1_X11M" : Light1_X11M.TimerInterval = 100 : g_AllItems.Add "Light1_X11M", Light1_X11M
+Set Light1_X12M = New Flasher : Light1_X12M.Name = "Light1_X12M" : Light1_X12M.TimerInterval = 100 : g_AllItems.Add "Light1_X12M", Light1_X12M
+Set Light1_X13M = New Flasher : Light1_X13M.Name = "Light1_X13M" : Light1_X13M.TimerInterval = 100 : g_AllItems.Add "Light1_X13M", Light1_X13M
+Set Light1_X14M = New Flasher : Light1_X14M.Name = "Light1_X14M" : Light1_X14M.TimerInterval = 100 : g_AllItems.Add "Light1_X14M", Light1_X14M
+Set Light1_X15M = New Flasher : Light1_X15M.Name = "Light1_X15M" : Light1_X15M.TimerInterval = 100 : g_AllItems.Add "Light1_X15M", Light1_X15M
+Set Light1_X16M = New Flasher : Light1_X16M.Name = "Light1_X16M" : Light1_X16M.TimerInterval = 100 : g_AllItems.Add "Light1_X16M", Light1_X16M
+Set Light1_X17M = New Flasher : Light1_X17M.Name = "Light1_X17M" : Light1_X17M.TimerInterval = 100 : g_AllItems.Add "Light1_X17M", Light1_X17M
+Set Light1_X18M = New Flasher : Light1_X18M.Name = "Light1_X18M" : Light1_X18M.TimerInterval = 100 : g_AllItems.Add "Light1_X18M", Light1_X18M
+Set Light1_X1M = New Flasher : Light1_X1M.Name = "Light1_X1M" : Light1_X1M.TimerInterval = 100 : g_AllItems.Add "Light1_X1M", Light1_X1M
+Set Light1_X21M = New Flasher : Light1_X21M.Name = "Light1_X21M" : Light1_X21M.TimerInterval = 100 : g_AllItems.Add "Light1_X21M", Light1_X21M
+Set Light1_X22M = New Flasher : Light1_X22M.Name = "Light1_X22M" : Light1_X22M.TimerInterval = 100 : g_AllItems.Add "Light1_X22M", Light1_X22M
+Set Light1_X23M = New Flasher : Light1_X23M.Name = "Light1_X23M" : Light1_X23M.TimerInterval = 100 : g_AllItems.Add "Light1_X23M", Light1_X23M
+Set Light1_X2M = New Flasher : Light1_X2M.Name = "Light1_X2M" : Light1_X2M.TimerInterval = 100 : g_AllItems.Add "Light1_X2M", Light1_X2M
+Set Light1_X3M = New Flasher : Light1_X3M.Name = "Light1_X3M" : Light1_X3M.TimerInterval = 100 : g_AllItems.Add "Light1_X3M", Light1_X3M
+Set Light1_X4M = New Flasher : Light1_X4M.Name = "Light1_X4M" : Light1_X4M.TimerInterval = 100 : g_AllItems.Add "Light1_X4M", Light1_X4M
+Set Light1_X5M = New Flasher : Light1_X5M.Name = "Light1_X5M" : Light1_X5M.TimerInterval = 100 : g_AllItems.Add "Light1_X5M", Light1_X5M
+Set Light1_X6M = New Flasher : Light1_X6M.Name = "Light1_X6M" : Light1_X6M.TimerInterval = 100 : g_AllItems.Add "Light1_X6M", Light1_X6M
+Set Light1_X7M = New Flasher : Light1_X7M.Name = "Light1_X7M" : Light1_X7M.TimerInterval = 100 : g_AllItems.Add "Light1_X7M", Light1_X7M
+Set Light1_X8M = New Flasher : Light1_X8M.Name = "Light1_X8M" : Light1_X8M.TimerInterval = 100 : g_AllItems.Add "Light1_X8M", Light1_X8M
+Set Light1_X9M = New Flasher : Light1_X9M.Name = "Light1_X9M" : Light1_X9M.TimerInterval = 100 : g_AllItems.Add "Light1_X9M", Light1_X9M
+Set RiftShadow = New Flasher : RiftShadow.Name = "RiftShadow" : RiftShadow.TimerInterval = 100 : g_AllItems.Add "RiftShadow", RiftShadow
+Set RiftShadow1 = New Flasher : RiftShadow1.Name = "RiftShadow1" : RiftShadow1.TimerInterval = 100 : g_AllItems.Add "RiftShadow1", RiftShadow1
+Set RiftShadow2 = New Flasher : RiftShadow2.Name = "RiftShadow2" : RiftShadow2.TimerInterval = 100 : g_AllItems.Add "RiftShadow2", RiftShadow2
+Set RiftShadow3 = New Flasher : RiftShadow3.Name = "RiftShadow3" : RiftShadow3.TimerInterval = 100 : g_AllItems.Add "RiftShadow3", RiftShadow3
+Set RiftShadow5 = New Flasher : RiftShadow5.Name = "RiftShadow5" : RiftShadow5.TimerInterval = 100 : g_AllItems.Add "RiftShadow5", RiftShadow5
+Set VR_Clockface = New Flasher : VR_Clockface.Name = "VR_Clockface" : VR_Clockface.TimerInterval = 100 : g_AllItems.Add "VR_Clockface", VR_Clockface
+Set VR_MPlastics = New Flasher : VR_MPlastics.Name = "VR_MPlastics" : VR_MPlastics.TimerInterval = 100 : g_AllItems.Add "VR_MPlastics", VR_MPlastics
+Set VR_MPlayfield = New Flasher : VR_MPlayfield.Name = "VR_MPlayfield" : VR_MPlayfield.TimerInterval = 100 : g_AllItems.Add "VR_MPlayfield", VR_MPlayfield
+Set VR_MRailLeft = New Flasher : VR_MRailLeft.Name = "VR_MRailLeft" : VR_MRailLeft.TimerInterval = 100 : g_AllItems.Add "VR_MRailLeft", VR_MRailLeft
+Set VR_MRailLeft001 = New Flasher : VR_MRailLeft001.Name = "VR_MRailLeft001" : VR_MRailLeft001.TimerInterval = 100 : g_AllItems.Add "VR_MRailLeft001", VR_MRailLeft001
+Set VRChairShadow = New Flasher : VRChairShadow.Name = "VRChairShadow" : VRChairShadow.TimerInterval = 100 : g_AllItems.Add "VRChairShadow", VRChairShadow
+Set VRChairShadow1 = New Flasher : VRChairShadow1.Name = "VRChairShadow1" : VRChairShadow1.TimerInterval = 100 : g_AllItems.Add "VRChairShadow1", VRChairShadow1
+Set VRCouchShadow = New Flasher : VRCouchShadow.Name = "VRCouchShadow" : VRCouchShadow.TimerInterval = 100 : g_AllItems.Add "VRCouchShadow", VRCouchShadow
+Set VRPhoneShadow1 = New Flasher : VRPhoneShadow1.Name = "VRPhoneShadow1" : VRPhoneShadow1.TimerInterval = 100 : g_AllItems.Add "VRPhoneShadow1", VRPhoneShadow1
+Set VRPhoneShadow2 = New Flasher : VRPhoneShadow2.Name = "VRPhoneShadow2" : VRPhoneShadow2.TimerInterval = 100 : g_AllItems.Add "VRPhoneShadow2", VRPhoneShadow2
 
 ' --- Flipper (10) ---
 Dim Flipper1, Flipper1M, Flipper5, LeftFlipper, LeftFlipper2, LeftFlipperMirror1, LeftFlipperMirror2, RightFlipper, RightFlipperMirror, RightFlipperMirror2
@@ -476,7 +476,7 @@ Set TILTBG = New Light : TILTBG.Name = "TILTBG" : TILTBG.BlinkPattern = "10" : T
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (516) ---
 Dim B1S, B2S, B3S, BallShadow0, BallShadow1, BallShadow2, BallShadow3, BallShadow4, BeerBubble1, BeerBubble2, BeerBubble3, BeerBubble4, BeerBubble5, BeerBubble6, BeerBubble7
@@ -1037,140 +1037,140 @@ Dim PR7, PR8, PR9, Ramp100, Ramp101, Ramp102, Ramp1612, Ramp3, Ramp4, Ramp51, Ra
 Dim Ramp57, Ramp58, Ramp59, Ramp60, Ramp61, Ramp62, Ramp63, Ramp64, Ramp65, Ramp67, Ramp68, Ramp69, Ramp70, Ramp71, Ramp72
 Dim Ramp73, Ramp74, Ramp75, Ramp76, Ramp77, Ramp78, Ramp79, Ramp80, Ramp82, Ramp83, Ramp84, Ramp85, Ramp89, Ramp90, Ramp91
 Dim Ramp92, Ramp93, Ramp94, Ramp95, Ramp96, Ramp97, Ramp98, Ramp99
-Set CabinetRailLeft = New Ramp : CabinetRailLeft.Name = "CabinetRailLeft" : g_AllItems.Add "CabinetRailLeft", CabinetRailLeft
-Set CabinetRailRight = New Ramp : CabinetRailRight.Name = "CabinetRailRight" : g_AllItems.Add "CabinetRailRight", CabinetRailRight
-Set glass = New Ramp : glass.Name = "glass" : g_AllItems.Add "glass", glass
-Set glass001 = New Ramp : glass001.Name = "glass001" : g_AllItems.Add "glass001", glass001
-Set HSName1 = New Ramp : HSName1.Name = "HSName1" : g_AllItems.Add "HSName1", HSName1
-Set HSName2 = New Ramp : HSName2.Name = "HSName2" : g_AllItems.Add "HSName2", HSName2
-Set HSName3 = New Ramp : HSName3.Name = "HSName3" : g_AllItems.Add "HSName3", HSName3
-Set PR1 = New Ramp : PR1.Name = "PR1" : g_AllItems.Add "PR1", PR1
-Set PR10 = New Ramp : PR10.Name = "PR10" : g_AllItems.Add "PR10", PR10
-Set PR11 = New Ramp : PR11.Name = "PR11" : g_AllItems.Add "PR11", PR11
-Set PR2 = New Ramp : PR2.Name = "PR2" : g_AllItems.Add "PR2", PR2
-Set PR3 = New Ramp : PR3.Name = "PR3" : g_AllItems.Add "PR3", PR3
-Set PR4 = New Ramp : PR4.Name = "PR4" : g_AllItems.Add "PR4", PR4
-Set PR5 = New Ramp : PR5.Name = "PR5" : g_AllItems.Add "PR5", PR5
-Set PR6 = New Ramp : PR6.Name = "PR6" : g_AllItems.Add "PR6", PR6
-Set PR7 = New Ramp : PR7.Name = "PR7" : g_AllItems.Add "PR7", PR7
-Set PR8 = New Ramp : PR8.Name = "PR8" : g_AllItems.Add "PR8", PR8
-Set PR9 = New Ramp : PR9.Name = "PR9" : g_AllItems.Add "PR9", PR9
-Set Ramp100 = New Ramp : Ramp100.Name = "Ramp100" : g_AllItems.Add "Ramp100", Ramp100
-Set Ramp101 = New Ramp : Ramp101.Name = "Ramp101" : g_AllItems.Add "Ramp101", Ramp101
-Set Ramp102 = New Ramp : Ramp102.Name = "Ramp102" : g_AllItems.Add "Ramp102", Ramp102
-Set Ramp1612 = New Ramp : Ramp1612.Name = "Ramp1612" : g_AllItems.Add "Ramp1612", Ramp1612
-Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : g_AllItems.Add "Ramp3", Ramp3
-Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : g_AllItems.Add "Ramp4", Ramp4
-Set Ramp51 = New Ramp : Ramp51.Name = "Ramp51" : g_AllItems.Add "Ramp51", Ramp51
-Set Ramp52 = New Ramp : Ramp52.Name = "Ramp52" : g_AllItems.Add "Ramp52", Ramp52
-Set Ramp53 = New Ramp : Ramp53.Name = "Ramp53" : g_AllItems.Add "Ramp53", Ramp53
-Set Ramp54 = New Ramp : Ramp54.Name = "Ramp54" : g_AllItems.Add "Ramp54", Ramp54
-Set Ramp55 = New Ramp : Ramp55.Name = "Ramp55" : g_AllItems.Add "Ramp55", Ramp55
-Set Ramp56 = New Ramp : Ramp56.Name = "Ramp56" : g_AllItems.Add "Ramp56", Ramp56
-Set Ramp57 = New Ramp : Ramp57.Name = "Ramp57" : g_AllItems.Add "Ramp57", Ramp57
-Set Ramp58 = New Ramp : Ramp58.Name = "Ramp58" : g_AllItems.Add "Ramp58", Ramp58
-Set Ramp59 = New Ramp : Ramp59.Name = "Ramp59" : g_AllItems.Add "Ramp59", Ramp59
-Set Ramp60 = New Ramp : Ramp60.Name = "Ramp60" : g_AllItems.Add "Ramp60", Ramp60
-Set Ramp61 = New Ramp : Ramp61.Name = "Ramp61" : g_AllItems.Add "Ramp61", Ramp61
-Set Ramp62 = New Ramp : Ramp62.Name = "Ramp62" : g_AllItems.Add "Ramp62", Ramp62
-Set Ramp63 = New Ramp : Ramp63.Name = "Ramp63" : g_AllItems.Add "Ramp63", Ramp63
-Set Ramp64 = New Ramp : Ramp64.Name = "Ramp64" : g_AllItems.Add "Ramp64", Ramp64
-Set Ramp65 = New Ramp : Ramp65.Name = "Ramp65" : g_AllItems.Add "Ramp65", Ramp65
-Set Ramp67 = New Ramp : Ramp67.Name = "Ramp67" : g_AllItems.Add "Ramp67", Ramp67
-Set Ramp68 = New Ramp : Ramp68.Name = "Ramp68" : g_AllItems.Add "Ramp68", Ramp68
-Set Ramp69 = New Ramp : Ramp69.Name = "Ramp69" : g_AllItems.Add "Ramp69", Ramp69
-Set Ramp70 = New Ramp : Ramp70.Name = "Ramp70" : g_AllItems.Add "Ramp70", Ramp70
-Set Ramp71 = New Ramp : Ramp71.Name = "Ramp71" : g_AllItems.Add "Ramp71", Ramp71
-Set Ramp72 = New Ramp : Ramp72.Name = "Ramp72" : g_AllItems.Add "Ramp72", Ramp72
-Set Ramp73 = New Ramp : Ramp73.Name = "Ramp73" : g_AllItems.Add "Ramp73", Ramp73
-Set Ramp74 = New Ramp : Ramp74.Name = "Ramp74" : g_AllItems.Add "Ramp74", Ramp74
-Set Ramp75 = New Ramp : Ramp75.Name = "Ramp75" : g_AllItems.Add "Ramp75", Ramp75
-Set Ramp76 = New Ramp : Ramp76.Name = "Ramp76" : g_AllItems.Add "Ramp76", Ramp76
-Set Ramp77 = New Ramp : Ramp77.Name = "Ramp77" : g_AllItems.Add "Ramp77", Ramp77
-Set Ramp78 = New Ramp : Ramp78.Name = "Ramp78" : g_AllItems.Add "Ramp78", Ramp78
-Set Ramp79 = New Ramp : Ramp79.Name = "Ramp79" : g_AllItems.Add "Ramp79", Ramp79
-Set Ramp80 = New Ramp : Ramp80.Name = "Ramp80" : g_AllItems.Add "Ramp80", Ramp80
-Set Ramp82 = New Ramp : Ramp82.Name = "Ramp82" : g_AllItems.Add "Ramp82", Ramp82
-Set Ramp83 = New Ramp : Ramp83.Name = "Ramp83" : g_AllItems.Add "Ramp83", Ramp83
-Set Ramp84 = New Ramp : Ramp84.Name = "Ramp84" : g_AllItems.Add "Ramp84", Ramp84
-Set Ramp85 = New Ramp : Ramp85.Name = "Ramp85" : g_AllItems.Add "Ramp85", Ramp85
-Set Ramp89 = New Ramp : Ramp89.Name = "Ramp89" : g_AllItems.Add "Ramp89", Ramp89
-Set Ramp90 = New Ramp : Ramp90.Name = "Ramp90" : g_AllItems.Add "Ramp90", Ramp90
-Set Ramp91 = New Ramp : Ramp91.Name = "Ramp91" : g_AllItems.Add "Ramp91", Ramp91
-Set Ramp92 = New Ramp : Ramp92.Name = "Ramp92" : g_AllItems.Add "Ramp92", Ramp92
-Set Ramp93 = New Ramp : Ramp93.Name = "Ramp93" : g_AllItems.Add "Ramp93", Ramp93
-Set Ramp94 = New Ramp : Ramp94.Name = "Ramp94" : g_AllItems.Add "Ramp94", Ramp94
-Set Ramp95 = New Ramp : Ramp95.Name = "Ramp95" : g_AllItems.Add "Ramp95", Ramp95
-Set Ramp96 = New Ramp : Ramp96.Name = "Ramp96" : g_AllItems.Add "Ramp96", Ramp96
-Set Ramp97 = New Ramp : Ramp97.Name = "Ramp97" : g_AllItems.Add "Ramp97", Ramp97
-Set Ramp98 = New Ramp : Ramp98.Name = "Ramp98" : g_AllItems.Add "Ramp98", Ramp98
-Set Ramp99 = New Ramp : Ramp99.Name = "Ramp99" : g_AllItems.Add "Ramp99", Ramp99
+Set CabinetRailLeft = New Ramp : CabinetRailLeft.Name = "CabinetRailLeft" : CabinetRailLeft.TimerInterval = 100 : g_AllItems.Add "CabinetRailLeft", CabinetRailLeft
+Set CabinetRailRight = New Ramp : CabinetRailRight.Name = "CabinetRailRight" : CabinetRailRight.TimerInterval = 100 : g_AllItems.Add "CabinetRailRight", CabinetRailRight
+Set glass = New Ramp : glass.Name = "glass" : glass.TimerInterval = 100 : g_AllItems.Add "glass", glass
+Set glass001 = New Ramp : glass001.Name = "glass001" : glass001.TimerInterval = 100 : g_AllItems.Add "glass001", glass001
+Set HSName1 = New Ramp : HSName1.Name = "HSName1" : HSName1.TimerInterval = 100 : g_AllItems.Add "HSName1", HSName1
+Set HSName2 = New Ramp : HSName2.Name = "HSName2" : HSName2.TimerInterval = 100 : g_AllItems.Add "HSName2", HSName2
+Set HSName3 = New Ramp : HSName3.Name = "HSName3" : HSName3.TimerInterval = 100 : g_AllItems.Add "HSName3", HSName3
+Set PR1 = New Ramp : PR1.Name = "PR1" : PR1.TimerInterval = 100 : g_AllItems.Add "PR1", PR1
+Set PR10 = New Ramp : PR10.Name = "PR10" : PR10.TimerInterval = 100 : g_AllItems.Add "PR10", PR10
+Set PR11 = New Ramp : PR11.Name = "PR11" : PR11.TimerInterval = 100 : g_AllItems.Add "PR11", PR11
+Set PR2 = New Ramp : PR2.Name = "PR2" : PR2.TimerInterval = 100 : g_AllItems.Add "PR2", PR2
+Set PR3 = New Ramp : PR3.Name = "PR3" : PR3.TimerInterval = 100 : g_AllItems.Add "PR3", PR3
+Set PR4 = New Ramp : PR4.Name = "PR4" : PR4.TimerInterval = 100 : g_AllItems.Add "PR4", PR4
+Set PR5 = New Ramp : PR5.Name = "PR5" : PR5.TimerInterval = 100 : g_AllItems.Add "PR5", PR5
+Set PR6 = New Ramp : PR6.Name = "PR6" : PR6.TimerInterval = 100 : g_AllItems.Add "PR6", PR6
+Set PR7 = New Ramp : PR7.Name = "PR7" : PR7.TimerInterval = 100 : g_AllItems.Add "PR7", PR7
+Set PR8 = New Ramp : PR8.Name = "PR8" : PR8.TimerInterval = 100 : g_AllItems.Add "PR8", PR8
+Set PR9 = New Ramp : PR9.Name = "PR9" : PR9.TimerInterval = 100 : g_AllItems.Add "PR9", PR9
+Set Ramp100 = New Ramp : Ramp100.Name = "Ramp100" : Ramp100.TimerInterval = 100 : g_AllItems.Add "Ramp100", Ramp100
+Set Ramp101 = New Ramp : Ramp101.Name = "Ramp101" : Ramp101.TimerInterval = 100 : g_AllItems.Add "Ramp101", Ramp101
+Set Ramp102 = New Ramp : Ramp102.Name = "Ramp102" : Ramp102.TimerInterval = 100 : g_AllItems.Add "Ramp102", Ramp102
+Set Ramp1612 = New Ramp : Ramp1612.Name = "Ramp1612" : Ramp1612.TimerInterval = 100 : g_AllItems.Add "Ramp1612", Ramp1612
+Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : Ramp3.TimerInterval = 100 : g_AllItems.Add "Ramp3", Ramp3
+Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : Ramp4.TimerInterval = 100 : g_AllItems.Add "Ramp4", Ramp4
+Set Ramp51 = New Ramp : Ramp51.Name = "Ramp51" : Ramp51.TimerInterval = 100 : g_AllItems.Add "Ramp51", Ramp51
+Set Ramp52 = New Ramp : Ramp52.Name = "Ramp52" : Ramp52.TimerInterval = 100 : g_AllItems.Add "Ramp52", Ramp52
+Set Ramp53 = New Ramp : Ramp53.Name = "Ramp53" : Ramp53.TimerInterval = 100 : g_AllItems.Add "Ramp53", Ramp53
+Set Ramp54 = New Ramp : Ramp54.Name = "Ramp54" : Ramp54.TimerInterval = 100 : g_AllItems.Add "Ramp54", Ramp54
+Set Ramp55 = New Ramp : Ramp55.Name = "Ramp55" : Ramp55.TimerInterval = 100 : g_AllItems.Add "Ramp55", Ramp55
+Set Ramp56 = New Ramp : Ramp56.Name = "Ramp56" : Ramp56.TimerInterval = 100 : g_AllItems.Add "Ramp56", Ramp56
+Set Ramp57 = New Ramp : Ramp57.Name = "Ramp57" : Ramp57.TimerInterval = 100 : g_AllItems.Add "Ramp57", Ramp57
+Set Ramp58 = New Ramp : Ramp58.Name = "Ramp58" : Ramp58.TimerInterval = 100 : g_AllItems.Add "Ramp58", Ramp58
+Set Ramp59 = New Ramp : Ramp59.Name = "Ramp59" : Ramp59.TimerInterval = 100 : g_AllItems.Add "Ramp59", Ramp59
+Set Ramp60 = New Ramp : Ramp60.Name = "Ramp60" : Ramp60.TimerInterval = 100 : g_AllItems.Add "Ramp60", Ramp60
+Set Ramp61 = New Ramp : Ramp61.Name = "Ramp61" : Ramp61.TimerInterval = 100 : g_AllItems.Add "Ramp61", Ramp61
+Set Ramp62 = New Ramp : Ramp62.Name = "Ramp62" : Ramp62.TimerInterval = 100 : g_AllItems.Add "Ramp62", Ramp62
+Set Ramp63 = New Ramp : Ramp63.Name = "Ramp63" : Ramp63.TimerInterval = 100 : g_AllItems.Add "Ramp63", Ramp63
+Set Ramp64 = New Ramp : Ramp64.Name = "Ramp64" : Ramp64.TimerInterval = 100 : g_AllItems.Add "Ramp64", Ramp64
+Set Ramp65 = New Ramp : Ramp65.Name = "Ramp65" : Ramp65.TimerInterval = 100 : g_AllItems.Add "Ramp65", Ramp65
+Set Ramp67 = New Ramp : Ramp67.Name = "Ramp67" : Ramp67.TimerInterval = 100 : g_AllItems.Add "Ramp67", Ramp67
+Set Ramp68 = New Ramp : Ramp68.Name = "Ramp68" : Ramp68.TimerInterval = 100 : g_AllItems.Add "Ramp68", Ramp68
+Set Ramp69 = New Ramp : Ramp69.Name = "Ramp69" : Ramp69.TimerInterval = 100 : g_AllItems.Add "Ramp69", Ramp69
+Set Ramp70 = New Ramp : Ramp70.Name = "Ramp70" : Ramp70.TimerInterval = 100 : g_AllItems.Add "Ramp70", Ramp70
+Set Ramp71 = New Ramp : Ramp71.Name = "Ramp71" : Ramp71.TimerInterval = 100 : g_AllItems.Add "Ramp71", Ramp71
+Set Ramp72 = New Ramp : Ramp72.Name = "Ramp72" : Ramp72.TimerInterval = 100 : g_AllItems.Add "Ramp72", Ramp72
+Set Ramp73 = New Ramp : Ramp73.Name = "Ramp73" : Ramp73.TimerInterval = 100 : g_AllItems.Add "Ramp73", Ramp73
+Set Ramp74 = New Ramp : Ramp74.Name = "Ramp74" : Ramp74.TimerInterval = 100 : g_AllItems.Add "Ramp74", Ramp74
+Set Ramp75 = New Ramp : Ramp75.Name = "Ramp75" : Ramp75.TimerInterval = 100 : g_AllItems.Add "Ramp75", Ramp75
+Set Ramp76 = New Ramp : Ramp76.Name = "Ramp76" : Ramp76.TimerInterval = 100 : g_AllItems.Add "Ramp76", Ramp76
+Set Ramp77 = New Ramp : Ramp77.Name = "Ramp77" : Ramp77.TimerInterval = 100 : g_AllItems.Add "Ramp77", Ramp77
+Set Ramp78 = New Ramp : Ramp78.Name = "Ramp78" : Ramp78.TimerInterval = 100 : g_AllItems.Add "Ramp78", Ramp78
+Set Ramp79 = New Ramp : Ramp79.Name = "Ramp79" : Ramp79.TimerInterval = 100 : g_AllItems.Add "Ramp79", Ramp79
+Set Ramp80 = New Ramp : Ramp80.Name = "Ramp80" : Ramp80.TimerInterval = 100 : g_AllItems.Add "Ramp80", Ramp80
+Set Ramp82 = New Ramp : Ramp82.Name = "Ramp82" : Ramp82.TimerInterval = 100 : g_AllItems.Add "Ramp82", Ramp82
+Set Ramp83 = New Ramp : Ramp83.Name = "Ramp83" : Ramp83.TimerInterval = 100 : g_AllItems.Add "Ramp83", Ramp83
+Set Ramp84 = New Ramp : Ramp84.Name = "Ramp84" : Ramp84.TimerInterval = 100 : g_AllItems.Add "Ramp84", Ramp84
+Set Ramp85 = New Ramp : Ramp85.Name = "Ramp85" : Ramp85.TimerInterval = 100 : g_AllItems.Add "Ramp85", Ramp85
+Set Ramp89 = New Ramp : Ramp89.Name = "Ramp89" : Ramp89.TimerInterval = 100 : g_AllItems.Add "Ramp89", Ramp89
+Set Ramp90 = New Ramp : Ramp90.Name = "Ramp90" : Ramp90.TimerInterval = 100 : g_AllItems.Add "Ramp90", Ramp90
+Set Ramp91 = New Ramp : Ramp91.Name = "Ramp91" : Ramp91.TimerInterval = 100 : g_AllItems.Add "Ramp91", Ramp91
+Set Ramp92 = New Ramp : Ramp92.Name = "Ramp92" : Ramp92.TimerInterval = 100 : g_AllItems.Add "Ramp92", Ramp92
+Set Ramp93 = New Ramp : Ramp93.Name = "Ramp93" : Ramp93.TimerInterval = 100 : g_AllItems.Add "Ramp93", Ramp93
+Set Ramp94 = New Ramp : Ramp94.Name = "Ramp94" : Ramp94.TimerInterval = 100 : g_AllItems.Add "Ramp94", Ramp94
+Set Ramp95 = New Ramp : Ramp95.Name = "Ramp95" : Ramp95.TimerInterval = 100 : g_AllItems.Add "Ramp95", Ramp95
+Set Ramp96 = New Ramp : Ramp96.Name = "Ramp96" : Ramp96.TimerInterval = 100 : g_AllItems.Add "Ramp96", Ramp96
+Set Ramp97 = New Ramp : Ramp97.Name = "Ramp97" : Ramp97.TimerInterval = 100 : g_AllItems.Add "Ramp97", Ramp97
+Set Ramp98 = New Ramp : Ramp98.Name = "Ramp98" : Ramp98.TimerInterval = 100 : g_AllItems.Add "Ramp98", Ramp98
+Set Ramp99 = New Ramp : Ramp99.Name = "Ramp99" : Ramp99.TimerInterval = 100 : g_AllItems.Add "Ramp99", Ramp99
 
 ' --- Reel (12) ---
 Dim ScoreReel1, ScoreReel10, ScoreReel11, ScoreReel12, ScoreReel2, ScoreReel3, ScoreReel4, ScoreReel5, ScoreReel6, ScoreReel7, ScoreReel8, ScoreReel9
-Set ScoreReel1 = New Reel : ScoreReel1.Name = "ScoreReel1" : g_AllItems.Add "ScoreReel1", ScoreReel1
-Set ScoreReel10 = New Reel : ScoreReel10.Name = "ScoreReel10" : g_AllItems.Add "ScoreReel10", ScoreReel10
-Set ScoreReel11 = New Reel : ScoreReel11.Name = "ScoreReel11" : g_AllItems.Add "ScoreReel11", ScoreReel11
-Set ScoreReel12 = New Reel : ScoreReel12.Name = "ScoreReel12" : g_AllItems.Add "ScoreReel12", ScoreReel12
-Set ScoreReel2 = New Reel : ScoreReel2.Name = "ScoreReel2" : g_AllItems.Add "ScoreReel2", ScoreReel2
-Set ScoreReel3 = New Reel : ScoreReel3.Name = "ScoreReel3" : g_AllItems.Add "ScoreReel3", ScoreReel3
-Set ScoreReel4 = New Reel : ScoreReel4.Name = "ScoreReel4" : g_AllItems.Add "ScoreReel4", ScoreReel4
-Set ScoreReel5 = New Reel : ScoreReel5.Name = "ScoreReel5" : g_AllItems.Add "ScoreReel5", ScoreReel5
-Set ScoreReel6 = New Reel : ScoreReel6.Name = "ScoreReel6" : g_AllItems.Add "ScoreReel6", ScoreReel6
-Set ScoreReel7 = New Reel : ScoreReel7.Name = "ScoreReel7" : g_AllItems.Add "ScoreReel7", ScoreReel7
-Set ScoreReel8 = New Reel : ScoreReel8.Name = "ScoreReel8" : g_AllItems.Add "ScoreReel8", ScoreReel8
-Set ScoreReel9 = New Reel : ScoreReel9.Name = "ScoreReel9" : g_AllItems.Add "ScoreReel9", ScoreReel9
+Set ScoreReel1 = New Reel : ScoreReel1.Name = "ScoreReel1" : ScoreReel1.TimerInterval = 100 : g_AllItems.Add "ScoreReel1", ScoreReel1
+Set ScoreReel10 = New Reel : ScoreReel10.Name = "ScoreReel10" : ScoreReel10.TimerInterval = 100 : g_AllItems.Add "ScoreReel10", ScoreReel10
+Set ScoreReel11 = New Reel : ScoreReel11.Name = "ScoreReel11" : ScoreReel11.TimerInterval = 100 : g_AllItems.Add "ScoreReel11", ScoreReel11
+Set ScoreReel12 = New Reel : ScoreReel12.Name = "ScoreReel12" : ScoreReel12.TimerInterval = 100 : g_AllItems.Add "ScoreReel12", ScoreReel12
+Set ScoreReel2 = New Reel : ScoreReel2.Name = "ScoreReel2" : ScoreReel2.TimerInterval = 100 : g_AllItems.Add "ScoreReel2", ScoreReel2
+Set ScoreReel3 = New Reel : ScoreReel3.Name = "ScoreReel3" : ScoreReel3.TimerInterval = 100 : g_AllItems.Add "ScoreReel3", ScoreReel3
+Set ScoreReel4 = New Reel : ScoreReel4.Name = "ScoreReel4" : ScoreReel4.TimerInterval = 100 : g_AllItems.Add "ScoreReel4", ScoreReel4
+Set ScoreReel5 = New Reel : ScoreReel5.Name = "ScoreReel5" : ScoreReel5.TimerInterval = 100 : g_AllItems.Add "ScoreReel5", ScoreReel5
+Set ScoreReel6 = New Reel : ScoreReel6.Name = "ScoreReel6" : ScoreReel6.TimerInterval = 100 : g_AllItems.Add "ScoreReel6", ScoreReel6
+Set ScoreReel7 = New Reel : ScoreReel7.Name = "ScoreReel7" : ScoreReel7.TimerInterval = 100 : g_AllItems.Add "ScoreReel7", ScoreReel7
+Set ScoreReel8 = New Reel : ScoreReel8.Name = "ScoreReel8" : ScoreReel8.TimerInterval = 100 : g_AllItems.Add "ScoreReel8", ScoreReel8
+Set ScoreReel9 = New Reel : ScoreReel9.Name = "ScoreReel9" : ScoreReel9.TimerInterval = 100 : g_AllItems.Add "ScoreReel9", ScoreReel9
 
 ' --- Rubber (42) ---
 Dim Lsling, Lsling1, Lsling1cc, Lsling1ccM, Lsling2, LslingM, RSling, RSling1, RSling2, RSlingM, Rubber002, Rubber003, Rubber004, Rubber005, Rubber006
 Dim Rubber007, Rubber008, Rubber009, Rubber010, Rubber011, Rubber012, Rubber013, Rubber1, Rubber10, Rubber10M, Rubber11, Rubber12, Rubber13, Rubber14, Rubber2
 Dim Rubber25, Rubber3, Rubber4, Rubber5, Rubber6, Rubber7, Rubber8, Rubber8M, TSling, TSling1, TSling1M, TSling2
-Set Lsling = New Rubber : Lsling.Name = "Lsling" : g_AllItems.Add "Lsling", Lsling
-Set Lsling1 = New Rubber : Lsling1.Name = "Lsling1" : g_AllItems.Add "Lsling1", Lsling1
-Set Lsling1cc = New Rubber : Lsling1cc.Name = "Lsling1cc" : g_AllItems.Add "Lsling1cc", Lsling1cc
-Set Lsling1ccM = New Rubber : Lsling1ccM.Name = "Lsling1ccM" : g_AllItems.Add "Lsling1ccM", Lsling1ccM
-Set Lsling2 = New Rubber : Lsling2.Name = "Lsling2" : g_AllItems.Add "Lsling2", Lsling2
-Set LslingM = New Rubber : LslingM.Name = "LslingM" : g_AllItems.Add "LslingM", LslingM
-Set RSling = New Rubber : RSling.Name = "RSling" : g_AllItems.Add "RSling", RSling
-Set RSling1 = New Rubber : RSling1.Name = "RSling1" : g_AllItems.Add "RSling1", RSling1
-Set RSling2 = New Rubber : RSling2.Name = "RSling2" : g_AllItems.Add "RSling2", RSling2
-Set RSlingM = New Rubber : RSlingM.Name = "RSlingM" : g_AllItems.Add "RSlingM", RSlingM
-Set Rubber002 = New Rubber : Rubber002.Name = "Rubber002" : g_AllItems.Add "Rubber002", Rubber002
-Set Rubber003 = New Rubber : Rubber003.Name = "Rubber003" : g_AllItems.Add "Rubber003", Rubber003
-Set Rubber004 = New Rubber : Rubber004.Name = "Rubber004" : g_AllItems.Add "Rubber004", Rubber004
-Set Rubber005 = New Rubber : Rubber005.Name = "Rubber005" : g_AllItems.Add "Rubber005", Rubber005
-Set Rubber006 = New Rubber : Rubber006.Name = "Rubber006" : g_AllItems.Add "Rubber006", Rubber006
-Set Rubber007 = New Rubber : Rubber007.Name = "Rubber007" : g_AllItems.Add "Rubber007", Rubber007
-Set Rubber008 = New Rubber : Rubber008.Name = "Rubber008" : g_AllItems.Add "Rubber008", Rubber008
-Set Rubber009 = New Rubber : Rubber009.Name = "Rubber009" : g_AllItems.Add "Rubber009", Rubber009
-Set Rubber010 = New Rubber : Rubber010.Name = "Rubber010" : g_AllItems.Add "Rubber010", Rubber010
-Set Rubber011 = New Rubber : Rubber011.Name = "Rubber011" : g_AllItems.Add "Rubber011", Rubber011
-Set Rubber012 = New Rubber : Rubber012.Name = "Rubber012" : g_AllItems.Add "Rubber012", Rubber012
-Set Rubber013 = New Rubber : Rubber013.Name = "Rubber013" : g_AllItems.Add "Rubber013", Rubber013
-Set Rubber1 = New Rubber : Rubber1.Name = "Rubber1" : g_AllItems.Add "Rubber1", Rubber1
-Set Rubber10 = New Rubber : Rubber10.Name = "Rubber10" : g_AllItems.Add "Rubber10", Rubber10
-Set Rubber10M = New Rubber : Rubber10M.Name = "Rubber10M" : g_AllItems.Add "Rubber10M", Rubber10M
-Set Rubber11 = New Rubber : Rubber11.Name = "Rubber11" : g_AllItems.Add "Rubber11", Rubber11
-Set Rubber12 = New Rubber : Rubber12.Name = "Rubber12" : g_AllItems.Add "Rubber12", Rubber12
-Set Rubber13 = New Rubber : Rubber13.Name = "Rubber13" : g_AllItems.Add "Rubber13", Rubber13
-Set Rubber14 = New Rubber : Rubber14.Name = "Rubber14" : g_AllItems.Add "Rubber14", Rubber14
-Set Rubber2 = New Rubber : Rubber2.Name = "Rubber2" : g_AllItems.Add "Rubber2", Rubber2
-Set Rubber25 = New Rubber : Rubber25.Name = "Rubber25" : g_AllItems.Add "Rubber25", Rubber25
-Set Rubber3 = New Rubber : Rubber3.Name = "Rubber3" : g_AllItems.Add "Rubber3", Rubber3
-Set Rubber4 = New Rubber : Rubber4.Name = "Rubber4" : g_AllItems.Add "Rubber4", Rubber4
-Set Rubber5 = New Rubber : Rubber5.Name = "Rubber5" : g_AllItems.Add "Rubber5", Rubber5
-Set Rubber6 = New Rubber : Rubber6.Name = "Rubber6" : g_AllItems.Add "Rubber6", Rubber6
-Set Rubber7 = New Rubber : Rubber7.Name = "Rubber7" : g_AllItems.Add "Rubber7", Rubber7
-Set Rubber8 = New Rubber : Rubber8.Name = "Rubber8" : g_AllItems.Add "Rubber8", Rubber8
-Set Rubber8M = New Rubber : Rubber8M.Name = "Rubber8M" : g_AllItems.Add "Rubber8M", Rubber8M
-Set TSling = New Rubber : TSling.Name = "TSling" : g_AllItems.Add "TSling", TSling
-Set TSling1 = New Rubber : TSling1.Name = "TSling1" : g_AllItems.Add "TSling1", TSling1
-Set TSling1M = New Rubber : TSling1M.Name = "TSling1M" : g_AllItems.Add "TSling1M", TSling1M
-Set TSling2 = New Rubber : TSling2.Name = "TSling2" : g_AllItems.Add "TSling2", TSling2
+Set Lsling = New Rubber : Lsling.Name = "Lsling" : Lsling.TimerInterval = 100 : g_AllItems.Add "Lsling", Lsling
+Set Lsling1 = New Rubber : Lsling1.Name = "Lsling1" : Lsling1.TimerInterval = 100 : g_AllItems.Add "Lsling1", Lsling1
+Set Lsling1cc = New Rubber : Lsling1cc.Name = "Lsling1cc" : Lsling1cc.TimerInterval = 100 : g_AllItems.Add "Lsling1cc", Lsling1cc
+Set Lsling1ccM = New Rubber : Lsling1ccM.Name = "Lsling1ccM" : Lsling1ccM.TimerInterval = 100 : g_AllItems.Add "Lsling1ccM", Lsling1ccM
+Set Lsling2 = New Rubber : Lsling2.Name = "Lsling2" : Lsling2.TimerInterval = 100 : g_AllItems.Add "Lsling2", Lsling2
+Set LslingM = New Rubber : LslingM.Name = "LslingM" : LslingM.TimerInterval = 100 : g_AllItems.Add "LslingM", LslingM
+Set RSling = New Rubber : RSling.Name = "RSling" : RSling.TimerInterval = 100 : g_AllItems.Add "RSling", RSling
+Set RSling1 = New Rubber : RSling1.Name = "RSling1" : RSling1.TimerInterval = 100 : g_AllItems.Add "RSling1", RSling1
+Set RSling2 = New Rubber : RSling2.Name = "RSling2" : RSling2.TimerInterval = 100 : g_AllItems.Add "RSling2", RSling2
+Set RSlingM = New Rubber : RSlingM.Name = "RSlingM" : RSlingM.TimerInterval = 100 : g_AllItems.Add "RSlingM", RSlingM
+Set Rubber002 = New Rubber : Rubber002.Name = "Rubber002" : Rubber002.TimerInterval = 100 : g_AllItems.Add "Rubber002", Rubber002
+Set Rubber003 = New Rubber : Rubber003.Name = "Rubber003" : Rubber003.TimerInterval = 100 : g_AllItems.Add "Rubber003", Rubber003
+Set Rubber004 = New Rubber : Rubber004.Name = "Rubber004" : Rubber004.TimerInterval = 100 : g_AllItems.Add "Rubber004", Rubber004
+Set Rubber005 = New Rubber : Rubber005.Name = "Rubber005" : Rubber005.TimerInterval = 100 : g_AllItems.Add "Rubber005", Rubber005
+Set Rubber006 = New Rubber : Rubber006.Name = "Rubber006" : Rubber006.TimerInterval = 100 : g_AllItems.Add "Rubber006", Rubber006
+Set Rubber007 = New Rubber : Rubber007.Name = "Rubber007" : Rubber007.TimerInterval = 100 : g_AllItems.Add "Rubber007", Rubber007
+Set Rubber008 = New Rubber : Rubber008.Name = "Rubber008" : Rubber008.TimerInterval = 100 : g_AllItems.Add "Rubber008", Rubber008
+Set Rubber009 = New Rubber : Rubber009.Name = "Rubber009" : Rubber009.TimerInterval = 100 : g_AllItems.Add "Rubber009", Rubber009
+Set Rubber010 = New Rubber : Rubber010.Name = "Rubber010" : Rubber010.TimerInterval = 100 : g_AllItems.Add "Rubber010", Rubber010
+Set Rubber011 = New Rubber : Rubber011.Name = "Rubber011" : Rubber011.TimerInterval = 100 : g_AllItems.Add "Rubber011", Rubber011
+Set Rubber012 = New Rubber : Rubber012.Name = "Rubber012" : Rubber012.TimerInterval = 100 : g_AllItems.Add "Rubber012", Rubber012
+Set Rubber013 = New Rubber : Rubber013.Name = "Rubber013" : Rubber013.TimerInterval = 100 : g_AllItems.Add "Rubber013", Rubber013
+Set Rubber1 = New Rubber : Rubber1.Name = "Rubber1" : Rubber1.TimerInterval = 100 : g_AllItems.Add "Rubber1", Rubber1
+Set Rubber10 = New Rubber : Rubber10.Name = "Rubber10" : Rubber10.TimerInterval = 100 : g_AllItems.Add "Rubber10", Rubber10
+Set Rubber10M = New Rubber : Rubber10M.Name = "Rubber10M" : Rubber10M.TimerInterval = 100 : g_AllItems.Add "Rubber10M", Rubber10M
+Set Rubber11 = New Rubber : Rubber11.Name = "Rubber11" : Rubber11.TimerInterval = 100 : g_AllItems.Add "Rubber11", Rubber11
+Set Rubber12 = New Rubber : Rubber12.Name = "Rubber12" : Rubber12.TimerInterval = 100 : g_AllItems.Add "Rubber12", Rubber12
+Set Rubber13 = New Rubber : Rubber13.Name = "Rubber13" : Rubber13.TimerInterval = 100 : g_AllItems.Add "Rubber13", Rubber13
+Set Rubber14 = New Rubber : Rubber14.Name = "Rubber14" : Rubber14.TimerInterval = 100 : g_AllItems.Add "Rubber14", Rubber14
+Set Rubber2 = New Rubber : Rubber2.Name = "Rubber2" : Rubber2.TimerInterval = 100 : g_AllItems.Add "Rubber2", Rubber2
+Set Rubber25 = New Rubber : Rubber25.Name = "Rubber25" : Rubber25.TimerInterval = 100 : g_AllItems.Add "Rubber25", Rubber25
+Set Rubber3 = New Rubber : Rubber3.Name = "Rubber3" : Rubber3.TimerInterval = 100 : g_AllItems.Add "Rubber3", Rubber3
+Set Rubber4 = New Rubber : Rubber4.Name = "Rubber4" : Rubber4.TimerInterval = 100 : g_AllItems.Add "Rubber4", Rubber4
+Set Rubber5 = New Rubber : Rubber5.Name = "Rubber5" : Rubber5.TimerInterval = 100 : g_AllItems.Add "Rubber5", Rubber5
+Set Rubber6 = New Rubber : Rubber6.Name = "Rubber6" : Rubber6.TimerInterval = 100 : g_AllItems.Add "Rubber6", Rubber6
+Set Rubber7 = New Rubber : Rubber7.Name = "Rubber7" : Rubber7.TimerInterval = 100 : g_AllItems.Add "Rubber7", Rubber7
+Set Rubber8 = New Rubber : Rubber8.Name = "Rubber8" : Rubber8.TimerInterval = 100 : g_AllItems.Add "Rubber8", Rubber8
+Set Rubber8M = New Rubber : Rubber8M.Name = "Rubber8M" : Rubber8M.TimerInterval = 100 : g_AllItems.Add "Rubber8M", Rubber8M
+Set TSling = New Rubber : TSling.Name = "TSling" : TSling.TimerInterval = 100 : g_AllItems.Add "TSling", TSling
+Set TSling1 = New Rubber : TSling1.Name = "TSling1" : TSling1.TimerInterval = 100 : g_AllItems.Add "TSling1", TSling1
+Set TSling1M = New Rubber : TSling1M.Name = "TSling1M" : TSling1M.TimerInterval = 100 : g_AllItems.Add "TSling1M", TSling1M
+Set TSling2 = New Rubber : TSling2.Name = "TSling2" : TSling2.TimerInterval = 100 : g_AllItems.Add "TSling2", TSling2
 
 ' --- TextBox (1) ---
 Dim TextBox2
-Set TextBox2 = New TextBox : TextBox2.Name = "TextBox2" : g_AllItems.Add "TextBox2", TextBox2
+Set TextBox2 = New TextBox : TextBox2.Name = "TextBox2" : TextBox2.TimerInterval = 100 : g_AllItems.Add "TextBox2", TextBox2
 
 ' --- Timer (32) ---
 Dim AddBonusTimer, b2sScoreTimer, B2Stimer, BeerTimer, BGFlashersFast, BGStartTimer, Bulb_Move, ClockTimer, CollectBonusTimer, DTAnim, DTargs, FLTimer, FrameTimer, Gi_Bright, GI_Flicker

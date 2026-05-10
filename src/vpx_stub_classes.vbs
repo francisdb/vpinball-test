@@ -198,7 +198,7 @@ Class Primitive
         RotX = 0 : RotY = 0 : RotZ = 0
         TransX = 0 : TransY = 0 : TransZ = 0
         ObjRotX = 0 : ObjRotY = 0 : ObjRotZ = 0
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
         IsToy = True : HasHitEvent = False : EnableStaticRendering = True
         AddBlend = False : DisableLighting = False
         BlendDisableLighting = 0 : BlendDisableLightingFromBelow = 0
@@ -233,7 +233,7 @@ Class Light
         Name = "" : State = 0 : Visible = True : Intensity = 1
         IntensityScale = 1 : Falloff = 50 : FalloffPower = 2
         BlinkInterval = 125 : BlinkPattern = ""
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
         FadeSpeedUp = 0.2 : FadeSpeedDown = 0.2
         Bulb = False : ShowBulbMesh = False : StaticBulbMesh = False
         ScaleBulbMesh = 1 : BulbModulateVsAdd = 0.9 : BulbHaloHeight = 28
@@ -262,7 +262,7 @@ Class Flipper
         Name = "" : Visible = True : Enabled = True
         X = 0 : Y = 0 : Height = 0
         StartAngle = 0 : EndAngle = 0 : CurrentAngle = 0
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
         Mass = 1 : Strength = 2200 : Return = 0.058
         Elasticity = 0.88 : ElasticityFalloff = 0.43
         Friction = 0.6 : RampUp = 3
@@ -331,7 +331,7 @@ Class Kicker
     Private Sub Class_Initialize
         Name = "" : Enabled = True : Radius = 25
         X = 0 : Y = 0 : HitAccuracy = 0.5
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
         FallThrough = False : Legacy = False
         m_ballCnt = 0
     End Sub
@@ -355,7 +355,7 @@ Class Gate
     Private Sub Class_Initialize
         Name = "" : Visible = True : Collidable = True : Open = False
         Damping = 0.985 : GravityFactor = 0.25
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
         CurrentAngle = 0 : TwoWay = False
     End Sub
 End Class
@@ -382,7 +382,7 @@ Class Wall
     Private Sub Class_Initialize
         Name = "" : Visible = True : Collidable = True : Disabled = False
         IsDropped = False : CanDrop = False
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -414,7 +414,7 @@ Class Trigger
     Private Sub Class_Initialize
         Name = "" : Enabled = True : Visible = True
         X = 0 : Y = 0 : Radius = 25
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -441,7 +441,7 @@ Class Bumper
         X = 0 : Y = 0 : Radius = 45
         CapVisible = True : BaseVisible = True
         RingVisible = True : SkirtVisible = True
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -473,7 +473,7 @@ Class Spinner
         Name = "" : Visible = True
         X = 0 : Y = 0 : Height = 60 : Length = 80
         Damping = 0.988 : ShowBracket = True
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -496,7 +496,7 @@ Class Ramp
     Public ReflectionEnabled, PhysicsMaterial, OverwritePhysics
     Private Sub Class_Initialize
         Name = "" : Visible = True : Collidable = True
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -527,7 +527,7 @@ Class Plunger
         Name = "" : Visible = True
         X = 0 : Y = 0 : Width = 25
         PullSpeed = 0.5 : FireSpeed = 80
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -550,7 +550,7 @@ Class HitTarget
         Name = "" : Visible = True : Collidable = True
         X = 0 : Y = 0 : Z = 0 : Size = 1
         IsDropped = False
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -571,7 +571,7 @@ Class Flasher
     Private Sub Class_Initialize
         Name = "" : Visible = True : Opacity = 1
         X = 0 : Y = 0 : Height = 0
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
         AddBlend = False : IntensityScale = 1
     End Sub
 End Class
@@ -591,7 +591,7 @@ Class Rubber
     Public PhysicsMaterial, ReflectionEnabled, RotX, RotY, RotZ
     Private Sub Class_Initialize
         Name = "" : Visible = True : Collidable = True
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -614,7 +614,7 @@ Class Reel
     Public Sub SpinReel(reelNum, pulseCount) : End Sub
     Private Sub Class_Initialize
         Name = "" : Visible = True : IsTransparent = False
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
         ReelCount = 5 : DigitRange = 9 : UpdateInterval = 50
     End Sub
 End Class
@@ -638,7 +638,7 @@ Class LightSequencer
     Public Sub StopPlay() : End Sub
     Private Sub Class_Initialize
         Name = "" : UpdateInterval = 25
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 
@@ -665,7 +665,7 @@ Class TextBox
     Public Sub QueueText(t, mask, dur) : End Sub
     Private Sub Class_Initialize
         Name = "" : Visible = True : Text = ""
-        TimerEnabled = False : TimerInterval = 100
+        TimerEnabled = False : TimerInterval = 0
     End Sub
 End Class
 

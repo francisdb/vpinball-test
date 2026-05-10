@@ -5,9 +5,9 @@
 
 ' --- Bumper (3) ---
 Dim Bumper1, Bumper2, Bumper3
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
-Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : g_AllItems.Add "Bumper3", Bumper3
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 200 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 200 : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : Bumper3.TimerInterval = 200 : g_AllItems.Add "Bumper3", Bumper3
 
 ' --- Flasher (215) ---
 Dim BallShadowA0, BallShadowA1, BallShadowA10, BallShadowA11, BallShadowA2, BallShadowA3, BallShadowA4, BallShadowA5, BallShadowA6, BallShadowA7, BallShadowA8, BallShadowA9, BGBulb1, BGBulb10, BGBulb11
@@ -25,221 +25,221 @@ Dim FlPL3Reel, FlPl4, FlPL4Drum1, FlPL4Drum2, FlPL4Drum3, FlPL4Drum4, FlPL4Drum5
 Dim FlSPSA_H1, FlSPSA_I1, FlSPSA_L1, FlSPSA_M1, FlSPSA_N1, FlSPSA_O1, FlSPSA_O2, FlSPSA_P1, FlSPSA_R1, FlSPSA_S1, FlSPSA_S2, FlSPSA_S3, FlSPSA_T1, FlSPSA_Y1, FlTilt_I
 Dim FlTilt_L, FlTilt_T1, FlTilt_T2, RiftShadow, RiftShadow1, RiftShadow2, RiftShadow3, RiftShadow5, sh010, sh06, sh07, sh08, sh09, VR_Clockface, VRBasketballShadow
 Dim VRChairShadow, VRChairShadow1, VRCouchShadow, VRPhoneShadow1, VRPhoneShadow2
-Set BallShadowA0 = New Flasher : BallShadowA0.Name = "BallShadowA0" : g_AllItems.Add "BallShadowA0", BallShadowA0
-Set BallShadowA1 = New Flasher : BallShadowA1.Name = "BallShadowA1" : g_AllItems.Add "BallShadowA1", BallShadowA1
-Set BallShadowA10 = New Flasher : BallShadowA10.Name = "BallShadowA10" : g_AllItems.Add "BallShadowA10", BallShadowA10
-Set BallShadowA11 = New Flasher : BallShadowA11.Name = "BallShadowA11" : g_AllItems.Add "BallShadowA11", BallShadowA11
-Set BallShadowA2 = New Flasher : BallShadowA2.Name = "BallShadowA2" : g_AllItems.Add "BallShadowA2", BallShadowA2
-Set BallShadowA3 = New Flasher : BallShadowA3.Name = "BallShadowA3" : g_AllItems.Add "BallShadowA3", BallShadowA3
-Set BallShadowA4 = New Flasher : BallShadowA4.Name = "BallShadowA4" : g_AllItems.Add "BallShadowA4", BallShadowA4
-Set BallShadowA5 = New Flasher : BallShadowA5.Name = "BallShadowA5" : g_AllItems.Add "BallShadowA5", BallShadowA5
-Set BallShadowA6 = New Flasher : BallShadowA6.Name = "BallShadowA6" : g_AllItems.Add "BallShadowA6", BallShadowA6
-Set BallShadowA7 = New Flasher : BallShadowA7.Name = "BallShadowA7" : g_AllItems.Add "BallShadowA7", BallShadowA7
-Set BallShadowA8 = New Flasher : BallShadowA8.Name = "BallShadowA8" : g_AllItems.Add "BallShadowA8", BallShadowA8
-Set BallShadowA9 = New Flasher : BallShadowA9.Name = "BallShadowA9" : g_AllItems.Add "BallShadowA9", BallShadowA9
-Set BGBulb1 = New Flasher : BGBulb1.Name = "BGBulb1" : g_AllItems.Add "BGBulb1", BGBulb1
-Set BGBulb10 = New Flasher : BGBulb10.Name = "BGBulb10" : g_AllItems.Add "BGBulb10", BGBulb10
-Set BGBulb11 = New Flasher : BGBulb11.Name = "BGBulb11" : g_AllItems.Add "BGBulb11", BGBulb11
-Set BGBulb12 = New Flasher : BGBulb12.Name = "BGBulb12" : g_AllItems.Add "BGBulb12", BGBulb12
-Set BGBulb13 = New Flasher : BGBulb13.Name = "BGBulb13" : g_AllItems.Add "BGBulb13", BGBulb13
-Set BGBulb14 = New Flasher : BGBulb14.Name = "BGBulb14" : g_AllItems.Add "BGBulb14", BGBulb14
-Set BGBulb15 = New Flasher : BGBulb15.Name = "BGBulb15" : g_AllItems.Add "BGBulb15", BGBulb15
-Set BGBulb16 = New Flasher : BGBulb16.Name = "BGBulb16" : g_AllItems.Add "BGBulb16", BGBulb16
-Set BGBulb17 = New Flasher : BGBulb17.Name = "BGBulb17" : g_AllItems.Add "BGBulb17", BGBulb17
-Set BGBulb18 = New Flasher : BGBulb18.Name = "BGBulb18" : g_AllItems.Add "BGBulb18", BGBulb18
-Set BGBulb19 = New Flasher : BGBulb19.Name = "BGBulb19" : g_AllItems.Add "BGBulb19", BGBulb19
-Set BGBulb2 = New Flasher : BGBulb2.Name = "BGBulb2" : g_AllItems.Add "BGBulb2", BGBulb2
-Set BGBulb20 = New Flasher : BGBulb20.Name = "BGBulb20" : g_AllItems.Add "BGBulb20", BGBulb20
-Set BGBulb21 = New Flasher : BGBulb21.Name = "BGBulb21" : g_AllItems.Add "BGBulb21", BGBulb21
-Set BGBulb22 = New Flasher : BGBulb22.Name = "BGBulb22" : g_AllItems.Add "BGBulb22", BGBulb22
-Set BGBulb23 = New Flasher : BGBulb23.Name = "BGBulb23" : g_AllItems.Add "BGBulb23", BGBulb23
-Set BGBulb24 = New Flasher : BGBulb24.Name = "BGBulb24" : g_AllItems.Add "BGBulb24", BGBulb24
-Set BGBulb25 = New Flasher : BGBulb25.Name = "BGBulb25" : g_AllItems.Add "BGBulb25", BGBulb25
-Set BGBulb26 = New Flasher : BGBulb26.Name = "BGBulb26" : g_AllItems.Add "BGBulb26", BGBulb26
-Set BGBulb27 = New Flasher : BGBulb27.Name = "BGBulb27" : g_AllItems.Add "BGBulb27", BGBulb27
-Set BGBulb28 = New Flasher : BGBulb28.Name = "BGBulb28" : g_AllItems.Add "BGBulb28", BGBulb28
-Set BGBulb29 = New Flasher : BGBulb29.Name = "BGBulb29" : g_AllItems.Add "BGBulb29", BGBulb29
-Set BGBulb3 = New Flasher : BGBulb3.Name = "BGBulb3" : g_AllItems.Add "BGBulb3", BGBulb3
-Set BGBulb30 = New Flasher : BGBulb30.Name = "BGBulb30" : g_AllItems.Add "BGBulb30", BGBulb30
-Set BGBulb31 = New Flasher : BGBulb31.Name = "BGBulb31" : g_AllItems.Add "BGBulb31", BGBulb31
-Set BGBulb32 = New Flasher : BGBulb32.Name = "BGBulb32" : g_AllItems.Add "BGBulb32", BGBulb32
-Set BGBulb4 = New Flasher : BGBulb4.Name = "BGBulb4" : g_AllItems.Add "BGBulb4", BGBulb4
-Set BGBulb5 = New Flasher : BGBulb5.Name = "BGBulb5" : g_AllItems.Add "BGBulb5", BGBulb5
-Set BGBulb6 = New Flasher : BGBulb6.Name = "BGBulb6" : g_AllItems.Add "BGBulb6", BGBulb6
-Set BGBulb7 = New Flasher : BGBulb7.Name = "BGBulb7" : g_AllItems.Add "BGBulb7", BGBulb7
-Set BGBulb8 = New Flasher : BGBulb8.Name = "BGBulb8" : g_AllItems.Add "BGBulb8", BGBulb8
-Set BGBulb9 = New Flasher : BGBulb9.Name = "BGBulb9" : g_AllItems.Add "BGBulb9", BGBulb9
-Set BGDark = New Flasher : BGDark.Name = "BGDark" : g_AllItems.Add "BGDark", BGDark
-Set BGFL1UP = New Flasher : BGFL1UP.Name = "BGFL1UP" : g_AllItems.Add "BGFL1UP", BGFL1UP
-Set BGFL1UP1 = New Flasher : BGFL1UP1.Name = "BGFL1UP1" : g_AllItems.Add "BGFL1UP1", BGFL1UP1
-Set BGFL1UP2 = New Flasher : BGFL1UP2.Name = "BGFL1UP2" : g_AllItems.Add "BGFL1UP2", BGFL1UP2
-Set BGFL1UP3 = New Flasher : BGFL1UP3.Name = "BGFL1UP3" : g_AllItems.Add "BGFL1UP3", BGFL1UP3
-Set BGFLCloth = New Flasher : BGFLCloth.Name = "BGFLCloth" : g_AllItems.Add "BGFLCloth", BGFLCloth
-Set BGFLGlider = New Flasher : BGFLGlider.Name = "BGFLGlider" : g_AllItems.Add "BGFLGlider", BGFLGlider
-Set BGFLHang = New Flasher : BGFLHang.Name = "BGFLHang" : g_AllItems.Add "BGFLHang", BGFLHang
-Set BGFLHangGlider = New Flasher : BGFLHangGlider.Name = "BGFLHangGlider" : g_AllItems.Add "BGFLHangGlider", BGFLHangGlider
-Set BGFLMan = New Flasher : BGFLMan.Name = "BGFLMan" : g_AllItems.Add "BGFLMan", BGFLMan
-Set BGFLOTT1 = New Flasher : BGFLOTT1.Name = "BGFLOTT1" : g_AllItems.Add "BGFLOTT1", BGFLOTT1
-Set BGFLOTT10 = New Flasher : BGFLOTT10.Name = "BGFLOTT10" : g_AllItems.Add "BGFLOTT10", BGFLOTT10
-Set BGFLOTT2 = New Flasher : BGFLOTT2.Name = "BGFLOTT2" : g_AllItems.Add "BGFLOTT2", BGFLOTT2
-Set BGFLOTT3 = New Flasher : BGFLOTT3.Name = "BGFLOTT3" : g_AllItems.Add "BGFLOTT3", BGFLOTT3
-Set BGFLOTT4 = New Flasher : BGFLOTT4.Name = "BGFLOTT4" : g_AllItems.Add "BGFLOTT4", BGFLOTT4
-Set BGFLOTT5 = New Flasher : BGFLOTT5.Name = "BGFLOTT5" : g_AllItems.Add "BGFLOTT5", BGFLOTT5
-Set BGFLOTT6 = New Flasher : BGFLOTT6.Name = "BGFLOTT6" : g_AllItems.Add "BGFLOTT6", BGFLOTT6
-Set BGFLOTT7 = New Flasher : BGFLOTT7.Name = "BGFLOTT7" : g_AllItems.Add "BGFLOTT7", BGFLOTT7
-Set BGFLOTT8 = New Flasher : BGFLOTT8.Name = "BGFLOTT8" : g_AllItems.Add "BGFLOTT8", BGFLOTT8
-Set BGFLOTT9 = New Flasher : BGFLOTT9.Name = "BGFLOTT9" : g_AllItems.Add "BGFLOTT9", BGFLOTT9
-Set BGFLWomen = New Flasher : BGFLWomen.Name = "BGFLWomen" : g_AllItems.Add "BGFLWomen", BGFLWomen
-Set FlB100KP1_1 = New Flasher : FlB100KP1_1.Name = "FlB100KP1_1" : g_AllItems.Add "FlB100KP1_1", FlB100KP1_1
-Set FlB100KP1_12 = New Flasher : FlB100KP1_12.Name = "FlB100KP1_12" : g_AllItems.Add "FlB100KP1_12", FlB100KP1_12
-Set FlB100KP1_18 = New Flasher : FlB100KP1_18.Name = "FlB100KP1_18" : g_AllItems.Add "FlB100KP1_18", FlB100KP1_18
-Set FlB100KP1_2 = New Flasher : FlB100KP1_2.Name = "FlB100KP1_2" : g_AllItems.Add "FlB100KP1_2", FlB100KP1_2
-Set FlB100KP1_25 = New Flasher : FlB100KP1_25.Name = "FlB100KP1_25" : g_AllItems.Add "FlB100KP1_25", FlB100KP1_25
-Set FlB100KP1_3 = New Flasher : FlB100KP1_3.Name = "FlB100KP1_3" : g_AllItems.Add "FlB100KP1_3", FlB100KP1_3
-Set FlB100KP1_4 = New Flasher : FlB100KP1_4.Name = "FlB100KP1_4" : g_AllItems.Add "FlB100KP1_4", FlB100KP1_4
-Set FlB100KP1_5 = New Flasher : FlB100KP1_5.Name = "FlB100KP1_5" : g_AllItems.Add "FlB100KP1_5", FlB100KP1_5
-Set FlB100KP1_6 = New Flasher : FlB100KP1_6.Name = "FlB100KP1_6" : g_AllItems.Add "FlB100KP1_6", FlB100KP1_6
-Set FlB100KP1_7 = New Flasher : FlB100KP1_7.Name = "FlB100KP1_7" : g_AllItems.Add "FlB100KP1_7", FlB100KP1_7
-Set FlB100KP2_1 = New Flasher : FlB100KP2_1.Name = "FlB100KP2_1" : g_AllItems.Add "FlB100KP2_1", FlB100KP2_1
-Set FlB100KP2_2 = New Flasher : FlB100KP2_2.Name = "FlB100KP2_2" : g_AllItems.Add "FlB100KP2_2", FlB100KP2_2
-Set FlB100KP2_3 = New Flasher : FlB100KP2_3.Name = "FlB100KP2_3" : g_AllItems.Add "FlB100KP2_3", FlB100KP2_3
-Set FlB100KP2_4 = New Flasher : FlB100KP2_4.Name = "FlB100KP2_4" : g_AllItems.Add "FlB100KP2_4", FlB100KP2_4
-Set FlB100KP2_5 = New Flasher : FlB100KP2_5.Name = "FlB100KP2_5" : g_AllItems.Add "FlB100KP2_5", FlB100KP2_5
-Set FlB100KP2_6 = New Flasher : FlB100KP2_6.Name = "FlB100KP2_6" : g_AllItems.Add "FlB100KP2_6", FlB100KP2_6
-Set FlB100KP3_1 = New Flasher : FlB100KP3_1.Name = "FlB100KP3_1" : g_AllItems.Add "FlB100KP3_1", FlB100KP3_1
-Set FlB100KP3_2 = New Flasher : FlB100KP3_2.Name = "FlB100KP3_2" : g_AllItems.Add "FlB100KP3_2", FlB100KP3_2
-Set FlB100KP3_3 = New Flasher : FlB100KP3_3.Name = "FlB100KP3_3" : g_AllItems.Add "FlB100KP3_3", FlB100KP3_3
-Set FlB100KP3_4 = New Flasher : FlB100KP3_4.Name = "FlB100KP3_4" : g_AllItems.Add "FlB100KP3_4", FlB100KP3_4
-Set FlB100KP3_5 = New Flasher : FlB100KP3_5.Name = "FlB100KP3_5" : g_AllItems.Add "FlB100KP3_5", FlB100KP3_5
-Set FlB100KP3_6 = New Flasher : FlB100KP3_6.Name = "FlB100KP3_6" : g_AllItems.Add "FlB100KP3_6", FlB100KP3_6
-Set FlB100KP4_1 = New Flasher : FlB100KP4_1.Name = "FlB100KP4_1" : g_AllItems.Add "FlB100KP4_1", FlB100KP4_1
-Set FlB100KP4_2 = New Flasher : FlB100KP4_2.Name = "FlB100KP4_2" : g_AllItems.Add "FlB100KP4_2", FlB100KP4_2
-Set FlB100KP4_3 = New Flasher : FlB100KP4_3.Name = "FlB100KP4_3" : g_AllItems.Add "FlB100KP4_3", FlB100KP4_3
-Set FlB100KP4_4 = New Flasher : FlB100KP4_4.Name = "FlB100KP4_4" : g_AllItems.Add "FlB100KP4_4", FlB100KP4_4
-Set FlB100KP4_5 = New Flasher : FlB100KP4_5.Name = "FlB100KP4_5" : g_AllItems.Add "FlB100KP4_5", FlB100KP4_5
-Set FlB100KP4_6 = New Flasher : FlB100KP4_6.Name = "FlB100KP4_6" : g_AllItems.Add "FlB100KP4_6", FlB100KP4_6
-Set FlBIP1 = New Flasher : FlBIP1.Name = "FlBIP1" : g_AllItems.Add "FlBIP1", FlBIP1
-Set FlBIP1A = New Flasher : FlBIP1A.Name = "FlBIP1A" : g_AllItems.Add "FlBIP1A", FlBIP1A
-Set FlBIP2 = New Flasher : FlBIP2.Name = "FlBIP2" : g_AllItems.Add "FlBIP2", FlBIP2
-Set FlBIP2A = New Flasher : FlBIP2A.Name = "FlBIP2A" : g_AllItems.Add "FlBIP2A", FlBIP2A
-Set FlBIP3 = New Flasher : FlBIP3.Name = "FlBIP3" : g_AllItems.Add "FlBIP3", FlBIP3
-Set FlBIP3A = New Flasher : FlBIP3A.Name = "FlBIP3A" : g_AllItems.Add "FlBIP3A", FlBIP3A
-Set FlBIP4 = New Flasher : FlBIP4.Name = "FlBIP4" : g_AllItems.Add "FlBIP4", FlBIP4
-Set FlBIP4A = New Flasher : FlBIP4A.Name = "FlBIP4A" : g_AllItems.Add "FlBIP4A", FlBIP4A
-Set FlBIP5 = New Flasher : FlBIP5.Name = "FlBIP5" : g_AllItems.Add "FlBIP5", FlBIP5
-Set FlBIP5A = New Flasher : FlBIP5A.Name = "FlBIP5A" : g_AllItems.Add "FlBIP5A", FlBIP5A
-Set FlBIP6 = New Flasher : FlBIP6.Name = "FlBIP6" : g_AllItems.Add "FlBIP6", FlBIP6
-Set FlCredit1A = New Flasher : FlCredit1A.Name = "FlCredit1A" : g_AllItems.Add "FlCredit1A", FlCredit1A
-Set FlGameOver = New Flasher : FlGameOver.Name = "FlGameOver" : g_AllItems.Add "FlGameOver", FlGameOver
-Set FlGameOver_A = New Flasher : FlGameOver_A.Name = "FlGameOver_A" : g_AllItems.Add "FlGameOver_A", FlGameOver_A
-Set FlGameOver_E1 = New Flasher : FlGameOver_E1.Name = "FlGameOver_E1" : g_AllItems.Add "FlGameOver_E1", FlGameOver_E1
-Set FlGameOver_E2 = New Flasher : FlGameOver_E2.Name = "FlGameOver_E2" : g_AllItems.Add "FlGameOver_E2", FlGameOver_E2
-Set FlGameOver_G = New Flasher : FlGameOver_G.Name = "FlGameOver_G" : g_AllItems.Add "FlGameOver_G", FlGameOver_G
-Set FlGameOver_M = New Flasher : FlGameOver_M.Name = "FlGameOver_M" : g_AllItems.Add "FlGameOver_M", FlGameOver_M
-Set FlGameOver_O = New Flasher : FlGameOver_O.Name = "FlGameOver_O" : g_AllItems.Add "FlGameOver_O", FlGameOver_O
-Set FlGameOver_R = New Flasher : FlGameOver_R.Name = "FlGameOver_R" : g_AllItems.Add "FlGameOver_R", FlGameOver_R
-Set FlGameOver_V = New Flasher : FlGameOver_V.Name = "FlGameOver_V" : g_AllItems.Add "FlGameOver_V", FlGameOver_V
-Set FlM00 = New Flasher : FlM00.Name = "FlM00" : g_AllItems.Add "FlM00", FlM00
-Set FlM00A = New Flasher : FlM00A.Name = "FlM00A" : g_AllItems.Add "FlM00A", FlM00A
-Set FlM00B = New Flasher : FlM00B.Name = "FlM00B" : g_AllItems.Add "FlM00B", FlM00B
-Set FlM10 = New Flasher : FlM10.Name = "FlM10" : g_AllItems.Add "FlM10", FlM10
-Set FlM10A = New Flasher : FlM10A.Name = "FlM10A" : g_AllItems.Add "FlM10A", FlM10A
-Set FlM10B = New Flasher : FlM10B.Name = "FlM10B" : g_AllItems.Add "FlM10B", FlM10B
-Set FlM20 = New Flasher : FlM20.Name = "FlM20" : g_AllItems.Add "FlM20", FlM20
-Set FlM20A = New Flasher : FlM20A.Name = "FlM20A" : g_AllItems.Add "FlM20A", FlM20A
-Set FlM20B = New Flasher : FlM20B.Name = "FlM20B" : g_AllItems.Add "FlM20B", FlM20B
-Set FlM30 = New Flasher : FlM30.Name = "FlM30" : g_AllItems.Add "FlM30", FlM30
-Set FlM30A = New Flasher : FlM30A.Name = "FlM30A" : g_AllItems.Add "FlM30A", FlM30A
-Set FlM30B = New Flasher : FlM30B.Name = "FlM30B" : g_AllItems.Add "FlM30B", FlM30B
-Set FlM40 = New Flasher : FlM40.Name = "FlM40" : g_AllItems.Add "FlM40", FlM40
-Set FlM40A = New Flasher : FlM40A.Name = "FlM40A" : g_AllItems.Add "FlM40A", FlM40A
-Set FlM40B = New Flasher : FlM40B.Name = "FlM40B" : g_AllItems.Add "FlM40B", FlM40B
-Set FlM50 = New Flasher : FlM50.Name = "FlM50" : g_AllItems.Add "FlM50", FlM50
-Set FlM50A = New Flasher : FlM50A.Name = "FlM50A" : g_AllItems.Add "FlM50A", FlM50A
-Set FlM50B = New Flasher : FlM50B.Name = "FlM50B" : g_AllItems.Add "FlM50B", FlM50B
-Set FlM60 = New Flasher : FlM60.Name = "FlM60" : g_AllItems.Add "FlM60", FlM60
-Set FlM60A = New Flasher : FlM60A.Name = "FlM60A" : g_AllItems.Add "FlM60A", FlM60A
-Set FlM60B = New Flasher : FlM60B.Name = "FlM60B" : g_AllItems.Add "FlM60B", FlM60B
-Set FlM70 = New Flasher : FlM70.Name = "FlM70" : g_AllItems.Add "FlM70", FlM70
-Set FlM70A = New Flasher : FlM70A.Name = "FlM70A" : g_AllItems.Add "FlM70A", FlM70A
-Set FlM70B = New Flasher : FlM70B.Name = "FlM70B" : g_AllItems.Add "FlM70B", FlM70B
-Set FlM80 = New Flasher : FlM80.Name = "FlM80" : g_AllItems.Add "FlM80", FlM80
-Set FlM80A = New Flasher : FlM80A.Name = "FlM80A" : g_AllItems.Add "FlM80A", FlM80A
-Set FlM80B = New Flasher : FlM80B.Name = "FlM80B" : g_AllItems.Add "FlM80B", FlM80B
-Set FlM90 = New Flasher : FlM90.Name = "FlM90" : g_AllItems.Add "FlM90", FlM90
-Set FlM90A = New Flasher : FlM90A.Name = "FlM90A" : g_AllItems.Add "FlM90A", FlM90A
-Set FlM90B = New Flasher : FlM90B.Name = "FlM90B" : g_AllItems.Add "FlM90B", FlM90B
-Set floorshadow = New Flasher : floorshadow.Name = "floorshadow" : g_AllItems.Add "floorshadow", floorshadow
-Set FLPl1 = New Flasher : FLPl1.Name = "FLPl1" : g_AllItems.Add "FLPl1", FLPl1
-Set FlPL1Drum1 = New Flasher : FlPL1Drum1.Name = "FlPL1Drum1" : g_AllItems.Add "FlPL1Drum1", FlPL1Drum1
-Set FlPL1Drum2 = New Flasher : FlPL1Drum2.Name = "FlPL1Drum2" : g_AllItems.Add "FlPL1Drum2", FlPL1Drum2
-Set FlPL1Drum3 = New Flasher : FlPL1Drum3.Name = "FlPL1Drum3" : g_AllItems.Add "FlPL1Drum3", FlPL1Drum3
-Set FlPL1Drum4 = New Flasher : FlPL1Drum4.Name = "FlPL1Drum4" : g_AllItems.Add "FlPL1Drum4", FlPL1Drum4
-Set FlPL1Drum5 = New Flasher : FlPL1Drum5.Name = "FlPL1Drum5" : g_AllItems.Add "FlPL1Drum5", FlPL1Drum5
-Set FlPL1Reel = New Flasher : FlPL1Reel.Name = "FlPL1Reel" : g_AllItems.Add "FlPL1Reel", FlPL1Reel
-Set FlPl2 = New Flasher : FlPl2.Name = "FlPl2" : g_AllItems.Add "FlPl2", FlPl2
-Set FlPL2Drum1 = New Flasher : FlPL2Drum1.Name = "FlPL2Drum1" : g_AllItems.Add "FlPL2Drum1", FlPL2Drum1
-Set FlPL2Drum2 = New Flasher : FlPL2Drum2.Name = "FlPL2Drum2" : g_AllItems.Add "FlPL2Drum2", FlPL2Drum2
-Set FlPL2Drum3 = New Flasher : FlPL2Drum3.Name = "FlPL2Drum3" : g_AllItems.Add "FlPL2Drum3", FlPL2Drum3
-Set FlPL2Drum4 = New Flasher : FlPL2Drum4.Name = "FlPL2Drum4" : g_AllItems.Add "FlPL2Drum4", FlPL2Drum4
-Set FlPL2Drum5 = New Flasher : FlPL2Drum5.Name = "FlPL2Drum5" : g_AllItems.Add "FlPL2Drum5", FlPL2Drum5
-Set FlPL2Reel = New Flasher : FlPL2Reel.Name = "FlPL2Reel" : g_AllItems.Add "FlPL2Reel", FlPL2Reel
-Set FlPl3 = New Flasher : FlPl3.Name = "FlPl3" : g_AllItems.Add "FlPl3", FlPl3
-Set FlPL3Drum1 = New Flasher : FlPL3Drum1.Name = "FlPL3Drum1" : g_AllItems.Add "FlPL3Drum1", FlPL3Drum1
-Set FlPL3Drum2 = New Flasher : FlPL3Drum2.Name = "FlPL3Drum2" : g_AllItems.Add "FlPL3Drum2", FlPL3Drum2
-Set FlPL3Drum3 = New Flasher : FlPL3Drum3.Name = "FlPL3Drum3" : g_AllItems.Add "FlPL3Drum3", FlPL3Drum3
-Set FlPL3Drum4 = New Flasher : FlPL3Drum4.Name = "FlPL3Drum4" : g_AllItems.Add "FlPL3Drum4", FlPL3Drum4
-Set FlPL3Drum5 = New Flasher : FlPL3Drum5.Name = "FlPL3Drum5" : g_AllItems.Add "FlPL3Drum5", FlPL3Drum5
-Set FlPL3Reel = New Flasher : FlPL3Reel.Name = "FlPL3Reel" : g_AllItems.Add "FlPL3Reel", FlPL3Reel
-Set FlPl4 = New Flasher : FlPl4.Name = "FlPl4" : g_AllItems.Add "FlPl4", FlPl4
-Set FlPL4Drum1 = New Flasher : FlPL4Drum1.Name = "FlPL4Drum1" : g_AllItems.Add "FlPL4Drum1", FlPL4Drum1
-Set FlPL4Drum2 = New Flasher : FlPL4Drum2.Name = "FlPL4Drum2" : g_AllItems.Add "FlPL4Drum2", FlPL4Drum2
-Set FlPL4Drum3 = New Flasher : FlPL4Drum3.Name = "FlPL4Drum3" : g_AllItems.Add "FlPL4Drum3", FlPL4Drum3
-Set FlPL4Drum4 = New Flasher : FlPL4Drum4.Name = "FlPL4Drum4" : g_AllItems.Add "FlPL4Drum4", FlPL4Drum4
-Set FlPL4Drum5 = New Flasher : FlPL4Drum5.Name = "FlPL4Drum5" : g_AllItems.Add "FlPL4Drum5", FlPL4Drum5
-Set FlPL4Reel = New Flasher : FlPL4Reel.Name = "FlPL4Reel" : g_AllItems.Add "FlPL4Reel", FlPL4Reel
-Set FlSPSA_A1 = New Flasher : FlSPSA_A1.Name = "FlSPSA_A1" : g_AllItems.Add "FlSPSA_A1", FlSPSA_A1
-Set FlSPSA_A2 = New Flasher : FlSPSA_A2.Name = "FlSPSA_A2" : g_AllItems.Add "FlSPSA_A2", FlSPSA_A2
-Set FlSPSA_A3 = New Flasher : FlSPSA_A3.Name = "FlSPSA_A3" : g_AllItems.Add "FlSPSA_A3", FlSPSA_A3
-Set FlSPSA_A4 = New Flasher : FlSPSA_A4.Name = "FlSPSA_A4" : g_AllItems.Add "FlSPSA_A4", FlSPSA_A4
-Set FlSPSA_E1 = New Flasher : FlSPSA_E1.Name = "FlSPSA_E1" : g_AllItems.Add "FlSPSA_E1", FlSPSA_E1
-Set FlSPSA_E2 = New Flasher : FlSPSA_E2.Name = "FlSPSA_E2" : g_AllItems.Add "FlSPSA_E2", FlSPSA_E2
-Set FlSPSA_G1 = New Flasher : FlSPSA_G1.Name = "FlSPSA_G1" : g_AllItems.Add "FlSPSA_G1", FlSPSA_G1
-Set FlSPSA_H1 = New Flasher : FlSPSA_H1.Name = "FlSPSA_H1" : g_AllItems.Add "FlSPSA_H1", FlSPSA_H1
-Set FlSPSA_I1 = New Flasher : FlSPSA_I1.Name = "FlSPSA_I1" : g_AllItems.Add "FlSPSA_I1", FlSPSA_I1
-Set FlSPSA_L1 = New Flasher : FlSPSA_L1.Name = "FlSPSA_L1" : g_AllItems.Add "FlSPSA_L1", FlSPSA_L1
-Set FlSPSA_M1 = New Flasher : FlSPSA_M1.Name = "FlSPSA_M1" : g_AllItems.Add "FlSPSA_M1", FlSPSA_M1
-Set FlSPSA_N1 = New Flasher : FlSPSA_N1.Name = "FlSPSA_N1" : g_AllItems.Add "FlSPSA_N1", FlSPSA_N1
-Set FlSPSA_O1 = New Flasher : FlSPSA_O1.Name = "FlSPSA_O1" : g_AllItems.Add "FlSPSA_O1", FlSPSA_O1
-Set FlSPSA_O2 = New Flasher : FlSPSA_O2.Name = "FlSPSA_O2" : g_AllItems.Add "FlSPSA_O2", FlSPSA_O2
-Set FlSPSA_P1 = New Flasher : FlSPSA_P1.Name = "FlSPSA_P1" : g_AllItems.Add "FlSPSA_P1", FlSPSA_P1
-Set FlSPSA_R1 = New Flasher : FlSPSA_R1.Name = "FlSPSA_R1" : g_AllItems.Add "FlSPSA_R1", FlSPSA_R1
-Set FlSPSA_S1 = New Flasher : FlSPSA_S1.Name = "FlSPSA_S1" : g_AllItems.Add "FlSPSA_S1", FlSPSA_S1
-Set FlSPSA_S2 = New Flasher : FlSPSA_S2.Name = "FlSPSA_S2" : g_AllItems.Add "FlSPSA_S2", FlSPSA_S2
-Set FlSPSA_S3 = New Flasher : FlSPSA_S3.Name = "FlSPSA_S3" : g_AllItems.Add "FlSPSA_S3", FlSPSA_S3
-Set FlSPSA_T1 = New Flasher : FlSPSA_T1.Name = "FlSPSA_T1" : g_AllItems.Add "FlSPSA_T1", FlSPSA_T1
-Set FlSPSA_Y1 = New Flasher : FlSPSA_Y1.Name = "FlSPSA_Y1" : g_AllItems.Add "FlSPSA_Y1", FlSPSA_Y1
-Set FlTilt_I = New Flasher : FlTilt_I.Name = "FlTilt_I" : g_AllItems.Add "FlTilt_I", FlTilt_I
-Set FlTilt_L = New Flasher : FlTilt_L.Name = "FlTilt_L" : g_AllItems.Add "FlTilt_L", FlTilt_L
-Set FlTilt_T1 = New Flasher : FlTilt_T1.Name = "FlTilt_T1" : g_AllItems.Add "FlTilt_T1", FlTilt_T1
-Set FlTilt_T2 = New Flasher : FlTilt_T2.Name = "FlTilt_T2" : g_AllItems.Add "FlTilt_T2", FlTilt_T2
-Set RiftShadow = New Flasher : RiftShadow.Name = "RiftShadow" : g_AllItems.Add "RiftShadow", RiftShadow
-Set RiftShadow1 = New Flasher : RiftShadow1.Name = "RiftShadow1" : g_AllItems.Add "RiftShadow1", RiftShadow1
-Set RiftShadow2 = New Flasher : RiftShadow2.Name = "RiftShadow2" : g_AllItems.Add "RiftShadow2", RiftShadow2
-Set RiftShadow3 = New Flasher : RiftShadow3.Name = "RiftShadow3" : g_AllItems.Add "RiftShadow3", RiftShadow3
-Set RiftShadow5 = New Flasher : RiftShadow5.Name = "RiftShadow5" : g_AllItems.Add "RiftShadow5", RiftShadow5
-Set sh010 = New Flasher : sh010.Name = "sh010" : g_AllItems.Add "sh010", sh010
-Set sh06 = New Flasher : sh06.Name = "sh06" : g_AllItems.Add "sh06", sh06
-Set sh07 = New Flasher : sh07.Name = "sh07" : g_AllItems.Add "sh07", sh07
-Set sh08 = New Flasher : sh08.Name = "sh08" : g_AllItems.Add "sh08", sh08
-Set sh09 = New Flasher : sh09.Name = "sh09" : g_AllItems.Add "sh09", sh09
-Set VR_Clockface = New Flasher : VR_Clockface.Name = "VR_Clockface" : g_AllItems.Add "VR_Clockface", VR_Clockface
-Set VRBasketballShadow = New Flasher : VRBasketballShadow.Name = "VRBasketballShadow" : g_AllItems.Add "VRBasketballShadow", VRBasketballShadow
-Set VRChairShadow = New Flasher : VRChairShadow.Name = "VRChairShadow" : g_AllItems.Add "VRChairShadow", VRChairShadow
-Set VRChairShadow1 = New Flasher : VRChairShadow1.Name = "VRChairShadow1" : g_AllItems.Add "VRChairShadow1", VRChairShadow1
-Set VRCouchShadow = New Flasher : VRCouchShadow.Name = "VRCouchShadow" : g_AllItems.Add "VRCouchShadow", VRCouchShadow
-Set VRPhoneShadow1 = New Flasher : VRPhoneShadow1.Name = "VRPhoneShadow1" : g_AllItems.Add "VRPhoneShadow1", VRPhoneShadow1
-Set VRPhoneShadow2 = New Flasher : VRPhoneShadow2.Name = "VRPhoneShadow2" : g_AllItems.Add "VRPhoneShadow2", VRPhoneShadow2
+Set BallShadowA0 = New Flasher : BallShadowA0.Name = "BallShadowA0" : BallShadowA0.TimerInterval = 100 : g_AllItems.Add "BallShadowA0", BallShadowA0
+Set BallShadowA1 = New Flasher : BallShadowA1.Name = "BallShadowA1" : BallShadowA1.TimerInterval = 100 : g_AllItems.Add "BallShadowA1", BallShadowA1
+Set BallShadowA10 = New Flasher : BallShadowA10.Name = "BallShadowA10" : BallShadowA10.TimerInterval = 100 : g_AllItems.Add "BallShadowA10", BallShadowA10
+Set BallShadowA11 = New Flasher : BallShadowA11.Name = "BallShadowA11" : BallShadowA11.TimerInterval = 100 : g_AllItems.Add "BallShadowA11", BallShadowA11
+Set BallShadowA2 = New Flasher : BallShadowA2.Name = "BallShadowA2" : BallShadowA2.TimerInterval = 100 : g_AllItems.Add "BallShadowA2", BallShadowA2
+Set BallShadowA3 = New Flasher : BallShadowA3.Name = "BallShadowA3" : BallShadowA3.TimerInterval = 100 : g_AllItems.Add "BallShadowA3", BallShadowA3
+Set BallShadowA4 = New Flasher : BallShadowA4.Name = "BallShadowA4" : BallShadowA4.TimerInterval = 100 : g_AllItems.Add "BallShadowA4", BallShadowA4
+Set BallShadowA5 = New Flasher : BallShadowA5.Name = "BallShadowA5" : BallShadowA5.TimerInterval = 100 : g_AllItems.Add "BallShadowA5", BallShadowA5
+Set BallShadowA6 = New Flasher : BallShadowA6.Name = "BallShadowA6" : BallShadowA6.TimerInterval = 100 : g_AllItems.Add "BallShadowA6", BallShadowA6
+Set BallShadowA7 = New Flasher : BallShadowA7.Name = "BallShadowA7" : BallShadowA7.TimerInterval = 100 : g_AllItems.Add "BallShadowA7", BallShadowA7
+Set BallShadowA8 = New Flasher : BallShadowA8.Name = "BallShadowA8" : BallShadowA8.TimerInterval = 100 : g_AllItems.Add "BallShadowA8", BallShadowA8
+Set BallShadowA9 = New Flasher : BallShadowA9.Name = "BallShadowA9" : BallShadowA9.TimerInterval = 100 : g_AllItems.Add "BallShadowA9", BallShadowA9
+Set BGBulb1 = New Flasher : BGBulb1.Name = "BGBulb1" : BGBulb1.TimerInterval = 100 : g_AllItems.Add "BGBulb1", BGBulb1
+Set BGBulb10 = New Flasher : BGBulb10.Name = "BGBulb10" : BGBulb10.TimerInterval = 100 : g_AllItems.Add "BGBulb10", BGBulb10
+Set BGBulb11 = New Flasher : BGBulb11.Name = "BGBulb11" : BGBulb11.TimerInterval = 100 : g_AllItems.Add "BGBulb11", BGBulb11
+Set BGBulb12 = New Flasher : BGBulb12.Name = "BGBulb12" : BGBulb12.TimerInterval = 100 : g_AllItems.Add "BGBulb12", BGBulb12
+Set BGBulb13 = New Flasher : BGBulb13.Name = "BGBulb13" : BGBulb13.TimerInterval = 100 : g_AllItems.Add "BGBulb13", BGBulb13
+Set BGBulb14 = New Flasher : BGBulb14.Name = "BGBulb14" : BGBulb14.TimerInterval = 100 : g_AllItems.Add "BGBulb14", BGBulb14
+Set BGBulb15 = New Flasher : BGBulb15.Name = "BGBulb15" : BGBulb15.TimerInterval = 100 : g_AllItems.Add "BGBulb15", BGBulb15
+Set BGBulb16 = New Flasher : BGBulb16.Name = "BGBulb16" : BGBulb16.TimerInterval = 100 : g_AllItems.Add "BGBulb16", BGBulb16
+Set BGBulb17 = New Flasher : BGBulb17.Name = "BGBulb17" : BGBulb17.TimerInterval = 100 : g_AllItems.Add "BGBulb17", BGBulb17
+Set BGBulb18 = New Flasher : BGBulb18.Name = "BGBulb18" : BGBulb18.TimerInterval = 100 : g_AllItems.Add "BGBulb18", BGBulb18
+Set BGBulb19 = New Flasher : BGBulb19.Name = "BGBulb19" : BGBulb19.TimerInterval = 100 : g_AllItems.Add "BGBulb19", BGBulb19
+Set BGBulb2 = New Flasher : BGBulb2.Name = "BGBulb2" : BGBulb2.TimerInterval = 100 : g_AllItems.Add "BGBulb2", BGBulb2
+Set BGBulb20 = New Flasher : BGBulb20.Name = "BGBulb20" : BGBulb20.TimerInterval = 100 : g_AllItems.Add "BGBulb20", BGBulb20
+Set BGBulb21 = New Flasher : BGBulb21.Name = "BGBulb21" : BGBulb21.TimerInterval = 100 : g_AllItems.Add "BGBulb21", BGBulb21
+Set BGBulb22 = New Flasher : BGBulb22.Name = "BGBulb22" : BGBulb22.TimerInterval = 100 : g_AllItems.Add "BGBulb22", BGBulb22
+Set BGBulb23 = New Flasher : BGBulb23.Name = "BGBulb23" : BGBulb23.TimerInterval = 100 : g_AllItems.Add "BGBulb23", BGBulb23
+Set BGBulb24 = New Flasher : BGBulb24.Name = "BGBulb24" : BGBulb24.TimerInterval = 100 : g_AllItems.Add "BGBulb24", BGBulb24
+Set BGBulb25 = New Flasher : BGBulb25.Name = "BGBulb25" : BGBulb25.TimerInterval = 100 : g_AllItems.Add "BGBulb25", BGBulb25
+Set BGBulb26 = New Flasher : BGBulb26.Name = "BGBulb26" : BGBulb26.TimerInterval = 100 : g_AllItems.Add "BGBulb26", BGBulb26
+Set BGBulb27 = New Flasher : BGBulb27.Name = "BGBulb27" : BGBulb27.TimerInterval = 100 : g_AllItems.Add "BGBulb27", BGBulb27
+Set BGBulb28 = New Flasher : BGBulb28.Name = "BGBulb28" : BGBulb28.TimerInterval = 100 : g_AllItems.Add "BGBulb28", BGBulb28
+Set BGBulb29 = New Flasher : BGBulb29.Name = "BGBulb29" : BGBulb29.TimerInterval = 100 : g_AllItems.Add "BGBulb29", BGBulb29
+Set BGBulb3 = New Flasher : BGBulb3.Name = "BGBulb3" : BGBulb3.TimerInterval = 100 : g_AllItems.Add "BGBulb3", BGBulb3
+Set BGBulb30 = New Flasher : BGBulb30.Name = "BGBulb30" : BGBulb30.TimerInterval = 100 : g_AllItems.Add "BGBulb30", BGBulb30
+Set BGBulb31 = New Flasher : BGBulb31.Name = "BGBulb31" : BGBulb31.TimerInterval = 100 : g_AllItems.Add "BGBulb31", BGBulb31
+Set BGBulb32 = New Flasher : BGBulb32.Name = "BGBulb32" : BGBulb32.TimerInterval = 100 : g_AllItems.Add "BGBulb32", BGBulb32
+Set BGBulb4 = New Flasher : BGBulb4.Name = "BGBulb4" : BGBulb4.TimerInterval = 100 : g_AllItems.Add "BGBulb4", BGBulb4
+Set BGBulb5 = New Flasher : BGBulb5.Name = "BGBulb5" : BGBulb5.TimerInterval = 100 : g_AllItems.Add "BGBulb5", BGBulb5
+Set BGBulb6 = New Flasher : BGBulb6.Name = "BGBulb6" : BGBulb6.TimerInterval = 100 : g_AllItems.Add "BGBulb6", BGBulb6
+Set BGBulb7 = New Flasher : BGBulb7.Name = "BGBulb7" : BGBulb7.TimerInterval = 100 : g_AllItems.Add "BGBulb7", BGBulb7
+Set BGBulb8 = New Flasher : BGBulb8.Name = "BGBulb8" : BGBulb8.TimerInterval = 100 : g_AllItems.Add "BGBulb8", BGBulb8
+Set BGBulb9 = New Flasher : BGBulb9.Name = "BGBulb9" : BGBulb9.TimerInterval = 100 : g_AllItems.Add "BGBulb9", BGBulb9
+Set BGDark = New Flasher : BGDark.Name = "BGDark" : BGDark.TimerInterval = 100 : g_AllItems.Add "BGDark", BGDark
+Set BGFL1UP = New Flasher : BGFL1UP.Name = "BGFL1UP" : BGFL1UP.TimerInterval = 100 : g_AllItems.Add "BGFL1UP", BGFL1UP
+Set BGFL1UP1 = New Flasher : BGFL1UP1.Name = "BGFL1UP1" : BGFL1UP1.TimerInterval = 100 : g_AllItems.Add "BGFL1UP1", BGFL1UP1
+Set BGFL1UP2 = New Flasher : BGFL1UP2.Name = "BGFL1UP2" : BGFL1UP2.TimerInterval = 100 : g_AllItems.Add "BGFL1UP2", BGFL1UP2
+Set BGFL1UP3 = New Flasher : BGFL1UP3.Name = "BGFL1UP3" : BGFL1UP3.TimerInterval = 100 : g_AllItems.Add "BGFL1UP3", BGFL1UP3
+Set BGFLCloth = New Flasher : BGFLCloth.Name = "BGFLCloth" : BGFLCloth.TimerInterval = 100 : g_AllItems.Add "BGFLCloth", BGFLCloth
+Set BGFLGlider = New Flasher : BGFLGlider.Name = "BGFLGlider" : BGFLGlider.TimerInterval = 100 : g_AllItems.Add "BGFLGlider", BGFLGlider
+Set BGFLHang = New Flasher : BGFLHang.Name = "BGFLHang" : BGFLHang.TimerInterval = 100 : g_AllItems.Add "BGFLHang", BGFLHang
+Set BGFLHangGlider = New Flasher : BGFLHangGlider.Name = "BGFLHangGlider" : BGFLHangGlider.TimerInterval = 100 : g_AllItems.Add "BGFLHangGlider", BGFLHangGlider
+Set BGFLMan = New Flasher : BGFLMan.Name = "BGFLMan" : BGFLMan.TimerInterval = 100 : g_AllItems.Add "BGFLMan", BGFLMan
+Set BGFLOTT1 = New Flasher : BGFLOTT1.Name = "BGFLOTT1" : BGFLOTT1.TimerInterval = 100 : g_AllItems.Add "BGFLOTT1", BGFLOTT1
+Set BGFLOTT10 = New Flasher : BGFLOTT10.Name = "BGFLOTT10" : BGFLOTT10.TimerInterval = 100 : g_AllItems.Add "BGFLOTT10", BGFLOTT10
+Set BGFLOTT2 = New Flasher : BGFLOTT2.Name = "BGFLOTT2" : BGFLOTT2.TimerInterval = 100 : g_AllItems.Add "BGFLOTT2", BGFLOTT2
+Set BGFLOTT3 = New Flasher : BGFLOTT3.Name = "BGFLOTT3" : BGFLOTT3.TimerInterval = 100 : g_AllItems.Add "BGFLOTT3", BGFLOTT3
+Set BGFLOTT4 = New Flasher : BGFLOTT4.Name = "BGFLOTT4" : BGFLOTT4.TimerInterval = 100 : g_AllItems.Add "BGFLOTT4", BGFLOTT4
+Set BGFLOTT5 = New Flasher : BGFLOTT5.Name = "BGFLOTT5" : BGFLOTT5.TimerInterval = 100 : g_AllItems.Add "BGFLOTT5", BGFLOTT5
+Set BGFLOTT6 = New Flasher : BGFLOTT6.Name = "BGFLOTT6" : BGFLOTT6.TimerInterval = 100 : g_AllItems.Add "BGFLOTT6", BGFLOTT6
+Set BGFLOTT7 = New Flasher : BGFLOTT7.Name = "BGFLOTT7" : BGFLOTT7.TimerInterval = 100 : g_AllItems.Add "BGFLOTT7", BGFLOTT7
+Set BGFLOTT8 = New Flasher : BGFLOTT8.Name = "BGFLOTT8" : BGFLOTT8.TimerInterval = 100 : g_AllItems.Add "BGFLOTT8", BGFLOTT8
+Set BGFLOTT9 = New Flasher : BGFLOTT9.Name = "BGFLOTT9" : BGFLOTT9.TimerInterval = 100 : g_AllItems.Add "BGFLOTT9", BGFLOTT9
+Set BGFLWomen = New Flasher : BGFLWomen.Name = "BGFLWomen" : BGFLWomen.TimerInterval = 100 : g_AllItems.Add "BGFLWomen", BGFLWomen
+Set FlB100KP1_1 = New Flasher : FlB100KP1_1.Name = "FlB100KP1_1" : FlB100KP1_1.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_1", FlB100KP1_1
+Set FlB100KP1_12 = New Flasher : FlB100KP1_12.Name = "FlB100KP1_12" : FlB100KP1_12.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_12", FlB100KP1_12
+Set FlB100KP1_18 = New Flasher : FlB100KP1_18.Name = "FlB100KP1_18" : FlB100KP1_18.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_18", FlB100KP1_18
+Set FlB100KP1_2 = New Flasher : FlB100KP1_2.Name = "FlB100KP1_2" : FlB100KP1_2.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_2", FlB100KP1_2
+Set FlB100KP1_25 = New Flasher : FlB100KP1_25.Name = "FlB100KP1_25" : FlB100KP1_25.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_25", FlB100KP1_25
+Set FlB100KP1_3 = New Flasher : FlB100KP1_3.Name = "FlB100KP1_3" : FlB100KP1_3.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_3", FlB100KP1_3
+Set FlB100KP1_4 = New Flasher : FlB100KP1_4.Name = "FlB100KP1_4" : FlB100KP1_4.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_4", FlB100KP1_4
+Set FlB100KP1_5 = New Flasher : FlB100KP1_5.Name = "FlB100KP1_5" : FlB100KP1_5.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_5", FlB100KP1_5
+Set FlB100KP1_6 = New Flasher : FlB100KP1_6.Name = "FlB100KP1_6" : FlB100KP1_6.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_6", FlB100KP1_6
+Set FlB100KP1_7 = New Flasher : FlB100KP1_7.Name = "FlB100KP1_7" : FlB100KP1_7.TimerInterval = 100 : g_AllItems.Add "FlB100KP1_7", FlB100KP1_7
+Set FlB100KP2_1 = New Flasher : FlB100KP2_1.Name = "FlB100KP2_1" : FlB100KP2_1.TimerInterval = 100 : g_AllItems.Add "FlB100KP2_1", FlB100KP2_1
+Set FlB100KP2_2 = New Flasher : FlB100KP2_2.Name = "FlB100KP2_2" : FlB100KP2_2.TimerInterval = 100 : g_AllItems.Add "FlB100KP2_2", FlB100KP2_2
+Set FlB100KP2_3 = New Flasher : FlB100KP2_3.Name = "FlB100KP2_3" : FlB100KP2_3.TimerInterval = 100 : g_AllItems.Add "FlB100KP2_3", FlB100KP2_3
+Set FlB100KP2_4 = New Flasher : FlB100KP2_4.Name = "FlB100KP2_4" : FlB100KP2_4.TimerInterval = 100 : g_AllItems.Add "FlB100KP2_4", FlB100KP2_4
+Set FlB100KP2_5 = New Flasher : FlB100KP2_5.Name = "FlB100KP2_5" : FlB100KP2_5.TimerInterval = 100 : g_AllItems.Add "FlB100KP2_5", FlB100KP2_5
+Set FlB100KP2_6 = New Flasher : FlB100KP2_6.Name = "FlB100KP2_6" : FlB100KP2_6.TimerInterval = 100 : g_AllItems.Add "FlB100KP2_6", FlB100KP2_6
+Set FlB100KP3_1 = New Flasher : FlB100KP3_1.Name = "FlB100KP3_1" : FlB100KP3_1.TimerInterval = 100 : g_AllItems.Add "FlB100KP3_1", FlB100KP3_1
+Set FlB100KP3_2 = New Flasher : FlB100KP3_2.Name = "FlB100KP3_2" : FlB100KP3_2.TimerInterval = 100 : g_AllItems.Add "FlB100KP3_2", FlB100KP3_2
+Set FlB100KP3_3 = New Flasher : FlB100KP3_3.Name = "FlB100KP3_3" : FlB100KP3_3.TimerInterval = 100 : g_AllItems.Add "FlB100KP3_3", FlB100KP3_3
+Set FlB100KP3_4 = New Flasher : FlB100KP3_4.Name = "FlB100KP3_4" : FlB100KP3_4.TimerInterval = 100 : g_AllItems.Add "FlB100KP3_4", FlB100KP3_4
+Set FlB100KP3_5 = New Flasher : FlB100KP3_5.Name = "FlB100KP3_5" : FlB100KP3_5.TimerInterval = 100 : g_AllItems.Add "FlB100KP3_5", FlB100KP3_5
+Set FlB100KP3_6 = New Flasher : FlB100KP3_6.Name = "FlB100KP3_6" : FlB100KP3_6.TimerInterval = 100 : g_AllItems.Add "FlB100KP3_6", FlB100KP3_6
+Set FlB100KP4_1 = New Flasher : FlB100KP4_1.Name = "FlB100KP4_1" : FlB100KP4_1.TimerInterval = 100 : g_AllItems.Add "FlB100KP4_1", FlB100KP4_1
+Set FlB100KP4_2 = New Flasher : FlB100KP4_2.Name = "FlB100KP4_2" : FlB100KP4_2.TimerInterval = 100 : g_AllItems.Add "FlB100KP4_2", FlB100KP4_2
+Set FlB100KP4_3 = New Flasher : FlB100KP4_3.Name = "FlB100KP4_3" : FlB100KP4_3.TimerInterval = 100 : g_AllItems.Add "FlB100KP4_3", FlB100KP4_3
+Set FlB100KP4_4 = New Flasher : FlB100KP4_4.Name = "FlB100KP4_4" : FlB100KP4_4.TimerInterval = 100 : g_AllItems.Add "FlB100KP4_4", FlB100KP4_4
+Set FlB100KP4_5 = New Flasher : FlB100KP4_5.Name = "FlB100KP4_5" : FlB100KP4_5.TimerInterval = 100 : g_AllItems.Add "FlB100KP4_5", FlB100KP4_5
+Set FlB100KP4_6 = New Flasher : FlB100KP4_6.Name = "FlB100KP4_6" : FlB100KP4_6.TimerInterval = 100 : g_AllItems.Add "FlB100KP4_6", FlB100KP4_6
+Set FlBIP1 = New Flasher : FlBIP1.Name = "FlBIP1" : FlBIP1.TimerInterval = 100 : g_AllItems.Add "FlBIP1", FlBIP1
+Set FlBIP1A = New Flasher : FlBIP1A.Name = "FlBIP1A" : FlBIP1A.TimerInterval = 100 : g_AllItems.Add "FlBIP1A", FlBIP1A
+Set FlBIP2 = New Flasher : FlBIP2.Name = "FlBIP2" : FlBIP2.TimerInterval = 100 : g_AllItems.Add "FlBIP2", FlBIP2
+Set FlBIP2A = New Flasher : FlBIP2A.Name = "FlBIP2A" : FlBIP2A.TimerInterval = 100 : g_AllItems.Add "FlBIP2A", FlBIP2A
+Set FlBIP3 = New Flasher : FlBIP3.Name = "FlBIP3" : FlBIP3.TimerInterval = 100 : g_AllItems.Add "FlBIP3", FlBIP3
+Set FlBIP3A = New Flasher : FlBIP3A.Name = "FlBIP3A" : FlBIP3A.TimerInterval = 100 : g_AllItems.Add "FlBIP3A", FlBIP3A
+Set FlBIP4 = New Flasher : FlBIP4.Name = "FlBIP4" : FlBIP4.TimerInterval = 100 : g_AllItems.Add "FlBIP4", FlBIP4
+Set FlBIP4A = New Flasher : FlBIP4A.Name = "FlBIP4A" : FlBIP4A.TimerInterval = 100 : g_AllItems.Add "FlBIP4A", FlBIP4A
+Set FlBIP5 = New Flasher : FlBIP5.Name = "FlBIP5" : FlBIP5.TimerInterval = 100 : g_AllItems.Add "FlBIP5", FlBIP5
+Set FlBIP5A = New Flasher : FlBIP5A.Name = "FlBIP5A" : FlBIP5A.TimerInterval = 100 : g_AllItems.Add "FlBIP5A", FlBIP5A
+Set FlBIP6 = New Flasher : FlBIP6.Name = "FlBIP6" : FlBIP6.TimerInterval = 100 : g_AllItems.Add "FlBIP6", FlBIP6
+Set FlCredit1A = New Flasher : FlCredit1A.Name = "FlCredit1A" : FlCredit1A.TimerInterval = 100 : g_AllItems.Add "FlCredit1A", FlCredit1A
+Set FlGameOver = New Flasher : FlGameOver.Name = "FlGameOver" : FlGameOver.TimerInterval = 100 : g_AllItems.Add "FlGameOver", FlGameOver
+Set FlGameOver_A = New Flasher : FlGameOver_A.Name = "FlGameOver_A" : FlGameOver_A.TimerInterval = 100 : g_AllItems.Add "FlGameOver_A", FlGameOver_A
+Set FlGameOver_E1 = New Flasher : FlGameOver_E1.Name = "FlGameOver_E1" : FlGameOver_E1.TimerInterval = 100 : g_AllItems.Add "FlGameOver_E1", FlGameOver_E1
+Set FlGameOver_E2 = New Flasher : FlGameOver_E2.Name = "FlGameOver_E2" : FlGameOver_E2.TimerInterval = 100 : g_AllItems.Add "FlGameOver_E2", FlGameOver_E2
+Set FlGameOver_G = New Flasher : FlGameOver_G.Name = "FlGameOver_G" : FlGameOver_G.TimerInterval = 100 : g_AllItems.Add "FlGameOver_G", FlGameOver_G
+Set FlGameOver_M = New Flasher : FlGameOver_M.Name = "FlGameOver_M" : FlGameOver_M.TimerInterval = 100 : g_AllItems.Add "FlGameOver_M", FlGameOver_M
+Set FlGameOver_O = New Flasher : FlGameOver_O.Name = "FlGameOver_O" : FlGameOver_O.TimerInterval = 100 : g_AllItems.Add "FlGameOver_O", FlGameOver_O
+Set FlGameOver_R = New Flasher : FlGameOver_R.Name = "FlGameOver_R" : FlGameOver_R.TimerInterval = 100 : g_AllItems.Add "FlGameOver_R", FlGameOver_R
+Set FlGameOver_V = New Flasher : FlGameOver_V.Name = "FlGameOver_V" : FlGameOver_V.TimerInterval = 100 : g_AllItems.Add "FlGameOver_V", FlGameOver_V
+Set FlM00 = New Flasher : FlM00.Name = "FlM00" : FlM00.TimerInterval = 100 : g_AllItems.Add "FlM00", FlM00
+Set FlM00A = New Flasher : FlM00A.Name = "FlM00A" : FlM00A.TimerInterval = 100 : g_AllItems.Add "FlM00A", FlM00A
+Set FlM00B = New Flasher : FlM00B.Name = "FlM00B" : FlM00B.TimerInterval = 100 : g_AllItems.Add "FlM00B", FlM00B
+Set FlM10 = New Flasher : FlM10.Name = "FlM10" : FlM10.TimerInterval = 100 : g_AllItems.Add "FlM10", FlM10
+Set FlM10A = New Flasher : FlM10A.Name = "FlM10A" : FlM10A.TimerInterval = 100 : g_AllItems.Add "FlM10A", FlM10A
+Set FlM10B = New Flasher : FlM10B.Name = "FlM10B" : FlM10B.TimerInterval = 100 : g_AllItems.Add "FlM10B", FlM10B
+Set FlM20 = New Flasher : FlM20.Name = "FlM20" : FlM20.TimerInterval = 100 : g_AllItems.Add "FlM20", FlM20
+Set FlM20A = New Flasher : FlM20A.Name = "FlM20A" : FlM20A.TimerInterval = 100 : g_AllItems.Add "FlM20A", FlM20A
+Set FlM20B = New Flasher : FlM20B.Name = "FlM20B" : FlM20B.TimerInterval = 100 : g_AllItems.Add "FlM20B", FlM20B
+Set FlM30 = New Flasher : FlM30.Name = "FlM30" : FlM30.TimerInterval = 100 : g_AllItems.Add "FlM30", FlM30
+Set FlM30A = New Flasher : FlM30A.Name = "FlM30A" : FlM30A.TimerInterval = 100 : g_AllItems.Add "FlM30A", FlM30A
+Set FlM30B = New Flasher : FlM30B.Name = "FlM30B" : FlM30B.TimerInterval = 100 : g_AllItems.Add "FlM30B", FlM30B
+Set FlM40 = New Flasher : FlM40.Name = "FlM40" : FlM40.TimerInterval = 100 : g_AllItems.Add "FlM40", FlM40
+Set FlM40A = New Flasher : FlM40A.Name = "FlM40A" : FlM40A.TimerInterval = 100 : g_AllItems.Add "FlM40A", FlM40A
+Set FlM40B = New Flasher : FlM40B.Name = "FlM40B" : FlM40B.TimerInterval = 100 : g_AllItems.Add "FlM40B", FlM40B
+Set FlM50 = New Flasher : FlM50.Name = "FlM50" : FlM50.TimerInterval = 100 : g_AllItems.Add "FlM50", FlM50
+Set FlM50A = New Flasher : FlM50A.Name = "FlM50A" : FlM50A.TimerInterval = 100 : g_AllItems.Add "FlM50A", FlM50A
+Set FlM50B = New Flasher : FlM50B.Name = "FlM50B" : FlM50B.TimerInterval = 100 : g_AllItems.Add "FlM50B", FlM50B
+Set FlM60 = New Flasher : FlM60.Name = "FlM60" : FlM60.TimerInterval = 100 : g_AllItems.Add "FlM60", FlM60
+Set FlM60A = New Flasher : FlM60A.Name = "FlM60A" : FlM60A.TimerInterval = 100 : g_AllItems.Add "FlM60A", FlM60A
+Set FlM60B = New Flasher : FlM60B.Name = "FlM60B" : FlM60B.TimerInterval = 100 : g_AllItems.Add "FlM60B", FlM60B
+Set FlM70 = New Flasher : FlM70.Name = "FlM70" : FlM70.TimerInterval = 100 : g_AllItems.Add "FlM70", FlM70
+Set FlM70A = New Flasher : FlM70A.Name = "FlM70A" : FlM70A.TimerInterval = 100 : g_AllItems.Add "FlM70A", FlM70A
+Set FlM70B = New Flasher : FlM70B.Name = "FlM70B" : FlM70B.TimerInterval = 100 : g_AllItems.Add "FlM70B", FlM70B
+Set FlM80 = New Flasher : FlM80.Name = "FlM80" : FlM80.TimerInterval = 100 : g_AllItems.Add "FlM80", FlM80
+Set FlM80A = New Flasher : FlM80A.Name = "FlM80A" : FlM80A.TimerInterval = 100 : g_AllItems.Add "FlM80A", FlM80A
+Set FlM80B = New Flasher : FlM80B.Name = "FlM80B" : FlM80B.TimerInterval = 100 : g_AllItems.Add "FlM80B", FlM80B
+Set FlM90 = New Flasher : FlM90.Name = "FlM90" : FlM90.TimerInterval = 100 : g_AllItems.Add "FlM90", FlM90
+Set FlM90A = New Flasher : FlM90A.Name = "FlM90A" : FlM90A.TimerInterval = 100 : g_AllItems.Add "FlM90A", FlM90A
+Set FlM90B = New Flasher : FlM90B.Name = "FlM90B" : FlM90B.TimerInterval = 100 : g_AllItems.Add "FlM90B", FlM90B
+Set floorshadow = New Flasher : floorshadow.Name = "floorshadow" : floorshadow.TimerInterval = 100 : g_AllItems.Add "floorshadow", floorshadow
+Set FLPl1 = New Flasher : FLPl1.Name = "FLPl1" : FLPl1.TimerInterval = 100 : g_AllItems.Add "FLPl1", FLPl1
+Set FlPL1Drum1 = New Flasher : FlPL1Drum1.Name = "FlPL1Drum1" : FlPL1Drum1.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum1", FlPL1Drum1
+Set FlPL1Drum2 = New Flasher : FlPL1Drum2.Name = "FlPL1Drum2" : FlPL1Drum2.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum2", FlPL1Drum2
+Set FlPL1Drum3 = New Flasher : FlPL1Drum3.Name = "FlPL1Drum3" : FlPL1Drum3.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum3", FlPL1Drum3
+Set FlPL1Drum4 = New Flasher : FlPL1Drum4.Name = "FlPL1Drum4" : FlPL1Drum4.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum4", FlPL1Drum4
+Set FlPL1Drum5 = New Flasher : FlPL1Drum5.Name = "FlPL1Drum5" : FlPL1Drum5.TimerInterval = 100 : g_AllItems.Add "FlPL1Drum5", FlPL1Drum5
+Set FlPL1Reel = New Flasher : FlPL1Reel.Name = "FlPL1Reel" : FlPL1Reel.TimerInterval = 100 : g_AllItems.Add "FlPL1Reel", FlPL1Reel
+Set FlPl2 = New Flasher : FlPl2.Name = "FlPl2" : FlPl2.TimerInterval = 100 : g_AllItems.Add "FlPl2", FlPl2
+Set FlPL2Drum1 = New Flasher : FlPL2Drum1.Name = "FlPL2Drum1" : FlPL2Drum1.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum1", FlPL2Drum1
+Set FlPL2Drum2 = New Flasher : FlPL2Drum2.Name = "FlPL2Drum2" : FlPL2Drum2.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum2", FlPL2Drum2
+Set FlPL2Drum3 = New Flasher : FlPL2Drum3.Name = "FlPL2Drum3" : FlPL2Drum3.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum3", FlPL2Drum3
+Set FlPL2Drum4 = New Flasher : FlPL2Drum4.Name = "FlPL2Drum4" : FlPL2Drum4.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum4", FlPL2Drum4
+Set FlPL2Drum5 = New Flasher : FlPL2Drum5.Name = "FlPL2Drum5" : FlPL2Drum5.TimerInterval = 100 : g_AllItems.Add "FlPL2Drum5", FlPL2Drum5
+Set FlPL2Reel = New Flasher : FlPL2Reel.Name = "FlPL2Reel" : FlPL2Reel.TimerInterval = 100 : g_AllItems.Add "FlPL2Reel", FlPL2Reel
+Set FlPl3 = New Flasher : FlPl3.Name = "FlPl3" : FlPl3.TimerInterval = 100 : g_AllItems.Add "FlPl3", FlPl3
+Set FlPL3Drum1 = New Flasher : FlPL3Drum1.Name = "FlPL3Drum1" : FlPL3Drum1.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum1", FlPL3Drum1
+Set FlPL3Drum2 = New Flasher : FlPL3Drum2.Name = "FlPL3Drum2" : FlPL3Drum2.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum2", FlPL3Drum2
+Set FlPL3Drum3 = New Flasher : FlPL3Drum3.Name = "FlPL3Drum3" : FlPL3Drum3.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum3", FlPL3Drum3
+Set FlPL3Drum4 = New Flasher : FlPL3Drum4.Name = "FlPL3Drum4" : FlPL3Drum4.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum4", FlPL3Drum4
+Set FlPL3Drum5 = New Flasher : FlPL3Drum5.Name = "FlPL3Drum5" : FlPL3Drum5.TimerInterval = 100 : g_AllItems.Add "FlPL3Drum5", FlPL3Drum5
+Set FlPL3Reel = New Flasher : FlPL3Reel.Name = "FlPL3Reel" : FlPL3Reel.TimerInterval = 100 : g_AllItems.Add "FlPL3Reel", FlPL3Reel
+Set FlPl4 = New Flasher : FlPl4.Name = "FlPl4" : FlPl4.TimerInterval = 100 : g_AllItems.Add "FlPl4", FlPl4
+Set FlPL4Drum1 = New Flasher : FlPL4Drum1.Name = "FlPL4Drum1" : FlPL4Drum1.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum1", FlPL4Drum1
+Set FlPL4Drum2 = New Flasher : FlPL4Drum2.Name = "FlPL4Drum2" : FlPL4Drum2.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum2", FlPL4Drum2
+Set FlPL4Drum3 = New Flasher : FlPL4Drum3.Name = "FlPL4Drum3" : FlPL4Drum3.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum3", FlPL4Drum3
+Set FlPL4Drum4 = New Flasher : FlPL4Drum4.Name = "FlPL4Drum4" : FlPL4Drum4.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum4", FlPL4Drum4
+Set FlPL4Drum5 = New Flasher : FlPL4Drum5.Name = "FlPL4Drum5" : FlPL4Drum5.TimerInterval = 100 : g_AllItems.Add "FlPL4Drum5", FlPL4Drum5
+Set FlPL4Reel = New Flasher : FlPL4Reel.Name = "FlPL4Reel" : FlPL4Reel.TimerInterval = 100 : g_AllItems.Add "FlPL4Reel", FlPL4Reel
+Set FlSPSA_A1 = New Flasher : FlSPSA_A1.Name = "FlSPSA_A1" : FlSPSA_A1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_A1", FlSPSA_A1
+Set FlSPSA_A2 = New Flasher : FlSPSA_A2.Name = "FlSPSA_A2" : FlSPSA_A2.TimerInterval = 100 : g_AllItems.Add "FlSPSA_A2", FlSPSA_A2
+Set FlSPSA_A3 = New Flasher : FlSPSA_A3.Name = "FlSPSA_A3" : FlSPSA_A3.TimerInterval = 100 : g_AllItems.Add "FlSPSA_A3", FlSPSA_A3
+Set FlSPSA_A4 = New Flasher : FlSPSA_A4.Name = "FlSPSA_A4" : FlSPSA_A4.TimerInterval = 100 : g_AllItems.Add "FlSPSA_A4", FlSPSA_A4
+Set FlSPSA_E1 = New Flasher : FlSPSA_E1.Name = "FlSPSA_E1" : FlSPSA_E1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_E1", FlSPSA_E1
+Set FlSPSA_E2 = New Flasher : FlSPSA_E2.Name = "FlSPSA_E2" : FlSPSA_E2.TimerInterval = 100 : g_AllItems.Add "FlSPSA_E2", FlSPSA_E2
+Set FlSPSA_G1 = New Flasher : FlSPSA_G1.Name = "FlSPSA_G1" : FlSPSA_G1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_G1", FlSPSA_G1
+Set FlSPSA_H1 = New Flasher : FlSPSA_H1.Name = "FlSPSA_H1" : FlSPSA_H1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_H1", FlSPSA_H1
+Set FlSPSA_I1 = New Flasher : FlSPSA_I1.Name = "FlSPSA_I1" : FlSPSA_I1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_I1", FlSPSA_I1
+Set FlSPSA_L1 = New Flasher : FlSPSA_L1.Name = "FlSPSA_L1" : FlSPSA_L1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_L1", FlSPSA_L1
+Set FlSPSA_M1 = New Flasher : FlSPSA_M1.Name = "FlSPSA_M1" : FlSPSA_M1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_M1", FlSPSA_M1
+Set FlSPSA_N1 = New Flasher : FlSPSA_N1.Name = "FlSPSA_N1" : FlSPSA_N1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_N1", FlSPSA_N1
+Set FlSPSA_O1 = New Flasher : FlSPSA_O1.Name = "FlSPSA_O1" : FlSPSA_O1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_O1", FlSPSA_O1
+Set FlSPSA_O2 = New Flasher : FlSPSA_O2.Name = "FlSPSA_O2" : FlSPSA_O2.TimerInterval = 100 : g_AllItems.Add "FlSPSA_O2", FlSPSA_O2
+Set FlSPSA_P1 = New Flasher : FlSPSA_P1.Name = "FlSPSA_P1" : FlSPSA_P1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_P1", FlSPSA_P1
+Set FlSPSA_R1 = New Flasher : FlSPSA_R1.Name = "FlSPSA_R1" : FlSPSA_R1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_R1", FlSPSA_R1
+Set FlSPSA_S1 = New Flasher : FlSPSA_S1.Name = "FlSPSA_S1" : FlSPSA_S1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_S1", FlSPSA_S1
+Set FlSPSA_S2 = New Flasher : FlSPSA_S2.Name = "FlSPSA_S2" : FlSPSA_S2.TimerInterval = 100 : g_AllItems.Add "FlSPSA_S2", FlSPSA_S2
+Set FlSPSA_S3 = New Flasher : FlSPSA_S3.Name = "FlSPSA_S3" : FlSPSA_S3.TimerInterval = 100 : g_AllItems.Add "FlSPSA_S3", FlSPSA_S3
+Set FlSPSA_T1 = New Flasher : FlSPSA_T1.Name = "FlSPSA_T1" : FlSPSA_T1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_T1", FlSPSA_T1
+Set FlSPSA_Y1 = New Flasher : FlSPSA_Y1.Name = "FlSPSA_Y1" : FlSPSA_Y1.TimerInterval = 100 : g_AllItems.Add "FlSPSA_Y1", FlSPSA_Y1
+Set FlTilt_I = New Flasher : FlTilt_I.Name = "FlTilt_I" : FlTilt_I.TimerInterval = 100 : g_AllItems.Add "FlTilt_I", FlTilt_I
+Set FlTilt_L = New Flasher : FlTilt_L.Name = "FlTilt_L" : FlTilt_L.TimerInterval = 100 : g_AllItems.Add "FlTilt_L", FlTilt_L
+Set FlTilt_T1 = New Flasher : FlTilt_T1.Name = "FlTilt_T1" : FlTilt_T1.TimerInterval = 100 : g_AllItems.Add "FlTilt_T1", FlTilt_T1
+Set FlTilt_T2 = New Flasher : FlTilt_T2.Name = "FlTilt_T2" : FlTilt_T2.TimerInterval = 100 : g_AllItems.Add "FlTilt_T2", FlTilt_T2
+Set RiftShadow = New Flasher : RiftShadow.Name = "RiftShadow" : RiftShadow.TimerInterval = 100 : g_AllItems.Add "RiftShadow", RiftShadow
+Set RiftShadow1 = New Flasher : RiftShadow1.Name = "RiftShadow1" : RiftShadow1.TimerInterval = 100 : g_AllItems.Add "RiftShadow1", RiftShadow1
+Set RiftShadow2 = New Flasher : RiftShadow2.Name = "RiftShadow2" : RiftShadow2.TimerInterval = 100 : g_AllItems.Add "RiftShadow2", RiftShadow2
+Set RiftShadow3 = New Flasher : RiftShadow3.Name = "RiftShadow3" : RiftShadow3.TimerInterval = 100 : g_AllItems.Add "RiftShadow3", RiftShadow3
+Set RiftShadow5 = New Flasher : RiftShadow5.Name = "RiftShadow5" : RiftShadow5.TimerInterval = 100 : g_AllItems.Add "RiftShadow5", RiftShadow5
+Set sh010 = New Flasher : sh010.Name = "sh010" : sh010.TimerInterval = 100 : g_AllItems.Add "sh010", sh010
+Set sh06 = New Flasher : sh06.Name = "sh06" : sh06.TimerInterval = 100 : g_AllItems.Add "sh06", sh06
+Set sh07 = New Flasher : sh07.Name = "sh07" : sh07.TimerInterval = 100 : g_AllItems.Add "sh07", sh07
+Set sh08 = New Flasher : sh08.Name = "sh08" : sh08.TimerInterval = 100 : g_AllItems.Add "sh08", sh08
+Set sh09 = New Flasher : sh09.Name = "sh09" : sh09.TimerInterval = 100 : g_AllItems.Add "sh09", sh09
+Set VR_Clockface = New Flasher : VR_Clockface.Name = "VR_Clockface" : VR_Clockface.TimerInterval = 100 : g_AllItems.Add "VR_Clockface", VR_Clockface
+Set VRBasketballShadow = New Flasher : VRBasketballShadow.Name = "VRBasketballShadow" : VRBasketballShadow.TimerInterval = 100 : g_AllItems.Add "VRBasketballShadow", VRBasketballShadow
+Set VRChairShadow = New Flasher : VRChairShadow.Name = "VRChairShadow" : VRChairShadow.TimerInterval = 100 : g_AllItems.Add "VRChairShadow", VRChairShadow
+Set VRChairShadow1 = New Flasher : VRChairShadow1.Name = "VRChairShadow1" : VRChairShadow1.TimerInterval = 100 : g_AllItems.Add "VRChairShadow1", VRChairShadow1
+Set VRCouchShadow = New Flasher : VRCouchShadow.Name = "VRCouchShadow" : VRCouchShadow.TimerInterval = 100 : g_AllItems.Add "VRCouchShadow", VRCouchShadow
+Set VRPhoneShadow1 = New Flasher : VRPhoneShadow1.Name = "VRPhoneShadow1" : VRPhoneShadow1.TimerInterval = 100 : g_AllItems.Add "VRPhoneShadow1", VRPhoneShadow1
+Set VRPhoneShadow2 = New Flasher : VRPhoneShadow2.Name = "VRPhoneShadow2" : VRPhoneShadow2.TimerInterval = 100 : g_AllItems.Add "VRPhoneShadow2", VRPhoneShadow2
 
 ' --- Flipper (2) ---
 Dim LeftFlipper, RightFlipper
@@ -355,7 +355,7 @@ Set TargetLights005 = New Light : TargetLights005.Name = "TargetLights005" : Tar
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (200) ---
 Dim Backbox_Fill, BallShadow0, BallShadow001, BallShadow002, BallShadow003, BallShadow004, BallShadow005, BallShadow1, BallShadow10, BallShadow11, BallShadow2, BallShadow3, BallShadow4, BallShadow5, BallShadow6
@@ -595,365 +595,365 @@ Dim Option56, Option57, Option58, Option59, Option6, Option60, Option61, Option6
 Dim Option7, Option70, Option71, Option72, Option73, Option74, Option75, Option76, Option77, Option78, Option79, Option8, Option80, Option81, Option82
 Dim Option83, Option84, Option85, Option86, Option87, Option88, Option89, Option9, Option90, Option91, Option92, Option93, Option94, Option95, Option96
 Dim Option97, Option98, Option99, Ramp002, Ramp009, Ramp3, Ramp386, Ramp4, ReplayCard
-Set BallCard = New Ramp : BallCard.Name = "BallCard" : g_AllItems.Add "BallCard", BallCard
-Set HS1 = New Ramp : HS1.Name = "HS1" : g_AllItems.Add "HS1", HS1
-Set HS10 = New Ramp : HS10.Name = "HS10" : g_AllItems.Add "HS10", HS10
-Set HS11 = New Ramp : HS11.Name = "HS11" : g_AllItems.Add "HS11", HS11
-Set HS12 = New Ramp : HS12.Name = "HS12" : g_AllItems.Add "HS12", HS12
-Set HS13 = New Ramp : HS13.Name = "HS13" : g_AllItems.Add "HS13", HS13
-Set HS14 = New Ramp : HS14.Name = "HS14" : g_AllItems.Add "HS14", HS14
-Set HS15 = New Ramp : HS15.Name = "HS15" : g_AllItems.Add "HS15", HS15
-Set HS16 = New Ramp : HS16.Name = "HS16" : g_AllItems.Add "HS16", HS16
-Set HS17 = New Ramp : HS17.Name = "HS17" : g_AllItems.Add "HS17", HS17
-Set HS18 = New Ramp : HS18.Name = "HS18" : g_AllItems.Add "HS18", HS18
-Set HS19 = New Ramp : HS19.Name = "HS19" : g_AllItems.Add "HS19", HS19
-Set HS2 = New Ramp : HS2.Name = "HS2" : g_AllItems.Add "HS2", HS2
-Set HS20 = New Ramp : HS20.Name = "HS20" : g_AllItems.Add "HS20", HS20
-Set HS21 = New Ramp : HS21.Name = "HS21" : g_AllItems.Add "HS21", HS21
-Set HS22 = New Ramp : HS22.Name = "HS22" : g_AllItems.Add "HS22", HS22
-Set HS23 = New Ramp : HS23.Name = "HS23" : g_AllItems.Add "HS23", HS23
-Set HS24 = New Ramp : HS24.Name = "HS24" : g_AllItems.Add "HS24", HS24
-Set HS25 = New Ramp : HS25.Name = "HS25" : g_AllItems.Add "HS25", HS25
-Set HS26 = New Ramp : HS26.Name = "HS26" : g_AllItems.Add "HS26", HS26
-Set HS27 = New Ramp : HS27.Name = "HS27" : g_AllItems.Add "HS27", HS27
-Set HS28 = New Ramp : HS28.Name = "HS28" : g_AllItems.Add "HS28", HS28
-Set HS29 = New Ramp : HS29.Name = "HS29" : g_AllItems.Add "HS29", HS29
-Set HS3 = New Ramp : HS3.Name = "HS3" : g_AllItems.Add "HS3", HS3
-Set HS30 = New Ramp : HS30.Name = "HS30" : g_AllItems.Add "HS30", HS30
-Set HS31 = New Ramp : HS31.Name = "HS31" : g_AllItems.Add "HS31", HS31
-Set HS4 = New Ramp : HS4.Name = "HS4" : g_AllItems.Add "HS4", HS4
-Set HS5 = New Ramp : HS5.Name = "HS5" : g_AllItems.Add "HS5", HS5
-Set HS6 = New Ramp : HS6.Name = "HS6" : g_AllItems.Add "HS6", HS6
-Set HS7 = New Ramp : HS7.Name = "HS7" : g_AllItems.Add "HS7", HS7
-Set HS8 = New Ramp : HS8.Name = "HS8" : g_AllItems.Add "HS8", HS8
-Set HS9 = New Ramp : HS9.Name = "HS9" : g_AllItems.Add "HS9", HS9
-Set ic_LMetalRail1 = New Ramp : ic_LMetalRail1.Name = "ic_LMetalRail1" : g_AllItems.Add "ic_LMetalRail1", ic_LMetalRail1
-Set ic_LMetalRail3 = New Ramp : ic_LMetalRail3.Name = "ic_LMetalRail3" : g_AllItems.Add "ic_LMetalRail3", ic_LMetalRail3
-Set ic_RMetalRail1 = New Ramp : ic_RMetalRail1.Name = "ic_RMetalRail1" : g_AllItems.Add "ic_RMetalRail1", ic_RMetalRail1
-Set ic_RMetalRail3 = New Ramp : ic_RMetalRail3.Name = "ic_RMetalRail3" : g_AllItems.Add "ic_RMetalRail3", ic_RMetalRail3
-Set InstructCard = New Ramp : InstructCard.Name = "InstructCard" : g_AllItems.Add "InstructCard", InstructCard
-Set OperatorMenuBackdrop = New Ramp : OperatorMenuBackdrop.Name = "OperatorMenuBackdrop" : g_AllItems.Add "OperatorMenuBackdrop", OperatorMenuBackdrop
-Set OperatorOption1 = New Ramp : OperatorOption1.Name = "OperatorOption1" : g_AllItems.Add "OperatorOption1", OperatorOption1
-Set OperatorOption2 = New Ramp : OperatorOption2.Name = "OperatorOption2" : g_AllItems.Add "OperatorOption2", OperatorOption2
-Set OperatorOption3 = New Ramp : OperatorOption3.Name = "OperatorOption3" : g_AllItems.Add "OperatorOption3", OperatorOption3
-Set OperatorOption4 = New Ramp : OperatorOption4.Name = "OperatorOption4" : g_AllItems.Add "OperatorOption4", OperatorOption4
-Set OperatorOption5 = New Ramp : OperatorOption5.Name = "OperatorOption5" : g_AllItems.Add "OperatorOption5", OperatorOption5
-Set OperatorOption6 = New Ramp : OperatorOption6.Name = "OperatorOption6" : g_AllItems.Add "OperatorOption6", OperatorOption6
-Set OperatorOption7 = New Ramp : OperatorOption7.Name = "OperatorOption7" : g_AllItems.Add "OperatorOption7", OperatorOption7
-Set OperatorOption8 = New Ramp : OperatorOption8.Name = "OperatorOption8" : g_AllItems.Add "OperatorOption8", OperatorOption8
-Set OperatorOption9 = New Ramp : OperatorOption9.Name = "OperatorOption9" : g_AllItems.Add "OperatorOption9", OperatorOption9
-Set Option1 = New Ramp : Option1.Name = "Option1" : g_AllItems.Add "Option1", Option1
-Set Option10 = New Ramp : Option10.Name = "Option10" : g_AllItems.Add "Option10", Option10
-Set Option100 = New Ramp : Option100.Name = "Option100" : g_AllItems.Add "Option100", Option100
-Set Option101 = New Ramp : Option101.Name = "Option101" : g_AllItems.Add "Option101", Option101
-Set Option102 = New Ramp : Option102.Name = "Option102" : g_AllItems.Add "Option102", Option102
-Set Option103 = New Ramp : Option103.Name = "Option103" : g_AllItems.Add "Option103", Option103
-Set Option104 = New Ramp : Option104.Name = "Option104" : g_AllItems.Add "Option104", Option104
-Set Option105 = New Ramp : Option105.Name = "Option105" : g_AllItems.Add "Option105", Option105
-Set Option106 = New Ramp : Option106.Name = "Option106" : g_AllItems.Add "Option106", Option106
-Set Option107 = New Ramp : Option107.Name = "Option107" : g_AllItems.Add "Option107", Option107
-Set Option108 = New Ramp : Option108.Name = "Option108" : g_AllItems.Add "Option108", Option108
-Set Option109 = New Ramp : Option109.Name = "Option109" : g_AllItems.Add "Option109", Option109
-Set Option11 = New Ramp : Option11.Name = "Option11" : g_AllItems.Add "Option11", Option11
-Set Option110 = New Ramp : Option110.Name = "Option110" : g_AllItems.Add "Option110", Option110
-Set Option111 = New Ramp : Option111.Name = "Option111" : g_AllItems.Add "Option111", Option111
-Set Option112 = New Ramp : Option112.Name = "Option112" : g_AllItems.Add "Option112", Option112
-Set Option113 = New Ramp : Option113.Name = "Option113" : g_AllItems.Add "Option113", Option113
-Set Option114 = New Ramp : Option114.Name = "Option114" : g_AllItems.Add "Option114", Option114
-Set Option115 = New Ramp : Option115.Name = "Option115" : g_AllItems.Add "Option115", Option115
-Set Option116 = New Ramp : Option116.Name = "Option116" : g_AllItems.Add "Option116", Option116
-Set Option117 = New Ramp : Option117.Name = "Option117" : g_AllItems.Add "Option117", Option117
-Set Option118 = New Ramp : Option118.Name = "Option118" : g_AllItems.Add "Option118", Option118
-Set Option119 = New Ramp : Option119.Name = "Option119" : g_AllItems.Add "Option119", Option119
-Set Option12 = New Ramp : Option12.Name = "Option12" : g_AllItems.Add "Option12", Option12
-Set Option120 = New Ramp : Option120.Name = "Option120" : g_AllItems.Add "Option120", Option120
-Set Option121 = New Ramp : Option121.Name = "Option121" : g_AllItems.Add "Option121", Option121
-Set Option122 = New Ramp : Option122.Name = "Option122" : g_AllItems.Add "Option122", Option122
-Set Option123 = New Ramp : Option123.Name = "Option123" : g_AllItems.Add "Option123", Option123
-Set Option124 = New Ramp : Option124.Name = "Option124" : g_AllItems.Add "Option124", Option124
-Set Option125 = New Ramp : Option125.Name = "Option125" : g_AllItems.Add "Option125", Option125
-Set Option126 = New Ramp : Option126.Name = "Option126" : g_AllItems.Add "Option126", Option126
-Set Option127 = New Ramp : Option127.Name = "Option127" : g_AllItems.Add "Option127", Option127
-Set Option128 = New Ramp : Option128.Name = "Option128" : g_AllItems.Add "Option128", Option128
-Set Option129 = New Ramp : Option129.Name = "Option129" : g_AllItems.Add "Option129", Option129
-Set Option13 = New Ramp : Option13.Name = "Option13" : g_AllItems.Add "Option13", Option13
-Set Option130 = New Ramp : Option130.Name = "Option130" : g_AllItems.Add "Option130", Option130
-Set Option131 = New Ramp : Option131.Name = "Option131" : g_AllItems.Add "Option131", Option131
-Set Option132 = New Ramp : Option132.Name = "Option132" : g_AllItems.Add "Option132", Option132
-Set Option133 = New Ramp : Option133.Name = "Option133" : g_AllItems.Add "Option133", Option133
-Set Option134 = New Ramp : Option134.Name = "Option134" : g_AllItems.Add "Option134", Option134
-Set Option135 = New Ramp : Option135.Name = "Option135" : g_AllItems.Add "Option135", Option135
-Set Option136 = New Ramp : Option136.Name = "Option136" : g_AllItems.Add "Option136", Option136
-Set Option137 = New Ramp : Option137.Name = "Option137" : g_AllItems.Add "Option137", Option137
-Set Option138 = New Ramp : Option138.Name = "Option138" : g_AllItems.Add "Option138", Option138
-Set Option139 = New Ramp : Option139.Name = "Option139" : g_AllItems.Add "Option139", Option139
-Set Option14 = New Ramp : Option14.Name = "Option14" : g_AllItems.Add "Option14", Option14
-Set Option140 = New Ramp : Option140.Name = "Option140" : g_AllItems.Add "Option140", Option140
-Set Option141 = New Ramp : Option141.Name = "Option141" : g_AllItems.Add "Option141", Option141
-Set Option142 = New Ramp : Option142.Name = "Option142" : g_AllItems.Add "Option142", Option142
-Set Option143 = New Ramp : Option143.Name = "Option143" : g_AllItems.Add "Option143", Option143
-Set Option144 = New Ramp : Option144.Name = "Option144" : g_AllItems.Add "Option144", Option144
-Set Option145 = New Ramp : Option145.Name = "Option145" : g_AllItems.Add "Option145", Option145
-Set Option146 = New Ramp : Option146.Name = "Option146" : g_AllItems.Add "Option146", Option146
-Set Option147 = New Ramp : Option147.Name = "Option147" : g_AllItems.Add "Option147", Option147
-Set Option148 = New Ramp : Option148.Name = "Option148" : g_AllItems.Add "Option148", Option148
-Set Option149 = New Ramp : Option149.Name = "Option149" : g_AllItems.Add "Option149", Option149
-Set Option15 = New Ramp : Option15.Name = "Option15" : g_AllItems.Add "Option15", Option15
-Set Option150 = New Ramp : Option150.Name = "Option150" : g_AllItems.Add "Option150", Option150
-Set Option151 = New Ramp : Option151.Name = "Option151" : g_AllItems.Add "Option151", Option151
-Set Option152 = New Ramp : Option152.Name = "Option152" : g_AllItems.Add "Option152", Option152
-Set Option153 = New Ramp : Option153.Name = "Option153" : g_AllItems.Add "Option153", Option153
-Set Option154 = New Ramp : Option154.Name = "Option154" : g_AllItems.Add "Option154", Option154
-Set Option155 = New Ramp : Option155.Name = "Option155" : g_AllItems.Add "Option155", Option155
-Set Option156 = New Ramp : Option156.Name = "Option156" : g_AllItems.Add "Option156", Option156
-Set Option157 = New Ramp : Option157.Name = "Option157" : g_AllItems.Add "Option157", Option157
-Set Option158 = New Ramp : Option158.Name = "Option158" : g_AllItems.Add "Option158", Option158
-Set Option159 = New Ramp : Option159.Name = "Option159" : g_AllItems.Add "Option159", Option159
-Set Option16 = New Ramp : Option16.Name = "Option16" : g_AllItems.Add "Option16", Option16
-Set Option160 = New Ramp : Option160.Name = "Option160" : g_AllItems.Add "Option160", Option160
-Set Option161 = New Ramp : Option161.Name = "Option161" : g_AllItems.Add "Option161", Option161
-Set Option162 = New Ramp : Option162.Name = "Option162" : g_AllItems.Add "Option162", Option162
-Set Option163 = New Ramp : Option163.Name = "Option163" : g_AllItems.Add "Option163", Option163
-Set Option164 = New Ramp : Option164.Name = "Option164" : g_AllItems.Add "Option164", Option164
-Set Option165 = New Ramp : Option165.Name = "Option165" : g_AllItems.Add "Option165", Option165
-Set Option166 = New Ramp : Option166.Name = "Option166" : g_AllItems.Add "Option166", Option166
-Set Option167 = New Ramp : Option167.Name = "Option167" : g_AllItems.Add "Option167", Option167
-Set Option168 = New Ramp : Option168.Name = "Option168" : g_AllItems.Add "Option168", Option168
-Set Option169 = New Ramp : Option169.Name = "Option169" : g_AllItems.Add "Option169", Option169
-Set Option17 = New Ramp : Option17.Name = "Option17" : g_AllItems.Add "Option17", Option17
-Set Option170 = New Ramp : Option170.Name = "Option170" : g_AllItems.Add "Option170", Option170
-Set Option171 = New Ramp : Option171.Name = "Option171" : g_AllItems.Add "Option171", Option171
-Set Option172 = New Ramp : Option172.Name = "Option172" : g_AllItems.Add "Option172", Option172
-Set Option173 = New Ramp : Option173.Name = "Option173" : g_AllItems.Add "Option173", Option173
-Set Option174 = New Ramp : Option174.Name = "Option174" : g_AllItems.Add "Option174", Option174
-Set Option175 = New Ramp : Option175.Name = "Option175" : g_AllItems.Add "Option175", Option175
-Set Option176 = New Ramp : Option176.Name = "Option176" : g_AllItems.Add "Option176", Option176
-Set Option177 = New Ramp : Option177.Name = "Option177" : g_AllItems.Add "Option177", Option177
-Set Option178 = New Ramp : Option178.Name = "Option178" : g_AllItems.Add "Option178", Option178
-Set Option179 = New Ramp : Option179.Name = "Option179" : g_AllItems.Add "Option179", Option179
-Set Option18 = New Ramp : Option18.Name = "Option18" : g_AllItems.Add "Option18", Option18
-Set Option180 = New Ramp : Option180.Name = "Option180" : g_AllItems.Add "Option180", Option180
-Set Option181 = New Ramp : Option181.Name = "Option181" : g_AllItems.Add "Option181", Option181
-Set Option182 = New Ramp : Option182.Name = "Option182" : g_AllItems.Add "Option182", Option182
-Set Option183 = New Ramp : Option183.Name = "Option183" : g_AllItems.Add "Option183", Option183
-Set Option184 = New Ramp : Option184.Name = "Option184" : g_AllItems.Add "Option184", Option184
-Set Option185 = New Ramp : Option185.Name = "Option185" : g_AllItems.Add "Option185", Option185
-Set Option186 = New Ramp : Option186.Name = "Option186" : g_AllItems.Add "Option186", Option186
-Set Option187 = New Ramp : Option187.Name = "Option187" : g_AllItems.Add "Option187", Option187
-Set Option188 = New Ramp : Option188.Name = "Option188" : g_AllItems.Add "Option188", Option188
-Set Option189 = New Ramp : Option189.Name = "Option189" : g_AllItems.Add "Option189", Option189
-Set Option19 = New Ramp : Option19.Name = "Option19" : g_AllItems.Add "Option19", Option19
-Set Option190 = New Ramp : Option190.Name = "Option190" : g_AllItems.Add "Option190", Option190
-Set Option191 = New Ramp : Option191.Name = "Option191" : g_AllItems.Add "Option191", Option191
-Set Option192 = New Ramp : Option192.Name = "Option192" : g_AllItems.Add "Option192", Option192
-Set Option193 = New Ramp : Option193.Name = "Option193" : g_AllItems.Add "Option193", Option193
-Set Option194 = New Ramp : Option194.Name = "Option194" : g_AllItems.Add "Option194", Option194
-Set Option195 = New Ramp : Option195.Name = "Option195" : g_AllItems.Add "Option195", Option195
-Set Option196 = New Ramp : Option196.Name = "Option196" : g_AllItems.Add "Option196", Option196
-Set Option197 = New Ramp : Option197.Name = "Option197" : g_AllItems.Add "Option197", Option197
-Set Option198 = New Ramp : Option198.Name = "Option198" : g_AllItems.Add "Option198", Option198
-Set Option199 = New Ramp : Option199.Name = "Option199" : g_AllItems.Add "Option199", Option199
-Set Option2 = New Ramp : Option2.Name = "Option2" : g_AllItems.Add "Option2", Option2
-Set Option20 = New Ramp : Option20.Name = "Option20" : g_AllItems.Add "Option20", Option20
-Set Option200 = New Ramp : Option200.Name = "Option200" : g_AllItems.Add "Option200", Option200
-Set Option201 = New Ramp : Option201.Name = "Option201" : g_AllItems.Add "Option201", Option201
-Set Option202 = New Ramp : Option202.Name = "Option202" : g_AllItems.Add "Option202", Option202
-Set Option203 = New Ramp : Option203.Name = "Option203" : g_AllItems.Add "Option203", Option203
-Set Option204 = New Ramp : Option204.Name = "Option204" : g_AllItems.Add "Option204", Option204
-Set Option205 = New Ramp : Option205.Name = "Option205" : g_AllItems.Add "Option205", Option205
-Set Option206 = New Ramp : Option206.Name = "Option206" : g_AllItems.Add "Option206", Option206
-Set Option207 = New Ramp : Option207.Name = "Option207" : g_AllItems.Add "Option207", Option207
-Set Option208 = New Ramp : Option208.Name = "Option208" : g_AllItems.Add "Option208", Option208
-Set Option209 = New Ramp : Option209.Name = "Option209" : g_AllItems.Add "Option209", Option209
-Set Option21 = New Ramp : Option21.Name = "Option21" : g_AllItems.Add "Option21", Option21
-Set Option210 = New Ramp : Option210.Name = "Option210" : g_AllItems.Add "Option210", Option210
-Set Option211 = New Ramp : Option211.Name = "Option211" : g_AllItems.Add "Option211", Option211
-Set Option212 = New Ramp : Option212.Name = "Option212" : g_AllItems.Add "Option212", Option212
-Set Option213 = New Ramp : Option213.Name = "Option213" : g_AllItems.Add "Option213", Option213
-Set Option214 = New Ramp : Option214.Name = "Option214" : g_AllItems.Add "Option214", Option214
-Set Option215 = New Ramp : Option215.Name = "Option215" : g_AllItems.Add "Option215", Option215
-Set Option216 = New Ramp : Option216.Name = "Option216" : g_AllItems.Add "Option216", Option216
-Set Option217 = New Ramp : Option217.Name = "Option217" : g_AllItems.Add "Option217", Option217
-Set Option218 = New Ramp : Option218.Name = "Option218" : g_AllItems.Add "Option218", Option218
-Set Option219 = New Ramp : Option219.Name = "Option219" : g_AllItems.Add "Option219", Option219
-Set Option22 = New Ramp : Option22.Name = "Option22" : g_AllItems.Add "Option22", Option22
-Set Option220 = New Ramp : Option220.Name = "Option220" : g_AllItems.Add "Option220", Option220
-Set Option221 = New Ramp : Option221.Name = "Option221" : g_AllItems.Add "Option221", Option221
-Set Option222 = New Ramp : Option222.Name = "Option222" : g_AllItems.Add "Option222", Option222
-Set Option223 = New Ramp : Option223.Name = "Option223" : g_AllItems.Add "Option223", Option223
-Set Option224 = New Ramp : Option224.Name = "Option224" : g_AllItems.Add "Option224", Option224
-Set Option225 = New Ramp : Option225.Name = "Option225" : g_AllItems.Add "Option225", Option225
-Set Option226 = New Ramp : Option226.Name = "Option226" : g_AllItems.Add "Option226", Option226
-Set Option227 = New Ramp : Option227.Name = "Option227" : g_AllItems.Add "Option227", Option227
-Set Option228 = New Ramp : Option228.Name = "Option228" : g_AllItems.Add "Option228", Option228
-Set Option229 = New Ramp : Option229.Name = "Option229" : g_AllItems.Add "Option229", Option229
-Set Option23 = New Ramp : Option23.Name = "Option23" : g_AllItems.Add "Option23", Option23
-Set Option230 = New Ramp : Option230.Name = "Option230" : g_AllItems.Add "Option230", Option230
-Set Option231 = New Ramp : Option231.Name = "Option231" : g_AllItems.Add "Option231", Option231
-Set Option232 = New Ramp : Option232.Name = "Option232" : g_AllItems.Add "Option232", Option232
-Set Option233 = New Ramp : Option233.Name = "Option233" : g_AllItems.Add "Option233", Option233
-Set Option234 = New Ramp : Option234.Name = "Option234" : g_AllItems.Add "Option234", Option234
-Set Option235 = New Ramp : Option235.Name = "Option235" : g_AllItems.Add "Option235", Option235
-Set Option236 = New Ramp : Option236.Name = "Option236" : g_AllItems.Add "Option236", Option236
-Set Option237 = New Ramp : Option237.Name = "Option237" : g_AllItems.Add "Option237", Option237
-Set Option238 = New Ramp : Option238.Name = "Option238" : g_AllItems.Add "Option238", Option238
-Set Option239 = New Ramp : Option239.Name = "Option239" : g_AllItems.Add "Option239", Option239
-Set Option24 = New Ramp : Option24.Name = "Option24" : g_AllItems.Add "Option24", Option24
-Set Option240 = New Ramp : Option240.Name = "Option240" : g_AllItems.Add "Option240", Option240
-Set Option241 = New Ramp : Option241.Name = "Option241" : g_AllItems.Add "Option241", Option241
-Set Option242 = New Ramp : Option242.Name = "Option242" : g_AllItems.Add "Option242", Option242
-Set Option243 = New Ramp : Option243.Name = "Option243" : g_AllItems.Add "Option243", Option243
-Set Option244 = New Ramp : Option244.Name = "Option244" : g_AllItems.Add "Option244", Option244
-Set Option245 = New Ramp : Option245.Name = "Option245" : g_AllItems.Add "Option245", Option245
-Set Option246 = New Ramp : Option246.Name = "Option246" : g_AllItems.Add "Option246", Option246
-Set Option247 = New Ramp : Option247.Name = "Option247" : g_AllItems.Add "Option247", Option247
-Set Option248 = New Ramp : Option248.Name = "Option248" : g_AllItems.Add "Option248", Option248
-Set Option249 = New Ramp : Option249.Name = "Option249" : g_AllItems.Add "Option249", Option249
-Set Option25 = New Ramp : Option25.Name = "Option25" : g_AllItems.Add "Option25", Option25
-Set Option250 = New Ramp : Option250.Name = "Option250" : g_AllItems.Add "Option250", Option250
-Set Option251 = New Ramp : Option251.Name = "Option251" : g_AllItems.Add "Option251", Option251
-Set Option252 = New Ramp : Option252.Name = "Option252" : g_AllItems.Add "Option252", Option252
-Set Option253 = New Ramp : Option253.Name = "Option253" : g_AllItems.Add "Option253", Option253
-Set Option254 = New Ramp : Option254.Name = "Option254" : g_AllItems.Add "Option254", Option254
-Set Option255 = New Ramp : Option255.Name = "Option255" : g_AllItems.Add "Option255", Option255
-Set Option256 = New Ramp : Option256.Name = "Option256" : g_AllItems.Add "Option256", Option256
-Set Option26 = New Ramp : Option26.Name = "Option26" : g_AllItems.Add "Option26", Option26
-Set Option27 = New Ramp : Option27.Name = "Option27" : g_AllItems.Add "Option27", Option27
-Set Option28 = New Ramp : Option28.Name = "Option28" : g_AllItems.Add "Option28", Option28
-Set Option29 = New Ramp : Option29.Name = "Option29" : g_AllItems.Add "Option29", Option29
-Set Option3 = New Ramp : Option3.Name = "Option3" : g_AllItems.Add "Option3", Option3
-Set Option30 = New Ramp : Option30.Name = "Option30" : g_AllItems.Add "Option30", Option30
-Set Option31 = New Ramp : Option31.Name = "Option31" : g_AllItems.Add "Option31", Option31
-Set Option32 = New Ramp : Option32.Name = "Option32" : g_AllItems.Add "Option32", Option32
-Set Option33 = New Ramp : Option33.Name = "Option33" : g_AllItems.Add "Option33", Option33
-Set Option34 = New Ramp : Option34.Name = "Option34" : g_AllItems.Add "Option34", Option34
-Set Option35 = New Ramp : Option35.Name = "Option35" : g_AllItems.Add "Option35", Option35
-Set Option36 = New Ramp : Option36.Name = "Option36" : g_AllItems.Add "Option36", Option36
-Set Option37 = New Ramp : Option37.Name = "Option37" : g_AllItems.Add "Option37", Option37
-Set Option38 = New Ramp : Option38.Name = "Option38" : g_AllItems.Add "Option38", Option38
-Set Option39 = New Ramp : Option39.Name = "Option39" : g_AllItems.Add "Option39", Option39
-Set Option4 = New Ramp : Option4.Name = "Option4" : g_AllItems.Add "Option4", Option4
-Set Option40 = New Ramp : Option40.Name = "Option40" : g_AllItems.Add "Option40", Option40
-Set Option41 = New Ramp : Option41.Name = "Option41" : g_AllItems.Add "Option41", Option41
-Set Option42 = New Ramp : Option42.Name = "Option42" : g_AllItems.Add "Option42", Option42
-Set Option43 = New Ramp : Option43.Name = "Option43" : g_AllItems.Add "Option43", Option43
-Set Option44 = New Ramp : Option44.Name = "Option44" : g_AllItems.Add "Option44", Option44
-Set Option45 = New Ramp : Option45.Name = "Option45" : g_AllItems.Add "Option45", Option45
-Set Option46 = New Ramp : Option46.Name = "Option46" : g_AllItems.Add "Option46", Option46
-Set Option47 = New Ramp : Option47.Name = "Option47" : g_AllItems.Add "Option47", Option47
-Set Option48 = New Ramp : Option48.Name = "Option48" : g_AllItems.Add "Option48", Option48
-Set Option49 = New Ramp : Option49.Name = "Option49" : g_AllItems.Add "Option49", Option49
-Set Option5 = New Ramp : Option5.Name = "Option5" : g_AllItems.Add "Option5", Option5
-Set Option50 = New Ramp : Option50.Name = "Option50" : g_AllItems.Add "Option50", Option50
-Set Option51 = New Ramp : Option51.Name = "Option51" : g_AllItems.Add "Option51", Option51
-Set Option52 = New Ramp : Option52.Name = "Option52" : g_AllItems.Add "Option52", Option52
-Set Option53 = New Ramp : Option53.Name = "Option53" : g_AllItems.Add "Option53", Option53
-Set Option54 = New Ramp : Option54.Name = "Option54" : g_AllItems.Add "Option54", Option54
-Set Option55 = New Ramp : Option55.Name = "Option55" : g_AllItems.Add "Option55", Option55
-Set Option56 = New Ramp : Option56.Name = "Option56" : g_AllItems.Add "Option56", Option56
-Set Option57 = New Ramp : Option57.Name = "Option57" : g_AllItems.Add "Option57", Option57
-Set Option58 = New Ramp : Option58.Name = "Option58" : g_AllItems.Add "Option58", Option58
-Set Option59 = New Ramp : Option59.Name = "Option59" : g_AllItems.Add "Option59", Option59
-Set Option6 = New Ramp : Option6.Name = "Option6" : g_AllItems.Add "Option6", Option6
-Set Option60 = New Ramp : Option60.Name = "Option60" : g_AllItems.Add "Option60", Option60
-Set Option61 = New Ramp : Option61.Name = "Option61" : g_AllItems.Add "Option61", Option61
-Set Option62 = New Ramp : Option62.Name = "Option62" : g_AllItems.Add "Option62", Option62
-Set Option63 = New Ramp : Option63.Name = "Option63" : g_AllItems.Add "Option63", Option63
-Set Option64 = New Ramp : Option64.Name = "Option64" : g_AllItems.Add "Option64", Option64
-Set Option65 = New Ramp : Option65.Name = "Option65" : g_AllItems.Add "Option65", Option65
-Set Option66 = New Ramp : Option66.Name = "Option66" : g_AllItems.Add "Option66", Option66
-Set Option67 = New Ramp : Option67.Name = "Option67" : g_AllItems.Add "Option67", Option67
-Set Option68 = New Ramp : Option68.Name = "Option68" : g_AllItems.Add "Option68", Option68
-Set Option69 = New Ramp : Option69.Name = "Option69" : g_AllItems.Add "Option69", Option69
-Set Option7 = New Ramp : Option7.Name = "Option7" : g_AllItems.Add "Option7", Option7
-Set Option70 = New Ramp : Option70.Name = "Option70" : g_AllItems.Add "Option70", Option70
-Set Option71 = New Ramp : Option71.Name = "Option71" : g_AllItems.Add "Option71", Option71
-Set Option72 = New Ramp : Option72.Name = "Option72" : g_AllItems.Add "Option72", Option72
-Set Option73 = New Ramp : Option73.Name = "Option73" : g_AllItems.Add "Option73", Option73
-Set Option74 = New Ramp : Option74.Name = "Option74" : g_AllItems.Add "Option74", Option74
-Set Option75 = New Ramp : Option75.Name = "Option75" : g_AllItems.Add "Option75", Option75
-Set Option76 = New Ramp : Option76.Name = "Option76" : g_AllItems.Add "Option76", Option76
-Set Option77 = New Ramp : Option77.Name = "Option77" : g_AllItems.Add "Option77", Option77
-Set Option78 = New Ramp : Option78.Name = "Option78" : g_AllItems.Add "Option78", Option78
-Set Option79 = New Ramp : Option79.Name = "Option79" : g_AllItems.Add "Option79", Option79
-Set Option8 = New Ramp : Option8.Name = "Option8" : g_AllItems.Add "Option8", Option8
-Set Option80 = New Ramp : Option80.Name = "Option80" : g_AllItems.Add "Option80", Option80
-Set Option81 = New Ramp : Option81.Name = "Option81" : g_AllItems.Add "Option81", Option81
-Set Option82 = New Ramp : Option82.Name = "Option82" : g_AllItems.Add "Option82", Option82
-Set Option83 = New Ramp : Option83.Name = "Option83" : g_AllItems.Add "Option83", Option83
-Set Option84 = New Ramp : Option84.Name = "Option84" : g_AllItems.Add "Option84", Option84
-Set Option85 = New Ramp : Option85.Name = "Option85" : g_AllItems.Add "Option85", Option85
-Set Option86 = New Ramp : Option86.Name = "Option86" : g_AllItems.Add "Option86", Option86
-Set Option87 = New Ramp : Option87.Name = "Option87" : g_AllItems.Add "Option87", Option87
-Set Option88 = New Ramp : Option88.Name = "Option88" : g_AllItems.Add "Option88", Option88
-Set Option89 = New Ramp : Option89.Name = "Option89" : g_AllItems.Add "Option89", Option89
-Set Option9 = New Ramp : Option9.Name = "Option9" : g_AllItems.Add "Option9", Option9
-Set Option90 = New Ramp : Option90.Name = "Option90" : g_AllItems.Add "Option90", Option90
-Set Option91 = New Ramp : Option91.Name = "Option91" : g_AllItems.Add "Option91", Option91
-Set Option92 = New Ramp : Option92.Name = "Option92" : g_AllItems.Add "Option92", Option92
-Set Option93 = New Ramp : Option93.Name = "Option93" : g_AllItems.Add "Option93", Option93
-Set Option94 = New Ramp : Option94.Name = "Option94" : g_AllItems.Add "Option94", Option94
-Set Option95 = New Ramp : Option95.Name = "Option95" : g_AllItems.Add "Option95", Option95
-Set Option96 = New Ramp : Option96.Name = "Option96" : g_AllItems.Add "Option96", Option96
-Set Option97 = New Ramp : Option97.Name = "Option97" : g_AllItems.Add "Option97", Option97
-Set Option98 = New Ramp : Option98.Name = "Option98" : g_AllItems.Add "Option98", Option98
-Set Option99 = New Ramp : Option99.Name = "Option99" : g_AllItems.Add "Option99", Option99
-Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : g_AllItems.Add "Ramp002", Ramp002
-Set Ramp009 = New Ramp : Ramp009.Name = "Ramp009" : g_AllItems.Add "Ramp009", Ramp009
-Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : g_AllItems.Add "Ramp3", Ramp3
-Set Ramp386 = New Ramp : Ramp386.Name = "Ramp386" : g_AllItems.Add "Ramp386", Ramp386
-Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : g_AllItems.Add "Ramp4", Ramp4
-Set ReplayCard = New Ramp : ReplayCard.Name = "ReplayCard" : g_AllItems.Add "ReplayCard", ReplayCard
+Set BallCard = New Ramp : BallCard.Name = "BallCard" : BallCard.TimerInterval = 100 : g_AllItems.Add "BallCard", BallCard
+Set HS1 = New Ramp : HS1.Name = "HS1" : HS1.TimerInterval = 100 : g_AllItems.Add "HS1", HS1
+Set HS10 = New Ramp : HS10.Name = "HS10" : HS10.TimerInterval = 100 : g_AllItems.Add "HS10", HS10
+Set HS11 = New Ramp : HS11.Name = "HS11" : HS11.TimerInterval = 100 : g_AllItems.Add "HS11", HS11
+Set HS12 = New Ramp : HS12.Name = "HS12" : HS12.TimerInterval = 100 : g_AllItems.Add "HS12", HS12
+Set HS13 = New Ramp : HS13.Name = "HS13" : HS13.TimerInterval = 100 : g_AllItems.Add "HS13", HS13
+Set HS14 = New Ramp : HS14.Name = "HS14" : HS14.TimerInterval = 100 : g_AllItems.Add "HS14", HS14
+Set HS15 = New Ramp : HS15.Name = "HS15" : HS15.TimerInterval = 100 : g_AllItems.Add "HS15", HS15
+Set HS16 = New Ramp : HS16.Name = "HS16" : HS16.TimerInterval = 100 : g_AllItems.Add "HS16", HS16
+Set HS17 = New Ramp : HS17.Name = "HS17" : HS17.TimerInterval = 100 : g_AllItems.Add "HS17", HS17
+Set HS18 = New Ramp : HS18.Name = "HS18" : HS18.TimerInterval = 100 : g_AllItems.Add "HS18", HS18
+Set HS19 = New Ramp : HS19.Name = "HS19" : HS19.TimerInterval = 100 : g_AllItems.Add "HS19", HS19
+Set HS2 = New Ramp : HS2.Name = "HS2" : HS2.TimerInterval = 100 : g_AllItems.Add "HS2", HS2
+Set HS20 = New Ramp : HS20.Name = "HS20" : HS20.TimerInterval = 100 : g_AllItems.Add "HS20", HS20
+Set HS21 = New Ramp : HS21.Name = "HS21" : HS21.TimerInterval = 100 : g_AllItems.Add "HS21", HS21
+Set HS22 = New Ramp : HS22.Name = "HS22" : HS22.TimerInterval = 100 : g_AllItems.Add "HS22", HS22
+Set HS23 = New Ramp : HS23.Name = "HS23" : HS23.TimerInterval = 100 : g_AllItems.Add "HS23", HS23
+Set HS24 = New Ramp : HS24.Name = "HS24" : HS24.TimerInterval = 100 : g_AllItems.Add "HS24", HS24
+Set HS25 = New Ramp : HS25.Name = "HS25" : HS25.TimerInterval = 100 : g_AllItems.Add "HS25", HS25
+Set HS26 = New Ramp : HS26.Name = "HS26" : HS26.TimerInterval = 100 : g_AllItems.Add "HS26", HS26
+Set HS27 = New Ramp : HS27.Name = "HS27" : HS27.TimerInterval = 100 : g_AllItems.Add "HS27", HS27
+Set HS28 = New Ramp : HS28.Name = "HS28" : HS28.TimerInterval = 100 : g_AllItems.Add "HS28", HS28
+Set HS29 = New Ramp : HS29.Name = "HS29" : HS29.TimerInterval = 100 : g_AllItems.Add "HS29", HS29
+Set HS3 = New Ramp : HS3.Name = "HS3" : HS3.TimerInterval = 100 : g_AllItems.Add "HS3", HS3
+Set HS30 = New Ramp : HS30.Name = "HS30" : HS30.TimerInterval = 100 : g_AllItems.Add "HS30", HS30
+Set HS31 = New Ramp : HS31.Name = "HS31" : HS31.TimerInterval = 100 : g_AllItems.Add "HS31", HS31
+Set HS4 = New Ramp : HS4.Name = "HS4" : HS4.TimerInterval = 100 : g_AllItems.Add "HS4", HS4
+Set HS5 = New Ramp : HS5.Name = "HS5" : HS5.TimerInterval = 100 : g_AllItems.Add "HS5", HS5
+Set HS6 = New Ramp : HS6.Name = "HS6" : HS6.TimerInterval = 100 : g_AllItems.Add "HS6", HS6
+Set HS7 = New Ramp : HS7.Name = "HS7" : HS7.TimerInterval = 100 : g_AllItems.Add "HS7", HS7
+Set HS8 = New Ramp : HS8.Name = "HS8" : HS8.TimerInterval = 100 : g_AllItems.Add "HS8", HS8
+Set HS9 = New Ramp : HS9.Name = "HS9" : HS9.TimerInterval = 100 : g_AllItems.Add "HS9", HS9
+Set ic_LMetalRail1 = New Ramp : ic_LMetalRail1.Name = "ic_LMetalRail1" : ic_LMetalRail1.TimerInterval = 100 : g_AllItems.Add "ic_LMetalRail1", ic_LMetalRail1
+Set ic_LMetalRail3 = New Ramp : ic_LMetalRail3.Name = "ic_LMetalRail3" : ic_LMetalRail3.TimerInterval = 100 : g_AllItems.Add "ic_LMetalRail3", ic_LMetalRail3
+Set ic_RMetalRail1 = New Ramp : ic_RMetalRail1.Name = "ic_RMetalRail1" : ic_RMetalRail1.TimerInterval = 100 : g_AllItems.Add "ic_RMetalRail1", ic_RMetalRail1
+Set ic_RMetalRail3 = New Ramp : ic_RMetalRail3.Name = "ic_RMetalRail3" : ic_RMetalRail3.TimerInterval = 100 : g_AllItems.Add "ic_RMetalRail3", ic_RMetalRail3
+Set InstructCard = New Ramp : InstructCard.Name = "InstructCard" : InstructCard.TimerInterval = 100 : g_AllItems.Add "InstructCard", InstructCard
+Set OperatorMenuBackdrop = New Ramp : OperatorMenuBackdrop.Name = "OperatorMenuBackdrop" : OperatorMenuBackdrop.TimerInterval = 100 : g_AllItems.Add "OperatorMenuBackdrop", OperatorMenuBackdrop
+Set OperatorOption1 = New Ramp : OperatorOption1.Name = "OperatorOption1" : OperatorOption1.TimerInterval = 100 : g_AllItems.Add "OperatorOption1", OperatorOption1
+Set OperatorOption2 = New Ramp : OperatorOption2.Name = "OperatorOption2" : OperatorOption2.TimerInterval = 100 : g_AllItems.Add "OperatorOption2", OperatorOption2
+Set OperatorOption3 = New Ramp : OperatorOption3.Name = "OperatorOption3" : OperatorOption3.TimerInterval = 100 : g_AllItems.Add "OperatorOption3", OperatorOption3
+Set OperatorOption4 = New Ramp : OperatorOption4.Name = "OperatorOption4" : OperatorOption4.TimerInterval = 100 : g_AllItems.Add "OperatorOption4", OperatorOption4
+Set OperatorOption5 = New Ramp : OperatorOption5.Name = "OperatorOption5" : OperatorOption5.TimerInterval = 100 : g_AllItems.Add "OperatorOption5", OperatorOption5
+Set OperatorOption6 = New Ramp : OperatorOption6.Name = "OperatorOption6" : OperatorOption6.TimerInterval = 100 : g_AllItems.Add "OperatorOption6", OperatorOption6
+Set OperatorOption7 = New Ramp : OperatorOption7.Name = "OperatorOption7" : OperatorOption7.TimerInterval = 100 : g_AllItems.Add "OperatorOption7", OperatorOption7
+Set OperatorOption8 = New Ramp : OperatorOption8.Name = "OperatorOption8" : OperatorOption8.TimerInterval = 100 : g_AllItems.Add "OperatorOption8", OperatorOption8
+Set OperatorOption9 = New Ramp : OperatorOption9.Name = "OperatorOption9" : OperatorOption9.TimerInterval = 100 : g_AllItems.Add "OperatorOption9", OperatorOption9
+Set Option1 = New Ramp : Option1.Name = "Option1" : Option1.TimerInterval = 100 : g_AllItems.Add "Option1", Option1
+Set Option10 = New Ramp : Option10.Name = "Option10" : Option10.TimerInterval = 100 : g_AllItems.Add "Option10", Option10
+Set Option100 = New Ramp : Option100.Name = "Option100" : Option100.TimerInterval = 100 : g_AllItems.Add "Option100", Option100
+Set Option101 = New Ramp : Option101.Name = "Option101" : Option101.TimerInterval = 100 : g_AllItems.Add "Option101", Option101
+Set Option102 = New Ramp : Option102.Name = "Option102" : Option102.TimerInterval = 100 : g_AllItems.Add "Option102", Option102
+Set Option103 = New Ramp : Option103.Name = "Option103" : Option103.TimerInterval = 100 : g_AllItems.Add "Option103", Option103
+Set Option104 = New Ramp : Option104.Name = "Option104" : Option104.TimerInterval = 100 : g_AllItems.Add "Option104", Option104
+Set Option105 = New Ramp : Option105.Name = "Option105" : Option105.TimerInterval = 100 : g_AllItems.Add "Option105", Option105
+Set Option106 = New Ramp : Option106.Name = "Option106" : Option106.TimerInterval = 100 : g_AllItems.Add "Option106", Option106
+Set Option107 = New Ramp : Option107.Name = "Option107" : Option107.TimerInterval = 100 : g_AllItems.Add "Option107", Option107
+Set Option108 = New Ramp : Option108.Name = "Option108" : Option108.TimerInterval = 100 : g_AllItems.Add "Option108", Option108
+Set Option109 = New Ramp : Option109.Name = "Option109" : Option109.TimerInterval = 100 : g_AllItems.Add "Option109", Option109
+Set Option11 = New Ramp : Option11.Name = "Option11" : Option11.TimerInterval = 100 : g_AllItems.Add "Option11", Option11
+Set Option110 = New Ramp : Option110.Name = "Option110" : Option110.TimerInterval = 100 : g_AllItems.Add "Option110", Option110
+Set Option111 = New Ramp : Option111.Name = "Option111" : Option111.TimerInterval = 100 : g_AllItems.Add "Option111", Option111
+Set Option112 = New Ramp : Option112.Name = "Option112" : Option112.TimerInterval = 100 : g_AllItems.Add "Option112", Option112
+Set Option113 = New Ramp : Option113.Name = "Option113" : Option113.TimerInterval = 100 : g_AllItems.Add "Option113", Option113
+Set Option114 = New Ramp : Option114.Name = "Option114" : Option114.TimerInterval = 100 : g_AllItems.Add "Option114", Option114
+Set Option115 = New Ramp : Option115.Name = "Option115" : Option115.TimerInterval = 100 : g_AllItems.Add "Option115", Option115
+Set Option116 = New Ramp : Option116.Name = "Option116" : Option116.TimerInterval = 100 : g_AllItems.Add "Option116", Option116
+Set Option117 = New Ramp : Option117.Name = "Option117" : Option117.TimerInterval = 100 : g_AllItems.Add "Option117", Option117
+Set Option118 = New Ramp : Option118.Name = "Option118" : Option118.TimerInterval = 100 : g_AllItems.Add "Option118", Option118
+Set Option119 = New Ramp : Option119.Name = "Option119" : Option119.TimerInterval = 100 : g_AllItems.Add "Option119", Option119
+Set Option12 = New Ramp : Option12.Name = "Option12" : Option12.TimerInterval = 100 : g_AllItems.Add "Option12", Option12
+Set Option120 = New Ramp : Option120.Name = "Option120" : Option120.TimerInterval = 100 : g_AllItems.Add "Option120", Option120
+Set Option121 = New Ramp : Option121.Name = "Option121" : Option121.TimerInterval = 100 : g_AllItems.Add "Option121", Option121
+Set Option122 = New Ramp : Option122.Name = "Option122" : Option122.TimerInterval = 100 : g_AllItems.Add "Option122", Option122
+Set Option123 = New Ramp : Option123.Name = "Option123" : Option123.TimerInterval = 100 : g_AllItems.Add "Option123", Option123
+Set Option124 = New Ramp : Option124.Name = "Option124" : Option124.TimerInterval = 100 : g_AllItems.Add "Option124", Option124
+Set Option125 = New Ramp : Option125.Name = "Option125" : Option125.TimerInterval = 100 : g_AllItems.Add "Option125", Option125
+Set Option126 = New Ramp : Option126.Name = "Option126" : Option126.TimerInterval = 100 : g_AllItems.Add "Option126", Option126
+Set Option127 = New Ramp : Option127.Name = "Option127" : Option127.TimerInterval = 100 : g_AllItems.Add "Option127", Option127
+Set Option128 = New Ramp : Option128.Name = "Option128" : Option128.TimerInterval = 100 : g_AllItems.Add "Option128", Option128
+Set Option129 = New Ramp : Option129.Name = "Option129" : Option129.TimerInterval = 100 : g_AllItems.Add "Option129", Option129
+Set Option13 = New Ramp : Option13.Name = "Option13" : Option13.TimerInterval = 100 : g_AllItems.Add "Option13", Option13
+Set Option130 = New Ramp : Option130.Name = "Option130" : Option130.TimerInterval = 100 : g_AllItems.Add "Option130", Option130
+Set Option131 = New Ramp : Option131.Name = "Option131" : Option131.TimerInterval = 100 : g_AllItems.Add "Option131", Option131
+Set Option132 = New Ramp : Option132.Name = "Option132" : Option132.TimerInterval = 100 : g_AllItems.Add "Option132", Option132
+Set Option133 = New Ramp : Option133.Name = "Option133" : Option133.TimerInterval = 100 : g_AllItems.Add "Option133", Option133
+Set Option134 = New Ramp : Option134.Name = "Option134" : Option134.TimerInterval = 100 : g_AllItems.Add "Option134", Option134
+Set Option135 = New Ramp : Option135.Name = "Option135" : Option135.TimerInterval = 100 : g_AllItems.Add "Option135", Option135
+Set Option136 = New Ramp : Option136.Name = "Option136" : Option136.TimerInterval = 100 : g_AllItems.Add "Option136", Option136
+Set Option137 = New Ramp : Option137.Name = "Option137" : Option137.TimerInterval = 100 : g_AllItems.Add "Option137", Option137
+Set Option138 = New Ramp : Option138.Name = "Option138" : Option138.TimerInterval = 100 : g_AllItems.Add "Option138", Option138
+Set Option139 = New Ramp : Option139.Name = "Option139" : Option139.TimerInterval = 100 : g_AllItems.Add "Option139", Option139
+Set Option14 = New Ramp : Option14.Name = "Option14" : Option14.TimerInterval = 100 : g_AllItems.Add "Option14", Option14
+Set Option140 = New Ramp : Option140.Name = "Option140" : Option140.TimerInterval = 100 : g_AllItems.Add "Option140", Option140
+Set Option141 = New Ramp : Option141.Name = "Option141" : Option141.TimerInterval = 100 : g_AllItems.Add "Option141", Option141
+Set Option142 = New Ramp : Option142.Name = "Option142" : Option142.TimerInterval = 100 : g_AllItems.Add "Option142", Option142
+Set Option143 = New Ramp : Option143.Name = "Option143" : Option143.TimerInterval = 100 : g_AllItems.Add "Option143", Option143
+Set Option144 = New Ramp : Option144.Name = "Option144" : Option144.TimerInterval = 100 : g_AllItems.Add "Option144", Option144
+Set Option145 = New Ramp : Option145.Name = "Option145" : Option145.TimerInterval = 100 : g_AllItems.Add "Option145", Option145
+Set Option146 = New Ramp : Option146.Name = "Option146" : Option146.TimerInterval = 100 : g_AllItems.Add "Option146", Option146
+Set Option147 = New Ramp : Option147.Name = "Option147" : Option147.TimerInterval = 100 : g_AllItems.Add "Option147", Option147
+Set Option148 = New Ramp : Option148.Name = "Option148" : Option148.TimerInterval = 100 : g_AllItems.Add "Option148", Option148
+Set Option149 = New Ramp : Option149.Name = "Option149" : Option149.TimerInterval = 100 : g_AllItems.Add "Option149", Option149
+Set Option15 = New Ramp : Option15.Name = "Option15" : Option15.TimerInterval = 100 : g_AllItems.Add "Option15", Option15
+Set Option150 = New Ramp : Option150.Name = "Option150" : Option150.TimerInterval = 100 : g_AllItems.Add "Option150", Option150
+Set Option151 = New Ramp : Option151.Name = "Option151" : Option151.TimerInterval = 100 : g_AllItems.Add "Option151", Option151
+Set Option152 = New Ramp : Option152.Name = "Option152" : Option152.TimerInterval = 100 : g_AllItems.Add "Option152", Option152
+Set Option153 = New Ramp : Option153.Name = "Option153" : Option153.TimerInterval = 100 : g_AllItems.Add "Option153", Option153
+Set Option154 = New Ramp : Option154.Name = "Option154" : Option154.TimerInterval = 100 : g_AllItems.Add "Option154", Option154
+Set Option155 = New Ramp : Option155.Name = "Option155" : Option155.TimerInterval = 100 : g_AllItems.Add "Option155", Option155
+Set Option156 = New Ramp : Option156.Name = "Option156" : Option156.TimerInterval = 100 : g_AllItems.Add "Option156", Option156
+Set Option157 = New Ramp : Option157.Name = "Option157" : Option157.TimerInterval = 100 : g_AllItems.Add "Option157", Option157
+Set Option158 = New Ramp : Option158.Name = "Option158" : Option158.TimerInterval = 100 : g_AllItems.Add "Option158", Option158
+Set Option159 = New Ramp : Option159.Name = "Option159" : Option159.TimerInterval = 100 : g_AllItems.Add "Option159", Option159
+Set Option16 = New Ramp : Option16.Name = "Option16" : Option16.TimerInterval = 100 : g_AllItems.Add "Option16", Option16
+Set Option160 = New Ramp : Option160.Name = "Option160" : Option160.TimerInterval = 100 : g_AllItems.Add "Option160", Option160
+Set Option161 = New Ramp : Option161.Name = "Option161" : Option161.TimerInterval = 100 : g_AllItems.Add "Option161", Option161
+Set Option162 = New Ramp : Option162.Name = "Option162" : Option162.TimerInterval = 100 : g_AllItems.Add "Option162", Option162
+Set Option163 = New Ramp : Option163.Name = "Option163" : Option163.TimerInterval = 100 : g_AllItems.Add "Option163", Option163
+Set Option164 = New Ramp : Option164.Name = "Option164" : Option164.TimerInterval = 100 : g_AllItems.Add "Option164", Option164
+Set Option165 = New Ramp : Option165.Name = "Option165" : Option165.TimerInterval = 100 : g_AllItems.Add "Option165", Option165
+Set Option166 = New Ramp : Option166.Name = "Option166" : Option166.TimerInterval = 100 : g_AllItems.Add "Option166", Option166
+Set Option167 = New Ramp : Option167.Name = "Option167" : Option167.TimerInterval = 100 : g_AllItems.Add "Option167", Option167
+Set Option168 = New Ramp : Option168.Name = "Option168" : Option168.TimerInterval = 100 : g_AllItems.Add "Option168", Option168
+Set Option169 = New Ramp : Option169.Name = "Option169" : Option169.TimerInterval = 100 : g_AllItems.Add "Option169", Option169
+Set Option17 = New Ramp : Option17.Name = "Option17" : Option17.TimerInterval = 100 : g_AllItems.Add "Option17", Option17
+Set Option170 = New Ramp : Option170.Name = "Option170" : Option170.TimerInterval = 100 : g_AllItems.Add "Option170", Option170
+Set Option171 = New Ramp : Option171.Name = "Option171" : Option171.TimerInterval = 100 : g_AllItems.Add "Option171", Option171
+Set Option172 = New Ramp : Option172.Name = "Option172" : Option172.TimerInterval = 100 : g_AllItems.Add "Option172", Option172
+Set Option173 = New Ramp : Option173.Name = "Option173" : Option173.TimerInterval = 100 : g_AllItems.Add "Option173", Option173
+Set Option174 = New Ramp : Option174.Name = "Option174" : Option174.TimerInterval = 100 : g_AllItems.Add "Option174", Option174
+Set Option175 = New Ramp : Option175.Name = "Option175" : Option175.TimerInterval = 100 : g_AllItems.Add "Option175", Option175
+Set Option176 = New Ramp : Option176.Name = "Option176" : Option176.TimerInterval = 100 : g_AllItems.Add "Option176", Option176
+Set Option177 = New Ramp : Option177.Name = "Option177" : Option177.TimerInterval = 100 : g_AllItems.Add "Option177", Option177
+Set Option178 = New Ramp : Option178.Name = "Option178" : Option178.TimerInterval = 100 : g_AllItems.Add "Option178", Option178
+Set Option179 = New Ramp : Option179.Name = "Option179" : Option179.TimerInterval = 100 : g_AllItems.Add "Option179", Option179
+Set Option18 = New Ramp : Option18.Name = "Option18" : Option18.TimerInterval = 100 : g_AllItems.Add "Option18", Option18
+Set Option180 = New Ramp : Option180.Name = "Option180" : Option180.TimerInterval = 100 : g_AllItems.Add "Option180", Option180
+Set Option181 = New Ramp : Option181.Name = "Option181" : Option181.TimerInterval = 100 : g_AllItems.Add "Option181", Option181
+Set Option182 = New Ramp : Option182.Name = "Option182" : Option182.TimerInterval = 100 : g_AllItems.Add "Option182", Option182
+Set Option183 = New Ramp : Option183.Name = "Option183" : Option183.TimerInterval = 100 : g_AllItems.Add "Option183", Option183
+Set Option184 = New Ramp : Option184.Name = "Option184" : Option184.TimerInterval = 100 : g_AllItems.Add "Option184", Option184
+Set Option185 = New Ramp : Option185.Name = "Option185" : Option185.TimerInterval = 100 : g_AllItems.Add "Option185", Option185
+Set Option186 = New Ramp : Option186.Name = "Option186" : Option186.TimerInterval = 100 : g_AllItems.Add "Option186", Option186
+Set Option187 = New Ramp : Option187.Name = "Option187" : Option187.TimerInterval = 100 : g_AllItems.Add "Option187", Option187
+Set Option188 = New Ramp : Option188.Name = "Option188" : Option188.TimerInterval = 100 : g_AllItems.Add "Option188", Option188
+Set Option189 = New Ramp : Option189.Name = "Option189" : Option189.TimerInterval = 100 : g_AllItems.Add "Option189", Option189
+Set Option19 = New Ramp : Option19.Name = "Option19" : Option19.TimerInterval = 100 : g_AllItems.Add "Option19", Option19
+Set Option190 = New Ramp : Option190.Name = "Option190" : Option190.TimerInterval = 100 : g_AllItems.Add "Option190", Option190
+Set Option191 = New Ramp : Option191.Name = "Option191" : Option191.TimerInterval = 100 : g_AllItems.Add "Option191", Option191
+Set Option192 = New Ramp : Option192.Name = "Option192" : Option192.TimerInterval = 100 : g_AllItems.Add "Option192", Option192
+Set Option193 = New Ramp : Option193.Name = "Option193" : Option193.TimerInterval = 100 : g_AllItems.Add "Option193", Option193
+Set Option194 = New Ramp : Option194.Name = "Option194" : Option194.TimerInterval = 100 : g_AllItems.Add "Option194", Option194
+Set Option195 = New Ramp : Option195.Name = "Option195" : Option195.TimerInterval = 100 : g_AllItems.Add "Option195", Option195
+Set Option196 = New Ramp : Option196.Name = "Option196" : Option196.TimerInterval = 100 : g_AllItems.Add "Option196", Option196
+Set Option197 = New Ramp : Option197.Name = "Option197" : Option197.TimerInterval = 100 : g_AllItems.Add "Option197", Option197
+Set Option198 = New Ramp : Option198.Name = "Option198" : Option198.TimerInterval = 100 : g_AllItems.Add "Option198", Option198
+Set Option199 = New Ramp : Option199.Name = "Option199" : Option199.TimerInterval = 100 : g_AllItems.Add "Option199", Option199
+Set Option2 = New Ramp : Option2.Name = "Option2" : Option2.TimerInterval = 100 : g_AllItems.Add "Option2", Option2
+Set Option20 = New Ramp : Option20.Name = "Option20" : Option20.TimerInterval = 100 : g_AllItems.Add "Option20", Option20
+Set Option200 = New Ramp : Option200.Name = "Option200" : Option200.TimerInterval = 100 : g_AllItems.Add "Option200", Option200
+Set Option201 = New Ramp : Option201.Name = "Option201" : Option201.TimerInterval = 100 : g_AllItems.Add "Option201", Option201
+Set Option202 = New Ramp : Option202.Name = "Option202" : Option202.TimerInterval = 100 : g_AllItems.Add "Option202", Option202
+Set Option203 = New Ramp : Option203.Name = "Option203" : Option203.TimerInterval = 100 : g_AllItems.Add "Option203", Option203
+Set Option204 = New Ramp : Option204.Name = "Option204" : Option204.TimerInterval = 100 : g_AllItems.Add "Option204", Option204
+Set Option205 = New Ramp : Option205.Name = "Option205" : Option205.TimerInterval = 100 : g_AllItems.Add "Option205", Option205
+Set Option206 = New Ramp : Option206.Name = "Option206" : Option206.TimerInterval = 100 : g_AllItems.Add "Option206", Option206
+Set Option207 = New Ramp : Option207.Name = "Option207" : Option207.TimerInterval = 100 : g_AllItems.Add "Option207", Option207
+Set Option208 = New Ramp : Option208.Name = "Option208" : Option208.TimerInterval = 100 : g_AllItems.Add "Option208", Option208
+Set Option209 = New Ramp : Option209.Name = "Option209" : Option209.TimerInterval = 100 : g_AllItems.Add "Option209", Option209
+Set Option21 = New Ramp : Option21.Name = "Option21" : Option21.TimerInterval = 100 : g_AllItems.Add "Option21", Option21
+Set Option210 = New Ramp : Option210.Name = "Option210" : Option210.TimerInterval = 100 : g_AllItems.Add "Option210", Option210
+Set Option211 = New Ramp : Option211.Name = "Option211" : Option211.TimerInterval = 100 : g_AllItems.Add "Option211", Option211
+Set Option212 = New Ramp : Option212.Name = "Option212" : Option212.TimerInterval = 100 : g_AllItems.Add "Option212", Option212
+Set Option213 = New Ramp : Option213.Name = "Option213" : Option213.TimerInterval = 100 : g_AllItems.Add "Option213", Option213
+Set Option214 = New Ramp : Option214.Name = "Option214" : Option214.TimerInterval = 100 : g_AllItems.Add "Option214", Option214
+Set Option215 = New Ramp : Option215.Name = "Option215" : Option215.TimerInterval = 100 : g_AllItems.Add "Option215", Option215
+Set Option216 = New Ramp : Option216.Name = "Option216" : Option216.TimerInterval = 100 : g_AllItems.Add "Option216", Option216
+Set Option217 = New Ramp : Option217.Name = "Option217" : Option217.TimerInterval = 100 : g_AllItems.Add "Option217", Option217
+Set Option218 = New Ramp : Option218.Name = "Option218" : Option218.TimerInterval = 100 : g_AllItems.Add "Option218", Option218
+Set Option219 = New Ramp : Option219.Name = "Option219" : Option219.TimerInterval = 100 : g_AllItems.Add "Option219", Option219
+Set Option22 = New Ramp : Option22.Name = "Option22" : Option22.TimerInterval = 100 : g_AllItems.Add "Option22", Option22
+Set Option220 = New Ramp : Option220.Name = "Option220" : Option220.TimerInterval = 100 : g_AllItems.Add "Option220", Option220
+Set Option221 = New Ramp : Option221.Name = "Option221" : Option221.TimerInterval = 100 : g_AllItems.Add "Option221", Option221
+Set Option222 = New Ramp : Option222.Name = "Option222" : Option222.TimerInterval = 100 : g_AllItems.Add "Option222", Option222
+Set Option223 = New Ramp : Option223.Name = "Option223" : Option223.TimerInterval = 100 : g_AllItems.Add "Option223", Option223
+Set Option224 = New Ramp : Option224.Name = "Option224" : Option224.TimerInterval = 100 : g_AllItems.Add "Option224", Option224
+Set Option225 = New Ramp : Option225.Name = "Option225" : Option225.TimerInterval = 100 : g_AllItems.Add "Option225", Option225
+Set Option226 = New Ramp : Option226.Name = "Option226" : Option226.TimerInterval = 100 : g_AllItems.Add "Option226", Option226
+Set Option227 = New Ramp : Option227.Name = "Option227" : Option227.TimerInterval = 100 : g_AllItems.Add "Option227", Option227
+Set Option228 = New Ramp : Option228.Name = "Option228" : Option228.TimerInterval = 100 : g_AllItems.Add "Option228", Option228
+Set Option229 = New Ramp : Option229.Name = "Option229" : Option229.TimerInterval = 100 : g_AllItems.Add "Option229", Option229
+Set Option23 = New Ramp : Option23.Name = "Option23" : Option23.TimerInterval = 100 : g_AllItems.Add "Option23", Option23
+Set Option230 = New Ramp : Option230.Name = "Option230" : Option230.TimerInterval = 100 : g_AllItems.Add "Option230", Option230
+Set Option231 = New Ramp : Option231.Name = "Option231" : Option231.TimerInterval = 100 : g_AllItems.Add "Option231", Option231
+Set Option232 = New Ramp : Option232.Name = "Option232" : Option232.TimerInterval = 100 : g_AllItems.Add "Option232", Option232
+Set Option233 = New Ramp : Option233.Name = "Option233" : Option233.TimerInterval = 100 : g_AllItems.Add "Option233", Option233
+Set Option234 = New Ramp : Option234.Name = "Option234" : Option234.TimerInterval = 100 : g_AllItems.Add "Option234", Option234
+Set Option235 = New Ramp : Option235.Name = "Option235" : Option235.TimerInterval = 100 : g_AllItems.Add "Option235", Option235
+Set Option236 = New Ramp : Option236.Name = "Option236" : Option236.TimerInterval = 100 : g_AllItems.Add "Option236", Option236
+Set Option237 = New Ramp : Option237.Name = "Option237" : Option237.TimerInterval = 100 : g_AllItems.Add "Option237", Option237
+Set Option238 = New Ramp : Option238.Name = "Option238" : Option238.TimerInterval = 100 : g_AllItems.Add "Option238", Option238
+Set Option239 = New Ramp : Option239.Name = "Option239" : Option239.TimerInterval = 100 : g_AllItems.Add "Option239", Option239
+Set Option24 = New Ramp : Option24.Name = "Option24" : Option24.TimerInterval = 100 : g_AllItems.Add "Option24", Option24
+Set Option240 = New Ramp : Option240.Name = "Option240" : Option240.TimerInterval = 100 : g_AllItems.Add "Option240", Option240
+Set Option241 = New Ramp : Option241.Name = "Option241" : Option241.TimerInterval = 100 : g_AllItems.Add "Option241", Option241
+Set Option242 = New Ramp : Option242.Name = "Option242" : Option242.TimerInterval = 100 : g_AllItems.Add "Option242", Option242
+Set Option243 = New Ramp : Option243.Name = "Option243" : Option243.TimerInterval = 100 : g_AllItems.Add "Option243", Option243
+Set Option244 = New Ramp : Option244.Name = "Option244" : Option244.TimerInterval = 100 : g_AllItems.Add "Option244", Option244
+Set Option245 = New Ramp : Option245.Name = "Option245" : Option245.TimerInterval = 100 : g_AllItems.Add "Option245", Option245
+Set Option246 = New Ramp : Option246.Name = "Option246" : Option246.TimerInterval = 100 : g_AllItems.Add "Option246", Option246
+Set Option247 = New Ramp : Option247.Name = "Option247" : Option247.TimerInterval = 100 : g_AllItems.Add "Option247", Option247
+Set Option248 = New Ramp : Option248.Name = "Option248" : Option248.TimerInterval = 100 : g_AllItems.Add "Option248", Option248
+Set Option249 = New Ramp : Option249.Name = "Option249" : Option249.TimerInterval = 100 : g_AllItems.Add "Option249", Option249
+Set Option25 = New Ramp : Option25.Name = "Option25" : Option25.TimerInterval = 100 : g_AllItems.Add "Option25", Option25
+Set Option250 = New Ramp : Option250.Name = "Option250" : Option250.TimerInterval = 100 : g_AllItems.Add "Option250", Option250
+Set Option251 = New Ramp : Option251.Name = "Option251" : Option251.TimerInterval = 100 : g_AllItems.Add "Option251", Option251
+Set Option252 = New Ramp : Option252.Name = "Option252" : Option252.TimerInterval = 100 : g_AllItems.Add "Option252", Option252
+Set Option253 = New Ramp : Option253.Name = "Option253" : Option253.TimerInterval = 100 : g_AllItems.Add "Option253", Option253
+Set Option254 = New Ramp : Option254.Name = "Option254" : Option254.TimerInterval = 100 : g_AllItems.Add "Option254", Option254
+Set Option255 = New Ramp : Option255.Name = "Option255" : Option255.TimerInterval = 100 : g_AllItems.Add "Option255", Option255
+Set Option256 = New Ramp : Option256.Name = "Option256" : Option256.TimerInterval = 100 : g_AllItems.Add "Option256", Option256
+Set Option26 = New Ramp : Option26.Name = "Option26" : Option26.TimerInterval = 100 : g_AllItems.Add "Option26", Option26
+Set Option27 = New Ramp : Option27.Name = "Option27" : Option27.TimerInterval = 100 : g_AllItems.Add "Option27", Option27
+Set Option28 = New Ramp : Option28.Name = "Option28" : Option28.TimerInterval = 100 : g_AllItems.Add "Option28", Option28
+Set Option29 = New Ramp : Option29.Name = "Option29" : Option29.TimerInterval = 100 : g_AllItems.Add "Option29", Option29
+Set Option3 = New Ramp : Option3.Name = "Option3" : Option3.TimerInterval = 100 : g_AllItems.Add "Option3", Option3
+Set Option30 = New Ramp : Option30.Name = "Option30" : Option30.TimerInterval = 100 : g_AllItems.Add "Option30", Option30
+Set Option31 = New Ramp : Option31.Name = "Option31" : Option31.TimerInterval = 100 : g_AllItems.Add "Option31", Option31
+Set Option32 = New Ramp : Option32.Name = "Option32" : Option32.TimerInterval = 100 : g_AllItems.Add "Option32", Option32
+Set Option33 = New Ramp : Option33.Name = "Option33" : Option33.TimerInterval = 100 : g_AllItems.Add "Option33", Option33
+Set Option34 = New Ramp : Option34.Name = "Option34" : Option34.TimerInterval = 100 : g_AllItems.Add "Option34", Option34
+Set Option35 = New Ramp : Option35.Name = "Option35" : Option35.TimerInterval = 100 : g_AllItems.Add "Option35", Option35
+Set Option36 = New Ramp : Option36.Name = "Option36" : Option36.TimerInterval = 100 : g_AllItems.Add "Option36", Option36
+Set Option37 = New Ramp : Option37.Name = "Option37" : Option37.TimerInterval = 100 : g_AllItems.Add "Option37", Option37
+Set Option38 = New Ramp : Option38.Name = "Option38" : Option38.TimerInterval = 100 : g_AllItems.Add "Option38", Option38
+Set Option39 = New Ramp : Option39.Name = "Option39" : Option39.TimerInterval = 100 : g_AllItems.Add "Option39", Option39
+Set Option4 = New Ramp : Option4.Name = "Option4" : Option4.TimerInterval = 100 : g_AllItems.Add "Option4", Option4
+Set Option40 = New Ramp : Option40.Name = "Option40" : Option40.TimerInterval = 100 : g_AllItems.Add "Option40", Option40
+Set Option41 = New Ramp : Option41.Name = "Option41" : Option41.TimerInterval = 100 : g_AllItems.Add "Option41", Option41
+Set Option42 = New Ramp : Option42.Name = "Option42" : Option42.TimerInterval = 100 : g_AllItems.Add "Option42", Option42
+Set Option43 = New Ramp : Option43.Name = "Option43" : Option43.TimerInterval = 100 : g_AllItems.Add "Option43", Option43
+Set Option44 = New Ramp : Option44.Name = "Option44" : Option44.TimerInterval = 100 : g_AllItems.Add "Option44", Option44
+Set Option45 = New Ramp : Option45.Name = "Option45" : Option45.TimerInterval = 100 : g_AllItems.Add "Option45", Option45
+Set Option46 = New Ramp : Option46.Name = "Option46" : Option46.TimerInterval = 100 : g_AllItems.Add "Option46", Option46
+Set Option47 = New Ramp : Option47.Name = "Option47" : Option47.TimerInterval = 100 : g_AllItems.Add "Option47", Option47
+Set Option48 = New Ramp : Option48.Name = "Option48" : Option48.TimerInterval = 100 : g_AllItems.Add "Option48", Option48
+Set Option49 = New Ramp : Option49.Name = "Option49" : Option49.TimerInterval = 100 : g_AllItems.Add "Option49", Option49
+Set Option5 = New Ramp : Option5.Name = "Option5" : Option5.TimerInterval = 100 : g_AllItems.Add "Option5", Option5
+Set Option50 = New Ramp : Option50.Name = "Option50" : Option50.TimerInterval = 100 : g_AllItems.Add "Option50", Option50
+Set Option51 = New Ramp : Option51.Name = "Option51" : Option51.TimerInterval = 100 : g_AllItems.Add "Option51", Option51
+Set Option52 = New Ramp : Option52.Name = "Option52" : Option52.TimerInterval = 100 : g_AllItems.Add "Option52", Option52
+Set Option53 = New Ramp : Option53.Name = "Option53" : Option53.TimerInterval = 100 : g_AllItems.Add "Option53", Option53
+Set Option54 = New Ramp : Option54.Name = "Option54" : Option54.TimerInterval = 100 : g_AllItems.Add "Option54", Option54
+Set Option55 = New Ramp : Option55.Name = "Option55" : Option55.TimerInterval = 100 : g_AllItems.Add "Option55", Option55
+Set Option56 = New Ramp : Option56.Name = "Option56" : Option56.TimerInterval = 100 : g_AllItems.Add "Option56", Option56
+Set Option57 = New Ramp : Option57.Name = "Option57" : Option57.TimerInterval = 100 : g_AllItems.Add "Option57", Option57
+Set Option58 = New Ramp : Option58.Name = "Option58" : Option58.TimerInterval = 100 : g_AllItems.Add "Option58", Option58
+Set Option59 = New Ramp : Option59.Name = "Option59" : Option59.TimerInterval = 100 : g_AllItems.Add "Option59", Option59
+Set Option6 = New Ramp : Option6.Name = "Option6" : Option6.TimerInterval = 100 : g_AllItems.Add "Option6", Option6
+Set Option60 = New Ramp : Option60.Name = "Option60" : Option60.TimerInterval = 100 : g_AllItems.Add "Option60", Option60
+Set Option61 = New Ramp : Option61.Name = "Option61" : Option61.TimerInterval = 100 : g_AllItems.Add "Option61", Option61
+Set Option62 = New Ramp : Option62.Name = "Option62" : Option62.TimerInterval = 100 : g_AllItems.Add "Option62", Option62
+Set Option63 = New Ramp : Option63.Name = "Option63" : Option63.TimerInterval = 100 : g_AllItems.Add "Option63", Option63
+Set Option64 = New Ramp : Option64.Name = "Option64" : Option64.TimerInterval = 100 : g_AllItems.Add "Option64", Option64
+Set Option65 = New Ramp : Option65.Name = "Option65" : Option65.TimerInterval = 100 : g_AllItems.Add "Option65", Option65
+Set Option66 = New Ramp : Option66.Name = "Option66" : Option66.TimerInterval = 100 : g_AllItems.Add "Option66", Option66
+Set Option67 = New Ramp : Option67.Name = "Option67" : Option67.TimerInterval = 100 : g_AllItems.Add "Option67", Option67
+Set Option68 = New Ramp : Option68.Name = "Option68" : Option68.TimerInterval = 100 : g_AllItems.Add "Option68", Option68
+Set Option69 = New Ramp : Option69.Name = "Option69" : Option69.TimerInterval = 100 : g_AllItems.Add "Option69", Option69
+Set Option7 = New Ramp : Option7.Name = "Option7" : Option7.TimerInterval = 100 : g_AllItems.Add "Option7", Option7
+Set Option70 = New Ramp : Option70.Name = "Option70" : Option70.TimerInterval = 100 : g_AllItems.Add "Option70", Option70
+Set Option71 = New Ramp : Option71.Name = "Option71" : Option71.TimerInterval = 100 : g_AllItems.Add "Option71", Option71
+Set Option72 = New Ramp : Option72.Name = "Option72" : Option72.TimerInterval = 100 : g_AllItems.Add "Option72", Option72
+Set Option73 = New Ramp : Option73.Name = "Option73" : Option73.TimerInterval = 100 : g_AllItems.Add "Option73", Option73
+Set Option74 = New Ramp : Option74.Name = "Option74" : Option74.TimerInterval = 100 : g_AllItems.Add "Option74", Option74
+Set Option75 = New Ramp : Option75.Name = "Option75" : Option75.TimerInterval = 100 : g_AllItems.Add "Option75", Option75
+Set Option76 = New Ramp : Option76.Name = "Option76" : Option76.TimerInterval = 100 : g_AllItems.Add "Option76", Option76
+Set Option77 = New Ramp : Option77.Name = "Option77" : Option77.TimerInterval = 100 : g_AllItems.Add "Option77", Option77
+Set Option78 = New Ramp : Option78.Name = "Option78" : Option78.TimerInterval = 100 : g_AllItems.Add "Option78", Option78
+Set Option79 = New Ramp : Option79.Name = "Option79" : Option79.TimerInterval = 100 : g_AllItems.Add "Option79", Option79
+Set Option8 = New Ramp : Option8.Name = "Option8" : Option8.TimerInterval = 100 : g_AllItems.Add "Option8", Option8
+Set Option80 = New Ramp : Option80.Name = "Option80" : Option80.TimerInterval = 100 : g_AllItems.Add "Option80", Option80
+Set Option81 = New Ramp : Option81.Name = "Option81" : Option81.TimerInterval = 100 : g_AllItems.Add "Option81", Option81
+Set Option82 = New Ramp : Option82.Name = "Option82" : Option82.TimerInterval = 100 : g_AllItems.Add "Option82", Option82
+Set Option83 = New Ramp : Option83.Name = "Option83" : Option83.TimerInterval = 100 : g_AllItems.Add "Option83", Option83
+Set Option84 = New Ramp : Option84.Name = "Option84" : Option84.TimerInterval = 100 : g_AllItems.Add "Option84", Option84
+Set Option85 = New Ramp : Option85.Name = "Option85" : Option85.TimerInterval = 100 : g_AllItems.Add "Option85", Option85
+Set Option86 = New Ramp : Option86.Name = "Option86" : Option86.TimerInterval = 100 : g_AllItems.Add "Option86", Option86
+Set Option87 = New Ramp : Option87.Name = "Option87" : Option87.TimerInterval = 100 : g_AllItems.Add "Option87", Option87
+Set Option88 = New Ramp : Option88.Name = "Option88" : Option88.TimerInterval = 100 : g_AllItems.Add "Option88", Option88
+Set Option89 = New Ramp : Option89.Name = "Option89" : Option89.TimerInterval = 100 : g_AllItems.Add "Option89", Option89
+Set Option9 = New Ramp : Option9.Name = "Option9" : Option9.TimerInterval = 100 : g_AllItems.Add "Option9", Option9
+Set Option90 = New Ramp : Option90.Name = "Option90" : Option90.TimerInterval = 100 : g_AllItems.Add "Option90", Option90
+Set Option91 = New Ramp : Option91.Name = "Option91" : Option91.TimerInterval = 100 : g_AllItems.Add "Option91", Option91
+Set Option92 = New Ramp : Option92.Name = "Option92" : Option92.TimerInterval = 100 : g_AllItems.Add "Option92", Option92
+Set Option93 = New Ramp : Option93.Name = "Option93" : Option93.TimerInterval = 100 : g_AllItems.Add "Option93", Option93
+Set Option94 = New Ramp : Option94.Name = "Option94" : Option94.TimerInterval = 100 : g_AllItems.Add "Option94", Option94
+Set Option95 = New Ramp : Option95.Name = "Option95" : Option95.TimerInterval = 100 : g_AllItems.Add "Option95", Option95
+Set Option96 = New Ramp : Option96.Name = "Option96" : Option96.TimerInterval = 100 : g_AllItems.Add "Option96", Option96
+Set Option97 = New Ramp : Option97.Name = "Option97" : Option97.TimerInterval = 100 : g_AllItems.Add "Option97", Option97
+Set Option98 = New Ramp : Option98.Name = "Option98" : Option98.TimerInterval = 100 : g_AllItems.Add "Option98", Option98
+Set Option99 = New Ramp : Option99.Name = "Option99" : Option99.TimerInterval = 100 : g_AllItems.Add "Option99", Option99
+Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : Ramp002.TimerInterval = 100 : g_AllItems.Add "Ramp002", Ramp002
+Set Ramp009 = New Ramp : Ramp009.Name = "Ramp009" : Ramp009.TimerInterval = 100 : g_AllItems.Add "Ramp009", Ramp009
+Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : Ramp3.TimerInterval = 100 : g_AllItems.Add "Ramp3", Ramp3
+Set Ramp386 = New Ramp : Ramp386.Name = "Ramp386" : Ramp386.TimerInterval = 100 : g_AllItems.Add "Ramp386", Ramp386
+Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : Ramp4.TimerInterval = 100 : g_AllItems.Add "Ramp4", Ramp4
+Set ReplayCard = New Ramp : ReplayCard.Name = "ReplayCard" : ReplayCard.TimerInterval = 100 : g_AllItems.Add "ReplayCard", ReplayCard
 
 ' --- Reel (24) ---
 Dim BallInPlayReel, CanPlayReel, CreditsReel, EMReel1, EMReel2, EMReel3, EMReel4, EMReel5, EMReel6, EMReel7, EMReel8, EMReel9, GameOverReel, MatchReel, PlayerUp1
 Dim PlayerUp2, PlayerUp3, PlayerUp4, RolloverReel1, RolloverReel2, RolloverReel3, RolloverReel4, ShootAgainReel, TiltReel
-Set BallInPlayReel = New Reel : BallInPlayReel.Name = "BallInPlayReel" : g_AllItems.Add "BallInPlayReel", BallInPlayReel
-Set CanPlayReel = New Reel : CanPlayReel.Name = "CanPlayReel" : g_AllItems.Add "CanPlayReel", CanPlayReel
-Set CreditsReel = New Reel : CreditsReel.Name = "CreditsReel" : g_AllItems.Add "CreditsReel", CreditsReel
-Set EMReel1 = New Reel : EMReel1.Name = "EMReel1" : g_AllItems.Add "EMReel1", EMReel1
-Set EMReel2 = New Reel : EMReel2.Name = "EMReel2" : g_AllItems.Add "EMReel2", EMReel2
-Set EMReel3 = New Reel : EMReel3.Name = "EMReel3" : g_AllItems.Add "EMReel3", EMReel3
-Set EMReel4 = New Reel : EMReel4.Name = "EMReel4" : g_AllItems.Add "EMReel4", EMReel4
-Set EMReel5 = New Reel : EMReel5.Name = "EMReel5" : g_AllItems.Add "EMReel5", EMReel5
-Set EMReel6 = New Reel : EMReel6.Name = "EMReel6" : g_AllItems.Add "EMReel6", EMReel6
-Set EMReel7 = New Reel : EMReel7.Name = "EMReel7" : g_AllItems.Add "EMReel7", EMReel7
-Set EMReel8 = New Reel : EMReel8.Name = "EMReel8" : g_AllItems.Add "EMReel8", EMReel8
-Set EMReel9 = New Reel : EMReel9.Name = "EMReel9" : g_AllItems.Add "EMReel9", EMReel9
-Set GameOverReel = New Reel : GameOverReel.Name = "GameOverReel" : g_AllItems.Add "GameOverReel", GameOverReel
-Set MatchReel = New Reel : MatchReel.Name = "MatchReel" : g_AllItems.Add "MatchReel", MatchReel
-Set PlayerUp1 = New Reel : PlayerUp1.Name = "PlayerUp1" : g_AllItems.Add "PlayerUp1", PlayerUp1
-Set PlayerUp2 = New Reel : PlayerUp2.Name = "PlayerUp2" : g_AllItems.Add "PlayerUp2", PlayerUp2
-Set PlayerUp3 = New Reel : PlayerUp3.Name = "PlayerUp3" : g_AllItems.Add "PlayerUp3", PlayerUp3
-Set PlayerUp4 = New Reel : PlayerUp4.Name = "PlayerUp4" : g_AllItems.Add "PlayerUp4", PlayerUp4
-Set RolloverReel1 = New Reel : RolloverReel1.Name = "RolloverReel1" : g_AllItems.Add "RolloverReel1", RolloverReel1
-Set RolloverReel2 = New Reel : RolloverReel2.Name = "RolloverReel2" : g_AllItems.Add "RolloverReel2", RolloverReel2
-Set RolloverReel3 = New Reel : RolloverReel3.Name = "RolloverReel3" : g_AllItems.Add "RolloverReel3", RolloverReel3
-Set RolloverReel4 = New Reel : RolloverReel4.Name = "RolloverReel4" : g_AllItems.Add "RolloverReel4", RolloverReel4
-Set ShootAgainReel = New Reel : ShootAgainReel.Name = "ShootAgainReel" : g_AllItems.Add "ShootAgainReel", ShootAgainReel
-Set TiltReel = New Reel : TiltReel.Name = "TiltReel" : g_AllItems.Add "TiltReel", TiltReel
+Set BallInPlayReel = New Reel : BallInPlayReel.Name = "BallInPlayReel" : BallInPlayReel.TimerInterval = 100 : g_AllItems.Add "BallInPlayReel", BallInPlayReel
+Set CanPlayReel = New Reel : CanPlayReel.Name = "CanPlayReel" : CanPlayReel.TimerInterval = 100 : g_AllItems.Add "CanPlayReel", CanPlayReel
+Set CreditsReel = New Reel : CreditsReel.Name = "CreditsReel" : CreditsReel.TimerInterval = 100 : g_AllItems.Add "CreditsReel", CreditsReel
+Set EMReel1 = New Reel : EMReel1.Name = "EMReel1" : EMReel1.TimerInterval = 100 : g_AllItems.Add "EMReel1", EMReel1
+Set EMReel2 = New Reel : EMReel2.Name = "EMReel2" : EMReel2.TimerInterval = 100 : g_AllItems.Add "EMReel2", EMReel2
+Set EMReel3 = New Reel : EMReel3.Name = "EMReel3" : EMReel3.TimerInterval = 100 : g_AllItems.Add "EMReel3", EMReel3
+Set EMReel4 = New Reel : EMReel4.Name = "EMReel4" : EMReel4.TimerInterval = 100 : g_AllItems.Add "EMReel4", EMReel4
+Set EMReel5 = New Reel : EMReel5.Name = "EMReel5" : EMReel5.TimerInterval = 100 : g_AllItems.Add "EMReel5", EMReel5
+Set EMReel6 = New Reel : EMReel6.Name = "EMReel6" : EMReel6.TimerInterval = 100 : g_AllItems.Add "EMReel6", EMReel6
+Set EMReel7 = New Reel : EMReel7.Name = "EMReel7" : EMReel7.TimerInterval = 100 : g_AllItems.Add "EMReel7", EMReel7
+Set EMReel8 = New Reel : EMReel8.Name = "EMReel8" : EMReel8.TimerInterval = 100 : g_AllItems.Add "EMReel8", EMReel8
+Set EMReel9 = New Reel : EMReel9.Name = "EMReel9" : EMReel9.TimerInterval = 100 : g_AllItems.Add "EMReel9", EMReel9
+Set GameOverReel = New Reel : GameOverReel.Name = "GameOverReel" : GameOverReel.TimerInterval = 100 : g_AllItems.Add "GameOverReel", GameOverReel
+Set MatchReel = New Reel : MatchReel.Name = "MatchReel" : MatchReel.TimerInterval = 100 : g_AllItems.Add "MatchReel", MatchReel
+Set PlayerUp1 = New Reel : PlayerUp1.Name = "PlayerUp1" : PlayerUp1.TimerInterval = 100 : g_AllItems.Add "PlayerUp1", PlayerUp1
+Set PlayerUp2 = New Reel : PlayerUp2.Name = "PlayerUp2" : PlayerUp2.TimerInterval = 100 : g_AllItems.Add "PlayerUp2", PlayerUp2
+Set PlayerUp3 = New Reel : PlayerUp3.Name = "PlayerUp3" : PlayerUp3.TimerInterval = 100 : g_AllItems.Add "PlayerUp3", PlayerUp3
+Set PlayerUp4 = New Reel : PlayerUp4.Name = "PlayerUp4" : PlayerUp4.TimerInterval = 100 : g_AllItems.Add "PlayerUp4", PlayerUp4
+Set RolloverReel1 = New Reel : RolloverReel1.Name = "RolloverReel1" : RolloverReel1.TimerInterval = 100 : g_AllItems.Add "RolloverReel1", RolloverReel1
+Set RolloverReel2 = New Reel : RolloverReel2.Name = "RolloverReel2" : RolloverReel2.TimerInterval = 100 : g_AllItems.Add "RolloverReel2", RolloverReel2
+Set RolloverReel3 = New Reel : RolloverReel3.Name = "RolloverReel3" : RolloverReel3.TimerInterval = 100 : g_AllItems.Add "RolloverReel3", RolloverReel3
+Set RolloverReel4 = New Reel : RolloverReel4.Name = "RolloverReel4" : RolloverReel4.TimerInterval = 100 : g_AllItems.Add "RolloverReel4", RolloverReel4
+Set ShootAgainReel = New Reel : ShootAgainReel.Name = "ShootAgainReel" : ShootAgainReel.TimerInterval = 100 : g_AllItems.Add "ShootAgainReel", ShootAgainReel
+Set TiltReel = New Reel : TiltReel.Name = "TiltReel" : TiltReel.TimerInterval = 100 : g_AllItems.Add "TiltReel", TiltReel
 
 ' --- Rubber (3) ---
 Dim debug_BLR1, debug_BLR2, debug_BLR3
-Set debug_BLR1 = New Rubber : debug_BLR1.Name = "debug_BLR1" : g_AllItems.Add "debug_BLR1", debug_BLR1
-Set debug_BLR2 = New Rubber : debug_BLR2.Name = "debug_BLR2" : g_AllItems.Add "debug_BLR2", debug_BLR2
-Set debug_BLR3 = New Rubber : debug_BLR3.Name = "debug_BLR3" : g_AllItems.Add "debug_BLR3", debug_BLR3
+Set debug_BLR1 = New Rubber : debug_BLR1.Name = "debug_BLR1" : debug_BLR1.TimerInterval = 100 : g_AllItems.Add "debug_BLR1", debug_BLR1
+Set debug_BLR2 = New Rubber : debug_BLR2.Name = "debug_BLR2" : debug_BLR2.TimerInterval = 100 : g_AllItems.Add "debug_BLR2", debug_BLR2
+Set debug_BLR3 = New Rubber : debug_BLR3.Name = "debug_BLR3" : debug_BLR3.TimerInterval = 100 : g_AllItems.Add "debug_BLR3", debug_BLR3
 
 ' --- Spinner (1) ---
 Dim Spinner1
-Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : g_AllItems.Add "Spinner1", Spinner1
+Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : Spinner1.TimerInterval = 100 : g_AllItems.Add "Spinner1", Spinner1
 
 ' --- TextBox (9) ---
 Dim OptionsBox1, OptionsBox2, OptionsBox3, OptionsBox4, ScoreText, tb, TextBox1, TextBox2, TextBox3
-Set OptionsBox1 = New TextBox : OptionsBox1.Name = "OptionsBox1" : g_AllItems.Add "OptionsBox1", OptionsBox1
-Set OptionsBox2 = New TextBox : OptionsBox2.Name = "OptionsBox2" : g_AllItems.Add "OptionsBox2", OptionsBox2
-Set OptionsBox3 = New TextBox : OptionsBox3.Name = "OptionsBox3" : g_AllItems.Add "OptionsBox3", OptionsBox3
-Set OptionsBox4 = New TextBox : OptionsBox4.Name = "OptionsBox4" : g_AllItems.Add "OptionsBox4", OptionsBox4
-Set ScoreText = New TextBox : ScoreText.Name = "ScoreText" : g_AllItems.Add "ScoreText", ScoreText
-Set tb = New TextBox : tb.Name = "tb" : g_AllItems.Add "tb", tb
-Set TextBox1 = New TextBox : TextBox1.Name = "TextBox1" : g_AllItems.Add "TextBox1", TextBox1
-Set TextBox2 = New TextBox : TextBox2.Name = "TextBox2" : g_AllItems.Add "TextBox2", TextBox2
-Set TextBox3 = New TextBox : TextBox3.Name = "TextBox3" : g_AllItems.Add "TextBox3", TextBox3
+Set OptionsBox1 = New TextBox : OptionsBox1.Name = "OptionsBox1" : OptionsBox1.TimerInterval = 100 : g_AllItems.Add "OptionsBox1", OptionsBox1
+Set OptionsBox2 = New TextBox : OptionsBox2.Name = "OptionsBox2" : OptionsBox2.TimerInterval = 100 : g_AllItems.Add "OptionsBox2", OptionsBox2
+Set OptionsBox3 = New TextBox : OptionsBox3.Name = "OptionsBox3" : OptionsBox3.TimerInterval = 100 : g_AllItems.Add "OptionsBox3", OptionsBox3
+Set OptionsBox4 = New TextBox : OptionsBox4.Name = "OptionsBox4" : OptionsBox4.TimerInterval = 100 : g_AllItems.Add "OptionsBox4", OptionsBox4
+Set ScoreText = New TextBox : ScoreText.Name = "ScoreText" : ScoreText.TimerInterval = 100 : g_AllItems.Add "ScoreText", ScoreText
+Set tb = New TextBox : tb.Name = "tb" : tb.TimerInterval = 100 : g_AllItems.Add "tb", tb
+Set TextBox1 = New TextBox : TextBox1.Name = "TextBox1" : TextBox1.TimerInterval = 100 : g_AllItems.Add "TextBox1", TextBox1
+Set TextBox2 = New TextBox : TextBox2.Name = "TextBox2" : TextBox2.TimerInterval = 100 : g_AllItems.Add "TextBox2", TextBox2
+Set TextBox3 = New TextBox : TextBox3.Name = "TextBox3" : TextBox3.TimerInterval = 100 : g_AllItems.Add "TextBox3", TextBox3
 
 ' --- Timer (65) ---
 Dim AddScoreTimer, BallAdderTimer, BallControl, BeerTimer, BonusBoost, BonusMotorAdder, BonusScorer, ClockTimer1, closeg, closekg, CollectGoldBonus, CollectSilverBonus, delaykgclose, Ding1000Timer, Ding2000Timer

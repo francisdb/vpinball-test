@@ -5,29 +5,29 @@
 
 ' --- Bumper (3) ---
 Dim Bumper1, Bumper2, Bumper3
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
-Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : g_AllItems.Add "Bumper3", Bumper3
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 100 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 100 : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : Bumper3.TimerInterval = 100 : g_AllItems.Add "Bumper3", Bumper3
 
 ' --- Flasher (16) ---
 Dim BallShadow1, BallShadow10, BallShadow2, BallShadow3, BallShadow4, BallShadow5, BallShadow6, BallShadow7, BallShadow8, BallShadow9, batleftshadow, batrightshadow, insertflasher, PLAYFIELD_flasher1, PLAYFIELD_flasher2
 Dim PLAYFIELD_GI1
-Set BallShadow1 = New Flasher : BallShadow1.Name = "BallShadow1" : g_AllItems.Add "BallShadow1", BallShadow1
-Set BallShadow10 = New Flasher : BallShadow10.Name = "BallShadow10" : g_AllItems.Add "BallShadow10", BallShadow10
-Set BallShadow2 = New Flasher : BallShadow2.Name = "BallShadow2" : g_AllItems.Add "BallShadow2", BallShadow2
-Set BallShadow3 = New Flasher : BallShadow3.Name = "BallShadow3" : g_AllItems.Add "BallShadow3", BallShadow3
-Set BallShadow4 = New Flasher : BallShadow4.Name = "BallShadow4" : g_AllItems.Add "BallShadow4", BallShadow4
-Set BallShadow5 = New Flasher : BallShadow5.Name = "BallShadow5" : g_AllItems.Add "BallShadow5", BallShadow5
-Set BallShadow6 = New Flasher : BallShadow6.Name = "BallShadow6" : g_AllItems.Add "BallShadow6", BallShadow6
-Set BallShadow7 = New Flasher : BallShadow7.Name = "BallShadow7" : g_AllItems.Add "BallShadow7", BallShadow7
-Set BallShadow8 = New Flasher : BallShadow8.Name = "BallShadow8" : g_AllItems.Add "BallShadow8", BallShadow8
-Set BallShadow9 = New Flasher : BallShadow9.Name = "BallShadow9" : g_AllItems.Add "BallShadow9", BallShadow9
-Set batleftshadow = New Flasher : batleftshadow.Name = "batleftshadow" : g_AllItems.Add "batleftshadow", batleftshadow
-Set batrightshadow = New Flasher : batrightshadow.Name = "batrightshadow" : g_AllItems.Add "batrightshadow", batrightshadow
-Set insertflasher = New Flasher : insertflasher.Name = "insertflasher" : g_AllItems.Add "insertflasher", insertflasher
-Set PLAYFIELD_flasher1 = New Flasher : PLAYFIELD_flasher1.Name = "PLAYFIELD_flasher1" : g_AllItems.Add "PLAYFIELD_flasher1", PLAYFIELD_flasher1
-Set PLAYFIELD_flasher2 = New Flasher : PLAYFIELD_flasher2.Name = "PLAYFIELD_flasher2" : g_AllItems.Add "PLAYFIELD_flasher2", PLAYFIELD_flasher2
-Set PLAYFIELD_GI1 = New Flasher : PLAYFIELD_GI1.Name = "PLAYFIELD_GI1" : g_AllItems.Add "PLAYFIELD_GI1", PLAYFIELD_GI1
+Set BallShadow1 = New Flasher : BallShadow1.Name = "BallShadow1" : BallShadow1.TimerInterval = 100 : g_AllItems.Add "BallShadow1", BallShadow1
+Set BallShadow10 = New Flasher : BallShadow10.Name = "BallShadow10" : BallShadow10.TimerInterval = 100 : g_AllItems.Add "BallShadow10", BallShadow10
+Set BallShadow2 = New Flasher : BallShadow2.Name = "BallShadow2" : BallShadow2.TimerInterval = 100 : g_AllItems.Add "BallShadow2", BallShadow2
+Set BallShadow3 = New Flasher : BallShadow3.Name = "BallShadow3" : BallShadow3.TimerInterval = 100 : g_AllItems.Add "BallShadow3", BallShadow3
+Set BallShadow4 = New Flasher : BallShadow4.Name = "BallShadow4" : BallShadow4.TimerInterval = 100 : g_AllItems.Add "BallShadow4", BallShadow4
+Set BallShadow5 = New Flasher : BallShadow5.Name = "BallShadow5" : BallShadow5.TimerInterval = 100 : g_AllItems.Add "BallShadow5", BallShadow5
+Set BallShadow6 = New Flasher : BallShadow6.Name = "BallShadow6" : BallShadow6.TimerInterval = 100 : g_AllItems.Add "BallShadow6", BallShadow6
+Set BallShadow7 = New Flasher : BallShadow7.Name = "BallShadow7" : BallShadow7.TimerInterval = 100 : g_AllItems.Add "BallShadow7", BallShadow7
+Set BallShadow8 = New Flasher : BallShadow8.Name = "BallShadow8" : BallShadow8.TimerInterval = 100 : g_AllItems.Add "BallShadow8", BallShadow8
+Set BallShadow9 = New Flasher : BallShadow9.Name = "BallShadow9" : BallShadow9.TimerInterval = 100 : g_AllItems.Add "BallShadow9", BallShadow9
+Set batleftshadow = New Flasher : batleftshadow.Name = "batleftshadow" : batleftshadow.TimerInterval = 100 : g_AllItems.Add "batleftshadow", batleftshadow
+Set batrightshadow = New Flasher : batrightshadow.Name = "batrightshadow" : batrightshadow.TimerInterval = 100 : g_AllItems.Add "batrightshadow", batrightshadow
+Set insertflasher = New Flasher : insertflasher.Name = "insertflasher" : insertflasher.TimerInterval = 100 : g_AllItems.Add "insertflasher", insertflasher
+Set PLAYFIELD_flasher1 = New Flasher : PLAYFIELD_flasher1.Name = "PLAYFIELD_flasher1" : PLAYFIELD_flasher1.TimerInterval = 100 : g_AllItems.Add "PLAYFIELD_flasher1", PLAYFIELD_flasher1
+Set PLAYFIELD_flasher2 = New Flasher : PLAYFIELD_flasher2.Name = "PLAYFIELD_flasher2" : PLAYFIELD_flasher2.TimerInterval = 100 : g_AllItems.Add "PLAYFIELD_flasher2", PLAYFIELD_flasher2
+Set PLAYFIELD_GI1 = New Flasher : PLAYFIELD_GI1.Name = "PLAYFIELD_GI1" : PLAYFIELD_GI1.TimerInterval = 100 : g_AllItems.Add "PLAYFIELD_GI1", PLAYFIELD_GI1
 
 ' --- Flipper (2) ---
 Dim LeftFlipper, RightFlipper
@@ -170,7 +170,7 @@ Set PlayerUpLight004 = New Light : PlayerUpLight004.Name = "PlayerUpLight004" : 
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (84) ---
 Dim BLP1, BLP2, BLP3, brackets, bumpercaps, EndPointLp, EndPointRp, heliplastic, heliplasticedges, insert_blue_off, insert_blue_on, insert_green_off, insert_green_on, insert_orange_off, insert_orange_on
@@ -266,65 +266,65 @@ Set wire009 = New Primitive : wire009.Name = "wire009" : g_AllItems.Add "wire009
 
 ' --- Ramp (4) ---
 Dim MetalWall001, Ramp001, SLLR, SLRR
-Set MetalWall001 = New Ramp : MetalWall001.Name = "MetalWall001" : g_AllItems.Add "MetalWall001", MetalWall001
-Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : g_AllItems.Add "Ramp001", Ramp001
-Set SLLR = New Ramp : SLLR.Name = "SLLR" : g_AllItems.Add "SLLR", SLLR
-Set SLRR = New Ramp : SLRR.Name = "SLRR" : g_AllItems.Add "SLRR", SLRR
+Set MetalWall001 = New Ramp : MetalWall001.Name = "MetalWall001" : MetalWall001.TimerInterval = 100 : g_AllItems.Add "MetalWall001", MetalWall001
+Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : Ramp001.TimerInterval = 100 : g_AllItems.Add "Ramp001", Ramp001
+Set SLLR = New Ramp : SLLR.Name = "SLLR" : SLLR.TimerInterval = 100 : g_AllItems.Add "SLLR", SLLR
+Set SLRR = New Ramp : SLRR.Name = "SLRR" : SLRR.TimerInterval = 100 : g_AllItems.Add "SLRR", SLRR
 
 ' --- Reel (36) ---
 Dim EMReel001, EMReel002, EMReel003, EMReel004, EMReel005, EMReel006, EMReel007, EMReel008, EMReel009, EMReel010, EMReel011, EMReel012, EMReel013, EMReel014, EMReel015
 Dim EMReel016, EMReel017, EMReel018, EMReel019, EMReel020, EMReel021, EMReel022, EMReel023, EMReel024, EMReel025, EMReel026, EMReel027, EMReel028, EMReel029, EMReel030
 Dim EMReel031, EMReel032, ReelGameOver, ReelHighGame, ReelShootAgain, ReelTilt
-Set EMReel001 = New Reel : EMReel001.Name = "EMReel001" : g_AllItems.Add "EMReel001", EMReel001
-Set EMReel002 = New Reel : EMReel002.Name = "EMReel002" : g_AllItems.Add "EMReel002", EMReel002
-Set EMReel003 = New Reel : EMReel003.Name = "EMReel003" : g_AllItems.Add "EMReel003", EMReel003
-Set EMReel004 = New Reel : EMReel004.Name = "EMReel004" : g_AllItems.Add "EMReel004", EMReel004
-Set EMReel005 = New Reel : EMReel005.Name = "EMReel005" : g_AllItems.Add "EMReel005", EMReel005
-Set EMReel006 = New Reel : EMReel006.Name = "EMReel006" : g_AllItems.Add "EMReel006", EMReel006
-Set EMReel007 = New Reel : EMReel007.Name = "EMReel007" : g_AllItems.Add "EMReel007", EMReel007
-Set EMReel008 = New Reel : EMReel008.Name = "EMReel008" : g_AllItems.Add "EMReel008", EMReel008
-Set EMReel009 = New Reel : EMReel009.Name = "EMReel009" : g_AllItems.Add "EMReel009", EMReel009
-Set EMReel010 = New Reel : EMReel010.Name = "EMReel010" : g_AllItems.Add "EMReel010", EMReel010
-Set EMReel011 = New Reel : EMReel011.Name = "EMReel011" : g_AllItems.Add "EMReel011", EMReel011
-Set EMReel012 = New Reel : EMReel012.Name = "EMReel012" : g_AllItems.Add "EMReel012", EMReel012
-Set EMReel013 = New Reel : EMReel013.Name = "EMReel013" : g_AllItems.Add "EMReel013", EMReel013
-Set EMReel014 = New Reel : EMReel014.Name = "EMReel014" : g_AllItems.Add "EMReel014", EMReel014
-Set EMReel015 = New Reel : EMReel015.Name = "EMReel015" : g_AllItems.Add "EMReel015", EMReel015
-Set EMReel016 = New Reel : EMReel016.Name = "EMReel016" : g_AllItems.Add "EMReel016", EMReel016
-Set EMReel017 = New Reel : EMReel017.Name = "EMReel017" : g_AllItems.Add "EMReel017", EMReel017
-Set EMReel018 = New Reel : EMReel018.Name = "EMReel018" : g_AllItems.Add "EMReel018", EMReel018
-Set EMReel019 = New Reel : EMReel019.Name = "EMReel019" : g_AllItems.Add "EMReel019", EMReel019
-Set EMReel020 = New Reel : EMReel020.Name = "EMReel020" : g_AllItems.Add "EMReel020", EMReel020
-Set EMReel021 = New Reel : EMReel021.Name = "EMReel021" : g_AllItems.Add "EMReel021", EMReel021
-Set EMReel022 = New Reel : EMReel022.Name = "EMReel022" : g_AllItems.Add "EMReel022", EMReel022
-Set EMReel023 = New Reel : EMReel023.Name = "EMReel023" : g_AllItems.Add "EMReel023", EMReel023
-Set EMReel024 = New Reel : EMReel024.Name = "EMReel024" : g_AllItems.Add "EMReel024", EMReel024
-Set EMReel025 = New Reel : EMReel025.Name = "EMReel025" : g_AllItems.Add "EMReel025", EMReel025
-Set EMReel026 = New Reel : EMReel026.Name = "EMReel026" : g_AllItems.Add "EMReel026", EMReel026
-Set EMReel027 = New Reel : EMReel027.Name = "EMReel027" : g_AllItems.Add "EMReel027", EMReel027
-Set EMReel028 = New Reel : EMReel028.Name = "EMReel028" : g_AllItems.Add "EMReel028", EMReel028
-Set EMReel029 = New Reel : EMReel029.Name = "EMReel029" : g_AllItems.Add "EMReel029", EMReel029
-Set EMReel030 = New Reel : EMReel030.Name = "EMReel030" : g_AllItems.Add "EMReel030", EMReel030
-Set EMReel031 = New Reel : EMReel031.Name = "EMReel031" : g_AllItems.Add "EMReel031", EMReel031
-Set EMReel032 = New Reel : EMReel032.Name = "EMReel032" : g_AllItems.Add "EMReel032", EMReel032
-Set ReelGameOver = New Reel : ReelGameOver.Name = "ReelGameOver" : g_AllItems.Add "ReelGameOver", ReelGameOver
-Set ReelHighGame = New Reel : ReelHighGame.Name = "ReelHighGame" : g_AllItems.Add "ReelHighGame", ReelHighGame
-Set ReelShootAgain = New Reel : ReelShootAgain.Name = "ReelShootAgain" : g_AllItems.Add "ReelShootAgain", ReelShootAgain
-Set ReelTilt = New Reel : ReelTilt.Name = "ReelTilt" : g_AllItems.Add "ReelTilt", ReelTilt
+Set EMReel001 = New Reel : EMReel001.Name = "EMReel001" : EMReel001.TimerInterval = 100 : g_AllItems.Add "EMReel001", EMReel001
+Set EMReel002 = New Reel : EMReel002.Name = "EMReel002" : EMReel002.TimerInterval = 100 : g_AllItems.Add "EMReel002", EMReel002
+Set EMReel003 = New Reel : EMReel003.Name = "EMReel003" : EMReel003.TimerInterval = 100 : g_AllItems.Add "EMReel003", EMReel003
+Set EMReel004 = New Reel : EMReel004.Name = "EMReel004" : EMReel004.TimerInterval = 100 : g_AllItems.Add "EMReel004", EMReel004
+Set EMReel005 = New Reel : EMReel005.Name = "EMReel005" : EMReel005.TimerInterval = 100 : g_AllItems.Add "EMReel005", EMReel005
+Set EMReel006 = New Reel : EMReel006.Name = "EMReel006" : EMReel006.TimerInterval = 100 : g_AllItems.Add "EMReel006", EMReel006
+Set EMReel007 = New Reel : EMReel007.Name = "EMReel007" : EMReel007.TimerInterval = 100 : g_AllItems.Add "EMReel007", EMReel007
+Set EMReel008 = New Reel : EMReel008.Name = "EMReel008" : EMReel008.TimerInterval = 100 : g_AllItems.Add "EMReel008", EMReel008
+Set EMReel009 = New Reel : EMReel009.Name = "EMReel009" : EMReel009.TimerInterval = 100 : g_AllItems.Add "EMReel009", EMReel009
+Set EMReel010 = New Reel : EMReel010.Name = "EMReel010" : EMReel010.TimerInterval = 100 : g_AllItems.Add "EMReel010", EMReel010
+Set EMReel011 = New Reel : EMReel011.Name = "EMReel011" : EMReel011.TimerInterval = 100 : g_AllItems.Add "EMReel011", EMReel011
+Set EMReel012 = New Reel : EMReel012.Name = "EMReel012" : EMReel012.TimerInterval = 100 : g_AllItems.Add "EMReel012", EMReel012
+Set EMReel013 = New Reel : EMReel013.Name = "EMReel013" : EMReel013.TimerInterval = 100 : g_AllItems.Add "EMReel013", EMReel013
+Set EMReel014 = New Reel : EMReel014.Name = "EMReel014" : EMReel014.TimerInterval = 100 : g_AllItems.Add "EMReel014", EMReel014
+Set EMReel015 = New Reel : EMReel015.Name = "EMReel015" : EMReel015.TimerInterval = 100 : g_AllItems.Add "EMReel015", EMReel015
+Set EMReel016 = New Reel : EMReel016.Name = "EMReel016" : EMReel016.TimerInterval = 100 : g_AllItems.Add "EMReel016", EMReel016
+Set EMReel017 = New Reel : EMReel017.Name = "EMReel017" : EMReel017.TimerInterval = 100 : g_AllItems.Add "EMReel017", EMReel017
+Set EMReel018 = New Reel : EMReel018.Name = "EMReel018" : EMReel018.TimerInterval = 100 : g_AllItems.Add "EMReel018", EMReel018
+Set EMReel019 = New Reel : EMReel019.Name = "EMReel019" : EMReel019.TimerInterval = 100 : g_AllItems.Add "EMReel019", EMReel019
+Set EMReel020 = New Reel : EMReel020.Name = "EMReel020" : EMReel020.TimerInterval = 100 : g_AllItems.Add "EMReel020", EMReel020
+Set EMReel021 = New Reel : EMReel021.Name = "EMReel021" : EMReel021.TimerInterval = 100 : g_AllItems.Add "EMReel021", EMReel021
+Set EMReel022 = New Reel : EMReel022.Name = "EMReel022" : EMReel022.TimerInterval = 100 : g_AllItems.Add "EMReel022", EMReel022
+Set EMReel023 = New Reel : EMReel023.Name = "EMReel023" : EMReel023.TimerInterval = 100 : g_AllItems.Add "EMReel023", EMReel023
+Set EMReel024 = New Reel : EMReel024.Name = "EMReel024" : EMReel024.TimerInterval = 100 : g_AllItems.Add "EMReel024", EMReel024
+Set EMReel025 = New Reel : EMReel025.Name = "EMReel025" : EMReel025.TimerInterval = 100 : g_AllItems.Add "EMReel025", EMReel025
+Set EMReel026 = New Reel : EMReel026.Name = "EMReel026" : EMReel026.TimerInterval = 100 : g_AllItems.Add "EMReel026", EMReel026
+Set EMReel027 = New Reel : EMReel027.Name = "EMReel027" : EMReel027.TimerInterval = 100 : g_AllItems.Add "EMReel027", EMReel027
+Set EMReel028 = New Reel : EMReel028.Name = "EMReel028" : EMReel028.TimerInterval = 100 : g_AllItems.Add "EMReel028", EMReel028
+Set EMReel029 = New Reel : EMReel029.Name = "EMReel029" : EMReel029.TimerInterval = 100 : g_AllItems.Add "EMReel029", EMReel029
+Set EMReel030 = New Reel : EMReel030.Name = "EMReel030" : EMReel030.TimerInterval = 100 : g_AllItems.Add "EMReel030", EMReel030
+Set EMReel031 = New Reel : EMReel031.Name = "EMReel031" : EMReel031.TimerInterval = 100 : g_AllItems.Add "EMReel031", EMReel031
+Set EMReel032 = New Reel : EMReel032.Name = "EMReel032" : EMReel032.TimerInterval = 100 : g_AllItems.Add "EMReel032", EMReel032
+Set ReelGameOver = New Reel : ReelGameOver.Name = "ReelGameOver" : ReelGameOver.TimerInterval = 100 : g_AllItems.Add "ReelGameOver", ReelGameOver
+Set ReelHighGame = New Reel : ReelHighGame.Name = "ReelHighGame" : ReelHighGame.TimerInterval = 100 : g_AllItems.Add "ReelHighGame", ReelHighGame
+Set ReelShootAgain = New Reel : ReelShootAgain.Name = "ReelShootAgain" : ReelShootAgain.TimerInterval = 100 : g_AllItems.Add "ReelShootAgain", ReelShootAgain
+Set ReelTilt = New Reel : ReelTilt.Name = "ReelTilt" : ReelTilt.TimerInterval = 100 : g_AllItems.Add "ReelTilt", ReelTilt
 
 ' --- Rubber (3) ---
 Dim BLR1, BLR2, BLR3
-Set BLR1 = New Rubber : BLR1.Name = "BLR1" : g_AllItems.Add "BLR1", BLR1
-Set BLR2 = New Rubber : BLR2.Name = "BLR2" : g_AllItems.Add "BLR2", BLR2
-Set BLR3 = New Rubber : BLR3.Name = "BLR3" : g_AllItems.Add "BLR3", BLR3
+Set BLR1 = New Rubber : BLR1.Name = "BLR1" : BLR1.TimerInterval = 100 : g_AllItems.Add "BLR1", BLR1
+Set BLR2 = New Rubber : BLR2.Name = "BLR2" : BLR2.TimerInterval = 100 : g_AllItems.Add "BLR2", BLR2
+Set BLR3 = New Rubber : BLR3.Name = "BLR3" : BLR3.TimerInterval = 100 : g_AllItems.Add "BLR3", BLR3
 
 ' --- Spinner (1) ---
 Dim Spinner1
-Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : g_AllItems.Add "Spinner1", Spinner1
+Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : Spinner1.TimerInterval = 100 : g_AllItems.Add "Spinner1", Spinner1
 
 ' --- TextBox (1) ---
 Dim ScoreText
-Set ScoreText = New TextBox : ScoreText.Name = "ScoreText" : g_AllItems.Add "ScoreText", ScoreText
+Set ScoreText = New TextBox : ScoreText.Name = "ScoreText" : ScoreText.TimerInterval = 100 : g_AllItems.Add "ScoreText", ScoreText
 
 ' --- Timer (41) ---
 Dim AttractModeHSDisplay, AttractNessieBG, BallControl, BallControlTimer, BallSaverTimer2Expired, BallSaverTimerExpired, BallSearchTimer, BallShadowUpdate, BonusCountDown2, BootTable, bumper2timer, bumper3timer, BumperFlashingTimer, ChangeGITimer, ChangeGITimer001

@@ -1,23 +1,23 @@
 ' Auto-generated VPX host object stubs
-' Source: /home/francisdb/vpinball/tables/American Graffiti (Original 2024)/American Graffiti (Original 2024)v1.3/gameitems.json
+' Source: tables/American Graffiti (Original 2024)/American Graffiti (Original 2024)v1.3/gameitems.json
 ' Total stubs: 612  Invalid names: 0
 ' Types: Bumper(3), Flasher(7), Flipper(3), Gate(3), HitTarget(12), Kicker(1), Light(108), Plunger(2), Primitive(299), Ramp(6), Reel(17), Spinner(1), TextBox(5), Timer(79), Trigger(21), Wall(45)
 
 ' --- Bumper (3) ---
 Dim Bumper1, Bumper2, Bumper3
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
-Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : g_AllItems.Add "Bumper3", Bumper3
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 15 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 15 : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : Bumper3.TimerInterval = 15 : g_AllItems.Add "Bumper3", Bumper3
 
 ' --- Flasher (7) ---
 Dim BallShadowA0, BallShadowA1, BallShadowA2, BallShadowA3, BallShadowA4, Flasher001, GlassImpurities
-Set BallShadowA0 = New Flasher : BallShadowA0.Name = "BallShadowA0" : g_AllItems.Add "BallShadowA0", BallShadowA0
-Set BallShadowA1 = New Flasher : BallShadowA1.Name = "BallShadowA1" : g_AllItems.Add "BallShadowA1", BallShadowA1
-Set BallShadowA2 = New Flasher : BallShadowA2.Name = "BallShadowA2" : g_AllItems.Add "BallShadowA2", BallShadowA2
-Set BallShadowA3 = New Flasher : BallShadowA3.Name = "BallShadowA3" : g_AllItems.Add "BallShadowA3", BallShadowA3
-Set BallShadowA4 = New Flasher : BallShadowA4.Name = "BallShadowA4" : g_AllItems.Add "BallShadowA4", BallShadowA4
-Set Flasher001 = New Flasher : Flasher001.Name = "Flasher001" : g_AllItems.Add "Flasher001", Flasher001
-Set GlassImpurities = New Flasher : GlassImpurities.Name = "GlassImpurities" : g_AllItems.Add "GlassImpurities", GlassImpurities
+Set BallShadowA0 = New Flasher : BallShadowA0.Name = "BallShadowA0" : BallShadowA0.TimerInterval = 100 : g_AllItems.Add "BallShadowA0", BallShadowA0
+Set BallShadowA1 = New Flasher : BallShadowA1.Name = "BallShadowA1" : BallShadowA1.TimerInterval = 100 : g_AllItems.Add "BallShadowA1", BallShadowA1
+Set BallShadowA2 = New Flasher : BallShadowA2.Name = "BallShadowA2" : BallShadowA2.TimerInterval = 100 : g_AllItems.Add "BallShadowA2", BallShadowA2
+Set BallShadowA3 = New Flasher : BallShadowA3.Name = "BallShadowA3" : BallShadowA3.TimerInterval = 100 : g_AllItems.Add "BallShadowA3", BallShadowA3
+Set BallShadowA4 = New Flasher : BallShadowA4.Name = "BallShadowA4" : BallShadowA4.TimerInterval = 100 : g_AllItems.Add "BallShadowA4", BallShadowA4
+Set Flasher001 = New Flasher : Flasher001.Name = "Flasher001" : Flasher001.TimerInterval = 100 : g_AllItems.Add "Flasher001", Flasher001
+Set GlassImpurities = New Flasher : GlassImpurities.Name = "GlassImpurities" : GlassImpurities.TimerInterval = 100 : g_AllItems.Add "GlassImpurities", GlassImpurities
 
 ' --- Flipper (3) ---
 Dim bottomgate, LeftFlipper, RightFlipper
@@ -170,8 +170,8 @@ Set p005 = New Light : p005.Name = "p005" : p005.BlinkPattern = "10" : p005.Blin
 
 ' --- Plunger (2) ---
 Dim dragPlunger, Plunger
-Set dragPlunger = New Plunger : dragPlunger.Name = "dragPlunger" : g_AllItems.Add "dragPlunger", dragPlunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set dragPlunger = New Plunger : dragPlunger.Name = "dragPlunger" : dragPlunger.TimerInterval = 100 : g_AllItems.Add "dragPlunger", dragPlunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (299) ---
 Dim Apron, BallShadow0, BallShadow001, BallShadow1, BallShadow2, BallShadow3, BallShadow5, beerSeal, Button_Lock, cab_block, cattlegate, check10, check11, check20, check21
@@ -496,45 +496,45 @@ Set zCol_Rubber_Peg3 = New Primitive : zCol_Rubber_Peg3.Name = "zCol_Rubber_Peg3
 
 ' --- Ramp (6) ---
 Dim Ramp001, Ramp16, Ramp17, SideRailLeft, SideRailRight, Trough2
-Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : g_AllItems.Add "Ramp001", Ramp001
-Set Ramp16 = New Ramp : Ramp16.Name = "Ramp16" : g_AllItems.Add "Ramp16", Ramp16
-Set Ramp17 = New Ramp : Ramp17.Name = "Ramp17" : g_AllItems.Add "Ramp17", Ramp17
-Set SideRailLeft = New Ramp : SideRailLeft.Name = "SideRailLeft" : g_AllItems.Add "SideRailLeft", SideRailLeft
-Set SideRailRight = New Ramp : SideRailRight.Name = "SideRailRight" : g_AllItems.Add "SideRailRight", SideRailRight
-Set Trough2 = New Ramp : Trough2.Name = "Trough2" : g_AllItems.Add "Trough2", Trough2
+Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : Ramp001.TimerInterval = 100 : g_AllItems.Add "Ramp001", Ramp001
+Set Ramp16 = New Ramp : Ramp16.Name = "Ramp16" : Ramp16.TimerInterval = 100 : g_AllItems.Add "Ramp16", Ramp16
+Set Ramp17 = New Ramp : Ramp17.Name = "Ramp17" : Ramp17.TimerInterval = 100 : g_AllItems.Add "Ramp17", Ramp17
+Set SideRailLeft = New Ramp : SideRailLeft.Name = "SideRailLeft" : SideRailLeft.TimerInterval = 100 : g_AllItems.Add "SideRailLeft", SideRailLeft
+Set SideRailRight = New Ramp : SideRailRight.Name = "SideRailRight" : SideRailRight.TimerInterval = 100 : g_AllItems.Add "SideRailRight", SideRailRight
+Set Trough2 = New Ramp : Trough2.Name = "Trough2" : Trough2.TimerInterval = 100 : g_AllItems.Add "Trough2", Trough2
 
 ' --- Reel (17) ---
 Dim bipReel, cpReel, CreditReel, GameOverReel, ScoreReel1, ScoreReel2, ScoreReel3, ScoreReel4, ScoreReelOff1, ScoreReelOff2, ScoreReelOff3, ScoreReelOff4, TiltReel, up1Reel, up2Reel
 Dim up3Reel, up4Reel
-Set bipReel = New Reel : bipReel.Name = "bipReel" : g_AllItems.Add "bipReel", bipReel
-Set cpReel = New Reel : cpReel.Name = "cpReel" : g_AllItems.Add "cpReel", cpReel
-Set CreditReel = New Reel : CreditReel.Name = "CreditReel" : g_AllItems.Add "CreditReel", CreditReel
-Set GameOverReel = New Reel : GameOverReel.Name = "GameOverReel" : g_AllItems.Add "GameOverReel", GameOverReel
-Set ScoreReel1 = New Reel : ScoreReel1.Name = "ScoreReel1" : g_AllItems.Add "ScoreReel1", ScoreReel1
-Set ScoreReel2 = New Reel : ScoreReel2.Name = "ScoreReel2" : g_AllItems.Add "ScoreReel2", ScoreReel2
-Set ScoreReel3 = New Reel : ScoreReel3.Name = "ScoreReel3" : g_AllItems.Add "ScoreReel3", ScoreReel3
-Set ScoreReel4 = New Reel : ScoreReel4.Name = "ScoreReel4" : g_AllItems.Add "ScoreReel4", ScoreReel4
-Set ScoreReelOff1 = New Reel : ScoreReelOff1.Name = "ScoreReelOff1" : g_AllItems.Add "ScoreReelOff1", ScoreReelOff1
-Set ScoreReelOff2 = New Reel : ScoreReelOff2.Name = "ScoreReelOff2" : g_AllItems.Add "ScoreReelOff2", ScoreReelOff2
-Set ScoreReelOff3 = New Reel : ScoreReelOff3.Name = "ScoreReelOff3" : g_AllItems.Add "ScoreReelOff3", ScoreReelOff3
-Set ScoreReelOff4 = New Reel : ScoreReelOff4.Name = "ScoreReelOff4" : g_AllItems.Add "ScoreReelOff4", ScoreReelOff4
-Set TiltReel = New Reel : TiltReel.Name = "TiltReel" : g_AllItems.Add "TiltReel", TiltReel
-Set up1Reel = New Reel : up1Reel.Name = "up1Reel" : g_AllItems.Add "up1Reel", up1Reel
-Set up2Reel = New Reel : up2Reel.Name = "up2Reel" : g_AllItems.Add "up2Reel", up2Reel
-Set up3Reel = New Reel : up3Reel.Name = "up3Reel" : g_AllItems.Add "up3Reel", up3Reel
-Set up4Reel = New Reel : up4Reel.Name = "up4Reel" : g_AllItems.Add "up4Reel", up4Reel
+Set bipReel = New Reel : bipReel.Name = "bipReel" : bipReel.TimerInterval = 100 : g_AllItems.Add "bipReel", bipReel
+Set cpReel = New Reel : cpReel.Name = "cpReel" : cpReel.TimerInterval = 100 : g_AllItems.Add "cpReel", cpReel
+Set CreditReel = New Reel : CreditReel.Name = "CreditReel" : CreditReel.TimerInterval = 100 : g_AllItems.Add "CreditReel", CreditReel
+Set GameOverReel = New Reel : GameOverReel.Name = "GameOverReel" : GameOverReel.TimerInterval = 100 : g_AllItems.Add "GameOverReel", GameOverReel
+Set ScoreReel1 = New Reel : ScoreReel1.Name = "ScoreReel1" : ScoreReel1.TimerInterval = 100 : g_AllItems.Add "ScoreReel1", ScoreReel1
+Set ScoreReel2 = New Reel : ScoreReel2.Name = "ScoreReel2" : ScoreReel2.TimerInterval = 100 : g_AllItems.Add "ScoreReel2", ScoreReel2
+Set ScoreReel3 = New Reel : ScoreReel3.Name = "ScoreReel3" : ScoreReel3.TimerInterval = 100 : g_AllItems.Add "ScoreReel3", ScoreReel3
+Set ScoreReel4 = New Reel : ScoreReel4.Name = "ScoreReel4" : ScoreReel4.TimerInterval = 100 : g_AllItems.Add "ScoreReel4", ScoreReel4
+Set ScoreReelOff1 = New Reel : ScoreReelOff1.Name = "ScoreReelOff1" : ScoreReelOff1.TimerInterval = 100 : g_AllItems.Add "ScoreReelOff1", ScoreReelOff1
+Set ScoreReelOff2 = New Reel : ScoreReelOff2.Name = "ScoreReelOff2" : ScoreReelOff2.TimerInterval = 100 : g_AllItems.Add "ScoreReelOff2", ScoreReelOff2
+Set ScoreReelOff3 = New Reel : ScoreReelOff3.Name = "ScoreReelOff3" : ScoreReelOff3.TimerInterval = 100 : g_AllItems.Add "ScoreReelOff3", ScoreReelOff3
+Set ScoreReelOff4 = New Reel : ScoreReelOff4.Name = "ScoreReelOff4" : ScoreReelOff4.TimerInterval = 100 : g_AllItems.Add "ScoreReelOff4", ScoreReelOff4
+Set TiltReel = New Reel : TiltReel.Name = "TiltReel" : TiltReel.TimerInterval = 100 : g_AllItems.Add "TiltReel", TiltReel
+Set up1Reel = New Reel : up1Reel.Name = "up1Reel" : up1Reel.TimerInterval = 100 : g_AllItems.Add "up1Reel", up1Reel
+Set up2Reel = New Reel : up2Reel.Name = "up2Reel" : up2Reel.TimerInterval = 100 : g_AllItems.Add "up2Reel", up2Reel
+Set up3Reel = New Reel : up3Reel.Name = "up3Reel" : up3Reel.TimerInterval = 100 : g_AllItems.Add "up3Reel", up3Reel
+Set up4Reel = New Reel : up4Reel.Name = "up4Reel" : up4Reel.TimerInterval = 100 : g_AllItems.Add "up4Reel", up4Reel
 
 ' --- Spinner (1) ---
 Dim spinner
-Set spinner = New Spinner : spinner.Name = "spinner" : g_AllItems.Add "spinner", spinner
+Set spinner = New Spinner : spinner.Name = "spinner" : spinner.TimerInterval = 100 : g_AllItems.Add "spinner", spinner
 
 ' --- TextBox (5) ---
 Dim biptext, lutText, Matchtxt, TB, TB1
-Set biptext = New TextBox : biptext.Name = "biptext" : g_AllItems.Add "biptext", biptext
-Set lutText = New TextBox : lutText.Name = "lutText" : g_AllItems.Add "lutText", lutText
-Set Matchtxt = New TextBox : Matchtxt.Name = "Matchtxt" : g_AllItems.Add "Matchtxt", Matchtxt
-Set TB = New TextBox : TB.Name = "TB" : g_AllItems.Add "TB", TB
-Set TB1 = New TextBox : TB1.Name = "TB1" : g_AllItems.Add "TB1", TB1
+Set biptext = New TextBox : biptext.Name = "biptext" : biptext.TimerInterval = 100 : g_AllItems.Add "biptext", biptext
+Set lutText = New TextBox : lutText.Name = "lutText" : lutText.TimerInterval = 2000 : g_AllItems.Add "lutText", lutText
+Set Matchtxt = New TextBox : Matchtxt.Name = "Matchtxt" : Matchtxt.TimerInterval = 100 : g_AllItems.Add "Matchtxt", Matchtxt
+Set TB = New TextBox : TB.Name = "TB" : TB.TimerInterval = 100 : g_AllItems.Add "TB", TB
+Set TB1 = New TextBox : TB1.Name = "TB1" : TB1.TimerInterval = 100 : g_AllItems.Add "TB1", TB1
 
 ' --- Timer (79) ---
 Dim ArchTimer, ArchTimer2, BallControl, BallControlBlockTimer, ballSave, BootTable, BumperModeTimer, bumperRing0, bumperRing1, bumperRing2, bumperSuperMode, buttonAnimation, CoinDelay, cruiseLoopSuperMode, dragResult

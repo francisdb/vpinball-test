@@ -1,20 +1,20 @@
 ' Auto-generated VPX host object stubs
-' Source: /home/francisdb/vpinball/tables/Cyber Race (Original 2023)/CyberRace-1.3.8/gameitems.json
-' Total stubs: 1445  Invalid names: 2
-' Types: Bumper(3), Flasher(4), Flipper(3), Gate(5), HitTarget(12), Kicker(12), Light(156), LightSequencer(4), Plunger(1), Primitive(1103), Ramp(25), Spinner(2), Timer(26), Trigger(30), Wall(59)
+' Source: tables/Cyber Race (Original 2023)/CyberRace-1.3.8/gameitems.json
+' Total stubs: 1447  Invalid names: 0
+' Types: Bumper(3), Flasher(4), Flipper(3), Gate(5), HitTarget(12), Kicker(12), Light(156), LightSequencer(4), Plunger(1), Primitive(1103), Ramp(25), Spinner(2), Timer(26), Trigger(30), Wall(61)
 
 ' --- Bumper (3) ---
 Dim Bumper1, Bumper2, Bumper3
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
-Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : g_AllItems.Add "Bumper3", Bumper3
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 100 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 100 : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : Bumper3.TimerInterval = 100 : g_AllItems.Add "Bumper3", Bumper3
 
 ' --- Flasher (4) ---
 Dim DMD, OptionDMDFlasher, Poster, ScorbitFlasher
-Set DMD = New Flasher : DMD.Name = "DMD" : g_AllItems.Add "DMD", DMD
-Set OptionDMDFlasher = New Flasher : OptionDMDFlasher.Name = "OptionDMDFlasher" : g_AllItems.Add "OptionDMDFlasher", OptionDMDFlasher
-Set Poster = New Flasher : Poster.Name = "Poster" : g_AllItems.Add "Poster", Poster
-Set ScorbitFlasher = New Flasher : ScorbitFlasher.Name = "ScorbitFlasher" : g_AllItems.Add "ScorbitFlasher", ScorbitFlasher
+Set DMD = New Flasher : DMD.Name = "DMD" : DMD.TimerInterval = 100 : g_AllItems.Add "DMD", DMD
+Set OptionDMDFlasher = New Flasher : OptionDMDFlasher.Name = "OptionDMDFlasher" : OptionDMDFlasher.TimerInterval = 100 : g_AllItems.Add "OptionDMDFlasher", OptionDMDFlasher
+Set Poster = New Flasher : Poster.Name = "Poster" : Poster.TimerInterval = 100 : g_AllItems.Add "Poster", Poster
+Set ScorbitFlasher = New Flasher : ScorbitFlasher.Name = "ScorbitFlasher" : ScorbitFlasher.TimerInterval = 100 : g_AllItems.Add "ScorbitFlasher", ScorbitFlasher
 
 ' --- Flipper (3) ---
 Dim LeftFlipper, RightFlipper, UpRightFlipper
@@ -238,7 +238,7 @@ Set LightSeqRGB = New LightSequencer : LightSeqRGB.Name = "LightSeqRGB" : LightS
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (1103) ---
 Dim BallShadow0, BallShadow1, BallShadow2, BallShadow3, BallShadow4, BallShadow5, BallShadow6, BallShadow7, BallShadow8, BM_BIPL, BM_BR1, BM_BR2, BM_BR3, BM_Disc, BM_Extra
@@ -1422,36 +1422,36 @@ Set zCol_Rubber_Sleeve011 = New Primitive : zCol_Rubber_Sleeve011.Name = "zCol_R
 ' --- Ramp (25) ---
 Dim LRampFloor, Ramp002, Ramp005, Ramp006, Ramp009, Ramp011, Ramp015, Ramp018, Ramp029, Ramp041, Ramp051, Ramp11, Ramp13, Ramp23, Ramp3
 Dim Ramp4, Ramp43, Ramp8, Ramp_6, RRamp, RRamp_002, RRamp_2, RRamp_3, RRamp_4, RRamp_5
-Set LRampFloor = New Ramp : LRampFloor.Name = "LRampFloor" : g_AllItems.Add "LRampFloor", LRampFloor
-Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : g_AllItems.Add "Ramp002", Ramp002
-Set Ramp005 = New Ramp : Ramp005.Name = "Ramp005" : g_AllItems.Add "Ramp005", Ramp005
-Set Ramp006 = New Ramp : Ramp006.Name = "Ramp006" : g_AllItems.Add "Ramp006", Ramp006
-Set Ramp009 = New Ramp : Ramp009.Name = "Ramp009" : g_AllItems.Add "Ramp009", Ramp009
-Set Ramp011 = New Ramp : Ramp011.Name = "Ramp011" : g_AllItems.Add "Ramp011", Ramp011
-Set Ramp015 = New Ramp : Ramp015.Name = "Ramp015" : g_AllItems.Add "Ramp015", Ramp015
-Set Ramp018 = New Ramp : Ramp018.Name = "Ramp018" : g_AllItems.Add "Ramp018", Ramp018
-Set Ramp029 = New Ramp : Ramp029.Name = "Ramp029" : g_AllItems.Add "Ramp029", Ramp029
-Set Ramp041 = New Ramp : Ramp041.Name = "Ramp041" : g_AllItems.Add "Ramp041", Ramp041
-Set Ramp051 = New Ramp : Ramp051.Name = "Ramp051" : g_AllItems.Add "Ramp051", Ramp051
-Set Ramp11 = New Ramp : Ramp11.Name = "Ramp11" : g_AllItems.Add "Ramp11", Ramp11
-Set Ramp13 = New Ramp : Ramp13.Name = "Ramp13" : g_AllItems.Add "Ramp13", Ramp13
-Set Ramp23 = New Ramp : Ramp23.Name = "Ramp23" : g_AllItems.Add "Ramp23", Ramp23
-Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : g_AllItems.Add "Ramp3", Ramp3
-Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : g_AllItems.Add "Ramp4", Ramp4
-Set Ramp43 = New Ramp : Ramp43.Name = "Ramp43" : g_AllItems.Add "Ramp43", Ramp43
-Set Ramp8 = New Ramp : Ramp8.Name = "Ramp8" : g_AllItems.Add "Ramp8", Ramp8
-Set Ramp_6 = New Ramp : Ramp_6.Name = "Ramp_6" : g_AllItems.Add "Ramp_6", Ramp_6
-Set RRamp = New Ramp : RRamp.Name = "RRamp" : g_AllItems.Add "RRamp", RRamp
-Set RRamp_002 = New Ramp : RRamp_002.Name = "RRamp_002" : g_AllItems.Add "RRamp_002", RRamp_002
-Set RRamp_2 = New Ramp : RRamp_2.Name = "RRamp_2" : g_AllItems.Add "RRamp_2", RRamp_2
-Set RRamp_3 = New Ramp : RRamp_3.Name = "RRamp_3" : g_AllItems.Add "RRamp_3", RRamp_3
-Set RRamp_4 = New Ramp : RRamp_4.Name = "RRamp_4" : g_AllItems.Add "RRamp_4", RRamp_4
-Set RRamp_5 = New Ramp : RRamp_5.Name = "RRamp_5" : g_AllItems.Add "RRamp_5", RRamp_5
+Set LRampFloor = New Ramp : LRampFloor.Name = "LRampFloor" : LRampFloor.TimerInterval = 100 : g_AllItems.Add "LRampFloor", LRampFloor
+Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : Ramp002.TimerInterval = 100 : g_AllItems.Add "Ramp002", Ramp002
+Set Ramp005 = New Ramp : Ramp005.Name = "Ramp005" : Ramp005.TimerInterval = 100 : g_AllItems.Add "Ramp005", Ramp005
+Set Ramp006 = New Ramp : Ramp006.Name = "Ramp006" : Ramp006.TimerInterval = 100 : g_AllItems.Add "Ramp006", Ramp006
+Set Ramp009 = New Ramp : Ramp009.Name = "Ramp009" : Ramp009.TimerInterval = 100 : g_AllItems.Add "Ramp009", Ramp009
+Set Ramp011 = New Ramp : Ramp011.Name = "Ramp011" : Ramp011.TimerInterval = 100 : g_AllItems.Add "Ramp011", Ramp011
+Set Ramp015 = New Ramp : Ramp015.Name = "Ramp015" : Ramp015.TimerInterval = 100 : g_AllItems.Add "Ramp015", Ramp015
+Set Ramp018 = New Ramp : Ramp018.Name = "Ramp018" : Ramp018.TimerInterval = 100 : g_AllItems.Add "Ramp018", Ramp018
+Set Ramp029 = New Ramp : Ramp029.Name = "Ramp029" : Ramp029.TimerInterval = 100 : g_AllItems.Add "Ramp029", Ramp029
+Set Ramp041 = New Ramp : Ramp041.Name = "Ramp041" : Ramp041.TimerInterval = 100 : g_AllItems.Add "Ramp041", Ramp041
+Set Ramp051 = New Ramp : Ramp051.Name = "Ramp051" : Ramp051.TimerInterval = 100 : g_AllItems.Add "Ramp051", Ramp051
+Set Ramp11 = New Ramp : Ramp11.Name = "Ramp11" : Ramp11.TimerInterval = 100 : g_AllItems.Add "Ramp11", Ramp11
+Set Ramp13 = New Ramp : Ramp13.Name = "Ramp13" : Ramp13.TimerInterval = 100 : g_AllItems.Add "Ramp13", Ramp13
+Set Ramp23 = New Ramp : Ramp23.Name = "Ramp23" : Ramp23.TimerInterval = 100 : g_AllItems.Add "Ramp23", Ramp23
+Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : Ramp3.TimerInterval = 100 : g_AllItems.Add "Ramp3", Ramp3
+Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : Ramp4.TimerInterval = 100 : g_AllItems.Add "Ramp4", Ramp4
+Set Ramp43 = New Ramp : Ramp43.Name = "Ramp43" : Ramp43.TimerInterval = 100 : g_AllItems.Add "Ramp43", Ramp43
+Set Ramp8 = New Ramp : Ramp8.Name = "Ramp8" : Ramp8.TimerInterval = 100 : g_AllItems.Add "Ramp8", Ramp8
+Set Ramp_6 = New Ramp : Ramp_6.Name = "Ramp_6" : Ramp_6.TimerInterval = 100 : g_AllItems.Add "Ramp_6", Ramp_6
+Set RRamp = New Ramp : RRamp.Name = "RRamp" : RRamp.TimerInterval = 100 : g_AllItems.Add "RRamp", RRamp
+Set RRamp_002 = New Ramp : RRamp_002.Name = "RRamp_002" : RRamp_002.TimerInterval = 100 : g_AllItems.Add "RRamp_002", RRamp_002
+Set RRamp_2 = New Ramp : RRamp_2.Name = "RRamp_2" : RRamp_2.TimerInterval = 100 : g_AllItems.Add "RRamp_2", RRamp_2
+Set RRamp_3 = New Ramp : RRamp_3.Name = "RRamp_3" : RRamp_3.TimerInterval = 100 : g_AllItems.Add "RRamp_3", RRamp_3
+Set RRamp_4 = New Ramp : RRamp_4.Name = "RRamp_4" : RRamp_4.TimerInterval = 100 : g_AllItems.Add "RRamp_4", RRamp_4
+Set RRamp_5 = New Ramp : RRamp_5.Name = "RRamp_5" : RRamp_5.TimerInterval = 100 : g_AllItems.Add "RRamp_5", RRamp_5
 
 ' --- Spinner (2) ---
 Dim Spinner1, Spinner2
-Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : g_AllItems.Add "Spinner1", Spinner1
-Set Spinner2 = New Spinner : Spinner2.Name = "Spinner2" : g_AllItems.Add "Spinner2", Spinner2
+Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : Spinner1.TimerInterval = 100 : g_AllItems.Add "Spinner1", Spinner1
+Set Spinner2 = New Spinner : Spinner2.Name = "Spinner2" : Spinner2.TimerInterval = 100 : g_AllItems.Add "Spinner2", Spinner2
 
 ' --- Timer (26) ---
 Dim AttractTimer, AutoPlungerDelay, BallControl, BallReleaseTimer, BallSaverTimerExpired, BoostTimer, BridgeRelease, ComboTimer, DiscMotor, DMD_Display, DMDModeUpdate, DMDTimer, EMPTimer, FlexModeUpdate, Frametimer
@@ -1517,15 +1517,18 @@ Set TriggerLF = New Trigger : TriggerLF.Name = "TriggerLF" : TriggerLF.Enabled =
 Set TriggerRF = New Trigger : TriggerRF.Name = "TriggerRF" : TriggerRF.Enabled = True : g_AllItems.Add "TriggerRF", TriggerRF
 Set TurnTable = New Trigger : TurnTable.Name = "TurnTable" : TurnTable.Enabled = True : g_AllItems.Add "TurnTable", TurnTable
 
-' --- Wall (59) ---
-Dim Apron001, Apron1, DiverterOff, DiverterOn, LeftSlingShot, LockPin1, LockPin2, LockPin3, LockPin4, phys_left_upper_inlane, phys_right_upper_inlane, RightSlingShot, RPin, RubberBand001, RubberBand002
-Dim ScoopBackWall, surface_vukBallLock, surfaceLightHalos, Wall001, Wall002, Wall003, Wall004, Wall005, Wall006, Wall007, Wall008, Wall009, Wall010, Wall011, Wall012
-Dim Wall013, Wall014, Wall015, Wall016, Wall017, Wall018, Wall019, Wall025, Wall026, Wall028, Wall039, Wall042, Wall043, Wall11, Wall12
-Dim Wall13, Wall28, Wall36, Wall37, Wall39, Wall39Floor, Wall39Floor001, Wall4, Wall46, Wall47, Wall5, Wall6, Wall7, WallScoopProtect
+' --- Wall (61) ---
+Dim Apron001, Apron1, DiverterOff, DiverterOn, e10m, e25h, LeftSlingShot, LockPin1, LockPin2, LockPin3, LockPin4, phys_left_upper_inlane, phys_right_upper_inlane, RightSlingShot, RPin
+Dim RubberBand001, RubberBand002, ScoopBackWall, surface_vukBallLock, surfaceLightHalos, Wall001, Wall002, Wall003, Wall004, Wall005, Wall006, Wall007, Wall008, Wall009, Wall010
+Dim Wall011, Wall012, Wall013, Wall014, Wall015, Wall016, Wall017, Wall018, Wall019, Wall025, Wall026, Wall028, Wall039, Wall042, Wall043
+Dim Wall11, Wall12, Wall13, Wall28, Wall36, Wall37, Wall39, Wall39Floor, Wall39Floor001, Wall4, Wall46, Wall47, Wall5, Wall6, Wall7
+Dim WallScoopProtect
 Set Apron001 = New Wall : Apron001.Name = "Apron001" : Apron001.CanDrop = False : Apron001.Collidable = True : g_AllItems.Add "Apron001", Apron001
 Set Apron1 = New Wall : Apron1.Name = "Apron1" : Apron1.CanDrop = False : Apron1.Collidable = True : g_AllItems.Add "Apron1", Apron1
 Set DiverterOff = New Wall : DiverterOff.Name = "DiverterOff" : DiverterOff.CanDrop = True : DiverterOff.Collidable = True : g_AllItems.Add "DiverterOff", DiverterOff
 Set DiverterOn = New Wall : DiverterOn.Name = "DiverterOn" : DiverterOn.CanDrop = True : DiverterOn.Collidable = True : g_AllItems.Add "DiverterOn", DiverterOn
+Set e10m = New Wall : e10m.Name = "10m" : e10m.CanDrop = False : e10m.Collidable = False : g_AllItems.Add "10m", e10m
+Set e25h = New Wall : e25h.Name = "25h" : e25h.CanDrop = False : e25h.Collidable = False : g_AllItems.Add "25h", e25h
 Set LeftSlingShot = New Wall : LeftSlingShot.Name = "LeftSlingShot" : LeftSlingShot.CanDrop = False : LeftSlingShot.Collidable = True : g_AllItems.Add "LeftSlingShot", LeftSlingShot
 Set LockPin1 = New Wall : LockPin1.Name = "LockPin1" : LockPin1.CanDrop = True : LockPin1.Collidable = True : g_AllItems.Add "LockPin1", LockPin1
 Set LockPin2 = New Wall : LockPin2.Name = "LockPin2" : LockPin2.CanDrop = True : LockPin2.Collidable = True : g_AllItems.Add "LockPin2", LockPin2
@@ -1581,10 +1584,6 @@ Set Wall5 = New Wall : Wall5.Name = "Wall5" : Wall5.CanDrop = False : Wall5.Coll
 Set Wall6 = New Wall : Wall6.Name = "Wall6" : Wall6.CanDrop = False : Wall6.Collidable = True : g_AllItems.Add "Wall6", Wall6
 Set Wall7 = New Wall : Wall7.Name = "Wall7" : Wall7.CanDrop = False : Wall7.Collidable = True : g_AllItems.Add "Wall7", Wall7
 Set WallScoopProtect = New Wall : WallScoopProtect.Name = "WallScoopProtect" : WallScoopProtect.CanDrop = True : WallScoopProtect.Collidable = True : g_AllItems.Add "WallScoopProtect", WallScoopProtect
-
-' --- Skipped: invalid VBScript identifiers ---
-' Wall: 10m
-' Wall: 25h
 
 ' --- Collections ---
 Dim Room_LM : Set Room_LM = CreateCollection(VR_Cab_LM, VR_Backglass_LM) : g_CollectionNames.Add "Room_LM", True

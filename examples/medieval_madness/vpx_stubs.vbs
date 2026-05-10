@@ -1,25 +1,25 @@
 ' Auto-generated VPX host object stubs
-' Source: /home/francisdb/vpinball/tables/Medieval Madness (Williams 1997)/Medieval Madness (Williams 1997) VPW v1.0.1/gameitems.json
-' Total stubs: 1318  Invalid names: 8
-' Types: Bumper(3), Flasher(9), Flipper(4), Gate(12), HitTarget(6), Kicker(6), Light(112), Plunger(1), Primitive(1047), Ramp(21), TextBox(1), Timer(15), Trigger(31), Wall(50)
+' Source: tables/Medieval Madness (Williams 1997)/Medieval Madness (Williams 1997) VPW v1.0.1/gameitems.json
+' Total stubs: 1323  Invalid names: 3
+' Types: Bumper(3), Flasher(9), Flipper(4), Gate(12), HitTarget(6), Kicker(6), Light(112), Plunger(1), Primitive(1047), Ramp(21), TextBox(1), Timer(15), Trigger(31), Wall(55)
 
 ' --- Bumper (3) ---
 Dim Bumper1, Bumper2, Bumper3
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
-Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : g_AllItems.Add "Bumper3", Bumper3
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 20 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 20 : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : Bumper3.TimerInterval = 20 : g_AllItems.Add "Bumper3", Bumper3
 
 ' --- Flasher (9) ---
 Dim BGDark, BGGI3, VPW, VR_DMD, VRBGF17, VRBGF18, VRBGF19, VRBGF20, VRCab_LaunchButtonText
-Set BGDark = New Flasher : BGDark.Name = "BGDark" : g_AllItems.Add "BGDark", BGDark
-Set BGGI3 = New Flasher : BGGI3.Name = "BGGI3" : g_AllItems.Add "BGGI3", BGGI3
-Set VPW = New Flasher : VPW.Name = "VPW" : g_AllItems.Add "VPW", VPW
-Set VR_DMD = New Flasher : VR_DMD.Name = "VR_DMD" : g_AllItems.Add "VR_DMD", VR_DMD
-Set VRBGF17 = New Flasher : VRBGF17.Name = "VRBGF17" : g_AllItems.Add "VRBGF17", VRBGF17
-Set VRBGF18 = New Flasher : VRBGF18.Name = "VRBGF18" : g_AllItems.Add "VRBGF18", VRBGF18
-Set VRBGF19 = New Flasher : VRBGF19.Name = "VRBGF19" : g_AllItems.Add "VRBGF19", VRBGF19
-Set VRBGF20 = New Flasher : VRBGF20.Name = "VRBGF20" : g_AllItems.Add "VRBGF20", VRBGF20
-Set VRCab_LaunchButtonText = New Flasher : VRCab_LaunchButtonText.Name = "VRCab_LaunchButtonText" : g_AllItems.Add "VRCab_LaunchButtonText", VRCab_LaunchButtonText
+Set BGDark = New Flasher : BGDark.Name = "BGDark" : BGDark.TimerInterval = 100 : g_AllItems.Add "BGDark", BGDark
+Set BGGI3 = New Flasher : BGGI3.Name = "BGGI3" : BGGI3.TimerInterval = 100 : g_AllItems.Add "BGGI3", BGGI3
+Set VPW = New Flasher : VPW.Name = "VPW" : VPW.TimerInterval = 100 : g_AllItems.Add "VPW", VPW
+Set VR_DMD = New Flasher : VR_DMD.Name = "VR_DMD" : VR_DMD.TimerInterval = 100 : g_AllItems.Add "VR_DMD", VR_DMD
+Set VRBGF17 = New Flasher : VRBGF17.Name = "VRBGF17" : VRBGF17.TimerInterval = 100 : g_AllItems.Add "VRBGF17", VRBGF17
+Set VRBGF18 = New Flasher : VRBGF18.Name = "VRBGF18" : VRBGF18.TimerInterval = 100 : g_AllItems.Add "VRBGF18", VRBGF18
+Set VRBGF19 = New Flasher : VRBGF19.Name = "VRBGF19" : VRBGF19.TimerInterval = 100 : g_AllItems.Add "VRBGF19", VRBGF19
+Set VRBGF20 = New Flasher : VRBGF20.Name = "VRBGF20" : VRBGF20.TimerInterval = 100 : g_AllItems.Add "VRBGF20", VRBGF20
+Set VRCab_LaunchButtonText = New Flasher : VRCab_LaunchButtonText.Name = "VRCab_LaunchButtonText" : VRCab_LaunchButtonText.TimerInterval = 100 : g_AllItems.Add "VRCab_LaunchButtonText", VRCab_LaunchButtonText
 
 ' --- Flipper (4) ---
 Dim LeftFlipper, RightFlipper, sw62flip, sw64flip
@@ -185,7 +185,7 @@ Set l88 = New Light : l88.Name = "l88" : l88.BlinkPattern = "10" : l88.BlinkInte
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (1047) ---
 Dim BallShadow0, BallShadow1, BallShadow2, BallShadow3, BallShadow4, BallShadow5, blocker_castle, BM_BR1, BM_BR2, BM_BR3, BM_bridgeDown, BM_bridgeUp, BM_BS1, BM_BS2, BM_BS3
@@ -1309,31 +1309,31 @@ Set zCol_Rubber_Sleeve_008 = New Primitive : zCol_Rubber_Sleeve_008.Name = "zCol
 ' --- Ramp (21) ---
 Dim BridgeRamp, Left_Ramp_Backwall, LeftRamp, Ramp001, Ramp002, Ramp005, Ramp006, Ramp11, Ramp12, Ramp12_lid, Ramp13, Ramp14, Ramp17, Ramp18, Ramp22
 Dim Ramp53, Ramp6, Ramp63, Ramp7_Roof, Ramp8, rramp_ent
-Set BridgeRamp = New Ramp : BridgeRamp.Name = "BridgeRamp" : g_AllItems.Add "BridgeRamp", BridgeRamp
-Set Left_Ramp_Backwall = New Ramp : Left_Ramp_Backwall.Name = "Left_Ramp_Backwall" : g_AllItems.Add "Left_Ramp_Backwall", Left_Ramp_Backwall
-Set LeftRamp = New Ramp : LeftRamp.Name = "LeftRamp" : g_AllItems.Add "LeftRamp", LeftRamp
-Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : g_AllItems.Add "Ramp001", Ramp001
-Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : g_AllItems.Add "Ramp002", Ramp002
-Set Ramp005 = New Ramp : Ramp005.Name = "Ramp005" : g_AllItems.Add "Ramp005", Ramp005
-Set Ramp006 = New Ramp : Ramp006.Name = "Ramp006" : g_AllItems.Add "Ramp006", Ramp006
-Set Ramp11 = New Ramp : Ramp11.Name = "Ramp11" : g_AllItems.Add "Ramp11", Ramp11
-Set Ramp12 = New Ramp : Ramp12.Name = "Ramp12" : g_AllItems.Add "Ramp12", Ramp12
-Set Ramp12_lid = New Ramp : Ramp12_lid.Name = "Ramp12_lid" : g_AllItems.Add "Ramp12_lid", Ramp12_lid
-Set Ramp13 = New Ramp : Ramp13.Name = "Ramp13" : g_AllItems.Add "Ramp13", Ramp13
-Set Ramp14 = New Ramp : Ramp14.Name = "Ramp14" : g_AllItems.Add "Ramp14", Ramp14
-Set Ramp17 = New Ramp : Ramp17.Name = "Ramp17" : g_AllItems.Add "Ramp17", Ramp17
-Set Ramp18 = New Ramp : Ramp18.Name = "Ramp18" : g_AllItems.Add "Ramp18", Ramp18
-Set Ramp22 = New Ramp : Ramp22.Name = "Ramp22" : g_AllItems.Add "Ramp22", Ramp22
-Set Ramp53 = New Ramp : Ramp53.Name = "Ramp53" : g_AllItems.Add "Ramp53", Ramp53
-Set Ramp6 = New Ramp : Ramp6.Name = "Ramp6" : g_AllItems.Add "Ramp6", Ramp6
-Set Ramp63 = New Ramp : Ramp63.Name = "Ramp63" : g_AllItems.Add "Ramp63", Ramp63
-Set Ramp7_Roof = New Ramp : Ramp7_Roof.Name = "Ramp7_Roof" : g_AllItems.Add "Ramp7_Roof", Ramp7_Roof
-Set Ramp8 = New Ramp : Ramp8.Name = "Ramp8" : g_AllItems.Add "Ramp8", Ramp8
-Set rramp_ent = New Ramp : rramp_ent.Name = "rramp_ent" : g_AllItems.Add "rramp_ent", rramp_ent
+Set BridgeRamp = New Ramp : BridgeRamp.Name = "BridgeRamp" : BridgeRamp.TimerInterval = 100 : g_AllItems.Add "BridgeRamp", BridgeRamp
+Set Left_Ramp_Backwall = New Ramp : Left_Ramp_Backwall.Name = "Left_Ramp_Backwall" : Left_Ramp_Backwall.TimerInterval = 100 : g_AllItems.Add "Left_Ramp_Backwall", Left_Ramp_Backwall
+Set LeftRamp = New Ramp : LeftRamp.Name = "LeftRamp" : LeftRamp.TimerInterval = 100 : g_AllItems.Add "LeftRamp", LeftRamp
+Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : Ramp001.TimerInterval = 100 : g_AllItems.Add "Ramp001", Ramp001
+Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : Ramp002.TimerInterval = 100 : g_AllItems.Add "Ramp002", Ramp002
+Set Ramp005 = New Ramp : Ramp005.Name = "Ramp005" : Ramp005.TimerInterval = 100 : g_AllItems.Add "Ramp005", Ramp005
+Set Ramp006 = New Ramp : Ramp006.Name = "Ramp006" : Ramp006.TimerInterval = 100 : g_AllItems.Add "Ramp006", Ramp006
+Set Ramp11 = New Ramp : Ramp11.Name = "Ramp11" : Ramp11.TimerInterval = 100 : g_AllItems.Add "Ramp11", Ramp11
+Set Ramp12 = New Ramp : Ramp12.Name = "Ramp12" : Ramp12.TimerInterval = 100 : g_AllItems.Add "Ramp12", Ramp12
+Set Ramp12_lid = New Ramp : Ramp12_lid.Name = "Ramp12_lid" : Ramp12_lid.TimerInterval = 100 : g_AllItems.Add "Ramp12_lid", Ramp12_lid
+Set Ramp13 = New Ramp : Ramp13.Name = "Ramp13" : Ramp13.TimerInterval = 100 : g_AllItems.Add "Ramp13", Ramp13
+Set Ramp14 = New Ramp : Ramp14.Name = "Ramp14" : Ramp14.TimerInterval = 100 : g_AllItems.Add "Ramp14", Ramp14
+Set Ramp17 = New Ramp : Ramp17.Name = "Ramp17" : Ramp17.TimerInterval = 100 : g_AllItems.Add "Ramp17", Ramp17
+Set Ramp18 = New Ramp : Ramp18.Name = "Ramp18" : Ramp18.TimerInterval = 100 : g_AllItems.Add "Ramp18", Ramp18
+Set Ramp22 = New Ramp : Ramp22.Name = "Ramp22" : Ramp22.TimerInterval = 100 : g_AllItems.Add "Ramp22", Ramp22
+Set Ramp53 = New Ramp : Ramp53.Name = "Ramp53" : Ramp53.TimerInterval = 100 : g_AllItems.Add "Ramp53", Ramp53
+Set Ramp6 = New Ramp : Ramp6.Name = "Ramp6" : Ramp6.TimerInterval = 100 : g_AllItems.Add "Ramp6", Ramp6
+Set Ramp63 = New Ramp : Ramp63.Name = "Ramp63" : Ramp63.TimerInterval = 100 : g_AllItems.Add "Ramp63", Ramp63
+Set Ramp7_Roof = New Ramp : Ramp7_Roof.Name = "Ramp7_Roof" : Ramp7_Roof.TimerInterval = 100 : g_AllItems.Add "Ramp7_Roof", Ramp7_Roof
+Set Ramp8 = New Ramp : Ramp8.Name = "Ramp8" : Ramp8.TimerInterval = 100 : g_AllItems.Add "Ramp8", Ramp8
+Set rramp_ent = New Ramp : rramp_ent.Name = "rramp_ent" : rramp_ent.TimerInterval = 100 : g_AllItems.Add "rramp_ent", rramp_ent
 
 ' --- TextBox (1) ---
 Dim Scoretext
-Set Scoretext = New TextBox : Scoretext.Name = "Scoretext" : g_AllItems.Add "Scoretext", Scoretext
+Set Scoretext = New TextBox : Scoretext.Name = "Scoretext" : Scoretext.TimerInterval = 100 : g_AllItems.Add "Scoretext", Scoretext
 
 ' --- Timer (15) ---
 Dim CastleGateTimer, CorTimer, dbridge, doorshake, explosion, FireTimer, FrameTimer, PinMAMETimer, PulseTimer, RampRoll, TestFlasherTimer, towersshake, TrollLt, TrollRt, UpdateTroughTimer
@@ -1389,11 +1389,11 @@ Set sw68 = New Trigger : sw68.Name = "sw68" : sw68.Enabled = True : g_AllItems.A
 Set TriggerLF = New Trigger : TriggerLF.Name = "TriggerLF" : TriggerLF.Enabled = True : g_AllItems.Add "TriggerLF", TriggerLF
 Set TriggerRF = New Trigger : TriggerRF.Name = "TriggerRF" : TriggerRF.Enabled = True : g_AllItems.Add "TriggerRF", TriggerRF
 
-' --- Wall (50) ---
-Dim BlockerWall1, BlockerWall2, BlockerWall3, BlockerWall4, BlockerWall5, BlockerWall6, BlockerWall7, BlockerWall8, CastleFloor, Diverter, DoorDrawbridge, DoorPortculis, LeftRamp_Roof, LeftSlingShot, LockPost
-Dim LTT, Moatkick, RightSlingShot, RTT, RubberBand001, RubberBand002, RubberBand003, RubberBand004, RubberBand005, RubberBand006, RubberBand007, RubberBand008, RubberBand_LPostD, RubberBand_LPostM, RubberBand_LPostU
-Dim RubberBand_RPostD, RubberBand_RPostM, RubberBand_RPostU, sw45, sw46, TrollP1X, TrollP2X, Wall002, Wall005, Wall006, Wall22, Wall260, Wall271, Wall28Floor, Wall335
-Dim Wall47, Wall59, Wall87, Wall_Damsel, Wall_DamselGate
+' --- Wall (55) ---
+Dim BlockerWall1, BlockerWall2, BlockerWall3, BlockerWall4, BlockerWall5, BlockerWall6, BlockerWall7, BlockerWall8, CastleFloor, Diverter, DoorDrawbridge, DoorPortculis, e20h, e350h, e50h
+Dim e70h, e85h, LeftRamp_Roof, LeftSlingShot, LockPost, LTT, Moatkick, RightSlingShot, RTT, RubberBand001, RubberBand002, RubberBand003, RubberBand004, RubberBand005, RubberBand006
+Dim RubberBand007, RubberBand008, RubberBand_LPostD, RubberBand_LPostM, RubberBand_LPostU, RubberBand_RPostD, RubberBand_RPostM, RubberBand_RPostU, sw45, sw46, TrollP1X, TrollP2X, Wall002, Wall005, Wall006
+Dim Wall22, Wall260, Wall271, Wall28Floor, Wall335, Wall47, Wall59, Wall87, Wall_Damsel, Wall_DamselGate
 Set BlockerWall1 = New Wall : BlockerWall1.Name = "BlockerWall1" : BlockerWall1.CanDrop = False : BlockerWall1.Collidable = True : g_AllItems.Add "BlockerWall1", BlockerWall1
 Set BlockerWall2 = New Wall : BlockerWall2.Name = "BlockerWall2" : BlockerWall2.CanDrop = False : BlockerWall2.Collidable = True : g_AllItems.Add "BlockerWall2", BlockerWall2
 Set BlockerWall3 = New Wall : BlockerWall3.Name = "BlockerWall3" : BlockerWall3.CanDrop = False : BlockerWall3.Collidable = True : g_AllItems.Add "BlockerWall3", BlockerWall3
@@ -1406,6 +1406,11 @@ Set CastleFloor = New Wall : CastleFloor.Name = "CastleFloor" : CastleFloor.CanD
 Set Diverter = New Wall : Diverter.Name = "Diverter" : Diverter.CanDrop = True : Diverter.Collidable = True : g_AllItems.Add "Diverter", Diverter
 Set DoorDrawbridge = New Wall : DoorDrawbridge.Name = "DoorDrawbridge" : DoorDrawbridge.CanDrop = True : DoorDrawbridge.Collidable = True : g_AllItems.Add "DoorDrawbridge", DoorDrawbridge
 Set DoorPortculis = New Wall : DoorPortculis.Name = "DoorPortculis" : DoorPortculis.CanDrop = True : DoorPortculis.Collidable = True : g_AllItems.Add "DoorPortculis", DoorPortculis
+Set e20h = New Wall : e20h.Name = "20h" : e20h.CanDrop = False : e20h.Collidable = False : g_AllItems.Add "20h", e20h
+Set e350h = New Wall : e350h.Name = "350h" : e350h.CanDrop = False : e350h.Collidable = False : g_AllItems.Add "350h", e350h
+Set e50h = New Wall : e50h.Name = "50h" : e50h.CanDrop = False : e50h.Collidable = False : g_AllItems.Add "50h", e50h
+Set e70h = New Wall : e70h.Name = "70h" : e70h.CanDrop = False : e70h.Collidable = False : g_AllItems.Add "70h", e70h
+Set e85h = New Wall : e85h.Name = "85h" : e85h.CanDrop = False : e85h.Collidable = False : g_AllItems.Add "85h", e85h
 Set LeftRamp_Roof = New Wall : LeftRamp_Roof.Name = "LeftRamp_Roof" : LeftRamp_Roof.CanDrop = False : LeftRamp_Roof.Collidable = True : g_AllItems.Add "LeftRamp_Roof", LeftRamp_Roof
 Set LeftSlingShot = New Wall : LeftSlingShot.Name = "LeftSlingShot" : LeftSlingShot.CanDrop = False : LeftSlingShot.Collidable = True : g_AllItems.Add "LeftSlingShot", LeftSlingShot
 Set LockPost = New Wall : LockPost.Name = "LockPost" : LockPost.CanDrop = True : LockPost.Collidable = True : g_AllItems.Add "LockPost", LockPost
@@ -1446,11 +1451,6 @@ Set Wall_Damsel = New Wall : Wall_Damsel.Name = "Wall_Damsel" : Wall_Damsel.CanD
 Set Wall_DamselGate = New Wall : Wall_DamselGate.Name = "Wall_DamselGate" : Wall_DamselGate.CanDrop = False : Wall_DamselGate.Collidable = False : g_AllItems.Add "Wall_DamselGate", Wall_DamselGate
 
 ' --- Skipped: invalid VBScript identifiers ---
-' Wall: 20h
-' Wall: 350h
-' Wall: 50h
-' Wall: 70h
-' Wall: 85h
 ' Wall: _10h
 ' Wall: _139h
 ' Wall: _74h

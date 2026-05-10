@@ -5,8 +5,8 @@
 
 ' --- Bumper (2) ---
 Dim Bumper1, Bumper2
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 100 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 100 : g_AllItems.Add "Bumper2", Bumper2
 
 ' --- Flipper (2) ---
 Dim LeftFlipper, RightFlipper
@@ -132,7 +132,7 @@ Set RS_9 = New Light : RS_9.Name = "RS_9" : RS_9.BlinkPattern = "10" : RS_9.Blin
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (137) ---
 Dim AcornNut10, AcornNut11, AcornNut12, AcornNut13, AcornNut14, AcornNut15, AcornNut16, AcornNut17, AcornNut18, AcornNut19, AcornNut2, AcornNut20, AcornNut21, AcornNut3, AcornNut4
@@ -286,69 +286,69 @@ Set SpinnerRod2 = New Primitive : SpinnerRod2.Name = "SpinnerRod2" : g_AllItems.
 ' --- Ramp (17) ---
 Dim instcard, LeftRail, LockDownBar, Option1, Option2, Option3, Option4, OptionBalls, OptionFreeplay, OptionReplays, OptionsBack, Ramp1, Ramp2, Ramp3, Ramp4
 Dim repcard, RightRail
-Set instcard = New Ramp : instcard.Name = "instcard" : g_AllItems.Add "instcard", instcard
-Set LeftRail = New Ramp : LeftRail.Name = "LeftRail" : g_AllItems.Add "LeftRail", LeftRail
-Set LockDownBar = New Ramp : LockDownBar.Name = "LockDownBar" : g_AllItems.Add "LockDownBar", LockDownBar
-Set Option1 = New Ramp : Option1.Name = "Option1" : g_AllItems.Add "Option1", Option1
-Set Option2 = New Ramp : Option2.Name = "Option2" : g_AllItems.Add "Option2", Option2
-Set Option3 = New Ramp : Option3.Name = "Option3" : g_AllItems.Add "Option3", Option3
-Set Option4 = New Ramp : Option4.Name = "Option4" : g_AllItems.Add "Option4", Option4
-Set OptionBalls = New Ramp : OptionBalls.Name = "OptionBalls" : g_AllItems.Add "OptionBalls", OptionBalls
-Set OptionFreeplay = New Ramp : OptionFreeplay.Name = "OptionFreeplay" : g_AllItems.Add "OptionFreeplay", OptionFreeplay
-Set OptionReplays = New Ramp : OptionReplays.Name = "OptionReplays" : g_AllItems.Add "OptionReplays", OptionReplays
-Set OptionsBack = New Ramp : OptionsBack.Name = "OptionsBack" : g_AllItems.Add "OptionsBack", OptionsBack
-Set Ramp1 = New Ramp : Ramp1.Name = "Ramp1" : g_AllItems.Add "Ramp1", Ramp1
-Set Ramp2 = New Ramp : Ramp2.Name = "Ramp2" : g_AllItems.Add "Ramp2", Ramp2
-Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : g_AllItems.Add "Ramp3", Ramp3
-Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : g_AllItems.Add "Ramp4", Ramp4
-Set repcard = New Ramp : repcard.Name = "repcard" : g_AllItems.Add "repcard", repcard
-Set RightRail = New Ramp : RightRail.Name = "RightRail" : g_AllItems.Add "RightRail", RightRail
+Set instcard = New Ramp : instcard.Name = "instcard" : instcard.TimerInterval = 100 : g_AllItems.Add "instcard", instcard
+Set LeftRail = New Ramp : LeftRail.Name = "LeftRail" : LeftRail.TimerInterval = 100 : g_AllItems.Add "LeftRail", LeftRail
+Set LockDownBar = New Ramp : LockDownBar.Name = "LockDownBar" : LockDownBar.TimerInterval = 100 : g_AllItems.Add "LockDownBar", LockDownBar
+Set Option1 = New Ramp : Option1.Name = "Option1" : Option1.TimerInterval = 100 : g_AllItems.Add "Option1", Option1
+Set Option2 = New Ramp : Option2.Name = "Option2" : Option2.TimerInterval = 100 : g_AllItems.Add "Option2", Option2
+Set Option3 = New Ramp : Option3.Name = "Option3" : Option3.TimerInterval = 100 : g_AllItems.Add "Option3", Option3
+Set Option4 = New Ramp : Option4.Name = "Option4" : Option4.TimerInterval = 100 : g_AllItems.Add "Option4", Option4
+Set OptionBalls = New Ramp : OptionBalls.Name = "OptionBalls" : OptionBalls.TimerInterval = 100 : g_AllItems.Add "OptionBalls", OptionBalls
+Set OptionFreeplay = New Ramp : OptionFreeplay.Name = "OptionFreeplay" : OptionFreeplay.TimerInterval = 100 : g_AllItems.Add "OptionFreeplay", OptionFreeplay
+Set OptionReplays = New Ramp : OptionReplays.Name = "OptionReplays" : OptionReplays.TimerInterval = 100 : g_AllItems.Add "OptionReplays", OptionReplays
+Set OptionsBack = New Ramp : OptionsBack.Name = "OptionsBack" : OptionsBack.TimerInterval = 100 : g_AllItems.Add "OptionsBack", OptionsBack
+Set Ramp1 = New Ramp : Ramp1.Name = "Ramp1" : Ramp1.TimerInterval = 100 : g_AllItems.Add "Ramp1", Ramp1
+Set Ramp2 = New Ramp : Ramp2.Name = "Ramp2" : Ramp2.TimerInterval = 100 : g_AllItems.Add "Ramp2", Ramp2
+Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : Ramp3.TimerInterval = 100 : g_AllItems.Add "Ramp3", Ramp3
+Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : Ramp4.TimerInterval = 100 : g_AllItems.Add "Ramp4", Ramp4
+Set repcard = New Ramp : repcard.Name = "repcard" : repcard.TimerInterval = 100 : g_AllItems.Add "repcard", repcard
+Set RightRail = New Ramp : RightRail.Name = "RightRail" : RightRail.TimerInterval = 100 : g_AllItems.Add "RightRail", RightRail
 
 ' --- Reel (2) ---
 Dim Scorereel1, ScoreReel2
-Set Scorereel1 = New Reel : Scorereel1.Name = "Scorereel1" : g_AllItems.Add "Scorereel1", Scorereel1
-Set ScoreReel2 = New Reel : ScoreReel2.Name = "ScoreReel2" : g_AllItems.Add "ScoreReel2", ScoreReel2
+Set Scorereel1 = New Reel : Scorereel1.Name = "Scorereel1" : Scorereel1.TimerInterval = 100 : g_AllItems.Add "Scorereel1", Scorereel1
+Set ScoreReel2 = New Reel : ScoreReel2.Name = "ScoreReel2" : ScoreReel2.TimerInterval = 100 : g_AllItems.Add "ScoreReel2", ScoreReel2
 
 ' --- Rubber (22) ---
 Dim LSling, LSling1, LSling2, r33, r34, RSling, RSling1, RSling2, Rubber1, Rubber10, Rubber11, Rubber12, Rubber13, Rubber14, Rubber18
 Dim Rubber3, Rubber4, Rubber5, Rubber6, Rubber7, Rubber8, Rubber9
-Set LSling = New Rubber : LSling.Name = "LSling" : g_AllItems.Add "LSling", LSling
-Set LSling1 = New Rubber : LSling1.Name = "LSling1" : g_AllItems.Add "LSling1", LSling1
-Set LSling2 = New Rubber : LSling2.Name = "LSling2" : g_AllItems.Add "LSling2", LSling2
-Set r33 = New Rubber : r33.Name = "r33" : g_AllItems.Add "r33", r33
-Set r34 = New Rubber : r34.Name = "r34" : g_AllItems.Add "r34", r34
-Set RSling = New Rubber : RSling.Name = "RSling" : g_AllItems.Add "RSling", RSling
-Set RSling1 = New Rubber : RSling1.Name = "RSling1" : g_AllItems.Add "RSling1", RSling1
-Set RSling2 = New Rubber : RSling2.Name = "RSling2" : g_AllItems.Add "RSling2", RSling2
-Set Rubber1 = New Rubber : Rubber1.Name = "Rubber1" : g_AllItems.Add "Rubber1", Rubber1
-Set Rubber10 = New Rubber : Rubber10.Name = "Rubber10" : g_AllItems.Add "Rubber10", Rubber10
-Set Rubber11 = New Rubber : Rubber11.Name = "Rubber11" : g_AllItems.Add "Rubber11", Rubber11
-Set Rubber12 = New Rubber : Rubber12.Name = "Rubber12" : g_AllItems.Add "Rubber12", Rubber12
-Set Rubber13 = New Rubber : Rubber13.Name = "Rubber13" : g_AllItems.Add "Rubber13", Rubber13
-Set Rubber14 = New Rubber : Rubber14.Name = "Rubber14" : g_AllItems.Add "Rubber14", Rubber14
-Set Rubber18 = New Rubber : Rubber18.Name = "Rubber18" : g_AllItems.Add "Rubber18", Rubber18
-Set Rubber3 = New Rubber : Rubber3.Name = "Rubber3" : g_AllItems.Add "Rubber3", Rubber3
-Set Rubber4 = New Rubber : Rubber4.Name = "Rubber4" : g_AllItems.Add "Rubber4", Rubber4
-Set Rubber5 = New Rubber : Rubber5.Name = "Rubber5" : g_AllItems.Add "Rubber5", Rubber5
-Set Rubber6 = New Rubber : Rubber6.Name = "Rubber6" : g_AllItems.Add "Rubber6", Rubber6
-Set Rubber7 = New Rubber : Rubber7.Name = "Rubber7" : g_AllItems.Add "Rubber7", Rubber7
-Set Rubber8 = New Rubber : Rubber8.Name = "Rubber8" : g_AllItems.Add "Rubber8", Rubber8
-Set Rubber9 = New Rubber : Rubber9.Name = "Rubber9" : g_AllItems.Add "Rubber9", Rubber9
+Set LSling = New Rubber : LSling.Name = "LSling" : LSling.TimerInterval = 100 : g_AllItems.Add "LSling", LSling
+Set LSling1 = New Rubber : LSling1.Name = "LSling1" : LSling1.TimerInterval = 100 : g_AllItems.Add "LSling1", LSling1
+Set LSling2 = New Rubber : LSling2.Name = "LSling2" : LSling2.TimerInterval = 100 : g_AllItems.Add "LSling2", LSling2
+Set r33 = New Rubber : r33.Name = "r33" : r33.TimerInterval = 100 : g_AllItems.Add "r33", r33
+Set r34 = New Rubber : r34.Name = "r34" : r34.TimerInterval = 100 : g_AllItems.Add "r34", r34
+Set RSling = New Rubber : RSling.Name = "RSling" : RSling.TimerInterval = 100 : g_AllItems.Add "RSling", RSling
+Set RSling1 = New Rubber : RSling1.Name = "RSling1" : RSling1.TimerInterval = 100 : g_AllItems.Add "RSling1", RSling1
+Set RSling2 = New Rubber : RSling2.Name = "RSling2" : RSling2.TimerInterval = 100 : g_AllItems.Add "RSling2", RSling2
+Set Rubber1 = New Rubber : Rubber1.Name = "Rubber1" : Rubber1.TimerInterval = 100 : g_AllItems.Add "Rubber1", Rubber1
+Set Rubber10 = New Rubber : Rubber10.Name = "Rubber10" : Rubber10.TimerInterval = 100 : g_AllItems.Add "Rubber10", Rubber10
+Set Rubber11 = New Rubber : Rubber11.Name = "Rubber11" : Rubber11.TimerInterval = 100 : g_AllItems.Add "Rubber11", Rubber11
+Set Rubber12 = New Rubber : Rubber12.Name = "Rubber12" : Rubber12.TimerInterval = 100 : g_AllItems.Add "Rubber12", Rubber12
+Set Rubber13 = New Rubber : Rubber13.Name = "Rubber13" : Rubber13.TimerInterval = 100 : g_AllItems.Add "Rubber13", Rubber13
+Set Rubber14 = New Rubber : Rubber14.Name = "Rubber14" : Rubber14.TimerInterval = 100 : g_AllItems.Add "Rubber14", Rubber14
+Set Rubber18 = New Rubber : Rubber18.Name = "Rubber18" : Rubber18.TimerInterval = 100 : g_AllItems.Add "Rubber18", Rubber18
+Set Rubber3 = New Rubber : Rubber3.Name = "Rubber3" : Rubber3.TimerInterval = 100 : g_AllItems.Add "Rubber3", Rubber3
+Set Rubber4 = New Rubber : Rubber4.Name = "Rubber4" : Rubber4.TimerInterval = 100 : g_AllItems.Add "Rubber4", Rubber4
+Set Rubber5 = New Rubber : Rubber5.Name = "Rubber5" : Rubber5.TimerInterval = 100 : g_AllItems.Add "Rubber5", Rubber5
+Set Rubber6 = New Rubber : Rubber6.Name = "Rubber6" : Rubber6.TimerInterval = 100 : g_AllItems.Add "Rubber6", Rubber6
+Set Rubber7 = New Rubber : Rubber7.Name = "Rubber7" : Rubber7.TimerInterval = 100 : g_AllItems.Add "Rubber7", Rubber7
+Set Rubber8 = New Rubber : Rubber8.Name = "Rubber8" : Rubber8.TimerInterval = 100 : g_AllItems.Add "Rubber8", Rubber8
+Set Rubber9 = New Rubber : Rubber9.Name = "Rubber9" : Rubber9.TimerInterval = 100 : g_AllItems.Add "Rubber9", Rubber9
 
 ' --- Spinner (2) ---
 Dim Spinner1, Spinner2
-Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : g_AllItems.Add "Spinner1", Spinner1
-Set Spinner2 = New Spinner : Spinner2.Name = "Spinner2" : g_AllItems.Add "Spinner2", Spinner2
+Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : Spinner1.TimerInterval = 100 : g_AllItems.Add "Spinner1", Spinner1
+Set Spinner2 = New Spinner : Spinner2.Name = "Spinner2" : Spinner2.TimerInterval = 100 : g_AllItems.Add "Spinner2", Spinner2
 
 ' --- TextBox (7) ---
 Dim BIPTxt, CreditTxt, gameovertxt, highscore, matchtxt, TextBox1, tilttext
-Set BIPTxt = New TextBox : BIPTxt.Name = "BIPTxt" : g_AllItems.Add "BIPTxt", BIPTxt
-Set CreditTxt = New TextBox : CreditTxt.Name = "CreditTxt" : g_AllItems.Add "CreditTxt", CreditTxt
-Set gameovertxt = New TextBox : gameovertxt.Name = "gameovertxt" : g_AllItems.Add "gameovertxt", gameovertxt
-Set highscore = New TextBox : highscore.Name = "highscore" : g_AllItems.Add "highscore", highscore
-Set matchtxt = New TextBox : matchtxt.Name = "matchtxt" : g_AllItems.Add "matchtxt", matchtxt
-Set TextBox1 = New TextBox : TextBox1.Name = "TextBox1" : g_AllItems.Add "TextBox1", TextBox1
-Set tilttext = New TextBox : tilttext.Name = "tilttext" : g_AllItems.Add "tilttext", tilttext
+Set BIPTxt = New TextBox : BIPTxt.Name = "BIPTxt" : BIPTxt.TimerInterval = 100 : g_AllItems.Add "BIPTxt", BIPTxt
+Set CreditTxt = New TextBox : CreditTxt.Name = "CreditTxt" : CreditTxt.TimerInterval = 100 : g_AllItems.Add "CreditTxt", CreditTxt
+Set gameovertxt = New TextBox : gameovertxt.Name = "gameovertxt" : gameovertxt.TimerInterval = 100 : g_AllItems.Add "gameovertxt", gameovertxt
+Set highscore = New TextBox : highscore.Name = "highscore" : highscore.TimerInterval = 100 : g_AllItems.Add "highscore", highscore
+Set matchtxt = New TextBox : matchtxt.Name = "matchtxt" : matchtxt.TimerInterval = 100 : g_AllItems.Add "matchtxt", matchtxt
+Set TextBox1 = New TextBox : TextBox1.Name = "TextBox1" : TextBox1.TimerInterval = 100 : g_AllItems.Add "TextBox1", TextBox1
+Set tilttext = New TextBox : tilttext.Name = "tilttext" : tilttext.TimerInterval = 100 : g_AllItems.Add "tilttext", tilttext
 
 ' --- Timer (16) ---
 Dim AddScore1000Timer, AddScore100Timer, AddScore10Timer, bglights, BonusCollectTimer, BonusTimer, CheckSpinnerRod, kicker2Timer, Kicker3Timer, OperatorMenuTimer, PinMAMETimer, RealTimer, RollingTimer, SeqTimer, setBackglass

@@ -1,13 +1,13 @@
 ' Auto-generated VPX host object stubs
 ' Source: tables/Junkyard Cats (Original 2012)/Junkyard Cats_1.07/gameitems.json
-' Total stubs: 369  Invalid names: 16
-' Types: Bumper(3), Flipper(5), Gate(4), HitTarget(8), Kicker(14), Light(113), LightSequencer(8), Primitive(66), Ramp(9), Rubber(8), TextBox(4), Timer(92), Trigger(20), Wall(15)
+' Total stubs: 380  Invalid names: 5
+' Types: Bumper(3), Flipper(5), Gate(4), HitTarget(8), Kicker(14), Light(113), LightSequencer(8), Primitive(66), Ramp(9), Rubber(8), TextBox(4), Timer(92), Trigger(20), Wall(26)
 
 ' --- Bumper (3) ---
 Dim Bumper1, Bumper2, Bumper3
-Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : g_AllItems.Add "Bumper1", Bumper1
-Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : g_AllItems.Add "Bumper2", Bumper2
-Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : g_AllItems.Add "Bumper3", Bumper3
+Set Bumper1 = New Bumper : Bumper1.Name = "Bumper1" : Bumper1.TimerInterval = 200 : g_AllItems.Add "Bumper1", Bumper1
+Set Bumper2 = New Bumper : Bumper2.Name = "Bumper2" : Bumper2.TimerInterval = 200 : g_AllItems.Add "Bumper2", Bumper2
+Set Bumper3 = New Bumper : Bumper3.Name = "Bumper3" : Bumper3.TimerInterval = 200 : g_AllItems.Add "Bumper3", Bumper3
 
 ' --- Flipper (5) ---
 Dim leftdiverter, LeftFlipper, rightdiverter, RightFlipper, Upperflipper
@@ -261,33 +261,33 @@ Set SideCab = New Primitive : SideCab.Name = "SideCab" : g_AllItems.Add "SideCab
 
 ' --- Ramp (9) ---
 Dim Ramp1, Ramp11, Ramp2, Ramp3, Ramp4, Ramp5, Ramp6, Ramp7, Ramp8
-Set Ramp1 = New Ramp : Ramp1.Name = "Ramp1" : g_AllItems.Add "Ramp1", Ramp1
-Set Ramp11 = New Ramp : Ramp11.Name = "Ramp11" : g_AllItems.Add "Ramp11", Ramp11
-Set Ramp2 = New Ramp : Ramp2.Name = "Ramp2" : g_AllItems.Add "Ramp2", Ramp2
-Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : g_AllItems.Add "Ramp3", Ramp3
-Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : g_AllItems.Add "Ramp4", Ramp4
-Set Ramp5 = New Ramp : Ramp5.Name = "Ramp5" : g_AllItems.Add "Ramp5", Ramp5
-Set Ramp6 = New Ramp : Ramp6.Name = "Ramp6" : g_AllItems.Add "Ramp6", Ramp6
-Set Ramp7 = New Ramp : Ramp7.Name = "Ramp7" : g_AllItems.Add "Ramp7", Ramp7
-Set Ramp8 = New Ramp : Ramp8.Name = "Ramp8" : g_AllItems.Add "Ramp8", Ramp8
+Set Ramp1 = New Ramp : Ramp1.Name = "Ramp1" : Ramp1.TimerInterval = 100 : g_AllItems.Add "Ramp1", Ramp1
+Set Ramp11 = New Ramp : Ramp11.Name = "Ramp11" : Ramp11.TimerInterval = 100 : g_AllItems.Add "Ramp11", Ramp11
+Set Ramp2 = New Ramp : Ramp2.Name = "Ramp2" : Ramp2.TimerInterval = 100 : g_AllItems.Add "Ramp2", Ramp2
+Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : Ramp3.TimerInterval = 100 : g_AllItems.Add "Ramp3", Ramp3
+Set Ramp4 = New Ramp : Ramp4.Name = "Ramp4" : Ramp4.TimerInterval = 100 : g_AllItems.Add "Ramp4", Ramp4
+Set Ramp5 = New Ramp : Ramp5.Name = "Ramp5" : Ramp5.TimerInterval = 100 : g_AllItems.Add "Ramp5", Ramp5
+Set Ramp6 = New Ramp : Ramp6.Name = "Ramp6" : Ramp6.TimerInterval = 100 : g_AllItems.Add "Ramp6", Ramp6
+Set Ramp7 = New Ramp : Ramp7.Name = "Ramp7" : Ramp7.TimerInterval = 100 : g_AllItems.Add "Ramp7", Ramp7
+Set Ramp8 = New Ramp : Ramp8.Name = "Ramp8" : Ramp8.TimerInterval = 100 : g_AllItems.Add "Ramp8", Ramp8
 
 ' --- Rubber (8) ---
 Dim LeftSling1, LeftSling2, LeftSling3, LeftSling4, RightSling1, RightSling2, RightSling3, RightSling4
-Set LeftSling1 = New Rubber : LeftSling1.Name = "LeftSling1" : g_AllItems.Add "LeftSling1", LeftSling1
-Set LeftSling2 = New Rubber : LeftSling2.Name = "LeftSling2" : g_AllItems.Add "LeftSling2", LeftSling2
-Set LeftSling3 = New Rubber : LeftSling3.Name = "LeftSling3" : g_AllItems.Add "LeftSling3", LeftSling3
-Set LeftSling4 = New Rubber : LeftSling4.Name = "LeftSling4" : g_AllItems.Add "LeftSling4", LeftSling4
-Set RightSling1 = New Rubber : RightSling1.Name = "RightSling1" : g_AllItems.Add "RightSling1", RightSling1
-Set RightSling2 = New Rubber : RightSling2.Name = "RightSling2" : g_AllItems.Add "RightSling2", RightSling2
-Set RightSling3 = New Rubber : RightSling3.Name = "RightSling3" : g_AllItems.Add "RightSling3", RightSling3
-Set RightSling4 = New Rubber : RightSling4.Name = "RightSling4" : g_AllItems.Add "RightSling4", RightSling4
+Set LeftSling1 = New Rubber : LeftSling1.Name = "LeftSling1" : LeftSling1.TimerInterval = 100 : g_AllItems.Add "LeftSling1", LeftSling1
+Set LeftSling2 = New Rubber : LeftSling2.Name = "LeftSling2" : LeftSling2.TimerInterval = 100 : g_AllItems.Add "LeftSling2", LeftSling2
+Set LeftSling3 = New Rubber : LeftSling3.Name = "LeftSling3" : LeftSling3.TimerInterval = 100 : g_AllItems.Add "LeftSling3", LeftSling3
+Set LeftSling4 = New Rubber : LeftSling4.Name = "LeftSling4" : LeftSling4.TimerInterval = 100 : g_AllItems.Add "LeftSling4", LeftSling4
+Set RightSling1 = New Rubber : RightSling1.Name = "RightSling1" : RightSling1.TimerInterval = 100 : g_AllItems.Add "RightSling1", RightSling1
+Set RightSling2 = New Rubber : RightSling2.Name = "RightSling2" : RightSling2.TimerInterval = 100 : g_AllItems.Add "RightSling2", RightSling2
+Set RightSling3 = New Rubber : RightSling3.Name = "RightSling3" : RightSling3.TimerInterval = 100 : g_AllItems.Add "RightSling3", RightSling3
+Set RightSling4 = New Rubber : RightSling4.Name = "RightSling4" : RightSling4.TimerInterval = 100 : g_AllItems.Add "RightSling4", RightSling4
 
 ' --- TextBox (4) ---
 Dim display1, display2, hdisplay1, hdisplay2
-Set display1 = New TextBox : display1.Name = "display1" : g_AllItems.Add "display1", display1
-Set display2 = New TextBox : display2.Name = "display2" : g_AllItems.Add "display2", display2
-Set hdisplay1 = New TextBox : hdisplay1.Name = "hdisplay1" : g_AllItems.Add "hdisplay1", hdisplay1
-Set hdisplay2 = New TextBox : hdisplay2.Name = "hdisplay2" : g_AllItems.Add "hdisplay2", hdisplay2
+Set display1 = New TextBox : display1.Name = "display1" : display1.TimerInterval = 748945808 : g_AllItems.Add "display1", display1
+Set display2 = New TextBox : display2.Name = "display2" : display2.TimerInterval = 748945808 : g_AllItems.Add "display2", display2
+Set hdisplay1 = New TextBox : hdisplay1.Name = "hdisplay1" : hdisplay1.TimerInterval = 748945808 : g_AllItems.Add "hdisplay1", hdisplay1
+Set hdisplay2 = New TextBox : hdisplay2.Name = "hdisplay2" : hdisplay2.TimerInterval = 748945808 : g_AllItems.Add "hdisplay2", hdisplay2
 
 ' --- Timer (92) ---
 Dim atexttimer, attractmessagetimer, attracttimer, b2sflash, BackglassLightsShotTimer, BackglassLightsTimer, balljustlockedtimer, balljustsavedtimer, BallSaverTimer, ballsavetimer, ballsearchtimer, blackoutjackpottimer, bonuscounter, bonusshowtimer, boot
@@ -414,8 +414,20 @@ Set Trigger2 = New Trigger : Trigger2.Name = "Trigger2" : Trigger2.Enabled = Tru
 Set Trigger3 = New Trigger : Trigger3.Name = "Trigger3" : Trigger3.Enabled = True : g_AllItems.Add "Trigger3", Trigger3
 Set vturnramptrigger = New Trigger : vturnramptrigger.Name = "vturnramptrigger" : vturnramptrigger.Enabled = True : g_AllItems.Add "vturnramptrigger", vturnramptrigger
 
-' --- Wall (15) ---
-Dim LeftSlingshotRubber, RightSlingshotRubber, Wall1, Wall10, Wall2, Wall3, Wall32, Wall348, Wall4, Wall79, Wall80, Wood1, Wood2, Wood3, Wood4
+' --- Wall (26) ---
+Dim e100h, e10h, e120h, e150h, e150h1, e15h, e160h, e180h, e240h, e65h, e75h, LeftSlingshotRubber, RightSlingshotRubber, Wall1, Wall10
+Dim Wall2, Wall3, Wall32, Wall348, Wall4, Wall79, Wall80, Wood1, Wood2, Wood3, Wood4
+Set e100h = New Wall : e100h.Name = "100h" : e100h.CanDrop = False : e100h.Collidable = False : g_AllItems.Add "100h", e100h
+Set e10h = New Wall : e10h.Name = "10h" : e10h.CanDrop = False : e10h.Collidable = False : g_AllItems.Add "10h", e10h
+Set e120h = New Wall : e120h.Name = "120h" : e120h.CanDrop = False : e120h.Collidable = False : g_AllItems.Add "120h", e120h
+Set e150h = New Wall : e150h.Name = "150h" : e150h.CanDrop = False : e150h.Collidable = False : g_AllItems.Add "150h", e150h
+Set e150h1 = New Wall : e150h1.Name = "150h1" : e150h1.CanDrop = False : e150h1.Collidable = False : g_AllItems.Add "150h1", e150h1
+Set e15h = New Wall : e15h.Name = "15h" : e15h.CanDrop = False : e15h.Collidable = False : g_AllItems.Add "15h", e15h
+Set e160h = New Wall : e160h.Name = "160h" : e160h.CanDrop = False : e160h.Collidable = False : g_AllItems.Add "160h", e160h
+Set e180h = New Wall : e180h.Name = "180h" : e180h.CanDrop = False : e180h.Collidable = False : g_AllItems.Add "180h", e180h
+Set e240h = New Wall : e240h.Name = "240h" : e240h.CanDrop = False : e240h.Collidable = False : g_AllItems.Add "240h", e240h
+Set e65h = New Wall : e65h.Name = "65h" : e65h.CanDrop = False : e65h.Collidable = False : g_AllItems.Add "65h", e65h
+Set e75h = New Wall : e75h.Name = "75h" : e75h.CanDrop = False : e75h.Collidable = False : g_AllItems.Add "75h", e75h
 Set LeftSlingshotRubber = New Wall : LeftSlingshotRubber.Name = "LeftSlingshotRubber" : LeftSlingshotRubber.CanDrop = False : LeftSlingshotRubber.Collidable = True : g_AllItems.Add "LeftSlingshotRubber", LeftSlingshotRubber
 Set RightSlingshotRubber = New Wall : RightSlingshotRubber.Name = "RightSlingshotRubber" : RightSlingshotRubber.CanDrop = False : RightSlingshotRubber.Collidable = True : g_AllItems.Add "RightSlingshotRubber", RightSlingshotRubber
 Set Wall1 = New Wall : Wall1.Name = "Wall1" : Wall1.CanDrop = False : Wall1.Collidable = True : g_AllItems.Add "Wall1", Wall1
@@ -433,17 +445,6 @@ Set Wood3 = New Wall : Wood3.Name = "Wood3" : Wood3.CanDrop = False : Wood3.Coll
 Set Wood4 = New Wall : Wood4.Name = "Wood4" : Wood4.CanDrop = False : Wood4.Collidable = True : g_AllItems.Add "Wood4", Wood4
 
 ' --- Skipped: invalid VBScript identifiers ---
-' Wall: 100h
-' Wall: 10h
-' Wall: 120h
-' Wall: 150h
-' Wall: 150h1
-' Wall: 15h
-' Wall: 160h
-' Wall: 180h
-' Wall: 240h
-' Wall: 65h
-' Wall: 75h
 ' Timer: Timer
 ' Wall: _10h
 ' Wall: _5h

@@ -63,6 +63,19 @@ PROP_MAP = {
         ("collection", "Collection", vbs_str),
         ("update_interval", "UpdateInterval", vbs_num),
     ],
+    # Types whose only script-relevant editor property is timer_interval.
+    # Tables iterating element collections sometimes use it as a group
+    # index (Ace of Speed, ...), so emit it whenever JSON provides it
+    # rather than letting the stub class default leak through.
+    "Flasher":   [("timer_interval", "TimerInterval", vbs_num)],
+    "Reel":      [("timer_interval", "TimerInterval", vbs_num)],
+    "Bumper":    [("timer_interval", "TimerInterval", vbs_num)],
+    "Primitive": [("timer_interval", "TimerInterval", vbs_num)],
+    "Ramp":      [("timer_interval", "TimerInterval", vbs_num)],
+    "Rubber":    [("timer_interval", "TimerInterval", vbs_num)],
+    "Spinner":   [("timer_interval", "TimerInterval", vbs_num)],
+    "TextBox":   [("timer_interval", "TimerInterval", vbs_num)],
+    "Plunger":   [("timer_interval", "TimerInterval", vbs_num)],
 }
 
 

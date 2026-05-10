@@ -1,46 +1,46 @@
 ' Auto-generated VPX host object stubs
-' Source: /home/francisdb/vpinball/tables/Batman 66 (Stern 2016)/Batman66_1.2.32/gameitems.json
-' Total stubs: 921  Invalid names: 2
-' Types: Bumper(3), Flasher(29), Flipper(2), Gate(6), HitTarget(27), Kicker(11), Light(104), LightSequencer(5), Plunger(1), Primitive(533), Ramp(6), Rubber(10), Spinner(1), TextBox(1), Timer(76), Trigger(28), Wall(78)
+' Source: tables/Batman 66 (Stern 2016)/Batman66_1.2.32/gameitems.json
+' Total stubs: 923  Invalid names: 0
+' Types: Bumper(3), Flasher(29), Flipper(2), Gate(6), HitTarget(27), Kicker(11), Light(104), LightSequencer(5), Plunger(1), Primitive(535), Ramp(6), Rubber(10), Spinner(1), TextBox(1), Timer(76), Trigger(28), Wall(78)
 
 ' --- Bumper (3) ---
 Dim Bumper001, Bumper002, Bumper003
-Set Bumper001 = New Bumper : Bumper001.Name = "Bumper001" : g_AllItems.Add "Bumper001", Bumper001
-Set Bumper002 = New Bumper : Bumper002.Name = "Bumper002" : g_AllItems.Add "Bumper002", Bumper002
-Set Bumper003 = New Bumper : Bumper003.Name = "Bumper003" : g_AllItems.Add "Bumper003", Bumper003
+Set Bumper001 = New Bumper : Bumper001.Name = "Bumper001" : Bumper001.TimerInterval = 100 : g_AllItems.Add "Bumper001", Bumper001
+Set Bumper002 = New Bumper : Bumper002.Name = "Bumper002" : Bumper002.TimerInterval = 100 : g_AllItems.Add "Bumper002", Bumper002
+Set Bumper003 = New Bumper : Bumper003.Name = "Bumper003" : Bumper003.TimerInterval = 100 : g_AllItems.Add "Bumper003", Bumper003
 
 ' --- Flasher (29) ---
 Dim AngleProtractor, DMD, Flasherflash1, Flasherflash10, Flasherflash11, FlasherFlash1_1, Flasherflash20, FlasherFlash20_1, Flasherflash5, FlasherFlash5_5, Flasherflash9, flshBat1, flshBat2, flshBat3, flshBatSignal
 Dim hadron, l10, l11, l12, l7, l8, l80, l81, l82, l83, l84, l85, l9, ShadowMain
-Set AngleProtractor = New Flasher : AngleProtractor.Name = "AngleProtractor" : g_AllItems.Add "AngleProtractor", AngleProtractor
-Set DMD = New Flasher : DMD.Name = "DMD" : g_AllItems.Add "DMD", DMD
-Set Flasherflash1 = New Flasher : Flasherflash1.Name = "Flasherflash1" : g_AllItems.Add "Flasherflash1", Flasherflash1
-Set Flasherflash10 = New Flasher : Flasherflash10.Name = "Flasherflash10" : g_AllItems.Add "Flasherflash10", Flasherflash10
-Set Flasherflash11 = New Flasher : Flasherflash11.Name = "Flasherflash11" : g_AllItems.Add "Flasherflash11", Flasherflash11
-Set FlasherFlash1_1 = New Flasher : FlasherFlash1_1.Name = "FlasherFlash1_1" : g_AllItems.Add "FlasherFlash1_1", FlasherFlash1_1
-Set Flasherflash20 = New Flasher : Flasherflash20.Name = "Flasherflash20" : g_AllItems.Add "Flasherflash20", Flasherflash20
-Set FlasherFlash20_1 = New Flasher : FlasherFlash20_1.Name = "FlasherFlash20_1" : g_AllItems.Add "FlasherFlash20_1", FlasherFlash20_1
-Set Flasherflash5 = New Flasher : Flasherflash5.Name = "Flasherflash5" : g_AllItems.Add "Flasherflash5", Flasherflash5
-Set FlasherFlash5_5 = New Flasher : FlasherFlash5_5.Name = "FlasherFlash5_5" : g_AllItems.Add "FlasherFlash5_5", FlasherFlash5_5
-Set Flasherflash9 = New Flasher : Flasherflash9.Name = "Flasherflash9" : g_AllItems.Add "Flasherflash9", Flasherflash9
-Set flshBat1 = New Flasher : flshBat1.Name = "flshBat1" : g_AllItems.Add "flshBat1", flshBat1
-Set flshBat2 = New Flasher : flshBat2.Name = "flshBat2" : g_AllItems.Add "flshBat2", flshBat2
-Set flshBat3 = New Flasher : flshBat3.Name = "flshBat3" : g_AllItems.Add "flshBat3", flshBat3
-Set flshBatSignal = New Flasher : flshBatSignal.Name = "flshBatSignal" : g_AllItems.Add "flshBatSignal", flshBatSignal
-Set hadron = New Flasher : hadron.Name = "hadron" : g_AllItems.Add "hadron", hadron
-Set l10 = New Flasher : l10.Name = "l10" : g_AllItems.Add "l10", l10
-Set l11 = New Flasher : l11.Name = "l11" : g_AllItems.Add "l11", l11
-Set l12 = New Flasher : l12.Name = "l12" : g_AllItems.Add "l12", l12
-Set l7 = New Flasher : l7.Name = "l7" : g_AllItems.Add "l7", l7
-Set l8 = New Flasher : l8.Name = "l8" : g_AllItems.Add "l8", l8
-Set l80 = New Flasher : l80.Name = "l80" : g_AllItems.Add "l80", l80
-Set l81 = New Flasher : l81.Name = "l81" : g_AllItems.Add "l81", l81
-Set l82 = New Flasher : l82.Name = "l82" : g_AllItems.Add "l82", l82
-Set l83 = New Flasher : l83.Name = "l83" : g_AllItems.Add "l83", l83
-Set l84 = New Flasher : l84.Name = "l84" : g_AllItems.Add "l84", l84
-Set l85 = New Flasher : l85.Name = "l85" : g_AllItems.Add "l85", l85
-Set l9 = New Flasher : l9.Name = "l9" : g_AllItems.Add "l9", l9
-Set ShadowMain = New Flasher : ShadowMain.Name = "ShadowMain" : g_AllItems.Add "ShadowMain", ShadowMain
+Set AngleProtractor = New Flasher : AngleProtractor.Name = "AngleProtractor" : AngleProtractor.TimerInterval = 100 : g_AllItems.Add "AngleProtractor", AngleProtractor
+Set DMD = New Flasher : DMD.Name = "DMD" : DMD.TimerInterval = 100 : g_AllItems.Add "DMD", DMD
+Set Flasherflash1 = New Flasher : Flasherflash1.Name = "Flasherflash1" : Flasherflash1.TimerInterval = 30 : g_AllItems.Add "Flasherflash1", Flasherflash1
+Set Flasherflash10 = New Flasher : Flasherflash10.Name = "Flasherflash10" : Flasherflash10.TimerInterval = 30 : g_AllItems.Add "Flasherflash10", Flasherflash10
+Set Flasherflash11 = New Flasher : Flasherflash11.Name = "Flasherflash11" : Flasherflash11.TimerInterval = 30 : g_AllItems.Add "Flasherflash11", Flasherflash11
+Set FlasherFlash1_1 = New Flasher : FlasherFlash1_1.Name = "FlasherFlash1_1" : FlasherFlash1_1.TimerInterval = 100 : g_AllItems.Add "FlasherFlash1_1", FlasherFlash1_1
+Set Flasherflash20 = New Flasher : Flasherflash20.Name = "Flasherflash20" : Flasherflash20.TimerInterval = 30 : g_AllItems.Add "Flasherflash20", Flasherflash20
+Set FlasherFlash20_1 = New Flasher : FlasherFlash20_1.Name = "FlasherFlash20_1" : FlasherFlash20_1.TimerInterval = 100 : g_AllItems.Add "FlasherFlash20_1", FlasherFlash20_1
+Set Flasherflash5 = New Flasher : Flasherflash5.Name = "Flasherflash5" : Flasherflash5.TimerInterval = 30 : g_AllItems.Add "Flasherflash5", Flasherflash5
+Set FlasherFlash5_5 = New Flasher : FlasherFlash5_5.Name = "FlasherFlash5_5" : FlasherFlash5_5.TimerInterval = 100 : g_AllItems.Add "FlasherFlash5_5", FlasherFlash5_5
+Set Flasherflash9 = New Flasher : Flasherflash9.Name = "Flasherflash9" : Flasherflash9.TimerInterval = 30 : g_AllItems.Add "Flasherflash9", Flasherflash9
+Set flshBat1 = New Flasher : flshBat1.Name = "flshBat1" : flshBat1.TimerInterval = 100 : g_AllItems.Add "flshBat1", flshBat1
+Set flshBat2 = New Flasher : flshBat2.Name = "flshBat2" : flshBat2.TimerInterval = 100 : g_AllItems.Add "flshBat2", flshBat2
+Set flshBat3 = New Flasher : flshBat3.Name = "flshBat3" : flshBat3.TimerInterval = 100 : g_AllItems.Add "flshBat3", flshBat3
+Set flshBatSignal = New Flasher : flshBatSignal.Name = "flshBatSignal" : flshBatSignal.TimerInterval = 100 : g_AllItems.Add "flshBatSignal", flshBatSignal
+Set hadron = New Flasher : hadron.Name = "hadron" : hadron.TimerInterval = 100 : g_AllItems.Add "hadron", hadron
+Set l10 = New Flasher : l10.Name = "l10" : l10.TimerInterval = 100 : g_AllItems.Add "l10", l10
+Set l11 = New Flasher : l11.Name = "l11" : l11.TimerInterval = 100 : g_AllItems.Add "l11", l11
+Set l12 = New Flasher : l12.Name = "l12" : l12.TimerInterval = 100 : g_AllItems.Add "l12", l12
+Set l7 = New Flasher : l7.Name = "l7" : l7.TimerInterval = 100 : g_AllItems.Add "l7", l7
+Set l8 = New Flasher : l8.Name = "l8" : l8.TimerInterval = 100 : g_AllItems.Add "l8", l8
+Set l80 = New Flasher : l80.Name = "l80" : l80.TimerInterval = 100 : g_AllItems.Add "l80", l80
+Set l81 = New Flasher : l81.Name = "l81" : l81.TimerInterval = 100 : g_AllItems.Add "l81", l81
+Set l82 = New Flasher : l82.Name = "l82" : l82.TimerInterval = 100 : g_AllItems.Add "l82", l82
+Set l83 = New Flasher : l83.Name = "l83" : l83.TimerInterval = 100 : g_AllItems.Add "l83", l83
+Set l84 = New Flasher : l84.Name = "l84" : l84.TimerInterval = 100 : g_AllItems.Add "l84", l84
+Set l85 = New Flasher : l85.Name = "l85" : l85.TimerInterval = 100 : g_AllItems.Add "l85", l85
+Set l9 = New Flasher : l9.Name = "l9" : l9.TimerInterval = 100 : g_AllItems.Add "l9", l9
+Set ShadowMain = New Flasher : ShadowMain.Name = "ShadowMain" : ShadowMain.TimerInterval = 100 : g_AllItems.Add "ShadowMain", ShadowMain
 
 ' --- Flipper (2) ---
 Dim LeftFlipper, RightFlipper
@@ -224,45 +224,45 @@ Set LightSeqTilt = New LightSequencer : LightSeqTilt.Name = "LightSeqTilt" : Lig
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
-' --- Primitive (533) ---
+' --- Primitive (535) ---
 Dim Apron, AtomicPileFlasher, B66_PlasticPop1, B66_PlasticPop2, B66_PlasticPop3, B66_Plastics, BackwallArt, BackwallMech, BackWallSideRailBlackPlastic, BallGuide07, BallShadow1, BallShadow10, BallShadow11, BallShadow12, BallShadow13
 Dim BallShadow14, BallShadow15, BallShadow2, BallShadow3, BallShadow4, BallShadow5, BallShadow6, BallShadow7, BallShadow8, BallShadow9, Brackets, Cat12, Cat18, CatBracket, Catwoman_Layby
-Dim Catwoman_RampLeft, Catwoman_RampRight, Catwoman_RampRightPlate, COL_BallguideLeft, COL_BallguideRight, COL_Plastic_Guides, CollectorCard, CollidableRightRampHiWall, CraneModel, CraneSpring, EndPoint1LS, EndPoint1RS, EndPoint2LS, EndPoint2RS, FireButtonBase
-Dim Flasherbase1, Flasherbase10, Flasherbase11, Flasherbase5, Flasherbase9, Flasherlit1, Flasherlit10, Flasherlit11, Flasherlit5, Flasherlit9, FlipperLSh, FlipperRef, FlipperRSh, Front_left_Post, Front_Right_Posy
-Dim HoleVUK001, HoleVUK1, Instruction_Card, LaneGuard, LeafSwitch001, LeafSwitch002, LeafSwitch003, LeafSwitch2, Left_Rail_Bracket, LeftWireRail, LemK, LFlipPrim, Magnet, MetalPegs2, MetalRampRightWalls
-Dim Mini_PostRubber, Mini_PostRubber001, Mini_PostRubber002, Mini_PostRubber003, Mini_PostRubber004, Mini_PostRubber005, Mini_PostRubber006, Mini_PostRubber007, Mini_PostRubber008, Mini_PostRubber009, Mini_PostRubber010, Mini_PostRubber011, Mini_PostRubber012, PegMetalT001, PegMetalT004
-Dim PegMetalT005, PegMetalT006, PegMetalT007, PegMetalT008, PegMetalT009, PegMetalT010, PegMetalT011, PegMetalT012, PegMetalT013, PegMetalT014, PegMetalT015, PegMetalT016, PegMetalT017, PegMetalT018, PegMetalT019
-Dim PegMetalT020, PegMetalT021, PegMetalT022, PegMetalT023, PegMetalT024, PegMetalT025, PegMetalT026, PegMetalT027, PegMetalT028, PegMetalT029, PegMetalT030, PegMetalT031, PegMetalT032, PegMetalT033, PegMetalT034
-Dim PegMetalT035, PegMetalT036, PegMetalT037, PegMetalT038, PegMetalT039, PegMetalT040, PegMetalT041, PegMetalT042, PegMetalT043, PegMetalT044, PegMetalT045, PegMetalT046, PegMetalT047, PegMetalT048, PegMetalT049
-Dim PegMetalT050, PegMetalT051, PegMetalT052, PegMetalT053, PegMetalT054, PegMetalT055, PegMetalT7, PegPlasticT1Mini001, PegPlasticT1Mini002, PegPlasticT1Mini003, PegPlasticT1Mini1, PF_decals, PF_Inserts_Off, PF_Inserts_On, pFBase10
-Dim pFBase11, pFBase12, pFBase7, pFBase8, pFBase80, pFBase81, pFBase82, pFBase83, pFBase84, pFBase85, pFBase9, pFiliment10, pFiliment11, pFiliment12, pFiliment7
-Dim pFiliment8, pFiliment80, pFiliment81, pFiliment82, pFiliment83, pFiliment84, pFiliment85, pFiliment9, PinCab_Backbox, PinCab_Backglass, PinCab_Blades, PinCab_Bottom, PinCab_Button1i, PinCab_Button1o, PinCab_Cabinet
-Dim PinCab_DMD, PinCab_Housing, PinCab_LeftFlipperButton, PinCab_LeftFlipperButtonRing, PinCab_Metal_Fittings, PinCab_Metals, PinCab_Rails, PinCab_RightFlipperButton, PinCab_RightFlipperButtonRing, PinCab_Shooter, plastic47, plastic48, Plastic_Guides, PlasticBallGuides, PlasticBallGuides001
-Dim playfield_blocker, playfield_edge, playfield_GIOFF, playfield_mesh, PostSleeve, PostSleeve001, PostSleeve002, PostSleeve003, PostSleeve004, PostSleeve005, PostSleeveScrew, PostSleeveScrew001, PostSleeveScrew002, PostSleeveScrew003, PostSleeveScrew004
-Dim PostSleeveScrew005, pPlungerlane, priHole001, priHole002, priHole003, priHole004, priHole005, priHole006, priHole007, priHole008, priHole009, priHole1, Primary_Scifi_Floor, Primitive003, Primitive004
-Dim Primitive005, Primitive006, Primitive007, Primitive008, Primitive009, Primitive010, Primitive011, Primitive012, Primitive013, Primitive014, Primitive015, Primitive016, Primitive017, Primitive018, Primitive019
-Dim Primitive020, Primitive021, Primitive022, Primitive023, Primitive024, Primitive025, Primitive026, Primitive027, Primitive028, Primitive029, Primitive030, Primitive031, Primitive032, Primitive033, Primitive034
-Dim Primitive035, Primitive036, Primitive037, Primitive038, Primitive039, Primitive040, Primitive041, Primitive042, Primitive043, Primitive044, Primitive045, Primitive046, Primitive047, Primitive048, Primitive049
-Dim Primitive050, Primitive051, Primitive052, Primitive053, Primitive054, Primitive055, Primitive056, Primitive057, Primitive058, Primitive059, Primitive060, Primitive061, Primitive062, Primitive063, Primitive064
-Dim Primitive065, Primitive066, Primitive067, Primitive068, Primitive069, Primitive070, Primitive071, Primitive072, Primitive073, Primitive074, Primitive075, Primitive076, Primitive077, Primitive078, Primitive079
-Dim Primitive080, Primitive081, Primitive082, Primitive083, Primitive084, Primitive085, Primitive086, Primitive087, Primitive088, Primitive089, Primitive090, Primitive091, Primitive092, Primitive093, Primitive094
-Dim Primitive095, Primitive096, Primitive097, Primitive098, Primitive099, Primitive100, Primitive101, Primitive102, Primitive103, Primitive104, Primitive105, Primitive106, Primitive107, Primitive108, Primitive109
-Dim Primitive110, Primitive111, Primitive112, Primitive113, Primitive114, Primitive115, Primitive116, Primitive117, Primitive118, Primitive119, Primitive12, Primitive120, Primitive121, Primitive122, Primitive123
-Dim Primitive124, Primitive125, Primitive126, Primitive127, Primitive128, Primitive129, Primitive130, Primitive131, Primitive132, Primitive133, Primitive134, Primitive135, Primitive136, Primitive137, Primitive138
-Dim Primitive139, Primitive140, Primitive141, Primitive142, Primitive143, Primitive144, Primitive145, Primitive146, Primitive147, Primitive148, Primitive149, Primitive150, Primitive151, Primitive152, Primitive153
-Dim Primitive154, Primitive155, Primitive156, Primitive157, Primitive158, Primitive159, Primitive160, Primitive161, Primitive162, Primitive163, Primitive164, Primitive165, Primitive166, Primitive189, Primitive4
-Dim Primitive96, ptgtA, ptgtD, ptgtE, ptgtG, ptgtG2, ptgtT, ptgtTV1, ptgtTV2, ptgtTV3, RampAndWalls, RampAndWalls001, RampPlasticGuides, RemK, RFlipPrim
-Dim RFPA_TopPlastic, RightWireRail, RotatingPFA, RotatingPFAPos1, RotatingPFAPos2, RotatingPFAPos3, RotatingPFAPos4, RotatingPFATV, RotatingPFATV2, RotatingPFB, RPF_B_Batmobile, RPFA_BallLockPos1, RPFA_BallLockPos2, RPFA_BallLockPos4, RPFA_BallLockPost
-Dim RPFA_BATPC33, RPFA_BATPC34, RPFA_Batphone, RPFA_ClearPosts, RPFA_ClearPosts001, RPFA_MetalWallWire, RPFA_NutsScrews, RPFA_Plastic, RPFA_Plywoodsides, RPFA_RubberPart01, RPFA_RubberPart02, RPFA_Rubbers, RPFA_Target01, RPFA_Target02, RPFA_Target03
-Dim RPFA_Target04, RPFA_Target05, RPFA_Target06, RPFA_Target07, RPFA_Tower, RPFB_BasePlastic, RPFB_BaseSticker, RPFB_OrangePlastic, RubberPosts_03C, RubberPosts_03F, Ruler_inches, Ruler_inches_and_mm, Ruler_mm, Sandwich, tgtAo
-Dim tgtDo, tgtEo, tgtG2o, tgtGo, tgtTo, tgtTV1o, tgtTV2o, tgtTV3o, TournamentButtonHousing, vr_360orb, VR_Floor, VR_Mega001, VR_Mega002, VR_Mega003, VR_Mega004
-Dim VR_Mega005, VR_Mega006, VR_Mega007, VR_Mega008, VR_Mega009, VR_Mega010, VR_Mega011, VR_Mega012, VR_Mega013, VR_Mega014, VR_Mega015Props, VR_Mega016Turntable, VR_Mega017Reflect, VR_MegaWindshields, VR_Roof
-Dim VR_Wall_Left, VR_Wall_Right, VRBat1, VRBat10, VRBat2, VRBat3, VRBat4, VRBat5, VRBat6, VRBat7, VRBat8, VRBat9, VRTourneyButton, VUKArm, VUKArm001
-Dim WallDoor1, WallDoor2, WallsFG, WashersLeft, WashersRight, WireGuides, WireRampCollideA, WireRampCollideL, WireRampCollideR, zCol_Rubber_Corner_001, zCol_Rubber_Corner_002, zCol_Rubber_Corner_003, zCol_Rubber_Corner_004, zCol_Rubber_Corner_005, zCol_Rubber_Corner_006
-Dim zCol_Rubber_Corner_007, zCol_Rubber_Corner_008, zCol_Rubber_Corner_009, zCol_Rubber_Corner_010, zCol_Rubber_Corner_011, zCol_Rubber_Corner_012, zCol_Rubber_Corner_013, zCol_Rubber_Corner_014, zCol_Rubber_Corner_015, zCol_Rubber_Corner_016, zCol_Rubber_Corner_017, zCol_Rubber_Corner_018, zCol_Rubber_Corner_019, zCol_Rubber_Post002, zCol_Rubber_Post004
-Dim zCol_Rubber_Post009, zCol_Rubber_Sleeve001, zCol_Rubber_Sleeve002, zCol_Rubber_Sleeve003, zCol_Rubber_Sleeve004, zCol_Rubber_Sleeve005, zCol_Rubber_Sleeve006, zCol_Rubber_Sleeve007
+Dim Catwoman_RampLeft, Catwoman_RampRight, Catwoman_RampRightPlate, COL_BallguideLeft, COL_BallguideRight, COL_Plastic_Guides, CollectorCard, CollidableRightRampHiWall, CraneModel, CraneSpring, e7_16__Rubber_Ring001, e7_16__Rubber_Ring002, EndPoint1LS, EndPoint1RS, EndPoint2LS
+Dim EndPoint2RS, FireButtonBase, Flasherbase1, Flasherbase10, Flasherbase11, Flasherbase5, Flasherbase9, Flasherlit1, Flasherlit10, Flasherlit11, Flasherlit5, Flasherlit9, FlipperLSh, FlipperRef, FlipperRSh
+Dim Front_left_Post, Front_Right_Posy, HoleVUK001, HoleVUK1, Instruction_Card, LaneGuard, LeafSwitch001, LeafSwitch002, LeafSwitch003, LeafSwitch2, Left_Rail_Bracket, LeftWireRail, LemK, LFlipPrim, Magnet
+Dim MetalPegs2, MetalRampRightWalls, Mini_PostRubber, Mini_PostRubber001, Mini_PostRubber002, Mini_PostRubber003, Mini_PostRubber004, Mini_PostRubber005, Mini_PostRubber006, Mini_PostRubber007, Mini_PostRubber008, Mini_PostRubber009, Mini_PostRubber010, Mini_PostRubber011, Mini_PostRubber012
+Dim PegMetalT001, PegMetalT004, PegMetalT005, PegMetalT006, PegMetalT007, PegMetalT008, PegMetalT009, PegMetalT010, PegMetalT011, PegMetalT012, PegMetalT013, PegMetalT014, PegMetalT015, PegMetalT016, PegMetalT017
+Dim PegMetalT018, PegMetalT019, PegMetalT020, PegMetalT021, PegMetalT022, PegMetalT023, PegMetalT024, PegMetalT025, PegMetalT026, PegMetalT027, PegMetalT028, PegMetalT029, PegMetalT030, PegMetalT031, PegMetalT032
+Dim PegMetalT033, PegMetalT034, PegMetalT035, PegMetalT036, PegMetalT037, PegMetalT038, PegMetalT039, PegMetalT040, PegMetalT041, PegMetalT042, PegMetalT043, PegMetalT044, PegMetalT045, PegMetalT046, PegMetalT047
+Dim PegMetalT048, PegMetalT049, PegMetalT050, PegMetalT051, PegMetalT052, PegMetalT053, PegMetalT054, PegMetalT055, PegMetalT7, PegPlasticT1Mini001, PegPlasticT1Mini002, PegPlasticT1Mini003, PegPlasticT1Mini1, PF_decals, PF_Inserts_Off
+Dim PF_Inserts_On, pFBase10, pFBase11, pFBase12, pFBase7, pFBase8, pFBase80, pFBase81, pFBase82, pFBase83, pFBase84, pFBase85, pFBase9, pFiliment10, pFiliment11
+Dim pFiliment12, pFiliment7, pFiliment8, pFiliment80, pFiliment81, pFiliment82, pFiliment83, pFiliment84, pFiliment85, pFiliment9, PinCab_Backbox, PinCab_Backglass, PinCab_Blades, PinCab_Bottom, PinCab_Button1i
+Dim PinCab_Button1o, PinCab_Cabinet, PinCab_DMD, PinCab_Housing, PinCab_LeftFlipperButton, PinCab_LeftFlipperButtonRing, PinCab_Metal_Fittings, PinCab_Metals, PinCab_Rails, PinCab_RightFlipperButton, PinCab_RightFlipperButtonRing, PinCab_Shooter, plastic47, plastic48, Plastic_Guides
+Dim PlasticBallGuides, PlasticBallGuides001, playfield_blocker, playfield_edge, playfield_GIOFF, playfield_mesh, PostSleeve, PostSleeve001, PostSleeve002, PostSleeve003, PostSleeve004, PostSleeve005, PostSleeveScrew, PostSleeveScrew001, PostSleeveScrew002
+Dim PostSleeveScrew003, PostSleeveScrew004, PostSleeveScrew005, pPlungerlane, priHole001, priHole002, priHole003, priHole004, priHole005, priHole006, priHole007, priHole008, priHole009, priHole1, Primary_Scifi_Floor
+Dim Primitive003, Primitive004, Primitive005, Primitive006, Primitive007, Primitive008, Primitive009, Primitive010, Primitive011, Primitive012, Primitive013, Primitive014, Primitive015, Primitive016, Primitive017
+Dim Primitive018, Primitive019, Primitive020, Primitive021, Primitive022, Primitive023, Primitive024, Primitive025, Primitive026, Primitive027, Primitive028, Primitive029, Primitive030, Primitive031, Primitive032
+Dim Primitive033, Primitive034, Primitive035, Primitive036, Primitive037, Primitive038, Primitive039, Primitive040, Primitive041, Primitive042, Primitive043, Primitive044, Primitive045, Primitive046, Primitive047
+Dim Primitive048, Primitive049, Primitive050, Primitive051, Primitive052, Primitive053, Primitive054, Primitive055, Primitive056, Primitive057, Primitive058, Primitive059, Primitive060, Primitive061, Primitive062
+Dim Primitive063, Primitive064, Primitive065, Primitive066, Primitive067, Primitive068, Primitive069, Primitive070, Primitive071, Primitive072, Primitive073, Primitive074, Primitive075, Primitive076, Primitive077
+Dim Primitive078, Primitive079, Primitive080, Primitive081, Primitive082, Primitive083, Primitive084, Primitive085, Primitive086, Primitive087, Primitive088, Primitive089, Primitive090, Primitive091, Primitive092
+Dim Primitive093, Primitive094, Primitive095, Primitive096, Primitive097, Primitive098, Primitive099, Primitive100, Primitive101, Primitive102, Primitive103, Primitive104, Primitive105, Primitive106, Primitive107
+Dim Primitive108, Primitive109, Primitive110, Primitive111, Primitive112, Primitive113, Primitive114, Primitive115, Primitive116, Primitive117, Primitive118, Primitive119, Primitive12, Primitive120, Primitive121
+Dim Primitive122, Primitive123, Primitive124, Primitive125, Primitive126, Primitive127, Primitive128, Primitive129, Primitive130, Primitive131, Primitive132, Primitive133, Primitive134, Primitive135, Primitive136
+Dim Primitive137, Primitive138, Primitive139, Primitive140, Primitive141, Primitive142, Primitive143, Primitive144, Primitive145, Primitive146, Primitive147, Primitive148, Primitive149, Primitive150, Primitive151
+Dim Primitive152, Primitive153, Primitive154, Primitive155, Primitive156, Primitive157, Primitive158, Primitive159, Primitive160, Primitive161, Primitive162, Primitive163, Primitive164, Primitive165, Primitive166
+Dim Primitive189, Primitive4, Primitive96, ptgtA, ptgtD, ptgtE, ptgtG, ptgtG2, ptgtT, ptgtTV1, ptgtTV2, ptgtTV3, RampAndWalls, RampAndWalls001, RampPlasticGuides
+Dim RemK, RFlipPrim, RFPA_TopPlastic, RightWireRail, RotatingPFA, RotatingPFAPos1, RotatingPFAPos2, RotatingPFAPos3, RotatingPFAPos4, RotatingPFATV, RotatingPFATV2, RotatingPFB, RPF_B_Batmobile, RPFA_BallLockPos1, RPFA_BallLockPos2
+Dim RPFA_BallLockPos4, RPFA_BallLockPost, RPFA_BATPC33, RPFA_BATPC34, RPFA_Batphone, RPFA_ClearPosts, RPFA_ClearPosts001, RPFA_MetalWallWire, RPFA_NutsScrews, RPFA_Plastic, RPFA_Plywoodsides, RPFA_RubberPart01, RPFA_RubberPart02, RPFA_Rubbers, RPFA_Target01
+Dim RPFA_Target02, RPFA_Target03, RPFA_Target04, RPFA_Target05, RPFA_Target06, RPFA_Target07, RPFA_Tower, RPFB_BasePlastic, RPFB_BaseSticker, RPFB_OrangePlastic, RubberPosts_03C, RubberPosts_03F, Ruler_inches, Ruler_inches_and_mm, Ruler_mm
+Dim Sandwich, tgtAo, tgtDo, tgtEo, tgtG2o, tgtGo, tgtTo, tgtTV1o, tgtTV2o, tgtTV3o, TournamentButtonHousing, vr_360orb, VR_Floor, VR_Mega001, VR_Mega002
+Dim VR_Mega003, VR_Mega004, VR_Mega005, VR_Mega006, VR_Mega007, VR_Mega008, VR_Mega009, VR_Mega010, VR_Mega011, VR_Mega012, VR_Mega013, VR_Mega014, VR_Mega015Props, VR_Mega016Turntable, VR_Mega017Reflect
+Dim VR_MegaWindshields, VR_Roof, VR_Wall_Left, VR_Wall_Right, VRBat1, VRBat10, VRBat2, VRBat3, VRBat4, VRBat5, VRBat6, VRBat7, VRBat8, VRBat9, VRTourneyButton
+Dim VUKArm, VUKArm001, WallDoor1, WallDoor2, WallsFG, WashersLeft, WashersRight, WireGuides, WireRampCollideA, WireRampCollideL, WireRampCollideR, zCol_Rubber_Corner_001, zCol_Rubber_Corner_002, zCol_Rubber_Corner_003, zCol_Rubber_Corner_004
+Dim zCol_Rubber_Corner_005, zCol_Rubber_Corner_006, zCol_Rubber_Corner_007, zCol_Rubber_Corner_008, zCol_Rubber_Corner_009, zCol_Rubber_Corner_010, zCol_Rubber_Corner_011, zCol_Rubber_Corner_012, zCol_Rubber_Corner_013, zCol_Rubber_Corner_014, zCol_Rubber_Corner_015, zCol_Rubber_Corner_016, zCol_Rubber_Corner_017, zCol_Rubber_Corner_018, zCol_Rubber_Corner_019
+Dim zCol_Rubber_Post002, zCol_Rubber_Post004, zCol_Rubber_Post009, zCol_Rubber_Sleeve001, zCol_Rubber_Sleeve002, zCol_Rubber_Sleeve003, zCol_Rubber_Sleeve004, zCol_Rubber_Sleeve005, zCol_Rubber_Sleeve006, zCol_Rubber_Sleeve007
 Set Apron = New Primitive : Apron.Name = "Apron" : g_AllItems.Add "Apron", Apron
 Set AtomicPileFlasher = New Primitive : AtomicPileFlasher.Name = "AtomicPileFlasher" : g_AllItems.Add "AtomicPileFlasher", AtomicPileFlasher
 Set B66_PlasticPop1 = New Primitive : B66_PlasticPop1.Name = "B66_PlasticPop1" : g_AllItems.Add "B66_PlasticPop1", B66_PlasticPop1
@@ -303,6 +303,8 @@ Set CollectorCard = New Primitive : CollectorCard.Name = "CollectorCard" : g_All
 Set CollidableRightRampHiWall = New Primitive : CollidableRightRampHiWall.Name = "CollidableRightRampHiWall" : g_AllItems.Add "CollidableRightRampHiWall", CollidableRightRampHiWall
 Set CraneModel = New Primitive : CraneModel.Name = "CraneModel" : g_AllItems.Add "CraneModel", CraneModel
 Set CraneSpring = New Primitive : CraneSpring.Name = "CraneSpring" : g_AllItems.Add "CraneSpring", CraneSpring
+Set e7_16__Rubber_Ring001 = New Primitive : e7_16__Rubber_Ring001.Name = "7_16__Rubber_Ring001" : g_AllItems.Add "7_16__Rubber_Ring001", e7_16__Rubber_Ring001
+Set e7_16__Rubber_Ring002 = New Primitive : e7_16__Rubber_Ring002.Name = "7_16__Rubber_Ring002" : g_AllItems.Add "7_16__Rubber_Ring002", e7_16__Rubber_Ring002
 Set EndPoint1LS = New Primitive : EndPoint1LS.Name = "EndPoint1LS" : g_AllItems.Add "EndPoint1LS", EndPoint1LS
 Set EndPoint1RS = New Primitive : EndPoint1RS.Name = "EndPoint1RS" : g_AllItems.Add "EndPoint1RS", EndPoint1RS
 Set EndPoint2LS = New Primitive : EndPoint2LS.Name = "EndPoint2LS" : g_AllItems.Add "EndPoint2LS", EndPoint2LS
@@ -799,33 +801,33 @@ Set zCol_Rubber_Sleeve007 = New Primitive : zCol_Rubber_Sleeve007.Name = "zCol_R
 
 ' --- Ramp (6) ---
 Dim Ramp001, Ramp002, Ramp003, Ramp005, Ramp2, Ramp3
-Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : g_AllItems.Add "Ramp001", Ramp001
-Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : g_AllItems.Add "Ramp002", Ramp002
-Set Ramp003 = New Ramp : Ramp003.Name = "Ramp003" : g_AllItems.Add "Ramp003", Ramp003
-Set Ramp005 = New Ramp : Ramp005.Name = "Ramp005" : g_AllItems.Add "Ramp005", Ramp005
-Set Ramp2 = New Ramp : Ramp2.Name = "Ramp2" : g_AllItems.Add "Ramp2", Ramp2
-Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : g_AllItems.Add "Ramp3", Ramp3
+Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : Ramp001.TimerInterval = 100 : g_AllItems.Add "Ramp001", Ramp001
+Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : Ramp002.TimerInterval = 100 : g_AllItems.Add "Ramp002", Ramp002
+Set Ramp003 = New Ramp : Ramp003.Name = "Ramp003" : Ramp003.TimerInterval = 100 : g_AllItems.Add "Ramp003", Ramp003
+Set Ramp005 = New Ramp : Ramp005.Name = "Ramp005" : Ramp005.TimerInterval = 100 : g_AllItems.Add "Ramp005", Ramp005
+Set Ramp2 = New Ramp : Ramp2.Name = "Ramp2" : Ramp2.TimerInterval = 100 : g_AllItems.Add "Ramp2", Ramp2
+Set Ramp3 = New Ramp : Ramp3.Name = "Ramp3" : Ramp3.TimerInterval = 100 : g_AllItems.Add "Ramp3", Ramp3
 
 ' --- Rubber (10) ---
 Dim LeftSling, LeftSling2, LeftSling3, LeftSling4, RightSling, RightSling2, RightSling3, RightSling4, Rubber001, Rubber002
-Set LeftSling = New Rubber : LeftSling.Name = "LeftSling" : g_AllItems.Add "LeftSling", LeftSling
-Set LeftSling2 = New Rubber : LeftSling2.Name = "LeftSling2" : g_AllItems.Add "LeftSling2", LeftSling2
-Set LeftSling3 = New Rubber : LeftSling3.Name = "LeftSling3" : g_AllItems.Add "LeftSling3", LeftSling3
-Set LeftSling4 = New Rubber : LeftSling4.Name = "LeftSling4" : g_AllItems.Add "LeftSling4", LeftSling4
-Set RightSling = New Rubber : RightSling.Name = "RightSling" : g_AllItems.Add "RightSling", RightSling
-Set RightSling2 = New Rubber : RightSling2.Name = "RightSling2" : g_AllItems.Add "RightSling2", RightSling2
-Set RightSling3 = New Rubber : RightSling3.Name = "RightSling3" : g_AllItems.Add "RightSling3", RightSling3
-Set RightSling4 = New Rubber : RightSling4.Name = "RightSling4" : g_AllItems.Add "RightSling4", RightSling4
-Set Rubber001 = New Rubber : Rubber001.Name = "Rubber001" : g_AllItems.Add "Rubber001", Rubber001
-Set Rubber002 = New Rubber : Rubber002.Name = "Rubber002" : g_AllItems.Add "Rubber002", Rubber002
+Set LeftSling = New Rubber : LeftSling.Name = "LeftSling" : LeftSling.TimerInterval = 100 : g_AllItems.Add "LeftSling", LeftSling
+Set LeftSling2 = New Rubber : LeftSling2.Name = "LeftSling2" : LeftSling2.TimerInterval = 100 : g_AllItems.Add "LeftSling2", LeftSling2
+Set LeftSling3 = New Rubber : LeftSling3.Name = "LeftSling3" : LeftSling3.TimerInterval = 100 : g_AllItems.Add "LeftSling3", LeftSling3
+Set LeftSling4 = New Rubber : LeftSling4.Name = "LeftSling4" : LeftSling4.TimerInterval = 100 : g_AllItems.Add "LeftSling4", LeftSling4
+Set RightSling = New Rubber : RightSling.Name = "RightSling" : RightSling.TimerInterval = 100 : g_AllItems.Add "RightSling", RightSling
+Set RightSling2 = New Rubber : RightSling2.Name = "RightSling2" : RightSling2.TimerInterval = 100 : g_AllItems.Add "RightSling2", RightSling2
+Set RightSling3 = New Rubber : RightSling3.Name = "RightSling3" : RightSling3.TimerInterval = 100 : g_AllItems.Add "RightSling3", RightSling3
+Set RightSling4 = New Rubber : RightSling4.Name = "RightSling4" : RightSling4.TimerInterval = 100 : g_AllItems.Add "RightSling4", RightSling4
+Set Rubber001 = New Rubber : Rubber001.Name = "Rubber001" : Rubber001.TimerInterval = 100 : g_AllItems.Add "Rubber001", Rubber001
+Set Rubber002 = New Rubber : Rubber002.Name = "Rubber002" : Rubber002.TimerInterval = 100 : g_AllItems.Add "Rubber002", Rubber002
 
 ' --- Spinner (1) ---
 Dim Spinner001
-Set Spinner001 = New Spinner : Spinner001.Name = "Spinner001" : g_AllItems.Add "Spinner001", Spinner001
+Set Spinner001 = New Spinner : Spinner001.Name = "Spinner001" : Spinner001.TimerInterval = 100 : g_AllItems.Add "Spinner001", Spinner001
 
 ' --- TextBox (1) ---
 Dim ScoreText
-Set ScoreText = New TextBox : ScoreText.Name = "ScoreText" : g_AllItems.Add "ScoreText", ScoreText
+Set ScoreText = New TextBox : ScoreText.Name = "ScoreText" : ScoreText.TimerInterval = 100 : g_AllItems.Add "ScoreText", ScoreText
 
 ' --- Timer (76) ---
 Dim AtomicTimer, AutoQAStartGame, BallControlTimer, BallSaverSpeedUpTimer, BallSaverTimerExpired, BatLengthTimer, BatmobileTimer, BatTimer, CorTimer, CreateMultiballTimer, divertAnim, DOF_Batman_Song, DOF_Batman_Song_Credits, flshCatwoman, Frametimer
@@ -1028,10 +1030,6 @@ Set WallCrane4 = New Wall : WallCrane4.Name = "WallCrane4" : WallCrane4.CanDrop 
 Set WallCrane5 = New Wall : WallCrane5.Name = "WallCrane5" : WallCrane5.CanDrop = True : WallCrane5.Collidable = True : g_AllItems.Add "WallCrane5", WallCrane5
 Set WallCrane6 = New Wall : WallCrane6.Name = "WallCrane6" : WallCrane6.CanDrop = True : WallCrane6.Collidable = True : g_AllItems.Add "WallCrane6", WallCrane6
 Set wallRotateTop = New Wall : wallRotateTop.Name = "wallRotateTop" : wallRotateTop.CanDrop = False : wallRotateTop.Collidable = False : g_AllItems.Add "wallRotateTop", wallRotateTop
-
-' --- Skipped: invalid VBScript identifiers ---
-' Primitive: 7_16__Rubber_Ring001
-' Primitive: 7_16__Rubber_Ring002
 
 ' --- Collections ---
 Dim GI : Set GI = CreateCollection(Light022, Light018, Light019, Light020, Light021, Light017, Light016, Light023, Light010, Light011, Light012, Light2, Light013, Light014, Light015, Light026, Light025, Light024, Light001, Light002, Light009, Light005, Light006, Light007, Light008, Light004, Light028) : g_CollectionNames.Add "GI", True

@@ -1,0 +1,189 @@
+[lwvbs INFO] L"VPBuildVersion" redefined (var)
+[lwvbs INFO] L"Plunger" redefined (var)
+[lwvbs INFO] L"Ramp" redefined (var)
+[lwvbs INFO] L"DMD" redefined (var)
+[lwvbs INFO] RegWrite(L"HKCU\\Software\\UltraDMD\\fullcolor", 0x7ffce0a10960 {VT_BSTR: L"True"}, 0x7ffce0a10980 {VT_BSTR: L"REG_SZ"}) is not supported
+[lwvbs INFO] RegWrite(L"HKCU\\Software\\UltraDMD\\color", 0x7ffce0a10960 {VT_BSTR: L"Red"}, 0x7ffce0a10980 {VT_BSTR: L"REG_SZ"}) is not supported
+[lwvbs INFO] L"UsePdbLeds" redefined (var)
+[lwvbs INFO] L"Controller" redefined (var)
+[lwvbs INFO] MsgBox: prompt=Incompatible Version of UltraDMD found.  Please update to version 1.1 or newer.
+Script: /home/francisdb/workspace/somatik/vpinball-test/tables\Three Angels (Original 2018)\Three Angels (Original 2018) LW\script.vbs
+Lines:  102406
+Chars:  3069479
+
+=== ExecuteGlobal ===
+  Time:          39 ms
+
+=== THREEANGELS_Init ===
+  Time:          0 ms
+
+=== Item init ===
+  Items:         0/897 with handler
+  Time:          3 ms
+
+=== Timer tick ===
+  [OFF]  attractdelay
+  [OK]   AttractTimer_Timer
+  [OFF]  AutomaticPlungerTimer
+  [SKIP] BallControlTimer (no handler)
+  [OFF]  BallSaverTimer
+  [OFF]  BallSearchTimer
+  [SKIP] BallShadowUpdate (no handler)
+  [OFF]  BankTimer
+  [OFF]  BEMBallLock1Timer
+  [OFF]  BEMBallLock2Timer
+  [OFF]  BEMBallLock3Timer
+  [OFF]  blacksmithready_loop
+  [OFF]  BlackSmithTimer
+  [OFF]  blankdelay
+  [OFF]  BonusLitesTimer
+  [OFF]  BoomTimer
+  [OK]   BootupTimer_Timer
+  [OFF]  bx_2angel_mball_loop
+  [OFF]  bx_angel1inhell_loop
+  [OFF]  bx_angel2inhell_loop
+  [OFF]  bx_angel3inhell_loop
+  [OFF]  bx_angel_destroyed_loop
+  [OFF]  bx_angel_trapped_lv1_loop
+  [OFF]  bx_angel_trapped_lv2_loop
+  [OFF]  bx_angel_trapped_lv3_loop
+  [OFF]  bx_Clock_loop
+  [OFF]  bx_Clock_mm_loop
+  [OFF]  bx_demon_back_loop
+  [OFF]  bx_demon_destroyed_loop
+  [OFF]  bx_demon_expelled_loop
+  [OFF]  bx_demon_summon_loop
+  [OFF]  bx_demon_trapped_lv1_loop
+  [OFF]  bx_demon_trapped_lv2_loop
+  [OFF]  bx_demon_trapped_lv3_loop
+  [OFF]  bx_gatel_destroyed_loop
+  [OFF]  bx_gater_destroyed_loop
+  [OFF]  bx_gates_opened_loop
+  [OFF]  bx_gates_protected_both_loop
+  [OFF]  bx_gates_protectedl_Left_loop
+  [OFF]  bx_gates_protectedl_right_loop
+  [OFF]  Bx_Jackpot_loop
+  [OFF]  Bx_Jackpotx2_loop
+  [OFF]  Bx_Jackpotx3_loop
+  [OFF]  bx_lostsoul100_trapped_loop
+  [OFF]  bx_lostsoul2_trapped_loop
+  [OFF]  bx_lostsoul3_trapped_loop
+  [OFF]  bx_lostsoul5_trapped_loop
+  [OFF]  bx_lostsoul_trapped_loop
+  [OFF]  bx_Possesed_loop
+  [OFF]  bx_possessinClean_loop
+  [OFF]  bx_possessinscratched_loop
+  [OFF]  bx_TrapReady_loop
+  [OFF]  bx_wm_evilface_loop
+  [OFF]  bx_wm_wound_open_loop
+  [OFF]  bx_xball_loop
+  [OFF]  ChristNailLTimer
+  [OFF]  ChristNailRTimer
+  [OFF]  ClockTimer
+  [SKIP] CollisionTimer (no handler)
+  [OFF]  ComboTimer
+  [OFF]  Countdown
+  [OFF]  CreateNewBallTimer
+  [OFF]  DMDOverlay
+  [OFF]  DMDTimer
+  [OFF]  DoorDiverterTimer
+  [OFF]  DoorMballOverTimer
+  [OFF]  DrainKickerTimer
+  [OFF]  DrainTimer
+  [OFF]  EndOfBallTimer
+  [OFF]  FirstAngel_loop
+  [OFF]  FirstBallDelayTimer
+  [OK]   Flashertimer_Timer
+  [OK]   FlipperTimer_Timer
+  [OFF]  Gameover_loop
+  [OFF]  GatesTimer
+  [OFF]  guardiandestroyedleft_loop
+  [OFF]  guardiandestroyedright_loop
+  [OFF]  guardianhitleft_loop
+  [OFF]  guardianhitright_loop
+  [OFF]  GuardiansCreationTimer
+  [OFF]  GuardiansLifeTimer
+  [OFF]  HellAttackTimer
+  [OFF]  HellDemonTimer
+  [OFF]  HellTriggerTimer
+  [OK]   holotimer_Timer
+  [OFF]  KickbackKickerTimer
+  [OFF]  KickBackTimer
+  [OFF]  KickerUpRTimer
+  [OFF]  lastAngel_loop
+  [OK]   LCCRotationTimer_Timer
+  [OFF]  LeftDoorMballTimer
+  [OFF]  LeftDoorTargetsTimer
+  [OFF]  LeftGateTimer
+  [OFF]  LeftInLaneTriggerTimer
+  [OK]   LGuardianCreationTimer_Timer
+  [OFF]  LoteriaTimer
+  [OK]   LRotationTimer_Timer
+  [OFF]  MisteryTimer
+  [OFF]  PlungerTimer
+  [OK]   popup_Timer_Timer
+  [OFF]  PortalKickerTimer
+  [OFF]  PortalReady_loop
+  [OFF]  PortalTimer
+  [OFF]  PossesionTimer
+  [OFF]  PrepareWMTimer
+  [OFF]  QShootTeleportRTimer
+  [OFF]  QShootTeleportTimer
+  [OFF]  QuickShotTimer
+  [OK]   RccRotationTimer_Timer
+  [OK]   RDampen_Timer
+  [OK]   RGuardianCreationTimer_Timer
+  [OFF]  RightDoorMballTimer
+  [OFF]  RightDoorTargetsTimer
+  [OFF]  RightGateTimer
+  [OFF]  RightInLaneTriggerTimer
+  [OK]   RollingTimer_Timer
+  [OK]   RotationTimer_Timer
+  [OFF]  RoundTargetsTimer
+  [OK]   Scoretimer_Timer
+  [OFF]  SealsTimer
+  [OFF]  SecondAngel_loop
+  [OFF]  SoundTimer
+  [OFF]  SpinnersTimer
+  [OFF]  SpinningDiskLccTimer
+  [OFF]  SpinningDiskLTimer
+  [OFF]  SpinningDiskRccTimer
+  [OFF]  SpinningDiskRTimer
+  [OFF]  SSKickerTimer
+  [OFF]  SSTimer
+  [OK]   stairhelper_Timer
+  [OFF]  SummonDemonTimer
+  [OFF]  ThreeDemonMultiballTimer
+  [OFF]  ThreeDMballOverTimer
+  [OFF]  TiltRecoveryTimer
+  [OFF]  tiltTimer
+  [OFF]  TimerPlunger
+  [OK]   TimerPlunger2_Timer
+  [OK]   TrapDiverter1_Timer_Timer
+  [OFF]  TrapDivertersFinishTimer
+  [OFF]  TrapDivertersTimer
+  [OFF]  TrapGoingUpDownTimer
+  [OFF]  TrapHeartTimer
+  [OFF]  TrapProblemTimer
+  [OFF]  TrapQueueTimer
+  [OFF]  TrapSECEntranceTimer
+  [OFF]  TrapSecureLockTimer
+  [OFF]  TrapTimer
+  [OFF]  TurnOffLitesTimer
+  [OFF]  TwoAngelsMballTimer
+  [OFF]  videodelay
+  [OFF]  VideoIntro
+  [OFF]  WishmasterBlood_loop
+  [OFF]  WishmasterOpen_loop
+  [OFF]  WishMasterTimer
+  [OFF]  WizardModeTimer
+  [OFF]  WMFailTimer
+  [OFF]  WMStartTimer
+  [OFF]  WMWinTimer
+  [OK]   SpinningDiskTrigger_Timer
+  [OK]   SpinningDiskTrigger1_Timer
+  [OK]   RightFlipper_Timer
+  Timers:        21 fired, 3 skipped, 137 disabled, 0 errors (of 161 total)
+  Iterations:    100
+  Total:         11 ms
+  Per tick:      0.117 ms (sum of all fired timers)

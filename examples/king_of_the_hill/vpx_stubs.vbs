@@ -1,19 +1,19 @@
 ' Auto-generated VPX host object stubs
-' Source: /home/francisdb/vpinball/tables/King of The Hill (Original 2025)/King_of_The_Hill0.24D/gameitems.json
+' Source: tables/King of The Hill (Original 2025)/King_of_The_Hill0.24D/gameitems.json
 ' Total stubs: 626  Invalid names: 0
 ' Types: Bumper(1), Flasher(5), Flipper(4), Gate(6), HitTarget(19), Kicker(8), Light(165), LightSequencer(30), Plunger(1), Primitive(152), Ramp(72), Rubber(11), Spinner(4), Timer(45), Trigger(37), Wall(66)
 
 ' --- Bumper (1) ---
 Dim Bumper001
-Set Bumper001 = New Bumper : Bumper001.Name = "Bumper001" : g_AllItems.Add "Bumper001", Bumper001
+Set Bumper001 = New Bumper : Bumper001.Name = "Bumper001" : Bumper001.TimerInterval = 200 : g_AllItems.Add "Bumper001", Bumper001
 
 ' --- Flasher (5) ---
 Dim bumperhighlight1, bumpershadow1, ChargeFlash, modeflasher, VR_PUPDMD
-Set bumperhighlight1 = New Flasher : bumperhighlight1.Name = "bumperhighlight1" : g_AllItems.Add "bumperhighlight1", bumperhighlight1
-Set bumpershadow1 = New Flasher : bumpershadow1.Name = "bumpershadow1" : g_AllItems.Add "bumpershadow1", bumpershadow1
-Set ChargeFlash = New Flasher : ChargeFlash.Name = "ChargeFlash" : g_AllItems.Add "ChargeFlash", ChargeFlash
-Set modeflasher = New Flasher : modeflasher.Name = "modeflasher" : g_AllItems.Add "modeflasher", modeflasher
-Set VR_PUPDMD = New Flasher : VR_PUPDMD.Name = "VR_PUPDMD" : g_AllItems.Add "VR_PUPDMD", VR_PUPDMD
+Set bumperhighlight1 = New Flasher : bumperhighlight1.Name = "bumperhighlight1" : bumperhighlight1.TimerInterval = 100 : g_AllItems.Add "bumperhighlight1", bumperhighlight1
+Set bumpershadow1 = New Flasher : bumpershadow1.Name = "bumpershadow1" : bumpershadow1.TimerInterval = 100 : g_AllItems.Add "bumpershadow1", bumpershadow1
+Set ChargeFlash = New Flasher : ChargeFlash.Name = "ChargeFlash" : ChargeFlash.TimerInterval = 100 : g_AllItems.Add "ChargeFlash", ChargeFlash
+Set modeflasher = New Flasher : modeflasher.Name = "modeflasher" : modeflasher.TimerInterval = 100 : g_AllItems.Add "modeflasher", modeflasher
+Set VR_PUPDMD = New Flasher : VR_PUPDMD.Name = "VR_PUPDMD" : VR_PUPDMD.TimerInterval = 100 : g_AllItems.Add "VR_PUPDMD", VR_PUPDMD
 
 ' --- Flipper (4) ---
 Dim LeftFlipper, LeftFlipper2, RightFlipper, RightFlipper2
@@ -279,7 +279,7 @@ Set LightSeqYEP = New LightSequencer : LightSeqYEP.Name = "LightSeqYEP" : LightS
 
 ' --- Plunger (1) ---
 Dim Plunger
-Set Plunger = New Plunger : Plunger.Name = "Plunger" : g_AllItems.Add "Plunger", Plunger
+Set Plunger = New Plunger : Plunger.Name = "Plunger" : Plunger.TimerInterval = 100 : g_AllItems.Add "Plunger", Plunger
 
 ' --- Primitive (152) ---
 Dim BallShadow0, BallShadow1, BallShadow10, BallShadow11, BallShadow2, BallShadow3, BallShadow4, BallShadow5, BallShadow6, BallShadow7, BallShadow8, BallShadow9, blades, blades001, bumperbase1
@@ -452,99 +452,99 @@ Dim Ramp016, Ramp017, Ramp018, Ramp019, Ramp020, Ramp021, Ramp022, Ramp023, Ramp
 Dim Ramp031, Ramp032, Ramp033, Ramp034, Ramp035, Ramp036, Ramp037, Ramp038, Ramp039, Ramp040, Ramp041, Ramp042, Ramp043, Ramp044, Ramp045
 Dim Ramp046, Ramp047, Ramp048, Ramp049, Ramp050, Ramp051, Ramp052, Ramp053, Ramp054, Ramp055, Ramp056, Ramp057, Ramp058, Ramp059, Ramp060
 Dim Ramp061, Ramp062, Ramp063, Ramp064, Ramp065, Ramp066, Ramp067, Ramp068, Ramp069, Ramp15, Ramp16, Ramp17
-Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : g_AllItems.Add "Ramp001", Ramp001
-Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : g_AllItems.Add "Ramp002", Ramp002
-Set Ramp003 = New Ramp : Ramp003.Name = "Ramp003" : g_AllItems.Add "Ramp003", Ramp003
-Set Ramp004 = New Ramp : Ramp004.Name = "Ramp004" : g_AllItems.Add "Ramp004", Ramp004
-Set Ramp005 = New Ramp : Ramp005.Name = "Ramp005" : g_AllItems.Add "Ramp005", Ramp005
-Set Ramp006 = New Ramp : Ramp006.Name = "Ramp006" : g_AllItems.Add "Ramp006", Ramp006
-Set Ramp007 = New Ramp : Ramp007.Name = "Ramp007" : g_AllItems.Add "Ramp007", Ramp007
-Set Ramp008 = New Ramp : Ramp008.Name = "Ramp008" : g_AllItems.Add "Ramp008", Ramp008
-Set Ramp009 = New Ramp : Ramp009.Name = "Ramp009" : g_AllItems.Add "Ramp009", Ramp009
-Set Ramp010 = New Ramp : Ramp010.Name = "Ramp010" : g_AllItems.Add "Ramp010", Ramp010
-Set Ramp011 = New Ramp : Ramp011.Name = "Ramp011" : g_AllItems.Add "Ramp011", Ramp011
-Set Ramp012 = New Ramp : Ramp012.Name = "Ramp012" : g_AllItems.Add "Ramp012", Ramp012
-Set Ramp013 = New Ramp : Ramp013.Name = "Ramp013" : g_AllItems.Add "Ramp013", Ramp013
-Set Ramp014 = New Ramp : Ramp014.Name = "Ramp014" : g_AllItems.Add "Ramp014", Ramp014
-Set Ramp015 = New Ramp : Ramp015.Name = "Ramp015" : g_AllItems.Add "Ramp015", Ramp015
-Set Ramp016 = New Ramp : Ramp016.Name = "Ramp016" : g_AllItems.Add "Ramp016", Ramp016
-Set Ramp017 = New Ramp : Ramp017.Name = "Ramp017" : g_AllItems.Add "Ramp017", Ramp017
-Set Ramp018 = New Ramp : Ramp018.Name = "Ramp018" : g_AllItems.Add "Ramp018", Ramp018
-Set Ramp019 = New Ramp : Ramp019.Name = "Ramp019" : g_AllItems.Add "Ramp019", Ramp019
-Set Ramp020 = New Ramp : Ramp020.Name = "Ramp020" : g_AllItems.Add "Ramp020", Ramp020
-Set Ramp021 = New Ramp : Ramp021.Name = "Ramp021" : g_AllItems.Add "Ramp021", Ramp021
-Set Ramp022 = New Ramp : Ramp022.Name = "Ramp022" : g_AllItems.Add "Ramp022", Ramp022
-Set Ramp023 = New Ramp : Ramp023.Name = "Ramp023" : g_AllItems.Add "Ramp023", Ramp023
-Set Ramp024 = New Ramp : Ramp024.Name = "Ramp024" : g_AllItems.Add "Ramp024", Ramp024
-Set Ramp025 = New Ramp : Ramp025.Name = "Ramp025" : g_AllItems.Add "Ramp025", Ramp025
-Set Ramp026 = New Ramp : Ramp026.Name = "Ramp026" : g_AllItems.Add "Ramp026", Ramp026
-Set Ramp027 = New Ramp : Ramp027.Name = "Ramp027" : g_AllItems.Add "Ramp027", Ramp027
-Set Ramp028 = New Ramp : Ramp028.Name = "Ramp028" : g_AllItems.Add "Ramp028", Ramp028
-Set Ramp029 = New Ramp : Ramp029.Name = "Ramp029" : g_AllItems.Add "Ramp029", Ramp029
-Set Ramp030 = New Ramp : Ramp030.Name = "Ramp030" : g_AllItems.Add "Ramp030", Ramp030
-Set Ramp031 = New Ramp : Ramp031.Name = "Ramp031" : g_AllItems.Add "Ramp031", Ramp031
-Set Ramp032 = New Ramp : Ramp032.Name = "Ramp032" : g_AllItems.Add "Ramp032", Ramp032
-Set Ramp033 = New Ramp : Ramp033.Name = "Ramp033" : g_AllItems.Add "Ramp033", Ramp033
-Set Ramp034 = New Ramp : Ramp034.Name = "Ramp034" : g_AllItems.Add "Ramp034", Ramp034
-Set Ramp035 = New Ramp : Ramp035.Name = "Ramp035" : g_AllItems.Add "Ramp035", Ramp035
-Set Ramp036 = New Ramp : Ramp036.Name = "Ramp036" : g_AllItems.Add "Ramp036", Ramp036
-Set Ramp037 = New Ramp : Ramp037.Name = "Ramp037" : g_AllItems.Add "Ramp037", Ramp037
-Set Ramp038 = New Ramp : Ramp038.Name = "Ramp038" : g_AllItems.Add "Ramp038", Ramp038
-Set Ramp039 = New Ramp : Ramp039.Name = "Ramp039" : g_AllItems.Add "Ramp039", Ramp039
-Set Ramp040 = New Ramp : Ramp040.Name = "Ramp040" : g_AllItems.Add "Ramp040", Ramp040
-Set Ramp041 = New Ramp : Ramp041.Name = "Ramp041" : g_AllItems.Add "Ramp041", Ramp041
-Set Ramp042 = New Ramp : Ramp042.Name = "Ramp042" : g_AllItems.Add "Ramp042", Ramp042
-Set Ramp043 = New Ramp : Ramp043.Name = "Ramp043" : g_AllItems.Add "Ramp043", Ramp043
-Set Ramp044 = New Ramp : Ramp044.Name = "Ramp044" : g_AllItems.Add "Ramp044", Ramp044
-Set Ramp045 = New Ramp : Ramp045.Name = "Ramp045" : g_AllItems.Add "Ramp045", Ramp045
-Set Ramp046 = New Ramp : Ramp046.Name = "Ramp046" : g_AllItems.Add "Ramp046", Ramp046
-Set Ramp047 = New Ramp : Ramp047.Name = "Ramp047" : g_AllItems.Add "Ramp047", Ramp047
-Set Ramp048 = New Ramp : Ramp048.Name = "Ramp048" : g_AllItems.Add "Ramp048", Ramp048
-Set Ramp049 = New Ramp : Ramp049.Name = "Ramp049" : g_AllItems.Add "Ramp049", Ramp049
-Set Ramp050 = New Ramp : Ramp050.Name = "Ramp050" : g_AllItems.Add "Ramp050", Ramp050
-Set Ramp051 = New Ramp : Ramp051.Name = "Ramp051" : g_AllItems.Add "Ramp051", Ramp051
-Set Ramp052 = New Ramp : Ramp052.Name = "Ramp052" : g_AllItems.Add "Ramp052", Ramp052
-Set Ramp053 = New Ramp : Ramp053.Name = "Ramp053" : g_AllItems.Add "Ramp053", Ramp053
-Set Ramp054 = New Ramp : Ramp054.Name = "Ramp054" : g_AllItems.Add "Ramp054", Ramp054
-Set Ramp055 = New Ramp : Ramp055.Name = "Ramp055" : g_AllItems.Add "Ramp055", Ramp055
-Set Ramp056 = New Ramp : Ramp056.Name = "Ramp056" : g_AllItems.Add "Ramp056", Ramp056
-Set Ramp057 = New Ramp : Ramp057.Name = "Ramp057" : g_AllItems.Add "Ramp057", Ramp057
-Set Ramp058 = New Ramp : Ramp058.Name = "Ramp058" : g_AllItems.Add "Ramp058", Ramp058
-Set Ramp059 = New Ramp : Ramp059.Name = "Ramp059" : g_AllItems.Add "Ramp059", Ramp059
-Set Ramp060 = New Ramp : Ramp060.Name = "Ramp060" : g_AllItems.Add "Ramp060", Ramp060
-Set Ramp061 = New Ramp : Ramp061.Name = "Ramp061" : g_AllItems.Add "Ramp061", Ramp061
-Set Ramp062 = New Ramp : Ramp062.Name = "Ramp062" : g_AllItems.Add "Ramp062", Ramp062
-Set Ramp063 = New Ramp : Ramp063.Name = "Ramp063" : g_AllItems.Add "Ramp063", Ramp063
-Set Ramp064 = New Ramp : Ramp064.Name = "Ramp064" : g_AllItems.Add "Ramp064", Ramp064
-Set Ramp065 = New Ramp : Ramp065.Name = "Ramp065" : g_AllItems.Add "Ramp065", Ramp065
-Set Ramp066 = New Ramp : Ramp066.Name = "Ramp066" : g_AllItems.Add "Ramp066", Ramp066
-Set Ramp067 = New Ramp : Ramp067.Name = "Ramp067" : g_AllItems.Add "Ramp067", Ramp067
-Set Ramp068 = New Ramp : Ramp068.Name = "Ramp068" : g_AllItems.Add "Ramp068", Ramp068
-Set Ramp069 = New Ramp : Ramp069.Name = "Ramp069" : g_AllItems.Add "Ramp069", Ramp069
-Set Ramp15 = New Ramp : Ramp15.Name = "Ramp15" : g_AllItems.Add "Ramp15", Ramp15
-Set Ramp16 = New Ramp : Ramp16.Name = "Ramp16" : g_AllItems.Add "Ramp16", Ramp16
-Set Ramp17 = New Ramp : Ramp17.Name = "Ramp17" : g_AllItems.Add "Ramp17", Ramp17
+Set Ramp001 = New Ramp : Ramp001.Name = "Ramp001" : Ramp001.TimerInterval = 100 : g_AllItems.Add "Ramp001", Ramp001
+Set Ramp002 = New Ramp : Ramp002.Name = "Ramp002" : Ramp002.TimerInterval = 100 : g_AllItems.Add "Ramp002", Ramp002
+Set Ramp003 = New Ramp : Ramp003.Name = "Ramp003" : Ramp003.TimerInterval = 100 : g_AllItems.Add "Ramp003", Ramp003
+Set Ramp004 = New Ramp : Ramp004.Name = "Ramp004" : Ramp004.TimerInterval = 100 : g_AllItems.Add "Ramp004", Ramp004
+Set Ramp005 = New Ramp : Ramp005.Name = "Ramp005" : Ramp005.TimerInterval = 100 : g_AllItems.Add "Ramp005", Ramp005
+Set Ramp006 = New Ramp : Ramp006.Name = "Ramp006" : Ramp006.TimerInterval = 100 : g_AllItems.Add "Ramp006", Ramp006
+Set Ramp007 = New Ramp : Ramp007.Name = "Ramp007" : Ramp007.TimerInterval = 100 : g_AllItems.Add "Ramp007", Ramp007
+Set Ramp008 = New Ramp : Ramp008.Name = "Ramp008" : Ramp008.TimerInterval = 100 : g_AllItems.Add "Ramp008", Ramp008
+Set Ramp009 = New Ramp : Ramp009.Name = "Ramp009" : Ramp009.TimerInterval = 100 : g_AllItems.Add "Ramp009", Ramp009
+Set Ramp010 = New Ramp : Ramp010.Name = "Ramp010" : Ramp010.TimerInterval = 100 : g_AllItems.Add "Ramp010", Ramp010
+Set Ramp011 = New Ramp : Ramp011.Name = "Ramp011" : Ramp011.TimerInterval = 100 : g_AllItems.Add "Ramp011", Ramp011
+Set Ramp012 = New Ramp : Ramp012.Name = "Ramp012" : Ramp012.TimerInterval = 100 : g_AllItems.Add "Ramp012", Ramp012
+Set Ramp013 = New Ramp : Ramp013.Name = "Ramp013" : Ramp013.TimerInterval = 100 : g_AllItems.Add "Ramp013", Ramp013
+Set Ramp014 = New Ramp : Ramp014.Name = "Ramp014" : Ramp014.TimerInterval = 100 : g_AllItems.Add "Ramp014", Ramp014
+Set Ramp015 = New Ramp : Ramp015.Name = "Ramp015" : Ramp015.TimerInterval = 100 : g_AllItems.Add "Ramp015", Ramp015
+Set Ramp016 = New Ramp : Ramp016.Name = "Ramp016" : Ramp016.TimerInterval = 100 : g_AllItems.Add "Ramp016", Ramp016
+Set Ramp017 = New Ramp : Ramp017.Name = "Ramp017" : Ramp017.TimerInterval = 100 : g_AllItems.Add "Ramp017", Ramp017
+Set Ramp018 = New Ramp : Ramp018.Name = "Ramp018" : Ramp018.TimerInterval = 100 : g_AllItems.Add "Ramp018", Ramp018
+Set Ramp019 = New Ramp : Ramp019.Name = "Ramp019" : Ramp019.TimerInterval = 100 : g_AllItems.Add "Ramp019", Ramp019
+Set Ramp020 = New Ramp : Ramp020.Name = "Ramp020" : Ramp020.TimerInterval = 100 : g_AllItems.Add "Ramp020", Ramp020
+Set Ramp021 = New Ramp : Ramp021.Name = "Ramp021" : Ramp021.TimerInterval = 100 : g_AllItems.Add "Ramp021", Ramp021
+Set Ramp022 = New Ramp : Ramp022.Name = "Ramp022" : Ramp022.TimerInterval = 100 : g_AllItems.Add "Ramp022", Ramp022
+Set Ramp023 = New Ramp : Ramp023.Name = "Ramp023" : Ramp023.TimerInterval = 100 : g_AllItems.Add "Ramp023", Ramp023
+Set Ramp024 = New Ramp : Ramp024.Name = "Ramp024" : Ramp024.TimerInterval = 100 : g_AllItems.Add "Ramp024", Ramp024
+Set Ramp025 = New Ramp : Ramp025.Name = "Ramp025" : Ramp025.TimerInterval = 100 : g_AllItems.Add "Ramp025", Ramp025
+Set Ramp026 = New Ramp : Ramp026.Name = "Ramp026" : Ramp026.TimerInterval = 100 : g_AllItems.Add "Ramp026", Ramp026
+Set Ramp027 = New Ramp : Ramp027.Name = "Ramp027" : Ramp027.TimerInterval = 100 : g_AllItems.Add "Ramp027", Ramp027
+Set Ramp028 = New Ramp : Ramp028.Name = "Ramp028" : Ramp028.TimerInterval = 100 : g_AllItems.Add "Ramp028", Ramp028
+Set Ramp029 = New Ramp : Ramp029.Name = "Ramp029" : Ramp029.TimerInterval = 100 : g_AllItems.Add "Ramp029", Ramp029
+Set Ramp030 = New Ramp : Ramp030.Name = "Ramp030" : Ramp030.TimerInterval = 100 : g_AllItems.Add "Ramp030", Ramp030
+Set Ramp031 = New Ramp : Ramp031.Name = "Ramp031" : Ramp031.TimerInterval = 100 : g_AllItems.Add "Ramp031", Ramp031
+Set Ramp032 = New Ramp : Ramp032.Name = "Ramp032" : Ramp032.TimerInterval = 100 : g_AllItems.Add "Ramp032", Ramp032
+Set Ramp033 = New Ramp : Ramp033.Name = "Ramp033" : Ramp033.TimerInterval = 100 : g_AllItems.Add "Ramp033", Ramp033
+Set Ramp034 = New Ramp : Ramp034.Name = "Ramp034" : Ramp034.TimerInterval = 100 : g_AllItems.Add "Ramp034", Ramp034
+Set Ramp035 = New Ramp : Ramp035.Name = "Ramp035" : Ramp035.TimerInterval = 100 : g_AllItems.Add "Ramp035", Ramp035
+Set Ramp036 = New Ramp : Ramp036.Name = "Ramp036" : Ramp036.TimerInterval = 100 : g_AllItems.Add "Ramp036", Ramp036
+Set Ramp037 = New Ramp : Ramp037.Name = "Ramp037" : Ramp037.TimerInterval = 100 : g_AllItems.Add "Ramp037", Ramp037
+Set Ramp038 = New Ramp : Ramp038.Name = "Ramp038" : Ramp038.TimerInterval = 100 : g_AllItems.Add "Ramp038", Ramp038
+Set Ramp039 = New Ramp : Ramp039.Name = "Ramp039" : Ramp039.TimerInterval = 100 : g_AllItems.Add "Ramp039", Ramp039
+Set Ramp040 = New Ramp : Ramp040.Name = "Ramp040" : Ramp040.TimerInterval = 100 : g_AllItems.Add "Ramp040", Ramp040
+Set Ramp041 = New Ramp : Ramp041.Name = "Ramp041" : Ramp041.TimerInterval = 100 : g_AllItems.Add "Ramp041", Ramp041
+Set Ramp042 = New Ramp : Ramp042.Name = "Ramp042" : Ramp042.TimerInterval = 100 : g_AllItems.Add "Ramp042", Ramp042
+Set Ramp043 = New Ramp : Ramp043.Name = "Ramp043" : Ramp043.TimerInterval = 100 : g_AllItems.Add "Ramp043", Ramp043
+Set Ramp044 = New Ramp : Ramp044.Name = "Ramp044" : Ramp044.TimerInterval = 100 : g_AllItems.Add "Ramp044", Ramp044
+Set Ramp045 = New Ramp : Ramp045.Name = "Ramp045" : Ramp045.TimerInterval = 100 : g_AllItems.Add "Ramp045", Ramp045
+Set Ramp046 = New Ramp : Ramp046.Name = "Ramp046" : Ramp046.TimerInterval = 100 : g_AllItems.Add "Ramp046", Ramp046
+Set Ramp047 = New Ramp : Ramp047.Name = "Ramp047" : Ramp047.TimerInterval = 100 : g_AllItems.Add "Ramp047", Ramp047
+Set Ramp048 = New Ramp : Ramp048.Name = "Ramp048" : Ramp048.TimerInterval = 100 : g_AllItems.Add "Ramp048", Ramp048
+Set Ramp049 = New Ramp : Ramp049.Name = "Ramp049" : Ramp049.TimerInterval = 100 : g_AllItems.Add "Ramp049", Ramp049
+Set Ramp050 = New Ramp : Ramp050.Name = "Ramp050" : Ramp050.TimerInterval = 100 : g_AllItems.Add "Ramp050", Ramp050
+Set Ramp051 = New Ramp : Ramp051.Name = "Ramp051" : Ramp051.TimerInterval = 100 : g_AllItems.Add "Ramp051", Ramp051
+Set Ramp052 = New Ramp : Ramp052.Name = "Ramp052" : Ramp052.TimerInterval = 100 : g_AllItems.Add "Ramp052", Ramp052
+Set Ramp053 = New Ramp : Ramp053.Name = "Ramp053" : Ramp053.TimerInterval = 100 : g_AllItems.Add "Ramp053", Ramp053
+Set Ramp054 = New Ramp : Ramp054.Name = "Ramp054" : Ramp054.TimerInterval = 100 : g_AllItems.Add "Ramp054", Ramp054
+Set Ramp055 = New Ramp : Ramp055.Name = "Ramp055" : Ramp055.TimerInterval = 100 : g_AllItems.Add "Ramp055", Ramp055
+Set Ramp056 = New Ramp : Ramp056.Name = "Ramp056" : Ramp056.TimerInterval = 100 : g_AllItems.Add "Ramp056", Ramp056
+Set Ramp057 = New Ramp : Ramp057.Name = "Ramp057" : Ramp057.TimerInterval = 100 : g_AllItems.Add "Ramp057", Ramp057
+Set Ramp058 = New Ramp : Ramp058.Name = "Ramp058" : Ramp058.TimerInterval = 100 : g_AllItems.Add "Ramp058", Ramp058
+Set Ramp059 = New Ramp : Ramp059.Name = "Ramp059" : Ramp059.TimerInterval = 100 : g_AllItems.Add "Ramp059", Ramp059
+Set Ramp060 = New Ramp : Ramp060.Name = "Ramp060" : Ramp060.TimerInterval = 100 : g_AllItems.Add "Ramp060", Ramp060
+Set Ramp061 = New Ramp : Ramp061.Name = "Ramp061" : Ramp061.TimerInterval = 100 : g_AllItems.Add "Ramp061", Ramp061
+Set Ramp062 = New Ramp : Ramp062.Name = "Ramp062" : Ramp062.TimerInterval = 100 : g_AllItems.Add "Ramp062", Ramp062
+Set Ramp063 = New Ramp : Ramp063.Name = "Ramp063" : Ramp063.TimerInterval = 100 : g_AllItems.Add "Ramp063", Ramp063
+Set Ramp064 = New Ramp : Ramp064.Name = "Ramp064" : Ramp064.TimerInterval = 100 : g_AllItems.Add "Ramp064", Ramp064
+Set Ramp065 = New Ramp : Ramp065.Name = "Ramp065" : Ramp065.TimerInterval = 100 : g_AllItems.Add "Ramp065", Ramp065
+Set Ramp066 = New Ramp : Ramp066.Name = "Ramp066" : Ramp066.TimerInterval = 100 : g_AllItems.Add "Ramp066", Ramp066
+Set Ramp067 = New Ramp : Ramp067.Name = "Ramp067" : Ramp067.TimerInterval = 100 : g_AllItems.Add "Ramp067", Ramp067
+Set Ramp068 = New Ramp : Ramp068.Name = "Ramp068" : Ramp068.TimerInterval = 100 : g_AllItems.Add "Ramp068", Ramp068
+Set Ramp069 = New Ramp : Ramp069.Name = "Ramp069" : Ramp069.TimerInterval = 100 : g_AllItems.Add "Ramp069", Ramp069
+Set Ramp15 = New Ramp : Ramp15.Name = "Ramp15" : Ramp15.TimerInterval = 100 : g_AllItems.Add "Ramp15", Ramp15
+Set Ramp16 = New Ramp : Ramp16.Name = "Ramp16" : Ramp16.TimerInterval = 100 : g_AllItems.Add "Ramp16", Ramp16
+Set Ramp17 = New Ramp : Ramp17.Name = "Ramp17" : Ramp17.TimerInterval = 100 : g_AllItems.Add "Ramp17", Ramp17
 
 ' --- Rubber (11) ---
 Dim LSling, LSling1, LSling2, Pin001, Pin002, Pin003, Pin004, Pin018, RSling, RSling1, RSling2
-Set LSling = New Rubber : LSling.Name = "LSling" : g_AllItems.Add "LSling", LSling
-Set LSling1 = New Rubber : LSling1.Name = "LSling1" : g_AllItems.Add "LSling1", LSling1
-Set LSling2 = New Rubber : LSling2.Name = "LSling2" : g_AllItems.Add "LSling2", LSling2
-Set Pin001 = New Rubber : Pin001.Name = "Pin001" : g_AllItems.Add "Pin001", Pin001
-Set Pin002 = New Rubber : Pin002.Name = "Pin002" : g_AllItems.Add "Pin002", Pin002
-Set Pin003 = New Rubber : Pin003.Name = "Pin003" : g_AllItems.Add "Pin003", Pin003
-Set Pin004 = New Rubber : Pin004.Name = "Pin004" : g_AllItems.Add "Pin004", Pin004
-Set Pin018 = New Rubber : Pin018.Name = "Pin018" : g_AllItems.Add "Pin018", Pin018
-Set RSling = New Rubber : RSling.Name = "RSling" : g_AllItems.Add "RSling", RSling
-Set RSling1 = New Rubber : RSling1.Name = "RSling1" : g_AllItems.Add "RSling1", RSling1
-Set RSling2 = New Rubber : RSling2.Name = "RSling2" : g_AllItems.Add "RSling2", RSling2
+Set LSling = New Rubber : LSling.Name = "LSling" : LSling.TimerInterval = 100 : g_AllItems.Add "LSling", LSling
+Set LSling1 = New Rubber : LSling1.Name = "LSling1" : LSling1.TimerInterval = 100 : g_AllItems.Add "LSling1", LSling1
+Set LSling2 = New Rubber : LSling2.Name = "LSling2" : LSling2.TimerInterval = 100 : g_AllItems.Add "LSling2", LSling2
+Set Pin001 = New Rubber : Pin001.Name = "Pin001" : Pin001.TimerInterval = 100 : g_AllItems.Add "Pin001", Pin001
+Set Pin002 = New Rubber : Pin002.Name = "Pin002" : Pin002.TimerInterval = 100 : g_AllItems.Add "Pin002", Pin002
+Set Pin003 = New Rubber : Pin003.Name = "Pin003" : Pin003.TimerInterval = 100 : g_AllItems.Add "Pin003", Pin003
+Set Pin004 = New Rubber : Pin004.Name = "Pin004" : Pin004.TimerInterval = 100 : g_AllItems.Add "Pin004", Pin004
+Set Pin018 = New Rubber : Pin018.Name = "Pin018" : Pin018.TimerInterval = 100 : g_AllItems.Add "Pin018", Pin018
+Set RSling = New Rubber : RSling.Name = "RSling" : RSling.TimerInterval = 100 : g_AllItems.Add "RSling", RSling
+Set RSling1 = New Rubber : RSling1.Name = "RSling1" : RSling1.TimerInterval = 100 : g_AllItems.Add "RSling1", RSling1
+Set RSling2 = New Rubber : RSling2.Name = "RSling2" : RSling2.TimerInterval = 100 : g_AllItems.Add "RSling2", RSling2
 
 ' --- Spinner (4) ---
 Dim FootballSpinner, PropaneSpinner, Spinner001, Spinner002
-Set FootballSpinner = New Spinner : FootballSpinner.Name = "FootballSpinner" : g_AllItems.Add "FootballSpinner", FootballSpinner
-Set PropaneSpinner = New Spinner : PropaneSpinner.Name = "PropaneSpinner" : g_AllItems.Add "PropaneSpinner", PropaneSpinner
-Set Spinner001 = New Spinner : Spinner001.Name = "Spinner001" : g_AllItems.Add "Spinner001", Spinner001
-Set Spinner002 = New Spinner : Spinner002.Name = "Spinner002" : g_AllItems.Add "Spinner002", Spinner002
+Set FootballSpinner = New Spinner : FootballSpinner.Name = "FootballSpinner" : FootballSpinner.TimerInterval = 100 : g_AllItems.Add "FootballSpinner", FootballSpinner
+Set PropaneSpinner = New Spinner : PropaneSpinner.Name = "PropaneSpinner" : PropaneSpinner.TimerInterval = 100 : g_AllItems.Add "PropaneSpinner", PropaneSpinner
+Set Spinner001 = New Spinner : Spinner001.Name = "Spinner001" : Spinner001.TimerInterval = 100 : g_AllItems.Add "Spinner001", Spinner001
+Set Spinner002 = New Spinner : Spinner002.Name = "Spinner002" : Spinner002.TimerInterval = 100 : g_AllItems.Add "Spinner002", Spinner002
 
 ' --- Timer (45) ---
 Dim AdvanceKickers, BallControlTimer, BallSaverSpeedUpTimer, BallSaverTimer, BallSaverTimerExpired, BonusCountTimer, BumperTimer, ChargeTimer, CottonModeChase, CreateMultiballTimer, DelayQRClaim, DMDEffectTimer, DMDTimer, DuckTimer, EOB_Bonus
