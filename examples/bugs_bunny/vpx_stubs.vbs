@@ -1984,10 +1984,10 @@ Dim Spinner1
 Set Spinner1 = New Spinner : Spinner1.Name = "Spinner1" : Spinner1.TimerInterval = 20 : g_AllItems.Add "Spinner1", Spinner1
 
 ' --- Timer (18) ---
-Dim BallShadowUpdate, DisplayTimer, FrameTimer, GameTimer, GIRelayClickTimer, LampTimer, LTRelayClickTimer, PinMameTimer, PlungerTimer, PulseTimer, RampRoll, RDampen, RelayResetStateTimer, sw19a, sw24a
+Dim BallShadowUpdate, DisplayTimer_conflicting, FrameTimer, GameTimer, GIRelayClickTimer, LampTimer, LTRelayClickTimer, PinMameTimer, PlungerTimer, PulseTimer, RampRoll, RDampen, RelayResetStateTimer, sw19a, sw24a
 Dim timervrplunger, timervrplunger2, UpdateTroughTimer
 Set BallShadowUpdate = New Timer : BallShadowUpdate.Name = "BallShadowUpdate" : BallShadowUpdate.Interval = 10 : BallShadowUpdate.Enabled = True : g_AllItems.Add "BallShadowUpdate", BallShadowUpdate : BallShadowUpdate.Register
-Set DisplayTimer = New Timer : DisplayTimer.Name = "DisplayTimer" : DisplayTimer.Interval = 40 : DisplayTimer.Enabled = True : g_AllItems.Add "DisplayTimer", DisplayTimer : DisplayTimer.Register
+Set DisplayTimer_conflicting = New Timer : DisplayTimer_conflicting.Name = "DisplayTimer_conflicting" : DisplayTimer_conflicting.Interval = 40 : DisplayTimer_conflicting.Enabled = True : g_AllItems.Add "DisplayTimer_conflicting", DisplayTimer_conflicting : DisplayTimer_conflicting.Register
 Set FrameTimer = New Timer : FrameTimer.Name = "FrameTimer" : FrameTimer.Interval = -1 : FrameTimer.Enabled = True : g_AllItems.Add "FrameTimer", FrameTimer : FrameTimer.Register
 Set GameTimer = New Timer : GameTimer.Name = "GameTimer" : GameTimer.Interval = 10 : GameTimer.Enabled = True : g_AllItems.Add "GameTimer", GameTimer : GameTimer.Register
 Set GIRelayClickTimer = New Timer : GIRelayClickTimer.Name = "GIRelayClickTimer" : GIRelayClickTimer.Interval = 20 : GIRelayClickTimer.Enabled = False : g_AllItems.Add "GIRelayClickTimer", GIRelayClickTimer : GIRelayClickTimer.Register
