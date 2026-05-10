@@ -1,15 +1,17 @@
 # vpinball-test
 
 Run Visual Pinball X (VPX) table scripts headlessly through a
-patched Wine `cscript`, so you can benchmark and regression-test them
-without the full VPX runtime or physics engine.
+patched Wine `cscript` (or jsm174's [libwinevbs](https://github.com/jsm174/libwinevbs),
+the same vbscript engine vpinball ships on Linux/macOS), so you
+can benchmark and regression-test them without the full VPX runtime
+or physics engine. Tests are designed to pass on both runners.
 
 Each table script under test is loaded via `ExecuteGlobal`, with COM
 objects like `VPinMAME.Controller`, `B2S.Server`, `FlexDMD.FlexDMD`,
 and `PinUpPlayer.PinDisplay` replaced by stub classes that emulate
 just enough surface area for the table's init + timer loops to run.
-A small gameplay DSL (`VpxTester`) lets you drive `InsertCoin` →
-`StartGame` → drain scenarios and assert on observable table state
+A small gameplay DSL (`VpxTester`) lets you drive `InsertCoin` ->
+`StartGame` -> drain scenarios and assert on observable table state
 (ball counts, lights, sounds).
 
 ## Layout
@@ -27,10 +29,16 @@ examples/
     test_<table>_play.vbs   gameplay scenario through VpxTester
     vpx_stubs.vbs           pre-generated element stubs for the table
 patches/
-  *.patch                   vbscript.dll patches on top of the wine tag
+  *.patch                   vbscript.dll patches on top of the wine pin
+patches-libwinevbs/
+  *.patch                   patches on top of the libwinevbs pin
 scripts/
-  build-cscript.sh          fetches wine, applies patches, builds cscript
-  run-bench.sh              runs a single bench / play test through the built wine
+  build-cscript.sh          fetches wine, applies patches/, builds cscript
+  run-bench.sh              runs a single bench/play test through the built wine
+libwinevbs-runner/
+  build.sh                  fetches libwinevbs, applies patches-libwinevbs/,
+                            builds the cscript-equivalent runner
+  runner.c                  WScript host shim linked against libwinevbs
 tables/                     gitignored; extract VPX tables here, one
                             <title>/<version>/ folder per table
 ```
@@ -54,6 +62,12 @@ tables/                     gitignored; extract VPX tables here, one
 
 ## Setup
 
+You can run tests through the patched Wine cscript, the libwinevbs
+runner, or both. The Wine path takes longer to build but produces
+the closest possible match to standard Windows VBScript; the
+libwinevbs path matches what vpinball itself runs on Linux/macOS
+and builds in seconds. Most contributors run both before pushing.
+
 1. **Build the patched cscript** (first build takes 10-20 minutes;
    downloads the Wine source tree under `build/wine-src`):
 
@@ -67,7 +81,21 @@ tables/                     gitignored; extract VPX tables here, one
    against a different commit. We don't track a released tag because
    our patches need `vbs_wcsicmp`, which isn't in wine-11.6.
 
-2. **Create your local config** from the template:
+2. **Build the libwinevbs runner** (optional but recommended; first
+   build takes ~1 minute, no Wine prefix needed):
+
+   ```sh
+   ./libwinevbs-runner/build.sh
+   ```
+
+   Pulls jsm174's libwinevbs at the pin in
+   `libwinevbs-runner/build.sh` (`LIBWINEVBS_REV`), applies the
+   patches in `patches-libwinevbs/`, builds the shared library and
+   a small C host (`runner.c`) that loads a `.vbs` file the same way
+   `cscript` does. The pin tracks the `wine-11.9` branch of jsm174's
+   fork, which is what current vpinball Linux builds link against.
+
+3. **Create your local config** from the template:
 
    ```sh
    cp examples/vpx_config.vbs.example examples/vpx_config.vbs
@@ -82,18 +110,24 @@ tables/                     gitignored; extract VPX tables here, one
    `Z:\path\to\...` form breaks under libwinevbs - avoid it.
    `vpx_config.vbs` is `.gitignore`d.
 
-3. **Run an example:**
+4. **Run an example:**
 
    ```sh
+   # Through the patched wine cscript:
    ./scripts/run-bench.sh examples/darkest_dungeon/test_darkest_dungeon_play.vbs
+
+   # Through the libwinevbs runner:
+   ./build/libwinevbs-runner/runner examples/darkest_dungeon/test_darkest_dungeon_play.vbs
    ```
 
 ## Debugging a failing bench
 
+### Wine cscript
+
 `run-bench.sh` defaults to `WINEDEBUG=-all,warn+vbscript`, which silences
 Wine chatter except for `warn:vbscript:` messages. That channel is where
-patches 0002 / 0003 emit the runtime-error call trace — error code,
-function name, line, and caller chain — which is the fastest way to turn
+patches 0002 / 0003 emit the runtime-error call trace - error code,
+function name, line, and caller chain - which is the fastest way to turn
 an opaque `Microsoft VBScript runtime error: ...` line into something
 actionable. Example:
 
@@ -105,6 +139,20 @@ warn:vbscript:exec_script   called from L"WobbleMagnet_Init", line 902
 If you need more (or less) Wine output, override `WINEDEBUG` in the
 environment, e.g. `WINEDEBUG=+vbscript ./scripts/run-bench.sh ...` for
 the full trace channel, or `WINEDEBUG=-all` to go completely quiet.
+
+### libwinevbs runner
+
+The libwinevbs runner emits `[lwvbs INFO] ...` lines on stderr for
+every stub call (variable redefinitions, `WshShell.RegWrite` and
+similar `WScript.Shell` methods, intercepted `MsgBox` prompts, etc.).
+These are intentional traces, not errors - check them when a test
+behaves differently between the two runners. Real script errors are
+surfaced as `Microsoft VBScript runtime error: ...` lines just like
+on Wine, but without the call-stack trace.
+
+When a test passes on Wine but fails on libwinevbs (or vice versa),
+running the same `.vbs` through both runners and diffing their
+output is usually the fastest path to the root cause.
 
 ## Adding a new table
 
@@ -121,10 +169,11 @@ the full trace channel, or `WINEDEBUG=-all` to go completely quiet.
 3. Copy an existing `bench_*_init.vbs` as a starting point and edit
    `EXTRACTED_TABLE_DIR` + `TABLE_FILE`. Add a `PatchTableCode` Sub
    if the table references COM objects we don't yet stub.
-4. Run it:
+4. Run it through both runners:
 
    ```sh
    ./scripts/run-bench.sh examples/my_table/bench_my_table_init.vbs
+   ./build/libwinevbs-runner/runner examples/my_table/bench_my_table_init.vbs
    ```
 
 ## Writing a play scenario
@@ -155,21 +204,32 @@ full three-ball drain scenario.
 
 ## Status
 
-**18 / 18 scripts pass** against the pinned Wine revision with the
-full patch set applied.
+**37 init benches and 38 play tests pass** on both runners (the
+patched Wine cscript and the libwinevbs runner) at the current
+pins. The extra play test is a meta-test in `examples/_meta/` that
+verifies the framework's error-gating: it injects a deliberately
+broken timer and asserts that the test harness fails (rather than
+silently swallowing the error) - a regression guard for the
+"no silent failures in tests" rule.
 
-Two tables (pizza_time, attack_from_mars) need a one-line
-`PatchTableCode` in their benches to bypass a `cvpmMagnet.CreateEvents`
-call that `ExecuteGlobal`s a chunk of core.vbs the sim can't handle.
-The workaround strips only the `.CreateEvents mMagnet` line (not the
-whole `WobbleMagnet_Init`) so the rest of the sub — `cBall` creation,
-`MagnetOn`, etc. — still runs; `UfoShaker_Timer` relies on that
-`cBall`, so the surgical version is needed.
+Per-table `PatchTableCode` Subs handle a small number of known
+table bugs and headless-sim limitations (e.g. pizza_time and
+attack_from_mars carry a typo in `.CreateEvents mMagnet` - the bare
+identifier should have been the string `"mMagnet"` - that we patch
+in-place so the splice into core.vbs's `ExecuteGlobal` succeeds).
+See each example's `table_patch.vbs` and README for specifics.
 
 ## Patches
 
-`patches/` carries Wine changes needed on top of the pinned Wine
-revision. Each patch is tagged:
+Two patch directories, one per runner:
+
+- `patches/` - changes layered on the pinned Wine revision
+  (`scripts/build-cscript.sh`).
+- `patches-libwinevbs/` - changes layered on the pinned libwinevbs
+  revision (`libwinevbs-runner/build.sh`). Smaller set; libwinevbs
+  is much closer to "what we need" by default than upstream Wine.
+
+The Wine set is described in detail below. Each patch is tagged:
 
 - **[upstream]** — a branch exists in the francisdb/wine fork; the
   intent is to land this upstream in wine-staging or wine proper.
