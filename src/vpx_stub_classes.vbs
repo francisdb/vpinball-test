@@ -4,7 +4,7 @@
 
 ' Table stub (host Table1 object)
 Class Table
-    Public Name, ShowDT, ShowFSS, FileName, UserValue
+    Public Name, ShowDT, ShowFSS, FileName, UserValue, Image
     Public Width, Height, TableHeight
     Public BallImage, BallDecalMode, BallFrontDecal, DefaultBulbIntensityScale
     Public ColorGradeImage, Inclination, Layback
@@ -1213,6 +1213,7 @@ Class VPinMAMEControllerStub
 
     Public Property Get ChangedSolenoids() : ChangedSolenoids = Array() : End Property
     Public Property Get ChangedLamps() : ChangedLamps = Array() : End Property
+    Public Function ChangedLEDs(mask1, mask2) : ChangedLEDs = Empty : End Function
     Public Property Get ChangedGIStrings() : ChangedGIStrings = Array() : End Property
     Public Property Get ChangedPDLeds() : ChangedPDLeds = Array() : End Property
     Public Property Get ChangedNVRAM() : ChangedNVRAM = Array() : End Property
@@ -1285,6 +1286,7 @@ Class B2SServerStub
 
     Public Property Get ChangedSolenoids() : ChangedSolenoids = Array() : End Property
     Public Property Get ChangedLamps() : ChangedLamps = Array() : End Property
+    Public Function ChangedLEDs(mask1, mask2) : ChangedLEDs = Empty : End Function
     Public Property Get ChangedGIStrings() : ChangedGIStrings = Array() : End Property
     Public Property Get ChangedPDLeds() : ChangedPDLeds = Array() : End Property
 

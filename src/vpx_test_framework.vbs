@@ -267,7 +267,7 @@ Sub SetUpTable(verbose)
     ' stubs expect just the value — drop the `N,` prefix when present.
     Dim b2sPosRe_ : Set b2sPosRe_ = New RegExp
     b2sPosRe_.Global = True : b2sPosRe_.IgnoreCase = True
-    b2sPosRe_.Pattern = "(\.B2SSet(?:GameOver|Tilt|PlayerUp|BallInPlay|ShootAgain))\s+\d+\s*,\s*"
+    b2sPosRe_.Pattern = "(\.B2SSet(?:GameOver|Tilt|PlayerUp|BallInPlay|ShootAgain|Match|Credits))\s+\d+\s*,\s*"
     tableCode = b2sPosRe_.Replace(tableCode, "$1 ")
     ' Real VPX Table.Option has an optional 7th "choices" argument that
     ' tables use when wiring up an enum-style option. Our stub has fixed
