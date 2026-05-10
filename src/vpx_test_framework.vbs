@@ -267,7 +267,7 @@ Sub SetUpTable(verbose)
     ' stubs expect just the value — drop the `N,` prefix when present.
     Dim b2sPosRe_ : Set b2sPosRe_ = New RegExp
     b2sPosRe_.Global = True : b2sPosRe_.IgnoreCase = True
-    b2sPosRe_.Pattern = "(\.B2SSet(?:GameOver|Tilt|PlayerUp|BallInPlay|ShootAgain|Match|Credits))\s+\d+\s*,\s*"
+    b2sPosRe_.Pattern = "(\.B2SSet(?:GameOver|Tilt|PlayerUp|BallInPlay|ShootAgain|Match|Credits|CanPlay))\s+\d+\s*,\s*"
     tableCode = b2sPosRe_.Replace(tableCode, "$1 ")
     ' Real VPX Table.Option has an optional 7th "choices" argument that
     ' tables use when wiring up an enum-style option. Our stub has fixed
@@ -1061,6 +1061,24 @@ Class VpxTester
         If g_ActiveBalls.Count > 0 Then
             Dim abKeys : abKeys = g_ActiveBalls.Keys()
             Set ActiveBall = g_ActiveBalls(abKeys(UBound(abKeys)))
+        End If
+        ' Real VPX invokes element event handlers (`<Name>_Hit`,
+        ' `<Name>_Unhit`, ...) with the element bound to `Me`. Plain
+        ' `GetRef(subName)` doesn't bind anything; if the table's body
+        ' references `me` (e.g. `bsTrough.addball me`) it raises 80020003.
+        ' Resolve `<Name>` against g_AllItems and use GetBoundRef to
+        ' get a bound delegate; fall back to GetRef for handlers whose
+        ' prefix isn't a known element (custom Subs, free helpers).
+        Dim usSplit : usSplit = Split(subName, "_")
+        If UBound(usSplit) >= 1 Then
+            Dim elemName : elemName = usSplit(0)
+            If g_AllItems.Exists(elemName) Then
+                Dim br : Set br = GetBoundRef(subName, g_AllItems(elemName))
+                If Not (br Is Nothing) Then
+                    br
+                    Exit Sub
+                End If
+            End If
         End If
         Dim r : Set r = GetRef(subName)
         r
