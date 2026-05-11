@@ -64,12 +64,16 @@ jobs:
           python-version: '3.x'
       - name: Install build deps
         # Minimal subset for `configure --enable-win64 --disable-tests
-        # --without-freetype` to produce cscript. Add packages here if
-        # the configure step starts requiring more.
+        # --without-freetype --without-x` to produce cscript. mingw-w64
+        # is used for the PE-side compilation; without it configure falls
+        # back to clang, which (clang 18.1.3 on the hosted runner) ICEs on
+        # dlls/vcruntime140/typeinfo.c. Add packages here if the configure
+        # step starts requiring more.
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             build-essential \
+            gcc-mingw-w64-x86-64 \
             bison \
             flex \
             pkg-config \
