@@ -90,8 +90,14 @@ jobs:
             build/wine-src
             build/wine-build
           # Bust on patch changes or build-script changes; wine rev
-          # itself is pinned inside build-cscript.sh.
+          # itself is pinned inside build-cscript.sh. The restore-keys
+          # fallback lets us reuse a stale cache (different script or
+          # patch hash) -- build-cscript.sh's sentinel will decide
+          # whether to refresh, so an unchanged WINE_REV+patches gets
+          # an incremental make even when the exact key misses.
           key: wine-v1-${{ hashFiles('scripts/build-cscript.sh', 'patches/*.patch') }}
+          restore-keys: |
+            wine-v1-
       - name: Cache fixture downloads
         uses: actions/cache@v4
         with:
