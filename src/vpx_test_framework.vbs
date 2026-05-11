@@ -421,16 +421,23 @@ Sub SetUpTable(verbose)
         WScript.Echo ""
     End If
 
-    ' Run the table's init handler (<TableName>_Init).
+    ' Run the table's init handler (<TableName>_Init). VPX treats this
+    ' handler as optional; minimal tables (vpinball's exampleTable.vpx,
+    ' Plunger_Init-only fixtures) define no Table1_Init at all.
     initName = g_TableName & "_Init"
-    Set fnRef = GetRef(initName)
     g_TableInitName = initName
-    If verbose Then WScript.Echo "=== " & initName & " ==="
-    t0 = Timer
-    fnRef
-    t1 = Timer
-    If verbose Then
-        WScript.Echo "  Time:          " & Int((t1 - t0) * 1000) & " ms"
+    If SubDefined(initName) Then
+        Set fnRef = GetRef(initName)
+        If verbose Then WScript.Echo "=== " & initName & " ==="
+        t0 = Timer
+        fnRef
+        t1 = Timer
+        If verbose Then
+            WScript.Echo "  Time:          " & Int((t1 - t0) * 1000) & " ms"
+            WScript.Echo ""
+        End If
+    ElseIf verbose Then
+        WScript.Echo "=== " & initName & " (not defined, skipping) ==="
         WScript.Echo ""
     End If
 

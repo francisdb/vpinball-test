@@ -1,0 +1,152 @@
+name: Example tables
+
+# Smoke-tests the framework against the .vpx fixtures that ship in
+# vpinball/src/assets (the only license-clean tables we can pull on a
+# public runner). Two parallel jobs:
+#   wine        - source of truth; full bench end-to-end via patched cscript
+#   libwinevbs  - tracks stage-1 progress; allowed to fail until FSO is wired
+# Each job uses scripts/ci-fetch-fixtures.sh to pin vpxtool + vpinball
+# revs and extract tables/example_table + tables/light_seq_table.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# vpxtool release pin and vpinball revision pin are kept in
+# scripts/ci-fetch-fixtures.sh so local developers and CI use the
+# same source of truth. Bump them there.
+
+jobs:
+  stub-diff:
+    name: Stub generator (golden diff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Cache fixture downloads
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/vpxtool
+            build/vpinball-src
+          key: fixtures-v1-${{ hashFiles('scripts/ci-fetch-fixtures.sh') }}
+      - name: Fetch fixtures
+        run: scripts/ci-fetch-fixtures.sh
+      - name: Diff generated stubs against committed golden
+        run: |
+          set -e
+          for t in example_table light_seq_table; do
+            base="$(echo tables/$t/*/gameitems.json | sed 's|/gameitems.json||')"
+            python3 src/gen_vpx_stubs.py \
+              "$base/gameitems.json" \
+              "$base/collections.json" \
+              > /tmp/${t}_stubs.vbs
+            if ! diff -u "examples/$t/vpx_stubs.vbs" "/tmp/${t}_stubs.vbs"; then
+              echo "::error::generated stubs for $t differ from examples/$t/vpx_stubs.vbs"
+              echo "If the change is intentional, regenerate with:"
+              echo "  python3 src/gen_vpx_stubs.py $base/gameitems.json $base/collections.json > examples/$t/vpx_stubs.vbs"
+              exit 1
+            fi
+          done
+
+  wine:
+    name: Bench (wine cscript)
+    runs-on: ubuntu-latest
+    needs: stub-diff
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install build deps
+        # Minimal subset for `configure --enable-win64 --disable-tests
+        # --without-freetype` to produce cscript. Add packages here if
+        # the configure step starts requiring more.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            bison \
+            flex \
+            pkg-config \
+            libxml2-dev \
+            libxslt1-dev \
+            libgnutls28-dev \
+            ca-certificates \
+            curl \
+            git
+      - name: Cache wine build
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/wine-src
+            build/wine-build
+          # Bust on patch changes or build-script changes; wine rev
+          # itself is pinned inside build-cscript.sh.
+          key: wine-v1-${{ hashFiles('scripts/build-cscript.sh', 'patches/*.patch') }}
+      - name: Cache fixture downloads
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/vpxtool
+            build/vpinball-src
+          key: fixtures-v1-${{ hashFiles('scripts/ci-fetch-fixtures.sh') }}
+      - name: Build wine cscript
+        run: scripts/build-cscript.sh
+      - name: Fetch fixtures
+        run: scripts/ci-fetch-fixtures.sh
+      - name: Bench example_table
+        run: scripts/run-bench.sh examples/example_table/bench_example_table_init.vbs
+      - name: Bench light_seq_table
+        run: scripts/run-bench.sh examples/light_seq_table/bench_light_seq_table_init.vbs
+
+  libwinevbs:
+    name: Bench (libwinevbs)
+    runs-on: ubuntu-latest
+    needs: stub-diff
+    # Stage-0 runner can't load FSO yet, so the bench step is allowed
+    # to fail. The build + hello smoke MUST still pass.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            cmake \
+            bison \
+            ca-certificates \
+            curl \
+            git
+      - name: Cache libwinevbs build
+        uses: actions/cache@v4
+        with:
+          path: build/libwinevbs-runner
+          key: libwinevbs-v1-${{ hashFiles('libwinevbs-runner/build.sh', 'libwinevbs-runner/runner.c', 'patches-libwinevbs/*.patch') }}
+      - name: Cache fixture downloads
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/vpxtool
+            build/vpinball-src
+          key: fixtures-v1-${{ hashFiles('scripts/ci-fetch-fixtures.sh') }}
+      - name: Build runner + hello smoke
+        # Default build.sh argument runs hello.vbs; that's the stage-0
+        # smoke we want regardless of FSO support.
+        run: libwinevbs-runner/build.sh
+      - name: Fetch fixtures
+        run: scripts/ci-fetch-fixtures.sh
+      - name: Bench example_table (allowed to fail until stage 1)
+        continue-on-error: true
+        run: build/libwinevbs-runner/runner examples/example_table/bench_example_table_init.vbs
+      - name: Bench light_seq_table (allowed to fail until stage 1)
+        continue-on-error: true
+        run: build/libwinevbs-runner/runner examples/light_seq_table/bench_light_seq_table_init.vbs
