@@ -57,7 +57,8 @@ if [[ ! -f Makefile ]]; then
     "$WINE_SRC/configure" \
         --enable-win64 \
         --disable-tests \
-        --without-freetype
+        --without-freetype \
+        --without-x
 fi
 
 # 4. Build Wine. There's no cheap partial-build for cscript alone:
