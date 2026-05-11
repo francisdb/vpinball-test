@@ -23,30 +23,47 @@ PATCHES_DIR="$REPO_ROOT/patches"
 
 mkdir -p "$BUILD_DIR"
 
-# 1. Fetch wine source at the pinned revision.
-if [[ ! -d "$WINE_SRC/.git" ]]; then
-    echo "==> Cloning wine (master) and checking out $WINE_REV"
-    git clone https://gitlab.winehq.org/wine/wine.git "$WINE_SRC"
-    git -C "$WINE_SRC" checkout "$WINE_REV"
-else
-    echo "==> Refreshing $WINE_SRC to $WINE_REV"
-    git -C "$WINE_SRC" fetch origin
-    git -C "$WINE_SRC" reset --hard "$WINE_REV"
-    git -C "$WINE_SRC" clean -fdx
-fi
-
-# 2. Apply framework patches.
+# 1. Fetch wine source at the pinned revision and apply framework patches.
+#    A sentinel file in $WINE_SRC records "<rev> <patches-hash>" after a
+#    successful refresh. When it matches the current expected state we
+#    skip both `git reset --hard` and `git apply` -- both rewrite source
+#    file mtimes and would force `make` into a 15+ minute full rebuild
+#    even on a CI cache hit. Wipe the sentinel (or `rm -rf $WINE_SRC`)
+#    to force a fresh refresh.
 shopt -s nullglob
 patches=( "$PATCHES_DIR"/*.patch )
 shopt -u nullglob
 if (( ${#patches[@]} )); then
-    echo "==> Applying ${#patches[@]} patch(es)"
-    for p in "${patches[@]}"; do
-        echo "    $(basename "$p")"
-        git -C "$WINE_SRC" apply "$p"
-    done
+    patches_hash=$(cat "${patches[@]}" | sha256sum | cut -d' ' -f1)
 else
-    echo "==> No patches to apply"
+    patches_hash="none"
+fi
+expected_state="$WINE_REV $patches_hash"
+sentinel="$WINE_SRC/.framework-applied"
+
+if [[ -f "$sentinel" && "$(cat "$sentinel")" == "$expected_state" ]]; then
+    echo "==> $WINE_SRC already at $WINE_REV with ${#patches[@]} framework patch(es), skipping refresh"
+else
+    if [[ ! -d "$WINE_SRC/.git" ]]; then
+        echo "==> Cloning wine (master)"
+        git clone https://gitlab.winehq.org/wine/wine.git "$WINE_SRC"
+    fi
+    echo "==> Refreshing $WINE_SRC to $WINE_REV"
+    git -C "$WINE_SRC" fetch origin
+    git -C "$WINE_SRC" reset --hard "$WINE_REV"
+    git -C "$WINE_SRC" clean -fdx
+
+    if (( ${#patches[@]} )); then
+        echo "==> Applying ${#patches[@]} patch(es)"
+        for p in "${patches[@]}"; do
+            echo "    $(basename "$p")"
+            git -C "$WINE_SRC" apply "$p"
+        done
+    else
+        echo "==> No patches to apply"
+    fi
+
+    echo "$expected_state" > "$sentinel"
 fi
 
 # 3. Configure (out-of-tree build).
