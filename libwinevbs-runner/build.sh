@@ -14,7 +14,7 @@
 set -euo pipefail
 
 LIBWINEVBS_REPO="${LIBWINEVBS_REPO:-https://github.com/jsm174/libwinevbs.git}"
-LIBWINEVBS_REV="${LIBWINEVBS_REV:-1830e4b}"
+LIBWINEVBS_REV="${LIBWINEVBS_REV:-d3900f0f66ae5d18abf28c6d1550808592b9ebba}"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 RUNNER_DIR="$REPO_ROOT/libwinevbs-runner"
 BUILD_DIR="$REPO_ROOT/build/libwinevbs-runner"
@@ -24,21 +24,24 @@ PATCHES_DIR="$REPO_ROOT/patches-libwinevbs"
 
 mkdir -p "$BUILD_DIR"
 
-# 1. Fetch libwinevbs at the pinned revision.
+# 1. Fetch libwinevbs at the pinned revision. We always do an explicit
+#    `git fetch origin <rev>` so an abbreviated SHA on a non-default
+#    branch (e.g. wine-11.9) resolves on a fresh clone too -- without
+#    this, `git clone && git checkout 1830e4b` fails on hosted CI with
+#    "pathspec did not match" because the abbreviated sha isn't
+#    reachable from any locally-known ref.
 if [[ ! -d "$LWVBS_SRC/.git" ]]; then
-    echo "==> Cloning $LIBWINEVBS_REPO and checking out $LIBWINEVBS_REV"
+    echo "==> Cloning $LIBWINEVBS_REPO"
     git clone "$LIBWINEVBS_REPO" "$LWVBS_SRC"
-    git -C "$LWVBS_SRC" checkout "$LIBWINEVBS_REV"
-else
-    echo "==> Refreshing $LWVBS_SRC to $LIBWINEVBS_REV"
-    # Refresh the configured remote URL in case the script's pin moved
-    # to a different fork; otherwise an old clone keeps fetching from
-    # the original repo and reset --hard to a sha it doesn't have.
-    git -C "$LWVBS_SRC" remote set-url origin "$LIBWINEVBS_REPO"
-    git -C "$LWVBS_SRC" fetch origin
-    git -C "$LWVBS_SRC" reset --hard "$LIBWINEVBS_REV"
-    git -C "$LWVBS_SRC" clean -fdx
 fi
+echo "==> Fetching + checking out $LIBWINEVBS_REV"
+# Refresh the configured remote URL in case the script's pin moved
+# to a different fork; otherwise an old clone keeps fetching from
+# the original repo and reset --hard to a sha it doesn't have.
+git -C "$LWVBS_SRC" remote set-url origin "$LIBWINEVBS_REPO"
+git -C "$LWVBS_SRC" fetch origin "$LIBWINEVBS_REV"
+git -C "$LWVBS_SRC" reset --hard "$LIBWINEVBS_REV"
+git -C "$LWVBS_SRC" clean -fdx
 
 # 2. Apply patches-libwinevbs/ on top.
 shopt -s nullglob
