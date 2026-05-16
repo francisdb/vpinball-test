@@ -64,7 +64,7 @@ Function GetTextFile(filename)
     content = Replace(content, "Controller.Run()",    "Controller.Run(0)")
     ' Log sound names for literal-string PlaySound/StopSound calls.
     ' The actual PlaySound/StopSound calls go through to the variadic
-    ' builtins (patch 0006) and do nothing - no rewrite needed.
+    ' builtins (patch 0005) and do nothing - no rewrite needed.
     Dim psLit2_ : Set psLit2_ = New RegExp
     psLit2_.Global = True : psLit2_.IgnoreCase = True
     psLit2_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)\s+""([^""]*)"""
@@ -302,7 +302,7 @@ Sub SetUpTable(verbose)
     ' shapes: the bare `PlaySound "name", ...` and the parenthesised
     ' Log sound names for literal-string PlaySound/StopSound calls.
     ' The actual PlaySound/StopSound calls go through to the variadic
-    ' builtins (patch 0006) and do nothing - no rewrite needed.
+    ' builtins (patch 0005) and do nothing - no rewrite needed.
     Dim psLit_ : Set psLit_ = New RegExp
     psLit_.Global = True : psLit_.IgnoreCase = True
     psLit_.Pattern = "([\n:])(\s*)(PlaySound|StopSound)\s+""([^""]*)"""
