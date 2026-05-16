@@ -126,7 +126,7 @@ and builds in seconds. Most contributors run both before pushing.
 
 `run-bench.sh` defaults to `WINEDEBUG=-all,warn+vbscript`, which silences
 Wine chatter except for `warn:vbscript:` messages. That channel is where
-patches 0002 / 0003 emit the runtime-error call trace - error code,
+patches 0001 / 0002 emit the runtime-error call trace - error code,
 function name, line, and caller chain - which is the fastest way to turn
 an opaque `Microsoft VBScript runtime error: ...` line into something
 actionable. Example:
@@ -247,12 +247,11 @@ have a branch that's intentionally not upstreamed.
 
 | # | Patch | Status | Branch / MR |
 |---|---|---|---|
-| 0001 | `vbscript: Implement IDispatch::GetTypeInfo for class instances` | **[upstream]** | [`fix/vbscript-gettypeinfo`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10461) |
-| 0002 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement — only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
-| 0003 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft — same rationale as 0002, diagnostic-only) |
-| 0004 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR — upstream version raises on not-found; this build returns Empty) |
-| 0005 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only — convenience builtin for variadic stubs, not a real VBScript function)* |
-| 0006 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlayMusic, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
+| 0001 | `vbscript: Include function name and line in resume-next WARN` | **[test-only]** | *(diagnostic improvement: only useful for hunting down framework/stub issues, adds WARN noise to normal runs)* |
+| 0002 | `vbscript: Log call stack trace on runtime errors` | **[test-only]** | [`fix/vbscript-error-call-trace`](https://gitlab.winehq.org/wine/wine/-/merge_requests/10594) (draft; same rationale as 0001, diagnostic-only) |
+| 0003 | `vbscript: Add GetBoundRef built-in for invoking functions with a bound Me` | **[test-only]** | `feat/vbscript-getboundref` (no MR; upstream version raises on not-found, this build returns Empty) |
+| 0004 | `vbscript: Add CreateCollection built-in for creating COM collection objects` | **[test-only]** | *(this repo only; convenience builtin for variadic stubs, not a real VBScript function)* |
+| 0005 | `test: Add variadic builtins for stubbing VPX host APIs (Noop, PlayMusic, PlaySound, StopSound)` | **[test-only]** | *(this repo only)* |
 
 What each one unlocks for the framework:
 
@@ -312,7 +311,7 @@ What each one unlocks for the framework:
     called from L"Wrapper", line 2
     called from <global>, line 16
   ```
-  Combined with patch 0002, this turns anonymous `Failed …`
+  Combined with patch 0001, this turns anonymous `Failed ...`
   warnings into diagnosable bug reports.
 - **Chained array-index assignment (bug 53877)** — master doesn't
   support `x(0)(1) = value` where the outer call is on the result

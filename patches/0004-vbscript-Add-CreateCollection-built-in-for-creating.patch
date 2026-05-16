@@ -11,10 +11,10 @@ Subject: [PATCH 7/8] vbscript: Add CreateCollection built-in for creating
  4 files changed, 395 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index db6ce174884..2968538f40d 100644
+index 318c41b..6cdf8cc 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4702,6 +4702,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4697,6 +4697,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -40,7 +40,7 @@ index db6ce174884..2968538f40d 100644
  static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      named_item_t *item;
-@@ -4811,6 +4830,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4806,6 +4825,7 @@ static const builtin_prop_t global_props[] = {
      {L"CInt",                      Global_CInt, 0, 1},
      {L"CLng",                      Global_CLng, 0, 1},
      {L"Cos",                       Global_Cos, 0, 1},
@@ -49,10 +49,10 @@ index db6ce174884..2968538f40d 100644
      {L"CSng",                      Global_CSng, 0, 1},
      {L"CStr",                      Global_CStr, 0, 1},
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index db4e3b17b5a..e40e709039a 100644
+index d8d612b..52f6a16 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -4179,4 +4179,64 @@ Call ok(dateErr <> 0, "Day(""15.03.2026"") en-US should error: err=" & dateErr)
+@@ -4381,4 +4381,64 @@ Call ok(dateErr <> 0, "Day(""15.03.2026"") en-US should error: err=" & dateErr)
  Call SetLocale(origLcid)
  Call ok(GetLocale() = origLcid, "restore: GetLocale = " & GetLocale())
  
@@ -118,10 +118,10 @@ index db4e3b17b5a..e40e709039a 100644
 +
  reportSuccess()
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index 70ad8b3113d..c1cfad6db85 100644
+index b60a611..bc2165a 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -1294,6 +1294,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
+@@ -916,6 +916,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
      return S_OK;
  }
  
@@ -443,7 +443,7 @@ index 70ad8b3113d..c1cfad6db85 100644
      function_t *func;
      MEMBERID memid;
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index 26f1619e8bc..39540b7ba1c 100644
+index ee49a36..05cffe3 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
 @@ -178,6 +178,7 @@ void collect_objects(script_ctx_t*);
