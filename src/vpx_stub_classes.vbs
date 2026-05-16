@@ -1203,6 +1203,8 @@ Class VPinMAMEControllerStub
     Public Property Get Switch(num) : Switch = mSwitch(num) : End Property
     Public Property Let Solenoid(num, val) : mSolenoid(num) = val : End Property
     Public Property Get Solenoid(num) : Solenoid = mSolenoid(num) : End Property
+    Public Property Let Lamp(num, val) : mLamp(num) = val : End Property
+    Public Property Get Lamp(num) : Lamp = mLamp(num) : End Property
     Public Property Let Mech(num, val) : mMech(num) = val : End Property
 
     Public Sub Run(hwnd) : End Sub
@@ -1277,6 +1279,8 @@ Class B2SServerStub
     Public Property Get Switch(num) : Switch = mSwitch(num) : End Property
     Public Property Let Solenoid(num, val) : mSolenoid(num) = val : End Property
     Public Property Get Solenoid(num) : Solenoid = mSolenoid(num) : End Property
+    Public Property Let Lamp(num, val) : mLamp(num) = val : End Property
+    Public Property Get Lamp(num) : Lamp = mLamp(num) : End Property
     Public Property Let Mech(num, val) : mMech(num) = val : End Property
 
     Public Sub Run(hwnd) : End Sub
