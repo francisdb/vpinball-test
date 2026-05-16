@@ -92,8 +92,9 @@ and builds in seconds. Most contributors run both before pushing.
    `libwinevbs-runner/build.sh` (`LIBWINEVBS_REV`), applies the
    patches in `patches-libwinevbs/`, builds the shared library and
    a small C host (`runner.c`) that loads a `.vbs` file the same way
-   `cscript` does. The pin tracks the `wine-11.9` branch of jsm174's
-   fork, which is what current vpinball Linux builds link against.
+   `cscript` does. The pin tracks the `master` branch of jsm174's
+   fork (currently built on wine 11.9), which is what current
+   vpinball Linux builds link against.
 
 3. **Create your local config** from the template:
 
