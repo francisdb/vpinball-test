@@ -205,7 +205,7 @@ full three-ball drain scenario.
 
 ## Status
 
-**37 init benches and 38 play tests pass** on both runners (the
+**38 init benches and 39 play tests pass** on both runners (the
 patched Wine cscript and the libwinevbs runner) at the current
 pins. The extra play test is a meta-test in `examples/_meta/` that
 verifies the framework's error-gating: it injects a deliberately
