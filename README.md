@@ -55,10 +55,13 @@ tables/                     gitignored; extract VPX tables here, one
   [vpxtool](https://github.com/francisdb/vpxtool) into the repo's
   gitignored `tables/` directory:
   ```sh
-  mkdir -p tables/"Darkest Dungeon (Original 2023)"
-  vpxtool extract -o tables/"Darkest Dungeon (Original 2023)" \
+  vpxtool extract \
+      -o tables/"Darkest Dungeon (Original 2023)/Darkest Dungeon (Original 2023) 2.3c" \
       "Darkest Dungeon (Original 2023) 2.3c.vpx"
   ```
+  The `-o` path is the nested `<title>/<version>/` form the benches
+  expect (see the `tables/` layout above); `vpxtool` creates the parent
+  directories for you.
   Some tables read companion files at runtime that are not part of the
   `.vpx`, so you must provide those alongside the extracted folder too.
   The most common case is a PuP pack: copy its `pupvideos/` folder to
