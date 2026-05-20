@@ -6,7 +6,8 @@
 Class Table
     Public Name, ShowDT, ShowFSS, FileName, UserValue, Image
     Public Width, Height, TableHeight
-    Public BallImage, BallDecalMode, BallFrontDecal, DefaultBulbIntensityScale
+    Public BallImage, BallDecalMode, BallFrontDecal, BallTrail, DefaultBulbIntensityScale
+    Public PlayfieldReflectionStrength
     Public ColorGradeImage, Inclination, Layback
     Public BackdropImage_DT, BackdropImage_FS, BackdropImage_FSS
     Public ImageBackdropNightDay, GlobalAlphaAcc, GlobalDifficulty

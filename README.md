@@ -59,6 +59,13 @@ tables/                     gitignored; extract VPX tables here, one
   vpxtool extract -o tables/"Darkest Dungeon (Original 2023)" \
       "Darkest Dungeon (Original 2023) 2.3c.vpx"
   ```
+  Some tables read companion files at runtime that are not part of the
+  `.vpx`, so you must provide those alongside the extracted folder too.
+  The most common case is a PuP pack: copy its `pupvideos/` folder to
+  `tables/<Title>/pupvideos/`. The framework resolves `PuPlayer.GetRoot`
+  to that path, and some tables read e.g. `pupvideos/<rom>/ScreenType.txt`
+  during init, so init fails with "Path not found" if the folder is
+  missing.
 
 ## Setup
 
@@ -157,7 +164,9 @@ output is usually the fastest path to the root cause.
 
 ## Adding a new table
 
-1. Extract the `.vpx` with `vpxtool extract`.
+1. Extract the `.vpx` with `vpxtool extract`, and copy in any companion
+   files the table reads at runtime (e.g. its `pupvideos/` PuP pack -
+   see Prerequisites).
 2. Generate per-table element stubs:
 
    ```sh
@@ -205,7 +214,7 @@ full three-ball drain scenario.
 
 ## Status
 
-**37 init benches and 38 play tests pass** on both runners (the
+**38 init benches and 39 play tests pass** on both runners (the
 patched Wine cscript and the libwinevbs runner) at the current
 pins. The extra play test is a meta-test in `examples/_meta/` that
 verifies the framework's error-gating: it injects a deliberately

@@ -502,6 +502,18 @@ Sub SetUpTable(verbose)
 End Sub
 
 ' ---------------------------------------------------------------------------
+' Init-only bench: parse/compile the table script and run its init
+' handlers (Table1_Init, <table>_OptionEvent, per-item _Init). Does not
+' fire any timer bodies -- real timer behavior belongs in play tests
+' through VpxTester.AdvanceMs, which honors Interval and Enabled the way
+' VPX does. Newer init benches should call this instead of
+' RunTableBenchmark.
+' ---------------------------------------------------------------------------
+Sub RunTableInit()
+    SetUpTable True
+End Sub
+
+' ---------------------------------------------------------------------------
 ' Full init benchmark: load the table with verbose output, then run the
 ' 100-iteration timer-tick measurement. Used by bench_*_init.vbs scripts.
 ' ---------------------------------------------------------------------------
