@@ -1,4 +1,4 @@
-From 324b4f355657d6ca2ff4e18a1876195ae19db402 Mon Sep 17 00:00:00 2001
+From 2b81caa2ec768d9a437e341609bcd5b4325f8e21 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 7/8] vbscript: Add CreateCollection built-in for creating
@@ -11,10 +11,10 @@ Subject: [PATCH 7/8] vbscript: Add CreateCollection built-in for creating
  4 files changed, 395 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 318c41b..6cdf8cc 100644
+index fc688ecd123..9363fb5bd1e 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4697,6 +4697,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4768,6 +4768,25 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -40,7 +40,7 @@ index 318c41b..6cdf8cc 100644
  static HRESULT Global_GetBoundRef(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      named_item_t *item;
-@@ -4806,6 +4825,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4877,6 +4896,7 @@ static const builtin_prop_t global_props[] = {
      {L"CInt",                      Global_CInt, 0, 1},
      {L"CLng",                      Global_CLng, 0, 1},
      {L"Cos",                       Global_Cos, 0, 1},
@@ -49,10 +49,10 @@ index 318c41b..6cdf8cc 100644
      {L"CSng",                      Global_CSng, 0, 1},
      {L"CStr",                      Global_CStr, 0, 1},
 diff --git a/dlls/vbscript/tests/lang.vbs b/dlls/vbscript/tests/lang.vbs
-index d8d612b..52f6a16 100644
+index acdd992cbcf..5e46ef19b33 100644
 --- a/dlls/vbscript/tests/lang.vbs
 +++ b/dlls/vbscript/tests/lang.vbs
-@@ -4381,4 +4381,64 @@ Call ok(dateErr <> 0, "Day(""15.03.2026"") en-US should error: err=" & dateErr)
+@@ -4582,4 +4582,64 @@ Call ok(dateErr <> 0, "Day(""15.03.2026"") en-US should error: err=" & dateErr)
  Call SetLocale(origLcid)
  Call ok(GetLocale() = origLcid, "restore: GetLocale = " & GetLocale())
  
@@ -118,10 +118,10 @@ index d8d612b..52f6a16 100644
 +
  reportSuccess()
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index b60a611..bc2165a 100644
+index 7da613176a0..6517cc2f42c 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -916,6 +916,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
+@@ -926,6 +926,320 @@ HRESULT create_bound_func_ref(script_ctx_t *ctx, function_t *func, vbdisp_t *vbt
      return S_OK;
  }
  
@@ -443,7 +443,7 @@ index b60a611..bc2165a 100644
      function_t *func;
      MEMBERID memid;
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index ee49a36..05cffe3 100644
+index 75a4093ed5e..008790a813a 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
 @@ -178,6 +178,7 @@ void collect_objects(script_ctx_t*);
