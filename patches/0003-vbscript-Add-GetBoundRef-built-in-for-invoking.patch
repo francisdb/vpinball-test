@@ -1,20 +1,20 @@
-From 5b90d17fd909af4bfae1b2d7bc7fdbca4e7c35aa Mon Sep 17 00:00:00 2001
+From f37178b3557ef2772d36aec10c5c99735b76aa68 Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 6/8] vbscript: Add GetBoundRef built-in for invoking
 
 ---
  dlls/vbscript/global.c        | 68 ++++++++++++++++++++++++++++++++++-
- dlls/vbscript/vbdisp.c        | 31 +++++++++++++++-
+ dlls/vbscript/vbdisp.c        | 33 +++++++++++++++--
  dlls/vbscript/vbscript.h      |  2 ++
  dlls/vbscript/vbscript_defs.h |  1 +
- 4 files changed, 100 insertions(+), 2 deletions(-)
+ 4 files changed, 101 insertions(+), 3 deletions(-)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 1feb5ba76b9..db6ce174884 100644
+index 5cf167fc4f1..fc688ecd123 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4702,7 +4702,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4768,7 +4768,72 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -88,7 +88,7 @@ index 1feb5ba76b9..db6ce174884 100644
  {
      TRACE("\n");
  
-@@ -4769,6 +4834,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4835,6 +4900,7 @@ static const builtin_prop_t global_props[] = {
      {L"FormatDateTime",            Global_FormatDateTime, 0, 1, 2},
      {L"FormatNumber",              Global_FormatNumber, 0, 1, 5},
      {L"FormatPercent",             Global_FormatPercent, 0, 1, 5},
@@ -97,10 +97,10 @@ index 1feb5ba76b9..db6ce174884 100644
      {L"GetObject",                 Global_GetObject, 0, 0, 2},
      {L"GetRef",                    Global_GetRef, 0, 1},
 diff --git a/dlls/vbscript/vbdisp.c b/dlls/vbscript/vbdisp.c
-index abb87d2ddde..70ad8b3113d 100644
+index 38e4ed140ab..7da613176a0 100644
 --- a/dlls/vbscript/vbdisp.c
 +++ b/dlls/vbscript/vbdisp.c
-@@ -1090,6 +1090,11 @@ const WCHAR *vbdisp_class_name(IDispatch *disp)
+@@ -712,6 +712,11 @@ const WCHAR *vbdisp_class_name(IDispatch *disp)
      return vbdisp && vbdisp->desc ? vbdisp->desc->name : NULL;
  }
  
@@ -112,7 +112,7 @@ index abb87d2ddde..70ad8b3113d 100644
  HRESULT create_vbdisp(const class_desc_t *desc, vbdisp_t **ret)
  {
      vbdisp_t *vbdisp;
-@@ -1154,6 +1159,7 @@ typedef struct {
+@@ -777,6 +782,7 @@ typedef struct {
      LONG ref;
      function_t *func;
      script_ctx_t *ctx;
@@ -120,7 +120,7 @@ index abb87d2ddde..70ad8b3113d 100644
  } FuncRef;
  
  static inline FuncRef *FuncRef_from_IDispatch(IDispatch *iface)
-@@ -1194,6 +1200,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
+@@ -817,6 +823,8 @@ static ULONG WINAPI FuncRef_Release(IDispatch *iface)
  
      TRACE("(%p) ref=%ld\n", This, ref);
      if(!ref) {
@@ -129,16 +129,16 @@ index abb87d2ddde..70ad8b3113d 100644
          release_vbscode(This->func->code_ctx);
          free(This);
      }
-@@ -1234,7 +1242,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
-     if(dispIdMember != DISPID_VALUE)
-         return DISP_E_MEMBERNOTFOUND;
- 
+@@ -861,7 +869,7 @@ static HRESULT WINAPI FuncRef_Invoke(IDispatch *iface, DISPID dispIdMember, REFI
+      * reaching this vtable entry means the caller is outside the engine, so the
+      * reference is entered as an external caller and errors are reported to the
+      * host rather than propagated as an HRESULT. */
 -    return exec_script(This->ctx, TRUE, This->func, NULL, pDispParams, pVarResult);
 +    return exec_script(This->ctx, TRUE, This->func, This->vbthis, pDispParams, pVarResult);
  }
  
  static const IDispatchVtbl FuncRefVtbl = {
-@@ -1265,6 +1273,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
+@@ -897,6 +905,27 @@ HRESULT create_func_ref(script_ctx_t *ctx, function_t *func, IDispatch **ret)
      return S_OK;
  }
  
@@ -166,8 +166,17 @@ index abb87d2ddde..70ad8b3113d 100644
  struct typeinfo_func {
      function_t *func;
      MEMBERID memid;
+@@ -2032,7 +2061,7 @@ HRESULT disp_call(script_ctx_t *ctx, IDispatch *disp, DISPID id, BOOL is_call, D
+ 
+     funcref = unsafe_funcref_from_IDispatch(disp);
+     if(funcref && funcref->ctx == ctx && id == DISPID_VALUE)
+-        return exec_script(ctx, FALSE, funcref->func, NULL, dp, retv);
++        return exec_script(ctx, FALSE, funcref->func, funcref->vbthis, dp, retv);
+ 
+     hres = IDispatch_QueryInterface(disp, &IID_IDispatchEx, (void**)&dispex);
+     if(SUCCEEDED(hres)) {
 diff --git a/dlls/vbscript/vbscript.h b/dlls/vbscript/vbscript.h
-index 7b8315748c9..26f1619e8bc 100644
+index 7e902badb0f..75a4093ed5e 100644
 --- a/dlls/vbscript/vbscript.h
 +++ b/dlls/vbscript/vbscript.h
 @@ -177,6 +177,8 @@ HRESULT get_disp_value(script_ctx_t*,IDispatch*,VARIANT*);

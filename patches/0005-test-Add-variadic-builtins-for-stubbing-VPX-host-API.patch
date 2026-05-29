@@ -1,4 +1,4 @@
-From cbc158f3376de970f4f786bfe2b96f004942ed3f Mon Sep 17 00:00:00 2001
+From 71c042e8c33e78d0bea39b7a80acaaa7f31fe0bf Mon Sep 17 00:00:00 2001
 From: Francis De Brabandere <francisdb@gmail.com>
 Date: Fri, 17 Apr 2026 22:11:41 +0200
 Subject: [PATCH 8/8] test: Add variadic builtins for stubbing VPX host APIs
@@ -8,10 +8,10 @@ Subject: [PATCH 8/8] test: Add variadic builtins for stubbing VPX host APIs
  1 file changed, 9 insertions(+)
 
 diff --git a/dlls/vbscript/global.c b/dlls/vbscript/global.c
-index 6cdf8cc..b1e20bb 100644
+index 9363fb5bd1e..1172107d38d 100644
 --- a/dlls/vbscript/global.c
 +++ b/dlls/vbscript/global.c
-@@ -4697,6 +4697,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
+@@ -4768,6 +4768,11 @@ static HRESULT Global_GetRef(BuiltinDisp *This, VARIANT *arg, unsigned args_cnt,
      return MAKE_VBSERROR(VBSE_ILLEGAL_FUNC_CALL);
  }
  
@@ -23,7 +23,7 @@ index 6cdf8cc..b1e20bb 100644
  static HRESULT Global_CreateCollection(BuiltinDisp *This, VARIANT *args, unsigned args_cnt, VARIANT *res)
  {
      IDispatch *disp;
-@@ -4882,8 +4887,11 @@ static const builtin_prop_t global_props[] = {
+@@ -4953,8 +4958,11 @@ static const builtin_prop_t global_props[] = {
      {L"Month",                     Global_Month, 0, 1},
      {L"MonthName",                 Global_MonthName, 0, 1, 2},
      {L"MsgBox",                    Global_MsgBox, 0, 1, 5},
@@ -35,7 +35,7 @@ index 6cdf8cc..b1e20bb 100644
      {L"Randomize",                 Global_Randomize, 0, 0, 1},
      {L"Replace",                   Global_Replace, 0, 3, 6},
      {L"RGB",                       Global_RGB, 0, 3},
-@@ -4903,6 +4911,7 @@ static const builtin_prop_t global_props[] = {
+@@ -4974,6 +4982,7 @@ static const builtin_prop_t global_props[] = {
      {L"Space",                     Global_Space, 0, 1},
      {L"Split",                     Global_Split, 0, 1, 4},
      {L"Sqr",                       Global_Sqr, 0, 1},
