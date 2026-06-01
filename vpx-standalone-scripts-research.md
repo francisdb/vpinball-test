@@ -226,7 +226,7 @@ in the current `examples/` set. Ranked by novelty.
 Tables already in our `examples/` set (do not re-add): aerosmith,
 american_graffiti, attack_from_mars, austin_powers, batman66,
 big_brave, blizzard_of_ozz, blood_machines, capt_fantastic, clue,
-cyber_race, dark_chaos, dark_chaos_590, darkest_dungeon,
+cyber_race, dark_chaos, darkest_dungeon,
 die_hard_trilogy, gotg_trilogy, got_le, hang_glider, harry_potter,
 iron_maiden, junkyard_cats, king_of_the_hill, loch_ness, magic_city,
 medieval_madness, mf_doom, nightmare_before_christmas, pizza_time,
