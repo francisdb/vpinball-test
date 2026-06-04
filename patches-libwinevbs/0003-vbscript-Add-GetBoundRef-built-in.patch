@@ -168,6 +168,11 @@ index 0598e79..5870df6 100644
  struct typeinfo_func {
      function_t *func;
      MEMBERID memid;
+@@ -2240,3 +2240,3 @@ HRESULT disp_call(script_ctx_t *ctx, IDispatch *disp, DISPID id, BOOL is_call, D
+     funcref = unsafe_funcref_from_IDispatch(disp);
+     if(funcref && funcref->ctx == ctx && id == DISPID_VALUE)
+-        return exec_script(ctx, FALSE, funcref->func, NULL, dp, retv);
++        return exec_script(ctx, FALSE, funcref->func, funcref->vbthis, dp, retv);
 diff --git a/wine/dlls/vbscript/vbscript.h b/wine/dlls/vbscript/vbscript.h
 index fa6ab71..53bb1b3 100644
 --- a/wine/dlls/vbscript/vbscript.h
