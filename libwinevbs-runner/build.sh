@@ -14,7 +14,7 @@
 set -euo pipefail
 
 LIBWINEVBS_REPO="${LIBWINEVBS_REPO:-https://github.com/jsm174/libwinevbs.git}"
-LIBWINEVBS_REV="${LIBWINEVBS_REV:-8ce73e202a4971ad3e08d91c694ea7ca0fe81ed6}"
+LIBWINEVBS_REV="${LIBWINEVBS_REV:-bf33901028ba32399e6cf24b28f680cfe77804a3}"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 RUNNER_DIR="$REPO_ROOT/libwinevbs-runner"
 BUILD_DIR="$REPO_ROOT/build/libwinevbs-runner"
