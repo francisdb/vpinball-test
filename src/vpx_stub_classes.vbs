@@ -450,7 +450,7 @@ End Class
 Class Decal
     Public Name, UserValue
     Public X, Y, Width, Height, Rotation
-    Public Image, Surface, Material, Font, Text, Type, Sizing, Color, Vertical
+    Public Image, Surface, Material, Font, Text, [Type], Sizing, Color, Vertical
     Private Sub Class_Initialize
         Name = "" : X = 0 : Y = 0 : Width = 100 : Height = 100
     End Sub
@@ -488,7 +488,7 @@ Class Ramp
         If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public HeightBottom, HeightTop, WidthBottom, WidthTop
-    Public Material, Type, Image, ImageAlignment, HasWallImage
+    Public Material, [Type], Image, ImageAlignment, HasWallImage
     Public LeftWallHeight, RightWallHeight
     Public VisibleLeftWallHeight, VisibleRightWallHeight
     Public Elasticity, Collidable, HasHitEvent, Threshold
@@ -511,7 +511,7 @@ Class Plunger
         If v Then OnTimerEnabled Me Else g_TimersDirty = True
     End Property
     Public PullSpeed, FireSpeed, X, Y, Width, ZAdjust
-    Public Surface, Type, Material, Image
+    Public Surface, [Type], Material, Image
     Public AnimFrames, Shape
     Public RodDiam, RingGap, RingDiam, RingWidth
     Public SpringDiam, SpringGauge, SpringLoops, SpringEndLoops

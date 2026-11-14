@@ -4,10 +4,10 @@
 
 Stage 0 (engine + WScript Echo/Quit) and stage 1 (FSO/Dictionary/RegExp
 via libwinevbs's built-in scrrun, framework + stub classes load) are
-working. Pinned to **vpinball/libwinevbs master** (`bf33901`, which
-bundles the wine 11.17 source tree) plus the patches in
+working. Pinned to **vpinball/libwinevbs master** (`db90ea9`, which
+bundles the wine 11.22 source tree) plus the patches in
 `patches-libwinevbs/`. The wine pin in `scripts/build-cscript.sh` is
-the matching `wine-11.17` release commit, so both runners execute the
+the matching `wine-11.22` release commit, so both runners execute the
 same upstream vbscript code. jsm174's `wine-*` branches are only needed
 when master lags behind a wine feature we depend on.
 
