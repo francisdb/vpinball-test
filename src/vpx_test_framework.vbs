@@ -44,7 +44,7 @@
 ' ---------------------------------------------------------------------------
 Function GetTextFile(filename)
     Dim path, f2, content
-    path = VPINBALL_DIR & "\scripts\" & filename
+    path = ScriptsDirectory & filename
     If Not fso.FileExists(path) Then
         GetTextFile = ""
         Exit Function
@@ -104,7 +104,9 @@ Dim ShowFSS         : ShowFSS = False
 ' UseVPMDMD, UseVPMModSol, UseVPMColoredDMD, UseVPMNVRAM, UsePdbLeds
 ' are NOT pre-defined here. Tables define them as Const/Dim before
 ' core.vbs runs, and core.vbs detects them via IsEmpty(Eval(...)).
-Dim ScriptsDirectory: ScriptsDirectory = VPINBALL_DIR & "\scripts\"
+' vpinball moved scripts/ to src/scripts/; older checkouts keep the old layout.
+Dim ScriptsDirectory: ScriptsDirectory = VPINBALL_DIR & "\src\scripts\"
+If Not fso.FolderExists(ScriptsDirectory) Then ScriptsDirectory = VPINBALL_DIR & "\scripts\"
 Dim TablesDirectory : TablesDirectory  = TABLES_DIR & "\"
 ' MusicDirectory: VPX resolves to <table_dir>/music/ first (AppPrefData),
 ' falling back to <app_dir>/music/. Use the table's parent dir.

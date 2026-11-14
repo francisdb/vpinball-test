@@ -50,7 +50,8 @@ tables/                     gitignored; extract VPX tables here, one
 - `git`, `make`, `python3`.
 - A copy of [vpinball](https://github.com/vpinball/vpinball) source
   (the framework reads `core.vbs`, `controller.vbs`, `WPC.vbs`, etc.
-  out of `<VPINBALL_DIR>/scripts/`).
+  out of `<VPINBALL_DIR>/src/scripts/`, or `<VPINBALL_DIR>/scripts/` on
+  checkouts from before vpinball moved the folder).
 - One or more VPX tables, extracted with
   [vpxtool](https://github.com/francisdb/vpxtool) into the repo's
   gitignored `tables/` directory:
