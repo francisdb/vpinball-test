@@ -43,7 +43,7 @@ variables in the same scope as the user script (via `ExecuteGlobal`
 of `vpx_stubs.vbs`). That puts them on the same shelf as user
 identifiers — and a global variable always wins over a Sub of the
 same name in VBScript, regardless of registration order (verified
-by `build/probes/sub_vs_dim_probe.vbs` on both wine and libwinevbs).
+on both wine and libwinevbs).
 So any name collision between an element/Collection and a Sub
 breaks the table.
 
