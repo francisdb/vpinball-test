@@ -70,6 +70,11 @@ tables/                     gitignored; extract VPX tables here, one
   to that path, and some tables read e.g. `pupvideos/<rom>/ScreenType.txt`
   during init, so init fails with "Path not found" if the folder is
   missing.
+  If you keep a local table library laid out as `<Title>/<Version>.vpx`
+  (with the companion folders next to it), `scripts/rebuild-tables.sh
+  [library-dir]` recreates `tables/` from it in one go: it extracts
+  every table the examples reference and copies each title's companion
+  folders. It refuses to touch an existing `tables/`.
 
 ## Setup
 
